@@ -11,8 +11,8 @@
 train = {
     'pear_01.jpg'
     'pear_02.jpg'
-    'apple_07.jpg'
     'apple_04.jpg'
+    'apple_07.jpg'
     'apple_11.jpg'
 };
 
@@ -21,12 +21,12 @@ T = [1, 1, -1, -1, -1];
 check = {
     'pear_03.jpg'
     'pear_09.jpg'
-    'apple_07.jpg'
-    'apple_11.jpg'
+    'apple_05.jpg' 
+    'apple_06.jpg'
     'apple_12.jpg'
     'apple_13.jpg'
     'apple_17.jpg'
-    'apple_18.jpg'
+    'apple_19.jpg'
 };
 
 D = [1, 1, -1, -1, -1, -1, -1, -1];
@@ -44,18 +44,18 @@ for i=1:size(train, 1)
 end
 
 %% Figure
-figure('Name', 'Savybiu erdve');
-for i=1:2
-    hold on;
-    plot(X(i, 1), X(i, 2), 'gx');
-    hold off;
-end
-
-for i=3:5
-    hold on;
-    plot(X(i, 1), X(i, 2), 'ro');
-    hold off;
-end
+% figure('Name', 'Savybiu erdve');
+% for i=1:2
+%     hold on;
+%     plot(X(i, 1), X(i, 2), 'gx');
+%     hold off;
+% end
+% 
+% for i=3:5
+%     hold on;
+%     plot(X(i, 1), X(i, 2), 'ro');
+%     hold off;
+% end
 
 %% Initialization
 
@@ -88,25 +88,55 @@ end
 
 %% Result
 
-number_of_values = 10;
-
-P3 = linspace(0,1,number_of_values);
-
-for i=1:number_of_values
-    clear j;
-    for j=1:number_of_values
-        P4 = [P3(i);P3(j)];
-        hold on;
-        if sign(P3(i) * w_1 + P3(j) * w_2 + b) == -1
-            plot(P4(1), P4(2), 'ro');
-        else
-            plot(P4(1), P4(2), 'gx');
-        end
-        hold off;
-    end
-end
+% number_of_values = 20;
+% 
+% P3 = linspace(0,1.4,number_of_values);
+% 
+% for i=1:number_of_values
+%     clear j;
+%     for j=1:number_of_values
+%         P4 = [P3(i);P3(j)];
+%         hold on;
+%         if sign(P3(i) * w_1 + P3(j) * w_2 + b) == -1
+%             plot(P4(1), P4(2), 'ro');
+%         else
+%             plot(P4(1), P4(2), 'gx');
+%         end
+%         hold off;
+%     end
+% end
 grid on
 line([0,1], [-b/w_2, -w_1/w_2 - b/w_2]);
+
+%% Check
+X = [];
+for i=1:size(check, 1)
+    I = imread(['img/' check{i} ]);
+    X = [X; color_feature(I), shape_feature(I, threadshot)];
+end
+
+for i=1:2
+    hold on;
+    plot(X(i, 1), X(i, 2), 'gx');
+    hold off;
+end
+
+for i=3:8
+    hold on;
+    plot(X(i, 1), X(i, 2), 'ro');
+    hold off;
+end
+
+Y = [];
+for i=1:size(X, 1)
+    x_1 = X(i,1);
+    x_2 = X(i,2);
+    Y = [Y, sign(x_1 * w_1 + x_2 * w_2 + b)];
+end
+
+Err_sum = sum(Y-D);
+
+
 
 
 

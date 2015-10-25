@@ -4,19 +4,103 @@
 \usepackage[utf8x]{inputenc}
 \usepackage[L7x]{fontenc}
 \usepackage[lithuanian]{babel}
+\usepackage{listings}
+\usepackage{amsmath, amssymb}
 
 \author{AKSfm-15, Maksim Norkin}
 \title{Perceptrono mokymas}
+
+\lstset{
+  language=Matlab,
+  basicstyle=\footnotesize,
+  columns=fixed,
+  numbers=none,
+  showspaces=false,
+  xleftmargin=20pt
+}
 
 \begin{document}
 
     \maketitle
 
-    \section{Įvadas}
+    \section{Užduotis}
+
+
+        Nenaudojant specializuotų matlab funkcijų, sukurti perceptroną-klasifikatorių ir jį apmokinti obuolių ir kriaušių nuotraukomis klasifikuoti; Galimi požymiai, apskaičiuojami iš nuotraukų yra spalva ir forma;
+
+        Perceptrono apmokymui panaudoti 5 nuotraukas: 2 iš kurių yra kriaušės, 5 obuoliai; Apmokytą perceptroną patikrinti, naudojantis likusias obuolių ir kriaušių nuotraukas;
 
     \section{Pradinės sąlygos}
 
+        Naudojamas dviejų įėjimų perceptronas, todėl mums reikia dviejų sverties kintamųjų ir vienos bazės; Esant didesniam perceptronų kiekui, pradinių bazių skaičius būtų lygūs perceptronų skaičiui, kadangi kiekvienas perceptronas turi turėti savo bazę;
+
+        Perceptroną parenkame paprastą, su \textit{sign} tipo perdavimo funkcija; Taip perceptronas matematine formuluote turi atrodyti taip:
+
+        \begin{equation}
+            y = \sum_{n} \sigma(w_n*x_n + b),
+        \end{equation}
+        kur $n$ -- skaičius įėjimų į perceptroną, o $\sigma$ -- perceptrono slenkties funkcija;
+
+        Slenkties funkcija parenkame paprastą $sign$, kadangi mes turime binarinį išėjimą, t.y. išėjime galimi tik du klasifikavimo variantai; o $n$ yra 2, kadangi turime tik du įėjimus; Taip sudaroma tokia fomuluotė:
+
+        \begin{equation}
+            y = sign(w_1 * x_1 + w_2 * x_2 + b);
+        \end{equation}
+
+        Pradinės sąlygos perceptronui, yra parenkamos atsitiktinai, kaip yra pateikta \ref{code:pradines_salygos} pavyzdyje; 
+
+        \begin{figure}[h]
+            \centering
+            \caption{Pradinės sąlygos}
+            \label{code:pradines_salygos}
+            \lstinputlisting{sources/pradines_salygos.m}
+        \end{figure}
+
+    \section{Mokymas}
+
+        Perceptrono mokymas įgyvendinamas, panaudojus mažiausio vidutinio kvadrato metodą, kuris matematikai atrodo taip:
+
+        \begin{equation}
+            \mathbf{\hat{h}}(n+1) = \mathbf{\hat{h}}(n) + \mu e^*(n)\mathbf{x}(n)
+        \end{equation}
+
+        Skaičiavimus pradedame nuo pirminio atsakymo skaičiavimo, naudojant pradines sąlygas, nustatytas ankščiau;
+
+        \begin{equation}
+            \mathbf{Y} = sign(\mathbf{X}'\mathbf{w} + \mathbf{b}),
+        \end{equation}
+        patikriname esamą rezultatą su rezultato vektoriumi, kurį tikimės gauti $\mathbf{T}$
+        \begin{equation}
+            E_{err} = \sum \mathbf{T} - \mathbf{Y},
+        \end{equation}
+        taip gauname kokiu mastu gautas rezultatas buvo klaidingas; Gautas įvertis toliau yra naudojamas kaip klaidos įvertis atnaujinant sistemos kintamuosius, $\mathbf{w}$ ir $b$. Įverčių atnaujinimas vykdomas sekančia išraiška, remiantis mažiausio vidurkio kvadrato metodu:
+        \begin{equation}
+            \mathbf{w} = \mathbf{w} - \mu*E_{err}*\sum\mathbf{X},
+        \end{equation}
+        kur $\mathbf{X}$ -- įėjimo verčių vektorius, ir $\mu$ yra apmokymo žingsnio koeficientas; Bazė atnaujinama, nepriklausomai nuo įverčių vektoriaus
+        \begin{equation}
+            b = v - \mu*E_{err}
+        \end{equation}
+
+        Programiniu kodu visas aprašytas matematinis modelis yra aprašomas \ref{code:mokymas} pavyzdyje;
+
+        \begin{figure}[h]
+            \centering
+            \caption{Mokymas}
+            \label{code:mokymas}
+            \lstinputlisting{sources/klaidos_skaiciavimas.m}
+        \end{figure}
+
+    \section{Klasifikatoriaus rezultatas}
+
+        Klasifikatoriaus rezultatas yra apskaičiuojamas lygiai taip pat, kaip ir vyko mokymas. Skirtumas nuo mokymo -- nėra atnaujinami modelio parametrai;
+
+        Rezultatas buvo patikrinamas su 8 likusiais paveikslėliais, iš kurių neteisingai buvo klasifikuoti 3.
+
     \section{Išvados}
 
+        Laboratorinio darbo metu, buvo sukurtas perceptrono klasifikatorius. Jis buvo mokintas obuolių ir kriaušių nuotraukomis klasifikuoti; Kaip požymiai buvo panaudoti nuotraukos spalva ir forma, esanti nuotraukoje;
+
+        Perceptrono apmokymui buvo panaudotos penkios nuotraukos, algoritmo veikimas patikrintas su likusiomis nuotraukomis
 
 \end{document}
