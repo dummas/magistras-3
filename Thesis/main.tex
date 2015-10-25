@@ -1,0 +1,40 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\graphicspath{{img/}}
+
+\begin{document}
+
+  \begin{titlepage}
+    \begin{center}
+      \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
+      \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
+      \textsc{\Large Objekto padėties nustatymas taikant MEMS jutiklius}\\[60mm]
+      \textsc{\Large Juodraštis}\\
+      {\large \today  \ \currenttime}\\
+      \vfill
+      {\large Vilnius \\ \the\year}
+    \end{center}
+  \end{titlepage}
+
+  \section{Įvadas}
+
+  \input{section/ivadas.tex}
+
+  \section{Literatūros apžvalga}
+
+  \input{section/literaturos_apzvalga.tex}
+
+  \section{Išvados}
+
+  \bibliographystyle{plain}
+  \bibliography{references}
+
+\end{document}
