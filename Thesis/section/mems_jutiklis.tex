@@ -1,0 +1,49 @@
+% Giroskopas
+
+Šiame skyriuje apžvelgti MEMS tipo jutikliai -- pagreičio ir giroskopo jutikliai.
+
+\subsection{Giroskopas}
+
+MEMS tipo jutiklis \cite{perlmutter2012high} yra gaminamas, naudojant silikono micro apdorojimą staklėmis, turi labai mažai dalių ir palyginai pigus gamyboje.
+
+MEMS giroskopai pasiduoda \textit{Coriolis efektui}, kuris teigia, turint koordinačių ašį, sukantis kampiniu greičiu $w$, objektas su mase $m$, kuris juda greičiu $v$, yra veikiamas jėgos
+
+\begin{figure}[H]
+    \centering
+    \begin{math}
+        F_c = -2m(w \times v)
+    \end{math}
+\end{figure}
+
+MEMS giroskopai susideda iš vibracinės kilmės elementų, kurie yra naudojami matuojant \textit{Coriolis} efektui. Egzistuoja labai daug vibracinių geometrijų, tarp kurių yra vibracinis ratas ir kamertono giroskopai. Paprasčiausia geometrija susideda iš vienos masės, kuri skirta vibruoti viena ašimi. Kai tik giroskopas yra pasukamas, įvedama antrinė vibracija statmenai pirminei ašiai dėka \textit{Coriolis} jėgai. Dėka šito, kampinis greitis gali būti apskaičiuotas, matuojant antrinį apsisukimą. Šiuo metu MEMS jutikliai negali pasiekti tokio tikslumo lygio, kokį siūlo optiniai jutikliai, tačiau yra tikimąsi ateityje, kad MEMS jutikliai pavys optinių jutiklių tikslumu.
+
+MEMS jutikliai turi labai daug privalumų prieš kitus jutiklius \cite{titterton2004strapdown}:
+
+\begin{itemize}
+    \item Mažas dydis;
+    \item Mažas svoris;
+    \item Patvari konstrukcija;
+    \item Mažos galios naudojimas;
+    \item Labai greitas paleidimo laikas;
+    \item Pigi gamyba, esant dideliam mastui;
+    \item Patikimi;
+    \item Reikalauja labai mažai priežiūros;
+    \item Galimi naudojimai nedraugiškoje aplinkoje;
+\end{itemize}
+
+\subsubsection{Nuolatinė dedamoji}
+
+Vidutinis kampo pokyčio matavimas, palaikant visišką giroskopo ramybės būseną, yra skaitomas kaip nuolatinė giroskopo dedamoji. Matuojama yra $\degree/h$. Nuolatinės dedamosios klaida $\epsilon$, yra apskaičiuojama integruojant ir priklauso nuo laiko $\theta(t) = \epsilon \cdot t$.
+
+Klaida gali būti nustatyta, panaudojus labai ilgo laikotarpio vidutinę vertę, kuomet giroskopas yra paliktas visiškos ramybės būsenoje ir nėra veikiamas jokių sukimų. Kai tik nuolatinė dedamoji yra žinoma, labai yra svarbu ją kompensuoti tikro matavimo metu.
+
+\subsubsection{Atsitiktinis kampinis pokytis}
+
+% Akcelerometras
+
+\subsection{Akselerometras}
+
+Micro staklių pagaminti silikoniniai akcelerometrai naudoja tokius pačius principus, kaip ir mechaniniai ar kietieji jutikliai. Egzistuoja du pagrindiniai tipai MEMS akcelerometrų. Pirmas tipas yra mechaniniai pagreičio jutikliai, kurie yra pagaminti iš silikono ir naudoja mechaninių jutiklių principus. Antras tipas yra jutikliai, kurie matuoja vibracijos pokyčius vibraciniam elemente, kurie yra sukeliami įtampos pokyčiais.
+
+Pagreičio MEMS jutiklių privalumai yra lygiai tokie patys, kaip ir MEMS giroskopinių jutiklių. Taip pat, pagrindinis tokių jutiklių minusas prieš kitus yra mažas tikslumas. 
+

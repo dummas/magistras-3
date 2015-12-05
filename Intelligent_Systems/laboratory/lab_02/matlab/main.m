@@ -11,7 +11,7 @@ clc;
 
 
 %% Model
-number_of_values = 10;
+number_of_values = 20;
 X = linspace(0,10,number_of_values);
 Y = sin(X/6);
 
@@ -98,10 +98,10 @@ for k=1:100
 
     end
     
-    hold on;
-    plot(X, Y, 'g');
-    plot(X, Y2, 'r-');
-    hold off;
+%     hold on;
+%     plot(X, Y, 'g');
+%     plot(X, Y2, 'r-');
+%     hold off;
 
 end
 

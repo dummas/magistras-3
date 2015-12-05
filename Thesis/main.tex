@@ -6,9 +6,13 @@
 \usepackage{url}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{fancyhdr}
 \usepackage{datetime}
 \graphicspath{{img/}}
+\usepackage{tikz}
+\usepackage{gensymb}
+\usetikzlibrary{arrows}
 
 \begin{document}
 
@@ -28,11 +32,19 @@
 
   \input{section/ivadas.tex}
 
+  \section{MEMS jutikliai}
+
+  \input{section/mems_jutiklis.tex}
+
   \section{Literatūros apžvalga}
 
   \input{section/literaturos_apzvalga.tex}
 
   \section{Išvados}
+
+  \input{section/isvados.tex}
+
+  \newpage
 
   \bibliographystyle{plain}
   \bibliography{references}

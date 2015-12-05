@@ -20,38 +20,35 @@ clc;
 
 %% Model
 
-number_of_values = 10;
-X = linspace(0,1,number_of_values);
-Y = sin(X*6);
+to = 2 * 3.14;
+
+number_of_values = 30;
+X = linspace(0,to,number_of_values);
+Y = abs(sin(X));
 
 
 %% Initialization
 
 mu = 0.1;
 
-r = 0.15;
+number_of_centers = 2;
 
-number_of_centers = 1;
+sample_per = to / (number_of_centers + 1);
 
-w_1 = rand;
-c_1 = rand;
+r = 1.3;
 
-w_2 = rand;
-c_2 = rand;
+%w_1 = rand; % 1.2549
+w_1 = 1.2549;
+c_1 = max(X)/4;
+r_1 = r;
 
-w_3 = rand;
-c_3 = rand;
+%w_2 = rand; % 1.2321
+w_2 = 1.2321;
+c_2 = max(X)/4*3;
+r_2 = r;
 
-w_4 = rand;
-c_4 = rand;
-
-w_5 = rand;
-c_5 = rand;
-
-w_6 = rand;
-c_6 = rand;
-
-w_0 = rand;
+w_0 = -0.2372; % -0.2372
+%w_0 = rand;
 
 
 %% Training
@@ -61,27 +58,23 @@ w_0 = rand;
 % hold on;
 
 Err = [];
+Err_1 = [];
+Err_2 = [];
 Err_sum = 1;
-% % % while Err_sum ~= 0
-for k=1:200
+while Err_sum ~= 0
+%for k=1:500
     Y2 = [];
     for j=1:size(X, 2)
-        y_1 = w_1 * exp(-abs(X(j) - c_1)^2/r^2);
-        y_2 = w_2 * exp(-abs(X(j) - c_2)^2/r^2);
-        y_3 = w_3 * exp(-abs(X(j) - c_3)^2/r^2);
-        y_4 = w_4 * exp(-abs(X(j) - c_4)^2/r^2);
-        y_5 = w_5 * exp(-abs(X(j) - c_5)^2/r^2);
-        y_6 = w_6 * exp(-abs(X(j) - c_6)^2/r^2);
-        Y2 = [Y2 sum(y_1 + y_2 + y_3 + y_4 + y_5 + y_6) + w_0];
+        y_1 = w_1 * exp(-abs(X(j) - c_1)^2/r_1^2);
+        y_2 = w_2 * exp(-abs(X(j) - c_2)^2/r_2^2);
+        Y2 = [Y2 sum(y_1 + y_2) + w_0];
     end
    
-    Err_sum = sum(Y2-Y);
+    Err_sum = sum(Y2 - Y);
     
-    w_1 = w_1 - mu * Err_sum * sum(Y);
-    w_2 = w_2 - mu * Err_sum * sum(Y);
-   
+    w_1 = w_1 + mu * Err_sum;
+    w_2 = w_2 + mu * Err_sum;
     w_0 = w_0 - mu * Err_sum;
-%     r = r - mu * Err_sum;
     
     Err = [Err, Err_sum];
    
@@ -93,24 +86,28 @@ plot(Err);
 
 %% Result
 
-figure;
+figure('Name', 'Result');
 grid on;
 plot(X, Y, 'r');
 hold on;
 
-X2 = linspace(0,1,100);
 Y2 = [];
+Y2_1 = [];
+Y2_2 = [];
+
+X2 = linspace(0,to,number_of_values*2);
+
 for j=1:size(X2, 2)
-    y_1 = w_1 * exp(-abs(X2(j) - c_1)^2/r^2);
-    y_2 = w_2 * exp(-abs(X2(j) - c_2)^2/r^2);
-    y_3 = w_3 * exp(-abs(X2(j) - c_3)^2/r^2);
-    y_4 = w_4 * exp(-abs(X2(j) - c_4)^2/r^2);
-    y_5 = w_5 * exp(-abs(X2(j) - c_5)^2/r^2);
-    y_6 = w_6 * exp(-abs(X2(j) - c_6)^2/r^2);
-    Y2 = [Y2 sum(y_1 + y_2 + y_3 + y_4 + y_5 + y_6) + w_0];
+    y_1 = w_1 * exp(-abs(X2(j) - c_1)^2/r_1^2);
+    y_2 = w_2 * exp(-abs(X2(j) - c_2)^2/r_2^2);
+    Y2_1 = [Y2_1 y_1];
+    Y2_2 = [Y2_2 y_2];
+    Y2 = [Y2 sum(y_1 + y_2) + w_0];
 end
 
 plot(X2, Y2, 'b');
+plot(X2, Y2_1, 'g');
+plot(X2, Y2_2, 'g');
 
 
 hold off;
