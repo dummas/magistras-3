@@ -18,10 +18,26 @@ Salah Sukkarieh.
   autonomous land vehicles}.
 \newblock PhD thesis, The University of Sydney, 2000.
 
+\bibitem{suvorova2012action}
+Sofia Suvorova, Tharshan Vaithianathan, and Terry Caelli.
+\newblock Action trajectory reconstruction from inertial sensor measurements.
+\newblock In {\em Information Science, Signal Processing and their Applications
+  (ISSPA), 2012 11th International Conference on}, pages 989--994. IEEE, 2012.
+
 \bibitem{titterton2004strapdown}
 David Titterton and John~L Weston.
 \newblock {\em Strapdown inertial navigation technology}, volume~17.
 \newblock IET, 2004.
+
+\bibitem{wendel2011integrierte}
+Jan Wendel.
+\newblock {\em Integrierte Navigationssysteme: Sensordatenfusion, GPS und
+  Inertiale Navigation}.
+\newblock Walter de Gruyter, 2011.
+
+\bibitem{willemsenconcept}
+Thomas Willemsen, Friedrich Keller, and Harald Sternberg.
+\newblock Concept for building a mems based indoor localization system.
 
 \bibitem{woodman2007introduction}
 Oliver~J Woodman.

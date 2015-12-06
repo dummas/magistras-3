@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{suvorova2012action}
+Sofia Suvorova, Tharshan Vaithianathan, and Terry Caelli.
+\newblock Action trajectory reconstruction from inertial sensor measurements.
+\newblock In {\em Information Science, Signal Processing and their Applications
+  (ISSPA), 2012 11th International Conference on}, pages 989--994. IEEE, 2012.
+
+\bibitem{willemsenconcept}
+Thomas Willemsen, Friedrich Keller, and Harald Sternberg.
+\newblock Concept for building a mems based indoor localization system.
+
+\bibitem{yoo2011fuzzy}
+Taesuk Yoo, Sung~Kyung Hong, and Youngsun Ryuh.
+\newblock Fuzzy logic based 2d position estimation for small robotic fish using
+  low cost mems accelerometer.
+\newblock In {\em Advanced Robotics (ICAR), 2011 15th International Conference
+  on}, pages 175--179. IEEE, 2011.
+
+\bibitem{yuan2014indoor}
+Xuebing Yuan, Chaojun Liu, Shengzhi Zhang, Shuai Yu, and Sheng Liu.
+\newblock Indoor pedestrian navigation using miniaturized low-cost mems
+  inertial measurement units.
+\newblock In {\em Position, Location and Navigation Symposium-PLANS 2014, 2014
+  IEEE/ION}, pages 487--492. IEEE, 2014.
+
+\end{thebibliography}
