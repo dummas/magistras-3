@@ -10,7 +10,7 @@
 \let\oldshorttitle\insertshorttitle
 \renewcommand*\insertshorttitle{
     \leftskip=0.4cm
-\oldshorttitle\hfill Vilnius
+\oldshorttitle\hfill \insertframenumber\,/\,\inserttotalframenumber
 }
 
 \usetheme{Dresden}
@@ -121,7 +121,7 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}
+    \begin{frame}[allowframebreaks]
         \frametitle{Literatūra}
         
         \bibliographystyle{plain}

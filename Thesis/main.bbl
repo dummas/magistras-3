@@ -1,4 +1,16 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{goyal2011strap}
+Pragun Goyal, Vinay~J Ribeiro, Huzur Saran, and Anshul Kumar.
+\newblock Strap-down pedestrian dead-reckoning system.
+\newblock In {\em Indoor Positioning and Indoor Navigation (IPIN), 2011
+  International Conference on}, pages 1--7. IEEE, 2011.
+
+\bibitem{kim2004step}
+Jeong~Won Kim, Han~Jin Jang, Dong-Hwan Hwang, and Chansik Park.
+\newblock A step, stride and heading determination for the pedestrian
+  navigation system.
+\newblock {\em Positioning}, 1(08):0, 2004.
 
 \bibitem{perlmutter2012high}
 Michael Perlmutter and Laurent Robin.
@@ -24,6 +36,12 @@ Sofia Suvorova, Tharshan Vaithianathan, and Terry Caelli.
 \newblock In {\em Information Science, Signal Processing and their Applications
   (ISSPA), 2012 11th International Conference on}, pages 989--994. IEEE, 2012.
 
+\bibitem{syed2007new}
+ZF~Syed, P~Aggarwal, C~Goodall, X~Niu, and N~El-Sheimy.
+\newblock A new multi-position calibration method for mems inertial navigation
+  systems.
+\newblock {\em Measurement Science and Technology}, 18(7):1897, 2007.
+
 \bibitem{titterton2004strapdown}
 David Titterton and John~L Weston.
 \newblock {\em Strapdown inertial navigation technology}, volume~17.
@@ -35,6 +53,11 @@ Jan Wendel.
   Inertiale Navigation}.
 \newblock Walter de Gruyter, 2011.
 
+\bibitem{willemsen2013kalibrierung}
+T~Willemsen, F~Keller, and H~Sternberg.
+\newblock Kalibrierung von im smartphone verbauten sensoren.
+\newblock {\em Calibration of sensors installed in smartphones}, 2013.
+
 \bibitem{willemsenconcept}
 Thomas Willemsen, Friedrich Keller, and Harald Sternberg.
 \newblock Concept for building a mems based indoor localization system.
@@ -44,5 +67,12 @@ Oliver~J Woodman.
 \newblock An introduction to inertial navigation.
 \newblock {\em University of Cambridge, Computer Laboratory, Tech. Rep.
   UCAMCL-TR-696}, 14:15, 2007.
+
+\bibitem{yoo2011fuzzy}
+Taesuk Yoo, Sung~Kyung Hong, and Youngsun Ryuh.
+\newblock Fuzzy logic based 2d position estimation for small robotic fish using
+  low cost mems accelerometer.
+\newblock In {\em Advanced Robotics (ICAR), 2011 15th International Conference
+  on}, pages 175--179. IEEE, 2011.
 
 \end{thebibliography}
