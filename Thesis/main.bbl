@@ -1,5 +1,13 @@
 \begin{thebibliography}{10}
 
+\bibitem{gaysse2005using}
+J{\'e}r{\^o}me Gaysse.
+\newblock Using fuzzy logic in low cost microcontroller to increase
+  accelerometer performances.
+\newblock In {\em Soft Computing in Industrial Applications, 2005. SMCia/05.
+  Proceedings of the 2005 IEEE Mid-Summer Workshop on}, pages 6--11. IEEE,
+  2005.
+
 \bibitem{goyal2011strap}
 Pragun Goyal, Vinay~J Ribeiro, Huzur Saran, and Anshul Kumar.
 \newblock Strap-down pedestrian dead-reckoning system.
@@ -67,6 +75,12 @@ Oliver~J Woodman.
 \newblock An introduction to inertial navigation.
 \newblock {\em University of Cambridge, Computer Laboratory, Tech. Rep.
   UCAMCL-TR-696}, 14:15, 2007.
+
+\bibitem{yoo2011gain}
+Tae~Suk Yoo, Sung~Kyung Hong, Hyok~Min Yoon, and Sungsu Park.
+\newblock Gain-scheduled complementary filter design for a mems based attitude
+  and heading reference system.
+\newblock {\em Sensors}, 11(4):3816--3830, 2011.
 
 \bibitem{yoo2011fuzzy}
 Taesuk Yoo, Sung~Kyung Hong, and Youngsun Ryuh.

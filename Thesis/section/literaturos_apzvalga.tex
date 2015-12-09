@@ -1,3 +1,5 @@
+Šio skyriaus tikslas yra pateikti esamų teorinių ir praktinių sprendimų apžvalga. Pateikti darbo tikslą, naudojamą metodiką ir rezultatus.
+
 \subsection{Pozicijos nustatymas naudojant mobilų telefoną}
 
 Pirmas darbas apžvalgai yra \cite{willemsenconcept}, ``Concept for building a MEMS based indoor localization system''. Darbas pasiūlo galimos navigacinės sistemos prototipą, kuris remiasi inerciniais jutikliais. Kaip prototipo pagrindą buvo pasirinkit du mobilieji telefonai, kurie turi barometrą, pagreičio ir giroskopo jutiklį.
@@ -13,7 +15,7 @@ Testavimo bazė buvo panaudotas \textit{HafenCity University} pastatas, kuris tu
 \begin{figure}[H]
     \centering
     \includegraphics[width=300px]{img/floor_detection_with_barometer_data.png}
-    \caption{Barometro naudojimas aukšto atpažinimui \cite{willemsenconcept}.}
+    \caption{Barometro naudojimas aukšto atpažinimui \cite{willemsenconcept}}
     \label{fig:floor_detection_with_barometer_data}
 \end{figure}
 
@@ -66,9 +68,9 @@ Dalelių filtro rezultatas yra pateikiamas \ref{fig:pozition_estimation_with_par
 \begin{figure}[H]
     \label{fig:pozition_estimation_with_parctile_filter}
     \centering
-    \subfloat[a][]{\includegraphics[width=150px]{img/pozition_estimation_with_kalman_filter.png}\label{fig:pozition_estimation_with_parctile_filter_a}}
-    \subfloat[b][]{\includegraphics[width=150px]{img/pozition_estimation_with_particle_filter.png}\label{fig:pozition_estimation_with_parctile_filter_b}}
-    \caption{Pozicijos filtravimas (a) dalelių ir (b) kalman filtru \cite{willemsenconcept}.}
+    \subfloat[a][]{\includegraphics[width=170px]{img/pozition_estimation_with_kalman_filter.png}\label{fig:pozition_estimation_with_parctile_filter_a}}
+    \subfloat[b][]{\includegraphics[width=170px]{img/pozition_estimation_with_particle_filter.png}\label{fig:pozition_estimation_with_parctile_filter_b}}
+    \caption{Pozicijos filtravimas (a) Kalman ir (b) dalelių filtru \cite{willemsenconcept}}
 \end{figure}
 
 
@@ -98,8 +100,44 @@ kur $G$ yra pagreičio jutiklio matavimo vektorius, $\tilde{M}$ yra ne statmenos
     \tilde{M} = G \cdot \tilde{A}^T \cdot (\tilde{A}\tilde{A}^T)^{-1}
 \end{equation}
 
-Taip ir randami kalibravimo parametrai, kurie užtikrina ne statmenos matricos parametrų apskaičiavimą.
+Taip ir randami kalibravimo parametrai, kurie užtikrina ne statmenos matricos parametrų apskaičiavimą. 
 
+Tolimesnis darbas fokusuojamas į klaidų aptikimą jutiklių matavimuose. Dėl didelių trukdžių vandens terpėje, paprastas linijinis filtras yra nepakankamas norint pašalinti kiek įmanoma daugiau triukšmo \cite{gaysse2005using}. Atsitiktinis triukšmas sukelia didžiausią klaidą, kuri pastoviai didėja su laiku dėl dvigubos integracijos. Sprendžiant šitą problemą, yra reikalingas sudėtingesnis procesas triukšmui šalinti. Darbe yra siūloma naudoti raiškios logikos filtravimo metodą, kuris susideda iš išorinių veiksnių detektoriaus (angl. \textit{Outlier Detector}), pataisymo (angl. \textit{Correction}) ir judėjimo detektoriaus (angl. \textit{Movement Detector}). Prieš paduodant signalą į nurodytus blokus, jis yra padorojamas judančio vidurkio filtru (angl. \textit{Moving Average Filter}).
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=300px]{img/fuzzy_filter_structure.png}
+    \caption{Raiškios logikos filtro struktūra \cite{yoo2011fuzzy}}
+    \label{fig:fuzzy_filter_structure}
+\end{figure}
 
+Judančio vidurkio filtras yra naudojamas dėl jo paprastumo, lyginant su kitais filtrais. Jo išėjimą galima išreikšti $k$ laiku, vidutinis $n$ duomenų $a_i$ vidurkis
 
+\begin{equation}
+    \bar{a}_k = \frac{1}{n} \sum_{i=k-n+1}^{k} a_i
+\end{equation}
+
+Išorinių veiksnių detektorius dirba su trejais matavimais, $a[n]$, $a[n-1]$ ir $a[n-2]$. Jeigu $a[n-2]$ ir $a[n-1]$ skirtumas yra teigiamai didelis, o $a[n]$ ir $a[n-1]$ skirtumas yra neigimai didelis, tuomet pagreičio jutiklio įverčiui yra reikalingas pataisymas. Jeigu $a[n-2]$ ir $a[n-1]$ yra teigiamai mažas, o $a[n]$ ir $a[n-1]$ skirtumas yra neigiamai mažas, tuomet pagreičio jutiklio duomenų taisyti nereikia. 
+
+Korekcijos blokas veikia labai paprastu metodu. Jeigu $a[n-1]$ signalo vertė yra gerokai didesnė už $a[n-2]$ ir $a[n]$, tuomet teigiama, kad signalą $a[n-1]$ reikia taisyti ir jam yra priskiriama $a[n-2]$ vertė. 
+
+Judesio detektavimas yra vykdomas remiantis
+
+\begin{equation}
+    \alpha(k) = \Big| \sqrt{a_x(k)^2 + a_y(k)^2 + a_z(k)^2} - 1\Big|
+\end{equation}
+Jeigu $\alpha(k)$ yra mažas, tuomet yra teigiama, kad žuvis nejuda arba juda su pastoviu pagreičiu \cite{yoo2011gain}.
+
+Galutinis filtravimo sprendimas yra funkcija nuo vidutinės, pataisytos pagreičio vertės, išorinių veiksnių ir judesio detektoriaus.
+
+Rezultatai yra pateikiami \ref{fig:fuzzy_logic_filter} pav. MEMS pagreičio jutiklio pozicija buvo keičiama nuosekliai pagal $80x50~cm$ dydžio stačiakampio kraštines. Praktinis trajektorijos skaičiavimo rezultatas yra pateikiamas \ref{fig:fuzzy_logic_filter_uncalibtared} pav. Kaip matosi iš rezultato, pagreičio jutiklis įveda didelę klaidą, kuri yra tolydi $t^2$ pozicijai, dėl dvigubos integracijos. Kitam pavyzdyje, \ref{fig:fuzzy_logic_filter_calibrated} yra naudojami tie patys duomenis, tačiau čia jau yra panaudojamas darbe siūlomas metodas pagreičio signalo filtravimui. Rezultato pagrindu galima teigti, kad metodas sumažina klaidos tikimybę.
+
+\begin{figure}[H]
+    \centering
+    \subfloat[a][]{\includegraphics[width=170px]{img/fuzzy_logic_filter_uncalibrated.png}\label{fig:fuzzy_logic_filter_uncalibtared}}
+    \subfloat[b][]{\includegraphics[width=170px]{img/fuzzy_logic_filter_calibrated.png}\label{fig:fuzzy_logic_filter_calibrated}}
+    \caption{Pozicijos filtravimas raiškios logikos filtru (a) be pradinės kalibracijos ir (b) su kalibracija \cite{yoo2011fuzzy}}
+    \label{fig:fuzzy_logic_filter}
+\end{figure}
+
+Darbas pateikia efektyvų pagreičio jutiklio kalibravimo metodika ir raiškios logikos signalo filtravimą, ko pasekoje galima apytiksliai nusakyti dirbtines žuvies pozicija vandenyje, naudojant pigų MEMS jutiklį. Pasiūlyta kalibravimo metodika atsižvelgia į ne statmenus atsitiktinumus, kartu su duomenų santykiu, lyginant su žinoma sistema. Raiškios logikos sistema susideda iš trijų pagrindinių elementų, kurie yra naudojami koreguojant jutiklio reikšmę. Pirmas yra išorės veiksnių detektorius, kurio uždavinys yra nustatyti ar gautas įvertis yra pačio narinėjamo objekto ar dėl išorinių jėgų. Antras elementas yra paprastas korekcijos mechanizmas, kuris tikrina ar nėra atsitiktinių įverčių triukšmo. Jo veikimas remiasi dabartiniu ir paskutinių dviejų įverčių palyginimui. Paskutinis elementas yra realaus judesio detektavimas, kurio matematinis modelis apskaičiuoja modulinę kvadratų sumą. Tolimesnis rezultatas yra sujungiamas per raiškios logikos filtrą ir pateikiamas galutinė pagreičio jutiklio reikšmė.

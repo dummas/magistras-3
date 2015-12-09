@@ -1,0 +1,19 @@
+\select@language {lithuanian}
+\contentsline {section}{\numberline {1}\IeC {\k I}vadas}{2}
+\contentsline {section}{\numberline {2}MEMS jutikliai}{2}
+\contentsline {subsection}{\numberline {2.1}Giroskopas}{2}
+\contentsline {subsubsection}{\numberline {2.1.1}Nuolatin\IeC {\.e} dedamoji}{3}
+\contentsline {subsubsection}{\numberline {2.1.2}Atsitiktinis kampinis pokytis}{3}
+\contentsline {subsection}{\numberline {2.2}Nuolatin\IeC {\.e}s dedamosios stabilumas}{4}
+\contentsline {subsubsection}{\numberline {2.2.1}Temperat\IeC {\=u}riniai efektai}{4}
+\contentsline {subsubsection}{\numberline {2.2.2}Kalibravimo klaidos}{4}
+\contentsline {subsection}{\numberline {2.3}Akselerometras}{4}
+\contentsline {subsubsection}{\numberline {2.3.1}Nuolatin\IeC {\.e} dedamoji}{4}
+\contentsline {subsubsection}{\numberline {2.3.2}Atsitiktinis pagrei\IeC {\v c}io pokytis}{5}
+\contentsline {subsubsection}{\numberline {2.3.3}Vibraciniai triuk\IeC {\v s}mai}{5}
+\contentsline {subsubsection}{\numberline {2.3.4}Temperat\IeC {\=u}riniai efektai}{5}
+\contentsline {subsubsection}{\numberline {2.3.5}Kalibravimo klaidos}{5}
+\contentsline {section}{\numberline {3}Literat\IeC {\=u}ros ap\IeC {\v z}valga}{5}
+\contentsline {subsection}{\numberline {3.1}Pozicijos nustatymas naudojant mobil\IeC {\k u} telefon\IeC {\k a}}{6}
+\contentsline {subsection}{\numberline {3.2}Dirbtin\IeC {\.e}s \IeC {\v z}uvies pozicijos nustatymas}{8}
+\contentsline {section}{\numberline {4}I\IeC {\v s}vados}{10}

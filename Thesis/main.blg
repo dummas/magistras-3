@@ -5,45 +5,45 @@ The style file: plain.bst
 Database file #1: references.bib
 Warning--empty journal in willemsenconcept
 Warning--empty year in willemsenconcept
-You've used 13 entries,
+You've used 15 entries,
             2118 wiz_defined-function locations,
-            571 strings with 6385 characters,
-and the built_in function-call counts, 4584 in all, are:
-= -- 453
-> -- 216
-< -- 6
-+ -- 88
-- -- 72
-* -- 294
-:= -- 752
-add.period$ -- 43
-call.type$ -- 13
-change.case$ -- 72
+            584 strings with 6867 characters,
+and the built_in function-call counts, 5359 in all, are:
+= -- 534
+> -- 246
+< -- 7
++ -- 100
+- -- 82
+* -- 349
+:= -- 874
+add.period$ -- 50
+call.type$ -- 15
+change.case$ -- 83
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 195
-empty$ -- 355
-format.name$ -- 72
-if$ -- 985
+cite$ -- 17
+duplicate$ -- 225
+empty$ -- 420
+format.name$ -- 82
+if$ -- 1153
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 14
-newline$ -- 67
-num.names$ -- 26
-pop$ -- 94
+int.to.str$ -- 15
+missing$ -- 16
+newline$ -- 77
+num.names$ -- 30
+pop$ -- 106
 preamble$ -- 1
-purify$ -- 62
+purify$ -- 71
 quote$ -- 0
-skip$ -- 135
+skip$ -- 154
 stack$ -- 0
-substring$ -- 225
-swap$ -- 57
-text.length$ -- 6
+substring$ -- 285
+swap$ -- 65
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
+type$ -- 56
 warning$ -- 2
-while$ -- 44
-width$ -- 15
-write$ -- 144
+while$ -- 53
+width$ -- 17
+write$ -- 167
 (There were 2 warnings)

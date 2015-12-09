@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{atia2015integrated}
+Mohamed~M Atia, Shifei Liu, Heba Nematallah, Tashfeen~B Karamat, and Aboelmagd
+  Noureldin.
+\newblock Integrated indoor navigation system for ground vehicles with
+  automatic 3-d alignment and position initialization.
+\newblock {\em Vehicular Technology, IEEE Transactions on}, 64(4):1279--1292,
+  2015.
+
+\bibitem{willemsenconcept}
+Thomas Willemsen, Friedrich Keller, and Harald Sternberg.
+\newblock Concept for building a mems based indoor localization system.
+
+\bibitem{woodman2007introduction}
+Oliver~J Woodman.
+\newblock An introduction to inertial navigation.
+\newblock {\em University of Cambridge, Computer Laboratory, Tech. Rep.
+  UCAMCL-TR-696}, 14:15, 2007.
+
+\bibitem{yoo2011fuzzy}
+Taesuk Yoo, Sung~Kyung Hong, and Youngsun Ryuh.
+\newblock Fuzzy logic based 2d position estimation for small robotic fish using
+  low cost mems accelerometer.
+\newblock In {\em Advanced Robotics (ICAR), 2011 15th International Conference
+  on}, pages 175--179. IEEE, 2011.
+
+\end{thebibliography}
