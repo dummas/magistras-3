@@ -1,0 +1,32 @@
+  ZMOGUS
+    antra_puse: Boolean (Ask / single-valued) 
+      zmogus * antra puse  (turi / neturi) 
+      Ar zmogus turi antra puse?  (&Taip / &Ne / ) 
+    kelintas_magistras: Numerical (Infer / single-valued) 
+      zmogus laiko magistrantura
+      1..10  kartas  (default: 1)
+      Kelintas cia yra zmogaus magistras?
+    kada_daryti: Enumerated (Infer / single-valued) 
+      namu dabar padaryti geriau *  
+        dabar
+        veliau
+        per savaitgali
+        per nakti
+        paskutine nakti pries egzamina
+        mesk studijas, niekad nepadarysi
+        stenkis ir dirbk, padayk kada gali
+      Kada padaryti namu darba?
+    laisvas_laikas_per_di: Numerical (Infer / single-valued) 
+      zmogus turi laisvo laiko
+      1..100  valandos  (default: 1)
+      Kiek zmogus turi laisvo laiko per diena?
+    turi_vaiku: Boolean (Ask / single-valued) 
+      zmogus * vaiku  (turi / neturi) 
+      Zmogus turi vaiku?  (&Taip / &Ne / ) 
+    masina: Boolean (Infer / single-valued) 
+      zmogus * masina  (turi / neturi) 
+      Zmogus turi masina?  (&Taip / &Ne / ) 
+    darbas: Boolean (Infer / multi-valued) 
+      zmogus * darba  (turi / neturi) 
+      Zmogus turi darba?  (&Taip / &Ne / ) 
+

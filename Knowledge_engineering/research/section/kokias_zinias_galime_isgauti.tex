@@ -1,0 +1,100 @@
+Kaip taikoma technologija, žinių išgavimas gali būti taikomas bet kokio tipo duomenims, kol tai yra naudojama kažkokiam konkrečiam tikslui su savo uždaviniu.
+Pačios paprasčiausios žinių išgavimo formos yra programos, kurios yra orientuotos į duomenų, duomenų saugyklos ir perdavimo duomenis.
+Šioje apžvalgoje aptarsime būtent tokias programas.
+
+\subsection{Duomenų bazės}
+
+Duomenų bazės sistema, anglų kalboje sutrumpintai taip pat vadinama \textit{DBMS}, susideda iš viduje sujungtų duomenų rinkinio, kitaip vadinami baze, yra rinkinys programų, kurios yra skirtos dirbti su duomenimis.
+Programinis paketas suteikia galimybes nusakyti duomenų struktūras ir duomenų saugojimą. Kitas kritinis aspektas, kurį sprendžia programinis paketas yra tuo pačiu metu vykdomą, paskirstytą duomenų manipuliavimą bei duomenų integracijos palaikymą, saugumą, nepriklausomai ar sistema buvo prieš tai išjungta ar buvo įvykęs neleistinas priėjimas prie duomenų.
+
+Sąryšinė duomenų bazė yra lentelių rinkinys, kurio kiekviena turi savo unikalų vardą. Kiekviena lentelė susideda iš atributų rinkinio (stulpelių pavadinimas), ir dažniausiai joje yra saugomas didelis duomenų skaičius (eilutės). 
+Kiekviena eilutė sąryšinėje lentelėje pavaizduoja objektą, kuris yra atpažįstamas pagal unikalų raktą, aprašytą objekto atributų rinkinio. 
+Semantinis duomenų modelis, dar žinimas kaip esybės sąryšio duomenų modelis, yra dažniausia konstruojamas per sąryšinę duomenų bazę.
+Semantinis duomenų modelis vaizduoja duomenų bazę kaip esybių ir jų sąryšių santykius.
+
+Sąryšinė duomenų bazė gali būti prieinama per duomenų bazės užklausas, kurios yra parašytos sąryšine kalba, angliškai vaidinama \textit{SQL} arba per palaikoma kalbos grafinę aplinką. 
+Duota užklausa yra transformuojama į sąryšines operacijas, kaip pavyzdžiui \textit{join}, \textit{select} ir \textit{project} ir tuomet yra optimizuojama efektyviam apdorojimui.
+Užklausa leidžia gauti specifinį duomenų poaibį.
+Galima įsivaizduoti tokią situacija, kuomet reikia išanalizuoti \textit{AllElectronics} duomenis. 
+Naudojant sąryšio užklausas, galima pateikti tokias užklausas kaip ``Parodyk man sąrašą elementų, kurie buvo parduoti paskutiniam ketvirtyje''. 
+Sąryšio kalbos taip pat pateikia kai kuriuos duomenų grupavimo įrankius, kaip sumavimas, vidurkis, skaičiavimas, maksimumas ir minimumas.
+Grupavimo operacijos leidžia užklausti tokių klausimų kaip: ``Parodyk man visus pardavimus už praeitą mėnesį, grupuojant pagal atstovybę'' arba ``Kiek įvyko sandorių per Gruodį?'' arba ``Koks pardavimo vadybininkas turėjo daugiausiai pardavimų?''.
+
+Kuomet yra vykdomas žinių išgavimas iš sąryšinės duomenų bazės, galima judėti toliau ir ieškoti duomenų tendencijų ir duomenų modelių.
+Pavyzdžiui, žinių išgavimo sistemos gali analizuoti klientų duomenis ir nustatyti naujų klientų kredito rizikos grupę, sprendžiant pagal jų pajamas, amžiaus grupę ir buvusią kredito informaciją.
+Duomenų analizavimo sistemos taip pat gali įvertinti duomenų nuokrypius -- pavyzdžiui galima pagauti tokius pardavimus, kurie buvo netikėti, lyginant su praeitu laikotarpiu.
+Tokie nuokrypiai gali būti toliau išnagrinėti.
+Pavyzdžiui, žinių išgavimo metodas gali nustatyti, kad tuo metu buvo atliktas pakavimo medžiagos pakeitimas, arba mažas kainos padidėjimas.
+
+Sąryšinės duomenų bazės yra daugiausiai pasiekiamos ir turtingiausios duomenimis saugyklos. 
+Kas sąlygoja labai platų jų naudojimą žinių išgavimo sistemose.
+
+\subsection{Duomenų saugyklos}
+
+Įsivaizduokime, jog \textit{AllElectronics} yra sėkminga tarptautinė įmonė, su savo atstovybėmis aplink pasaulį.
+Kiekviena atstovybė turi savo sąrašą duomenų bazių.
+Įmonės direktorius paprašė analitinės informacijos apie įmonės pardavimus per vieną kiekvieno įrenginio tipo vienetą kiekviename iš atstovybės šiame trečiame ketvirtyje.
+Tai yra sudėtingas uždavinys, kadangi reikiami duomenys yra paskirstyti per skirtingas duomenų bazes, kurios yra fiziškai skirtingose vietose.
+
+Tokia problema sprendžia duomenų saugyklos.
+Saugykla yra informacijos sandėlis, kuris yra surenkamas iš daugelio šaltinių, patalpinamas bendroje schemoje, ir gyvena vienoje vietoje.
+Saugyklos yra konstruojamos per procesą, kuris susideda iš duomenų valymo, integravimo, transformavimo, įkrovimo ir periodinio duomenų atnaujinimo.
+
+Sprendimo priėmimo palengvinimui, duomenys saugykloje yra organizuojami pagal tam tikras sritis -- klientas, įrankis, tiekėjas ar įvykis.
+Duomenis, kurie teikia kažkokius istorinius duomenis per kažkokį laikotarpį -- pavyzdžiui 6, 12 mėnesio laikotarpiui, dažniausiai yra apibendrinama.
+Pavyzdžiui vietoje to, kad saugoti detalią informaciją apie kiekvieną iš atliktų pardavimų, duomenų saugykla gali saugoti tik išvadas apie visas transakcijas pagal objektą kiekvienai parduotuvei ar dar aukštesniu lygiu -- per kiekvieną iš pardavimo regionų.
+
+Duomenų saugyklos dažniausiai modeliuojamos aukštų dimensijų duomenų struktūros, dar vadinamos duomenų kubais, kuriame kiekviena dimensija atitinka atributui ar atributų rinkiniui schemoje, ir kiekviena ląstelė saugo grupuoto įverčio reikšmę, kaip skaičių ar sumą. Duomenų kubas suteikia daugelio dimensijų vaizdą į duomenis ir juos parengia greitam priėjimui.
+
+Pateikiant daugelio dimensijų vaizdą į duomens ir atliekant pasiruošimą skaičiavimams su grupuotais duomenimis, duomenų saugyklos leidžia paveldėti realaus laiko analizavimo procesą. 
+Jis leidžia atlikti operacijas pasinaudojant esamomis žiniomis apie dalyką, kurio duomenys yra analizuojami, ir tai leidžia pateikti duomenis skirtingose abstrakcijos lygiuose.
+Tokios operacijos surenka skirtingus naudotojų vaizdo taškus.
+Realaus laiko analizavimo proceso pavyzdys gali būti kasimasis žemyn, ar surišimas, kurie yra atliekami naudotojo peržiūrint duomenis skirtingais grupavimo kampais.
+Pavyzdžiui kasimasis žemyn operacija gali būti pritaikyta pardavimų duomenims kiekvienam ketvirčiui, norint pamatyti duomenis kiekvienam mėnesiui.
+Panašiu principu galima surišti duomenis kiekvienam miestui, ir peržvelgti grupuotą informaciją pagal šalį.
+
+Nors duomenų saugyklų įrankiai padeda atlikti duomenų analizavimą, tačiau yra reikalingi ir papildomi duomenų analizės įrankiai.
+Daugelio dimensijų žinių išgavimas (taip pat žinomas kaip žvalgomasis daugelio dimensijų žinių išgavimas) atliekamas žinių išgavimo daugelio dimensijų realaus laiko analizavimo plokštumos stiliuje.
+Tai reiškia, kad yra atliekama žvalgyba kaip priklauso skirtingos grupuotų duomenų dimensijos per skirtingus ryškumo lygius, kas labai padidina galimybes surasti įdomius duomenų modelius, kurie gali pateikti labai įdomią informaciją apie nagrinėjamą sritį.
+
+\subsection{Transakcijos duomenis}
+
+Apskritai, kiekvienas įrašas sandorio duomenų bazėje įrašo transakciją -- pirkėjo pirkinys, skrydžio rezervacija, naudotojo mygtuko paspaudimas tinklalapyje.
+Transakcija dažniausiai sudaro identifikuojamas unikalus transakcijos numeris ir sąrašas duomenų, kurie įtvirtina transakciją.
+Duomenų bazė gali turėti papildomas lenteles, kurios susideda iš kitos informacijos, susiejama su transakcija, kaip pavyzdžiui daikto aprašymas, informacija apie pardavėja arba atstovybę.
+
+Analitikas \textit{AllElectronics} gali paklausti ``Kokie įrenginiai buvo parduoti kartu?''.
+Tokia pirkinių krepšelio duomenų analizė leistų sujungti grupę įrenginių kartu ir leistu padidinti pardavimų skaičių.
+Pavyzdžiui, žinant, kad spausdintuvai yra dažniausiai perkami kartu su kompiuteriais, galima pateikti pasiūlymą pirkėjams įsigyti spausdintuvą už labai žemą kainą arba netgi už dyką visiems pirkėjams, kurie perka pasirinktus kompiuterius. Taip tikėtis, jog bus parduota daugiau kompiuterių.
+Standartinė duomenų bazė nesugeba atlikti pirkinių krepšelio tipo analitinės operacijos.
+Sandorio tipo duomenų bazėse galima atlikti sandorio dažniausią sąrašą objektų grupių -- rasti objektus, kurie buvo dažnai nupirkti kartu.
+
+\subsection{Kiti duomenis}
+
+Neskaitant sąryšio duomenų bazių, saugyklų, sandorio bazių, egzistuoja daug kitų skirtingų duomenų saugyklų, kurios turi skirtingas formas ir struktūras ir semantines reikšmes.
+Tokie duomenis gali būti matomi daugelio taikymo srityse -- laiko ar įrašo eilės duomenys (istoriniai duomenis, biržos pardavimo duomenis, biologinės eilės duomenis), duomenų srautai (vaizdo stebėjimas ir jutiklių duomenis, kurie yra perduodami nuolatos), erdviniai duomenis (žemėlapiai), inžineriniai projektavimo duomenys (pastatų projektavimo planai, sistemos komponentai ar įterptinės sistemos), praturtinto teksto ir daugelio vaizdinės medžiagos duomenis (tekstas, paveikslėliai, vaizdo ir garso įrašai).
+Tokios taikomos sritys atveria duris naujoms iššūkiams, pavyzdžiui kaip palaikyti duomenų struktūrą (medžio eilės, grafus ir tinklus) ir specifines semantikas (kaip eilė, vaizdo ir garso turinį, bei sąryšius) ir kaip išgauti žinias iš tokiu schema turtingu duomenų.
+
+Skirtingi žinių tipai gali būti išgauti iš skirtingų duomenų. 
+Čia yra pateikti tik keli. 
+Priklausomai nuo viršutinių duomenų, kaip pavyzdžiui, iš bankinių duomenų galima išgauti tendencijas, kurios gali pagelbėti organizuojant banko biuro darbą pagal darbuotojus -- galima nuspėti kokiu metu bus daugiausiai lankytojų ir taip nuspręsti kiek darbuotojų tuo metu reiks banko viduje.
+Iš Vertybinių popierių biržos duomenų galima išgauti tendencijas, kurios gali pagelbėti suplanuoti investavimo strategijas (kaip pavyzdžiui pirkti \textit{AllElectronics} akcijas).
+Galima analizuoti tinklu keliaujančios duomenis ir stebėti kažkokias anomalijas duomenų perdavimo sraute. Tai galima pasiekti dinamiškai konstruojant duomenų srauto modelius arba paprastai lyginant esamus dažnio modelius su prieš tai buvusiais dažnio modeliais.
+Su erdviniais duomenimis, galima ieškoti modelių, kurie nusako metropoliteno skurdo įverčius, pagal miesto nuotolį iki pagrindinių autostradų. 
+Erdvinė objektų analizė plokštumoje gali būti atlikta sprendžiant objektų pogrupio auto koreliacijas arba asociacijas. 
+Tekstinės informacijas žinių išgavimas, kaip pavyzdžiui literatūra apie žinių išgavimą per pastaruosius dešimt metų, galima nuspręsti apie srities vystymąsi.
+Naudotojų komentarai prie produktų gali būti naudojami nusakant kaip apie produktą jaučiasi naudotojai ir kaip jie supranta pačio produkto vertę rinkoje.
+Įvairialypės terpės informacija, kaip pavyzdžiui paveikslėliai gali būti panaudoti objekto atpažinimui, klasifikavimui ir priskirti semantinius pavadinimus arba etiketes.
+Vaizdinė informacija, tokia kaip ledo ritulio žaidynių įrašas, gali automatiškai nusakyti vaizdo segmentus, kurie buvo susieti su įvarčiu.
+Interneto tinklo informacijos žinių išgavimas gali mums padėti nusakyti bendrą duomenų pasiskirstymą tinkle, apibūdinti ir aprašyti skirtingus puslapius ir atskleisti tinklo dinamikas ir asociacijas bei ryšius tarp skirtingų tinklapių, naudotojų ir bendruomenių.
+
+Labai svarbu yra turėti omenyje, kad daugelio taikymo sričių, egzistuoja skirtingi duomenų tipai. 
+Pavyzdžiui, interneto tinklo žinių išgavimui, egzistuoja tekstinė ir įvairialypė informacija, kaip pavyzdžiui grafikai, žemėlapio duomenis.
+Bio informatikoje genomo eilės, biologiniai tinklai ir 3-D erdvinės genomo struktūros.
+Išgavimas iš daugelio resursų, kuriuose yra kompleksiniai duomenis dažniausiai veda prie vaisingų atradimų dėl skirtingų šalinių abipusio praturtinimo ir sutvirtinimo.
+Tačiau tai taip pat yra didelis iššūkis, kadangi kyla sunkumų su duomenų valymu ir integravimu, taip pat ir su kompleksiniu integracijos žingsnių iš skirtingų šaltinių.
+
+Nors tokie duomenys reikalauja specializuotų įrangų efektyviam saugojimui, skaitymui ir atnaujinimui -- jie taip pat suteikia ir pagrindą įdomiems tyrimams ir taikomoms žinių išgavimo sistemos.
+Žinių išgavimas naudojant tokius duomenis yra labai pažengęs uždavinys.
+
+

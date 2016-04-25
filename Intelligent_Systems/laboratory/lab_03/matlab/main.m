@@ -30,11 +30,8 @@ Y = abs(sin(X));
 %% Initialization
 
 mu = 0.1;
-
 number_of_centers = 2;
-
 sample_per = to / (number_of_centers + 1);
-
 r = 1.3;
 
 %w_1 = rand; % 1.2549
@@ -61,10 +58,11 @@ Err = [];
 Err_1 = [];
 Err_2 = [];
 Err_sum = 1;
-while Err_sum ~= 0
-%for k=1:500
+%while Err_sum ~= 0
+for k=1:500
     Y2 = [];
     for j=1:size(X, 2)
+        % y = 
         y_1 = w_1 * exp(-abs(X(j) - c_1)^2/r_1^2);
         y_2 = w_2 * exp(-abs(X(j) - c_2)^2/r_2^2);
         Y2 = [Y2 sum(y_1 + y_2) + w_0];
@@ -74,6 +72,7 @@ while Err_sum ~= 0
     
     w_1 = w_1 + mu * Err_sum;
     w_2 = w_2 + mu * Err_sum;
+    
     w_0 = w_0 - mu * Err_sum;
     
     Err = [Err, Err_sum];

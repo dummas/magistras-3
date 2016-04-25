@@ -1,0 +1,68 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+
+\begin{document}
+\begin{titlepage}
+  
+  \begin{center}
+    \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
+    \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
+    \textsc{\Large Automatizuotas žinių išgavimas, sistemos}\\[10mm]
+    \textsc{\normalsize Žinių inžinerijos referatas}\\[40mm]
+    \begin{minipage}{1\textwidth}
+      \begin{flushright}
+        \emph{Darbą atliko:} Maksim Norkin, AKSfm-15\\
+        \emph{Darbą tikrino:} Juozas Laučius\\
+      \end{flushright}
+    \end{minipage}
+    \vfill
+    {\large Vilnius \\ \the\year}
+  \end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+
+\section{Įvadas}
+
+\input{section/ivadas.tex}
+
+\section{Istorija}
+
+\input{section/istorija.tex}
+
+\section{Kas yra žinių išgavimas}
+
+\input{section/ziniu_isgavimas.tex}
+
+\section{Kokias žinias galime išgauti}
+
+\input{section/kokias_zinias_galime_isgauti.tex}
+
+\section{Kokie modeliai gali būti išgauti}
+
+\input{section/kokie_modeliai_gali_buti_isgauti.tex}
+
+\section{Kokios technologijos yra naudojamos}
+
+\input{section/kokios_technologijos_naudojamos.tex}
+
+\section{Kylančios problemos}
+
+\section{Išvados}
+
+\input{section/isvados.tex}
+
+\addcontentsline{toc}{section}{Literatūros ir informacinių šaltinių sąrašas}
+\renewcommand\refname{Literatūros ir informacinių šaltinių sąrašas}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

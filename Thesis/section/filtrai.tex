@@ -1,0 +1,159 @@
+Šiame skyriuje apžvelgti pagrindiniai signalų filtravimo įrankiai, kurie yra plačiai naudojami inercinėse navigacinėse sistemose.
+
+\subsection{Kalman filtras}
+    
+    Kalman filtras \cite{kalman1960new} yra vienas iš labiausiai naudojamų duomenų sujungimo algoritmų informacijos apdorojimo pramonės srityje \cite{faragher2012understanding}. Pats žymiausias Kalma filtro panaudojimas jo ankstyvoje stadijoje yra \textit{Apollo} navigaciniam kompiuteryje, kuris nugabeno \textit{Neil Armstrong} iki mėnulio ir svarbiausia -- atgal. Šiais laikais, Kalman filtrą galima rasti beveik kiekviename įrenginyje -- mobiliam telefone, kompiuteriniuose žaidimuose.
+
+\subsubsection{Formuluotė}
+
+    Kalman filtro išvedimas yra vykdomas, naudojant vektorinę algebrą kaip mažiausias kvadratinės klaidos nustatymas \cite{bibby1977prediction}. Išvedimas yra galimas panaudojus Gauso pasiskirstymo pagrindinę savybę -- Gauso pasiskirstymų suma yra kitas Gauso pasiskirstymas.
+
+    Kalman filtro modelis numato sistemos būsena laike $t$ yra kilus iš būsenos $t-1$ ir apskaičiuojama
+
+    \begin{equation}
+        \label{eq:kalman}
+        \mathbf{x}_t = \mathbf{F}_t\mathbf{x}_{t-1} + \mathbf{B}_t\mathbf{u}_t + \mathbf{w}_t,
+    \end{equation}
+    kur 
+    \begin{itemize}
+        \item $\mathbf{x}_t$ yra būsenos vektorius, kuris nusako sistemos būsenos įverčius -- greitį, pagreitį, poziciją laike $t$;
+        \item $\mathbf{u}_t$ yra vektorius, kuris yra sudaromas iš kontrolinės struktūros -- vairo pasukimo kampas, pedalo paspaudimo kampas;
+        \item $\mathbf{F}_t$ yra būsenos perėjimo matrica, kuri pritaiko kiekvieną sistemos parametrą laike $t-1$, laikui $t$;
+        \item $\mathbf{B}_t$ yra kontrolės įėjimo matrica, kuri pritaiko kontrolės įėjimo parametrą būsenos vektoriui;
+        \item $\mathbf{w}_t$ yra vektorius, kuris susideda iš proceso būsenos parametrų triukšmo. Proceso triukšmas yra numatomai išvedamas iš nulinio vidurkio paprasto paskirstymo bendros variacijos;
+    \end{itemize}
+
+    Sistemos įverčio matavimas taip pat gali būti atliekamas, panaudojus modelį
+
+    \begin{equation}
+        \mathbf{z}_t = \mathbf{H}_t\mathbf{x}_t + \mathbf{v}_t,
+    \end{equation}
+    kur
+    \begin{itemize}
+        \item $\mathbf{z}_t$ yra matavimų vektorius;
+        \item $\mathbf{H}_t$ yra transformavimo matrica, kuri perkelia būsenos vektoriaus parametrus į įverčio sritį;
+        \item $\mathbf{v}_t$ yra triukšmo vektorius, kuris yra nusakomas kiekvienam įverčiui atskirai. Yra priimama, kad jis yra Gauso baltas triukšmas su nuliniu vidurkiu, kaip ir proceso triukšmas.
+    \end{itemize}
+
+    Pavyzdžio iliustracijai bus pasirinktas tiesus linijinis sekimo uždavinys -- judantis traukinys. Tokiu atveju būsenos vektorius $\mathbf{x}_t$ bus sudarytas iš dviejų komponenčių -- pozicija ir pagreitis
+
+    \begin{equation}
+        \mathbf{x}_t = \left[ \begin{matrix} x_t \\ \dot{x}_t \end{matrix} \right]
+    \end{equation}
+
+    Traukinio vairuotojas gali paspausti stabdžio arba pagreičio didinimo pedalą ir abu šie veiksmai gali būti traktuojami kaip pridėtos jėgos $\mathbf{f}_t$ ir traukinio masės funkcija $\mathbf{m}$. Tokia kontrolės informacija yra saugoma kontrolės vektoriuje
+
+    \begin{equation}
+        \mathbf{u}_t = \frac{\mathbf{f}_t}{\mathbf{m}}.
+    \end{equation}
+
+    Ryšį tarp pridėtos jėgos per greičio arba stabdžio pedalą per laiką $\Delta t$ ir pozicija ir traukinio pagreičiu galima išreikšti
+
+    \begin{equation}
+        \mathbf{x}_t = \mathbf{x}_t + (\dot{\mathbf{x}}_{t-1} \times \Delta t) + \frac{\mathbf{f}_t(\Delta t)^2}{2\mathbf{m}}
+    \end{equation}
+    \begin{equation}
+        \dot{\mathbf{x}}_t = \dot{\mathbf{x}}_{t-1} + \frac{\mathbf{f}_t \Delta t}{\mathbf{m}},
+    \end{equation}
+    kurios gali būti perrašomos į matricinę formą lengesniai asociacijai su \ref{eq:kalman} lygtimi
+
+    \begin{equation}
+        \left[ \begin{matrix} x_t \\ \dot{x}_t \end{matrix} \right] = 
+        \left[ \begin{matrix} 1 & \Delta t \\ 0 & 1\end{matrix} \right]
+        \left[ \begin{matrix} x_{t-1} \\ \dot{x}_{t-1} \end{matrix} \right] +
+        \left[ \begin{matrix} (\Delta t)^2 / 2 \\ \Delta t \end{matrix} \right] \frac{f_t}{m}
+    \end{equation}
+    Iš to seka, kad mūsų sistemos būsenos perdavimo matrica yra 
+
+    \begin{equation}
+        \mathbf{F}_t = \left[ \begin{matrix} 1 & \Delta t \\ 0 & 1 \end{matrix} \right],
+    \end{equation}
+    ir kontrolės matrica
+
+    \begin{equation}
+        \mathbf{B}_t = \left[ \begin{matrix} (\Delta t)^2/2 \\ \Delta t \end{matrix} \right].
+    \end{equation}
+
+    Modelio pagalba negalima nustatyti sistemos būseną $\mathbf{x}_t$, tačiau Kalman filtras suteikia algoritmą nustatyti spėjamą $\hat{\mathbf{x}}_t$ sujungiant sistemos ir triukšmo modelio įverčius su linijinės funkcijos parametrais. Spėjamas parametrų įverčių įtaka būsenos vektoriui dabar yra traktuojama kaip tikimybės tankio funkcija, o ne konkrečiais įverčiais, kadangi Kalman filtras yra paremtas Gauso pasiskirstymu. 
+
+    Kalman filtro algoritmas susideda iš dviejų etapų -- spėjimas ir įverčio atnaujinimas. Paprasto Kalman filtro lygtis būsenos spėjimui yra
+
+    \begin{equation}
+        \mathbf{\hat{x}}_{t|t-1} = \mathbf{F}_t\mathbf{\hat{x}}_{t|t-1} + \mathbf{B}_t \mathbf{u}_t
+    \end{equation}
+
+    \begin{equation}
+        \label{eq:pdf_covariance}
+        \mathbf{P}_{t|t-1} = \mathbf{F}_t\mathbf{P}_{t-1|t-1} \mathbf{F}_t^T + \mathbf{Q}_t,
+    \end{equation}
+    kur $\mathbf{Q}_t$ yra proceso triukšmo kovariacijos matrica, kuri yra skirta įvesties kontrolės triukšmui.
+    Įverčio atnaujinimo lygtis yra
+
+    \begin{equation}
+        \mathbf{\hat{x}}_{t|t} = \mathbf{\hat{x}}_{t|t-1} + \mathbf{K}_t(\mathbf{z}_t - \mathbf{H}_t \mathbf{\hat{x}}_{t|t-1})
+    \end{equation}
+
+    \begin{equation}
+        \mathbf{P}_{t|t} = P_{t|t-1} - \mathbf{K}_t \mathbf{H}_t \mathbf{P}_{t|t-1},
+    \end{equation}
+    kur
+    \begin{equation}
+        \mathbf{K}_t = \mathbf{P}_{t|t-1} \mathbf{H}_t^T(\mathbf{H}_t\mathbf{P}_{t|t-1}\mathbf{H}_t^T + \mathbf{R}_t)^{-1}
+    \end{equation}
+    
+
+    \subsubsection{Sprendimas}
+
+    Toliau tęsiant turimą pavyzdį, galim atlikti sekančius matavimus nuo laiko momento $t=0$, kai traukinys vis dar stovi iki $t=1$, kai traukinys jau pajudėjo iš savo pradinės vietos. Pirmas matavimas bus atliekamas pasitelkus prielaidą, kad yra žinoma kiek traukinio vairuotojas paspaudė greičio pedalą. Remiantis tokia logika mes galime atlikti pirmą spėjimą su tam tikru neužtikrintumu kokia yra traukinio pozicija $t=1$ laiko momentu. Antras matavimas bus atliekamas, panaudojus radijo stotelę -- bus siunčiamas radijo signalas į traukinio pusę ir laukiamas grįžtamasis ryšis. Taip galima spėti kokiu nuotoliu nuo radijo stotelės yra objektas. 
+
+    Abiejų būsenos pozicijos spėjimus galima išreikšti Gauso pasiskirstymo funkcijomis. Taip pat reikia įvesti dimensijų transformavimo santykį, kuris paprastumo dėlei dabar su pasirinktas $1/c$. Pirmas matavimas
+
+    \begin{equation}
+        y_1(r; \mu_1, \sigma_1, c) = \frac{1}{\sqrt{2\pi (\sigma_1/c)^2}} e^{\frac{(r-\mu_1/c)^2}{2 (\sigma_1/c)^2}}.
+    \end{equation}
+    Antras matavimas
+
+    \begin{equation}
+        y_2(r; \mu_2, \sigma_2, c) = \frac{1}{\sqrt{2\pi (\sigma_2/c)^2}} e^{\frac{(r-\mu_2/c)^2}{2 (\sigma_2/c)^2}}.
+    \end{equation}
+
+    Tolimesnis sprendimas yra apjungti abu matavimus su tikslu mažinti klaidos tikimybę, kur sujungtas vidurkis gali būti išreikštas
+    
+    \begin{equation}
+        \frac{\mu_f}{c} = \frac{\mu_1}{c} + \frac{ (\frac{\sigma_1}{c})^2 (\mu_2 - \frac{\mu_1}{c}) }{(\frac{\sigma_1}{c})^2 + \sigma_2^2}
+    \end{equation}
+
+    \begin{equation}
+        \mu_f = \mu_1 + \left( \frac{ \frac{\sigma_1^2}{c} }{ ( \frac{\sigma_1}{c} )^2 + \sigma_2^2 } \right) \cdot 
+        \left( \mu_2 - \frac{\mu_1}{c} \right).
+    \end{equation}
+    
+    Pakeičiant $H = 1/c$ ir $K = ( H\sigma_1^2 )/(H^2\sigma_1^2 + \sigma_2^2)$, gauname
+
+    \begin{equation}
+        \mu_f = \mu_1 + K \cdot (\mu_2 - H\mu_1).
+    \end{equation}
+
+    Panašiu principu gaunam ir sujungta pasiskirstymo variaciją
+
+    \begin{equation}
+        \frac{\sigma_f^2}{c^2} = \left(\frac{\sigma_1}{c}\right)^2 - \frac{\left(\frac{\sigma_1}{c}\right)^2}{ \left( \frac{\sigma_1}{c} \right)^2 + \sigma_2^2 }
+    \end{equation}
+    
+    \begin{equation}
+        \sigma_f^2 = \sigma_1^2 - \left( \frac{ \frac{\sigma_1^2}{c} }{ \left( \frac{\sigma_1}{c} \right)^2 + \sigma_2^2 }  \right) \frac{\sigma_1^2}{c} = \sigma_1^2 - KH\sigma_1^2
+    \end{equation}
+
+    Tokiu pavidalu yra įmanoma sutapatinti įverčius su Kalmano algoritmo parametrais -- 
+    \begin{itemize}
+        \item $\mu_f \rightarrow \hat{\mathbf{x}}_{t|t}$: būsenos vektorius;
+        \item $\mu_1 \rightarrow \hat{\mathbf{x}}_{t|t-1}$: būsenos vektorius prieš duomenų sujungimą, spėjimą;
+        \item $\sigma_f^2 \rightarrow \mathbf{P}_{t|t}$: kovariacinė matrica po duomenų sujungimo;
+        \item $\sigma_1^2 \rightarrow \mathbf{P}_{t|t-1}$: kovariacinė matrica prieš duomenų sujungimą;
+        \item $\mu_2 \rightarrow \mathbf{z}_t$: matavimo vektorius;
+        \item $\sigma_2^2 \rightarrow \mathbf{R}_t$: matavimo neapibrėžtumo matrica;
+        \item $H \rightarrow \mathbf{H}_t$: transformavimo matrica;
+    \end{itemize}
+    
+\subsection{Dalelių filtras}
+

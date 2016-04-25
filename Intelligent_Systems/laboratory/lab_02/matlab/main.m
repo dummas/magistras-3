@@ -58,6 +58,7 @@ for k=1:100
 
     for i=1:length(X)
         x = X(i);
+        
         v1_1 = w1_1 * x + b1_1;
         v1_2 = w1_2 * x + b1_2;
         v1_3 = w1_3 * x + b1_3;
@@ -98,10 +99,10 @@ for k=1:100
 
     end
     
-%     hold on;
-%     plot(X, Y, 'g');
-%     plot(X, Y2, 'r-');
-%     hold off;
+    hold on;
+    plot(X, Y, 'g');
+    plot(X, Y2, 'r-');
+    hold off;
 
 end
 

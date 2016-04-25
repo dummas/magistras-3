@@ -1,5 +1,23 @@
 \begin{thebibliography}{10}
 
+\bibitem{bibby1977prediction}
+John Bibby and Helge Toutenburg.
+\newblock {\em Prediction and improved estimation in linear models}.
+\newblock Wiley, 1977.
+
+\bibitem{davidson2010application}
+Pavel Davidson, Jussi Collin, and Jarmo Takala.
+\newblock Application of particle filters for indoor positioning using floor
+  plans.
+\newblock In {\em Ubiquitous Positioning Indoor Navigation and Location Based
+  Service (UPINLBS), 2010}, pages 1--4. IEEE, 2010.
+
+\bibitem{faragher2012understanding}
+Ramsey Faragher et~al.
+\newblock Understanding the basis of the kalman filter via a simple and
+  intuitive derivation.
+\newblock {\em IEEE Signal processing magazine}, 29(5):128--132, 2012.
+
 \bibitem{gaysse2005using}
 J{\'e}r{\^o}me Gaysse.
 \newblock Using fuzzy logic in low cost microcontroller to increase
@@ -14,6 +32,11 @@ Pragun Goyal, Vinay~J Ribeiro, Huzur Saran, and Anshul Kumar.
 \newblock In {\em Indoor Positioning and Indoor Navigation (IPIN), 2011
   International Conference on}, pages 1--7. IEEE, 2011.
 
+\bibitem{kalman1960new}
+Rudolph~Emil Kalman.
+\newblock A new approach to linear filtering and prediction problems.
+\newblock {\em Journal of Fluids Engineering}, 82(1):35--45, 1960.
+
 \bibitem{kim2004step}
 Jeong~Won Kim, Han~Jin Jang, Dong-Hwan Hwang, and Chansik Park.
 \newblock A step, stride and heading determination for the pedestrian
@@ -25,6 +48,13 @@ Michael Perlmutter and Laurent Robin.
 \newblock High-performance, low cost inertial mems: A market in motion!
 \newblock In {\em Position Location and Navigation Symposium (PLANS), 2012
   IEEE/ION}, pages 225--229. IEEE, 2012.
+
+\bibitem{pinchin2012particle}
+James Pinchin, Chris Hide, and Tyler Moore.
+\newblock A particle filter approach to indoor navigation using a foot mounted
+  inertial navigation system and heuristic heading information.
+\newblock In {\em Indoor Positioning and Indoor Navigation (IPIN), 2012
+  International Conference on}, pages 1--10. IEEE, 2012.
 
 \bibitem{schlomer2008gesture}
 Thomas Schl{\"o}mer, Benjamin Poppinga, Niels Henze, and Susanne Boll.

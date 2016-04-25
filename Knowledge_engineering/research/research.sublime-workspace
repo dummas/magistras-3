@@ -1,0 +1,1288 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"nyse",
+				"nyse_line"
+			],
+			[
+				"nys",
+				"nyse_line"
+			],
+			[
+				"target",
+				"target_price"
+			],
+			[
+				"targ",
+				"target_price"
+			],
+			[
+				"analytic",
+				"analytic_slug"
+			],
+			[
+				"anl",
+				"analytic_slug"
+			],
+			[
+				"NOT",
+				"NOT_IMPLEMENTED"
+			],
+			[
+				"ticker",
+				"ticker_slug"
+			],
+			[
+				"ti",
+				"ticker_slug"
+			],
+			[
+				"tar",
+				"target_price"
+			],
+			[
+				"pri",
+				"price_close"
+			],
+			[
+				"sto",
+				"stock_data"
+			],
+			[
+				"tage",
+				"target_price"
+			],
+			[
+				"Tar",
+				"TargetPrice"
+			],
+			[
+				"NOT_",
+				"NOT_FOUND"
+			],
+			[
+				"price",
+				"price_close"
+			],
+			[
+				"if",
+				"ifmain	if __name__ == '__main__'"
+			],
+			[
+				"mouse",
+				"mouseInProfitability"
+			],
+			[
+				"mouseIn",
+				"mouseInReachTime"
+			],
+			[
+				"pro",
+				"profitabilityHandlers"
+			],
+			[
+				"list",
+				"list_type_"
+			],
+			[
+				"late",
+				"latest-target-price-list"
+			],
+			[
+				"las",
+				"latest-target-price-list"
+			],
+			[
+				"paren",
+				"parentNode"
+			],
+			[
+				"stroke-",
+				"stroke-linejoin"
+			],
+			[
+				"text-",
+				"text-decoration"
+			],
+			[
+				"target_pri",
+				"target_price_list"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"inner-grap",
+				"inner-graphs-help-hover-text"
+			],
+			[
+				"inner-gra",
+				"inner-graphs-help-hover-text-decorator"
+			],
+			[
+				"helptext",
+				"helpTextHoverClusters"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"Feature",
+				"FeatureAnalyticTicker"
+			],
+			[
+				"window",
+				"window_height"
+			],
+			[
+				"ana",
+				"analysis"
+			],
+			[
+				"grap",
+				"graphs"
+			],
+			[
+				"gra",
+				"graphsEvents"
+			],
+			[
+				"getAnal",
+				"getAnalyticOrTicker"
+			],
+			[
+				"inner",
+				"inner-graphs-header-cluster"
+			],
+			[
+				"anal",
+				"analyticOrTicker"
+			],
+			[
+				"Analytic",
+				"analyticOrTicker"
+			],
+			[
+				"curr",
+				"currentTargetTab"
+			],
+			[
+				"analy",
+				"analyticOrTicker"
+			],
+			[
+				"is",
+				"isFront"
+			],
+			[
+				"ang",
+				"angle_scale"
+			],
+			[
+				"f",
+				"front"
+			],
+			[
+				"scroll",
+				"scrollChange"
+			],
+			[
+				"card",
+				"Card"
+			],
+			[
+				"repla",
+				"replaceLocation"
+			],
+			[
+				"cur",
+				"currentElement"
+			],
+			[
+				"ent",
+				"entries"
+			],
+			[
+				"offse",
+				"offsetTop"
+			],
+			[
+				"off",
+				"offsetTop"
+			],
+			[
+				"of",
+				"offsetTop"
+			],
+			[
+				"pt",
+				"prototype"
+			],
+			[
+				"cu",
+				"currentElement"
+			],
+			[
+				"scrol",
+				"scrollingUp"
+			],
+			[
+				"scro",
+				"scrollingDown"
+			],
+			[
+				"curn",
+				"currentElementOffsetTop"
+			],
+			[
+				"pre",
+				"previousY"
+			],
+			[
+				"current",
+				"currentElementOffset"
+			],
+			[
+				"con",
+				"constant"
+			],
+			[
+				"tab",
+				"tabElement"
+			],
+			[
+				"mous",
+				"mouseEvent"
+			],
+			[
+				"test",
+				"testHost"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"graph",
+				"graphContainerWidth"
+			],
+			[
+				"scr",
+				"scrollToTooltip"
+			],
+			[
+				"reach",
+				"reach_time"
+			],
+			[
+				"bar_too",
+				"bar_tooltip_text"
+			],
+			[
+				"onk",
+				"onkeypress	Attr"
+			],
+			[
+				"getAbsolute",
+				"getAbsoluteAnalytic"
+			],
+			[
+				"onkey",
+				"onkeyup	Attr"
+			],
+			[
+				"tex",
+				"textWidth"
+			],
+			[
+				"show",
+				"show_tooltip"
+			],
+			[
+				"trans",
+				"translate_w"
+			],
+			[
+				"transla",
+				"translate_w"
+			],
+			[
+				"rea",
+				"reach_time"
+			],
+			[
+				"nam",
+				"nameElements"
+			],
+			[
+				"no",
+				"nowrap"
+			],
+			[
+				"_nam",
+				"_nameElements"
+			],
+			[
+				"abos",
+				"absoluteAnalytic"
+			],
+			[
+				"inen",
+				"inner-graphs-content-item-active"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"features",
+				"featuresClusters"
+			],
+			[
+				"fea",
+				"features"
+			],
+			[
+				"inner-",
+				"inner-container-tab-cluster-hidden"
+			],
+			[
+				"tabs",
+				"tabsClusters"
+			],
+			[
+				"H",
+				"H1	Tag"
+			],
+			[
+				"nav",
+				"navigation"
+			],
+			[
+				"targe",
+				"target_prices"
+			],
+			[
+				"param",
+				"parameters"
+			],
+			[
+				"left",
+				"leftOffset"
+			],
+			[
+				"ave",
+				"averageSelector"
+			],
+			[
+				"get",
+				"getMaximum"
+			],
+			[
+				"average",
+				"averageSelector"
+			],
+			[
+				"max",
+				"maximumSelector"
+			],
+			[
+				"mini",
+				"minimumSelector"
+			],
+			[
+				"fon",
+				"font-family"
+			],
+			[
+				"Hel",
+				"HelveticaNeueLTStd-Lt"
+			],
+			[
+				"inner-ta",
+				"inner-tabs-item-active"
+			],
+			[
+				"item",
+				"inner-tabs-item"
+			],
+			[
+				"fo",
+				"for	for (…) {…}"
+			],
+			[
+				"fon-",
+				"font-family"
+			],
+			[
+				"border-",
+				"border-width"
+			],
+			[
+				"desc",
+				"description"
+			],
+			[
+				"too",
+				"tooltip_feature_class_to_bind"
+			],
+			[
+				"Htt",
+				"HttpResponse"
+			],
+			[
+				"cache",
+				"cache_page"
+			],
+			[
+				"Horin",
+				"horizontal_slider_top_offset"
+			],
+			[
+				"cl",
+				"cleaned_data"
+			],
+			[
+				"Sub",
+				"SubscriptionForm"
+			],
+			[
+				"time",
+				"timeoutDuration"
+			],
+			[
+				"bar_tool",
+				"bar_tooltip_left"
+			],
+			[
+				"nice",
+				"niceScroll"
+			],
+			[
+				"prot",
+				"profitability"
+			],
+			[
+				"select",
+				"selectAll"
+			],
+			[
+				"bar_to",
+				"bar_tooltip"
+			],
+			[
+				"bar",
+				"bar_tooltip"
+			],
+			[
+				"tooltip",
+				"tooltipPoint"
+			],
+			[
+				"toolt",
+				"tooltip_point"
+			],
+			[
+				"tool",
+				"tooltip_point"
+			],
+			[
+				"remove",
+				"removeClass"
+			],
+			[
+				"to",
+				"tooltip"
+			],
+			[
+				"forwar",
+				"forwarded_port"
+			],
+			[
+				"tmp",
+				"tmpElement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "section/ivadas.tex",
+			"settings":
+			{
+				"buffer_size": 2087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.tex",
+			"settings":
+			{
+				"buffer_size": 1318,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "section/ziniu_isgavimas.tex",
+			"settings":
+			{
+				"buffer_size": 1423,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "section/istorija.tex",
+			"settings":
+			{
+				"buffer_size": 4128,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 115.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"jsh",
+				"JSHint"
+			],
+			[
+				"jshint",
+				"JSHint"
+			],
+			[
+				"install package",
+				"Package Control: Install Package"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 570.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/maksimnorkin/Studijos/Knowledge_engineering/research",
+		"/Users/maksimnorkin/Studijos/Knowledge_engineering/research/section"
+	],
+	"file_history":
+	[
+		"/Users/maksimnorkin/Studijos/Knowledge_engineering/research/main.tex",
+		"/Users/maksimnorkin/Studijos/Knowledge_engineering/laboratory/lab_01/report/report.tex",
+		"/Users/maksimnorkin/Studijos/Intelligent_Systems/laboratory/lab_01/report/report.tex",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonInterestedTickersPopulator/app.py",
+		"/Users/maksimnorkin/Work/Anavest/scrapy/stock_target_prices/stock_target_prices/spiders/stock_spider.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonInterestedTickers/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTPDataInterface/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRabbitReceiver/client.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonInterestedTickersPopulator/NYSE.csv",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/features.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCrawler/app/actions.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonInterestedTickers/data.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonInterestedTickers/NYSE.csv",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/fabfile.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonChangeUpdater/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/data/input2.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/nodeValidator.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/data/input2.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/node_modules/grunt-concat-css/test/expected/no_basedir_options.css",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/data/N.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/dumps/list_of_target_prices_before_full.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/api/urls.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/plot.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/tickers.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/settings.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/stock_quote.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/rest.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/database.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/logger.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/featureanalytictickers.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/prototype/settings_prod.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/api/handlers.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/amqp-tool/node_modules/lazy/test/forEach.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/yahoo_stock/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/yahoo_stock/data/aa.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTickersScalePopulation/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/prototype/settings.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTickersScaleLoader/entities/split.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTickersScaleLoader/entities/ticker.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTickersScaleLoader/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/anavest/admin.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/anavest/models.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/entities/ticker.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/entities/__init__.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCasperDataLoader/data/input.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/dumps/input.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTPDataInterfacePopulator/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/dump/parsed_2_10_2_21.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTPDataInterface/config",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/data/ratings_2_10_2_21.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/data/input.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/casperApp.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/data/ratings.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/yahoo_stock/yahoo_stock.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/entities/ticker.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/tickerMap/map.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonParsedDataLoader/tickerMap/filtered_input.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/dump/parsed.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonTickersScaleLoader/data/splits.csv",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/parser.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/data/PAR.json",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/include/python2.7/Python-ast.h",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/bin/pip",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/dump/parsed2.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/dump/parsed3.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/body-parser/node_modules/iconv-lite/encodings/dbcs-data.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/data/ratings2.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/data/ratings3.data",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/body-parser/node_modules/iconv-lite/encodings/sbcs-data-generated.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/phantomjs/node_modules/request/node_modules/form-data/lib/form_data.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/lib/python2.7/site-packages/django/contrib/gis/tests/relatedapp/fixtures/initial_data.json.gz",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/lib/python2.7/site-packages/django/contrib/gis/tests/distapp/fixtures/initial_data.json.gz",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/casperCrawler/node_modules/body-parser/node_modules/iconv-lite/encodings/tables/big5-added.json",
+		"/Users/maksimnorkin/Work/Vagrant/backups/production/django_production_2014-08-26_23_17_31.sql",
+		"/Users/maksimnorkin/Work/Vagrant/backups/production/django_production_2014-05-11_16_37_40.sql",
+		"/Users/maksimnorkin/Work/Vagrant/backups/production/backup.sql",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonRatingsParser/reader.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCrawler/app.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/crawler_ghost/main.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/crawler_daily/crawler_daily.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/dump/index.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/pythonCrawler/settings.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/graphs.accuracy.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/crawler_stock_prices/stock_crawler.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/anavest/views.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/navigation.graphs.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/accounts/models.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/local/model",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/local/matlab",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/accounts/views.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/lib/python2.7/site-packages/django/contrib/admindocs/templates/admin_doc/view_index.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/model/volatilities.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/prototype/urls.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/navigation.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/graphs.events.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/css/src/inner.graphs.css",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/templates/anavest/inner/analytic/graphs/header.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/templates/anavest/inner/ticker/graphs/header.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/navigation.features.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/graphs.reach_time.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/graphs.profitability.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/Gruntfile.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/main.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/render.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/navigation.front.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/navigation.view.js",
+		"/Users/maksimnorkin/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/node_modules/grunt-casperjs/lib/casperjs/casperjs-master/docs/_themes/casperjs/theme.conf",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/fonts/HelveticaNeueLTStd-ThEx.otf",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/node_modules/grunt-contrib-cssmin/node_modules/clean-css/lib/colors/hsl-to-hex.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/crawler/tests.py",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/css/src/style.css",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/graphs.help_text.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/css/src/links.css",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/templates/anavest/card_template.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/templates/anavest/inner/targetprices/content.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/templates/anavest/index.html",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/css/src/loader.drawer.css",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/loader.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/node_modules/grunt-casperjs/node_modules/phantomjs/lib/phantom/examples/render_multi_url.coffee",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/node_modules/grunt/node_modules/underscore.string/test/underscore.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src/loader.drawer.js",
+		"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/css/src/inner.graphs.help.css"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest",
+			"*.js,/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static/js/src",
+			"*.js",
+			"*.css",
+			"",
+			"-*.json,/Users/maksimnorkin/Work/Vagrant/Anavest/Django/",
+			"-*.json,/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/static",
+			"-*.json,/Users/maksimnorkin/Work/Vagrant/Anavest/Django/anavest/anavest",
+			"-*.json",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"ANE",
+			"AN",
+			"AXS",
+			"BBK",
+			"BGB",
+			"connection",
+			"cl  ectk",
+			"localhost:",
+			"\\}",
+			"'",
+			"action",
+			"\\\"\\{",
+			":",
+			"\\[\\*\\]  ",
+			"Waiting for requests",
+			"Connected",
+			"Connecting...",
+			"self.logger.error",
+			"market_dates",
+			"local_target_data",
+			"target_date",
+			"self.logger.debug",
+			".get_data",
+			"self.logger.debug",
+			"logger.debug",
+			"self.logger.info",
+			"self.logger.debug",
+			".logger",
+			"logger",
+			"TargetPrice.objects.get",
+			"TargetPrice.objects",
+			"TargetPrice",
+			"Change",
+			"TargetPrice",
+			"TargetPrice.objects",
+			"ScaleHandler",
+			"FloatField",
+			"DateField",
+			"connected",
+			"connect",
+			"\\}",
+			"\":",
+			"  ",
+			",\\n",
+			",",
+			":",
+			"'",
+			"\\{",
+			"[*]  ",
+			"Waiting for requests",
+			"Connected",
+			"Connecting...",
+			"close",
+			"change",
+			"2014-07-13",
+			"2014-07-14",
+			"print",
+			"}",
+			"2014-02-10",
+			"4/14",
+			"}",
+			"\\)\\n",
+			"}",
+			"2/10",
+			"ATHN",
+			"500.com Ltd",
+			"3D Systems Co.",
+			"1st United Bancorp Inc.",
+			"A M Castle and Co",
+			"Sidoti",
+			"EVA Dimen",
+			"Conviction-",
+			"SunTrust",
+			"get_targetprices",
+			"Beta",
+			"open_http",
+			"open_html",
+			"targetprice_parse_list",
+			"go",
+			"url_with_query",
+			"open_http",
+			"go",
+			"make_open_http",
+			"angle_scale_origin",
+			"angle_scale",
+			"getAngle",
+			"rotateByPhaseWithTransition",
+			"console.log",
+			"getAngle",
+			"construct_change",
+			"construct_features",
+			"hasFeatures",
+			"construct_features",
+			"has_features",
+			"255",
+			"search",
+			"list_type",
+			"change_target_prices_list",
+			"change_",
+			"getHash",
+			"setView",
+			".slid",
+			"target-price-list",
+			"target_price_list",
+			".title.grid .entry",
+			".up",
+			".mn",
+			".min",
+			"Feature",
+			"TargetPrice",
+			"console.log",
+			"on(",
+			"console.log",
+			"show_tooltip",
+			".grid",
+			"search_res",
+			"tooltip.",
+			"feature",
+			"render.feature",
+			"render.features",
+			"features",
+			"change",
+			"feature",
+			"filter_graph_data",
+			"filter_minimum_data",
+			"grid",
+			"loader",
+			"this.list_type"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"},",
+			"\"",
+			"\\\"action",
+			"\\{",
+			"",
+			"print",
+			"",
+			"\\n\\},",
+			"",
+			",\\n\\\"",
+			"\":",
+			"\"",
+			"\\{\\n",
+			"",
+			"},",
+			"\\)",
+			"},",
+			"this.list_type",
+			" this.data_arc",
+			"-this.pi",
+			" this.pi",
+			"anavest",
+			"graphs.getElementId()",
+			" graphs._element_id"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "section/ivadas.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								846,
+								846
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								796,
+								796
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 38.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "section/ziniu_isgavimas.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1423,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1423,
+								1423
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "section/istorija.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3092,
+								3092
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 599.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 234.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "research.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"nodevali",
+				"pythonCasperDataLoader/nodeValidator.js"
+			],
+			[
+				"features.py",
+				"model/features.py"
+			],
+			[
+				"features",
+				"model/features.py"
+			],
+			[
+				"parsed",
+				"pythonRatingsParser/dump/parsed.data"
+			],
+			[
+				"models.",
+				"Django/anavest/anavest/models.py"
+			],
+			[
+				"views.",
+				"Django/anavest/anavest/views.py"
+			],
+			[
+				"graphs.reach",
+				"Django/anavest/static/js/src/graphs.reach_time.js"
+			],
+			[
+				"main.js",
+				"Django/anavest/static/js/src/main.js"
+			],
+			[
+				"grun",
+				"Django/anavest/static/Gruntfile.js"
+			],
+			[
+				"style.css",
+				"Django/anavest/static/css/src/style.css"
+			],
+			[
+				"render.js",
+				"Django/anavest/static/js/src/render.js"
+			],
+			[
+				"grunf",
+				"Django/anavest/static/Gruntfile.js"
+			],
+			[
+				"profitability",
+				"Django/anavest/static/js/src/graphs.profitability.js"
+			],
+			[
+				"reach_time",
+				"Django/anavest/static/js/src/graphs.reach_time.js"
+			],
+			[
+				"graphs.accu",
+				"Django/anavest/static/js/src/graphs.accuracy.js"
+			],
+			[
+				"grunt",
+				"Django/anavest/static/Gruntfile.js"
+			],
+			[
+				"graph.accu",
+				"Django/anavest/static/js/src/graphs.accuracy.js"
+			],
+			[
+				"graph.reac_t",
+				"Django/anavest/static/js/src/graphs.reach_time.js"
+			],
+			[
+				"graph.pro",
+				"Django/anavest/static/js/src/graphs.profitability.js"
+			],
+			[
+				"bas",
+				"Django/anavest/templates/anavest/base.html"
+			],
+			[
+				"navi",
+				"Django/anavest/static/js/src/navigation.js"
+			],
+			[
+				"styl",
+				"Django/anavest/static/css/src/style.css"
+			],
+			[
+				"after.html",
+				"Django/landing/templates/landing/after.html"
+			],
+			[
+				"landing.css",
+				"Django/landing/static/css/landing.css"
+			],
+			[
+				"graphs.js",
+				"Django/anavest/static/js/graphs.js"
+			],
+			[
+				"settings.",
+				"Django/anavest/prototype/settings.py"
+			],
+			[
+				"base.html",
+				"Django/anavest/templates/landing/base.html"
+			],
+			[
+				"graphs",
+				"Django/prototype/static/js/graphs.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Ruptela",
+				"~/Work/Ruptela/Devel/Ruptela Devel.sublime-workspace"
+			],
+			[
+				"Rupte",
+				"~/Work/Ruptela/Devel/Ruptela Devel.sublime-workspace"
+			],
+			[
+				"",
+				"~/Work/Ruptela/Devel/Ruptela Devel.sublime-project"
+			],
+			[
+				"stu",
+				"~/Documents/Studies/Study.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 375.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 610.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 263.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

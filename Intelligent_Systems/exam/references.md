@@ -1,0 +1,1 @@
+* [1] http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=7377315&newsearch=true&queryText=cloth%20recognition

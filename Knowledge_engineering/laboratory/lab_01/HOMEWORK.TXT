@@ -1,0 +1,229 @@
+Printed: 116-04-03  Last edited: 116-04-03  Created: 116-04-03
+  
+title:   HOMEWORK
+author:  
+         Kada reikia daryti namu darbus
+ 
+ 
+Tasks
+  Kada daryti namu darba?
+    infer: ZMOGUS.kada_daryti
+  
+Objects
+  DALYKAS
+    idomus: Boolean (Ask / single-valued) 
+      dalykas * idomus  (yra / nera) 
+      Ar dalykas yra idomus?  (&Taip / &Ne / ) 
+    svarbus: Boolean (Infer / single-valued) 
+      dalykas * svarbus  (yra / nera) 
+      Ar dalykas yra svarbus?  (&Taip / &Ne / ) 
+    bus_egzaminas: Boolean (Infer / single-valued) 
+      dalyko egzaminas *  (bus / nebus) 
+      Ar bus dalyko egzaminas  (&Taip / &Ne / ) 
+    : Numerical (Infer / single-valued) 
+      dalykas turi * valandu
+      1..1000  valandos  (default: 60)
+      Kiek dalykas turi valandu?
+  ZMOGUS
+    antra_puse: Boolean (Ask / single-valued) 
+      zmogus * antra puse  (turi / neturi) 
+      Ar zmogus turi antra puse?  (&Taip / &Ne / ) 
+    kelintas_magistras: Numerical (Infer / single-valued) 
+      zmogus laiko magistrantura
+      1..10  kartas  (default: 1)
+      Kelintas cia yra zmogaus magistras?
+    kada_daryti: Enumerated (Infer / single-valued) 
+      namu dabar padaryti geriau *  
+        dabar
+        veliau
+        per savaitgali
+        per nakti
+        paskutine nakti pries egzamina
+        mesk studijas, niekad nepadarysi
+        stenkis ir dirbk, padayk kada gali
+      Kada padaryti namu darba?
+    laisvas_laikas_per_di: Numerical (Infer / single-valued) 
+      zmogus turi laisvo laiko
+      1..100  valandos  (default: 1)
+      Kiek zmogus turi laisvo laiko per diena?
+    turi_vaiku: Boolean (Ask / single-valued) 
+      zmogus * vaiku  (turi / neturi) 
+      Zmogus turi vaiku?  (&Taip / &Ne / ) 
+    masina: Boolean (Infer / single-valued) 
+      zmogus * masina  (turi / neturi) 
+      Zmogus turi masina?  (&Taip / &Ne / ) 
+    darbas: Boolean (Infer / multi-valued) 
+      zmogus * darba  (turi / neturi) 
+      Zmogus turi darba?  (&Taip / &Ne / ) 
+  
+Scopes
+  MAIN SCOPE
+    Inference: Backward- and forward chaining
+    Conflict resolution: none.
+  
+Functions
+  
+Forms
+  pradiniai-klausimai
+    Ar zmogus turi antra puse?   
+    Zmogus turi vaiku?   
+  
+RULE_1     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  mesk studijas, niekad nepadarysi (100) 
+  
+RULE_2     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko > 1 valandos
+AND  dalykas yra idomus
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  
+RULE_3     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko > 1 valandos
+AND  dalykas nera idomus
+THEN ASSERT  namu dabar padaryti geriau *  veliau (100) 
+  
+RULE_4     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura = 1 kartas
+AND  dalykas yra idomus
+AND  zmogus turi laisvo laiko > 3 valandos
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  
+RULE_5     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura = 1 kartas
+AND  dalykas nera idomus
+AND  zmogus turi laisvo laiko >= 2 valandos
+THEN ASSERT  namu dabar padaryti geriau *  paskutine nakti pries egzamina (100) 
+  
+RULE_6     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus turi vaiku
+AND  zmogus neturi darba
+THEN ASSERT  namu dabar padaryti geriau *  per nakti (100) 
+  
+RULE_7     (MAIN SCOPE) 
+IF   dalykas yra idomus
+AND  dalykas yra svarbus
+AND  dalyko egzaminas bus
+AND  zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus turi laisvo laiko >= 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  per savaitgali (100) 
+  
+RULE_8     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura > 1 kartas
+THEN ASSERT  namu dabar padaryti geriau *  per savaitgali (100) 
+  
+RULE_9     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  stenkis ir dirbk, padayk kada gali (100) 
+  
+RULE_10     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus turi laisvo laiko > 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  veliau (100) 
+  
+RULE_11     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+AND  dalykas yra idomus
+THEN ASSERT  namu dabar padaryti geriau *  per nakti (100) 
+  
+RULE_12     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+AND  dalykas nera idomus
+THEN ASSERT  namu dabar padaryti geriau *  mesk studijas, niekad nepadarysi (100) 
+  
+RULE_13     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+AND  dalykas yra idomus
+AND  dalykas yra svarbus
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  
+RULE_14     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+AND  dalykas yra idomus
+AND  dalykas yra svarbus
+AND  dalyko egzaminas bus
+THEN ASSERT  namu dabar padaryti geriau *  paskutine nakti pries egzamina (100) 
+  
+RULE_15     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura = 1 kartas
+AND  dalykas nera idomus
+AND  zmogus turi laisvo laiko = 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  
+RULE_16     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura > 1 kartas
+AND  dalykas nera idomus
+AND  zmogus turi laisvo laiko > 1 valandos
+THEN ASSERT  namu dabar padaryti geriau *  veliau (100) 
+  
+RULE_17     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura = 1 kartas
+AND  zmogus turi laisvo laiko <= 2 valandos
+AND  dalykas nera svarbus
+THEN ASSERT  namu dabar padaryti geriau *  paskutine nakti pries egzamina (100) 
+  
+RULE_18     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus neturi vaiku
+AND  zmogus laiko magistrantura = 1 kartas
+AND  dalykas yra idomus
+AND  dalykas yra svarbus
+AND  dalyko egzaminas nebus
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  
+RULE_19     (MAIN SCOPE) 
+IF   zmogus turi antra puse
+AND  zmogus turi vaiku
+AND  zmogus turi laisvo laiko <= 1 valandos
+AND  zmogus turi masina
+THEN ASSERT  namu dabar padaryti geriau *  stenkis ir dirbk, padayk kada gali (100) 
+  
+RULE_20     (MAIN SCOPE) 
+IF   zmogus neturi antra puse
+AND  zmogus turi vaiku
+AND  zmogus neturi masina
+THEN ASSERT  namu dabar padaryti geriau *  stenkis ir dirbk, padayk kada gali (100) 
+  
+RULE_21     (MAIN SCOPE) 
+IF   zmogus turi darba
+AND  zmogus turi masina
+AND  zmogus turi antra puse
+THEN ASSERT  namu dabar padaryti geriau *  per savaitgali (100) 
+  
+RULE_22     (MAIN SCOPE) 
+IF   dalykas yra idomus
+AND  dalykas yra svarbus
+AND  dalyko egzaminas bus
+AND  zmogus turi laisvo laiko > 2 valandos
+THEN ASSERT  namu dabar padaryti geriau *  dabar (100) 
+  

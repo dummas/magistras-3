@@ -1,0 +1,15 @@
+  DALYKAS
+    idomus: Boolean (Ask / single-valued) 
+      dalykas * idomus  (yra / nera) 
+      Ar dalykas yra idomus?  (&Taip / &Ne / ) 
+    svarbus: Boolean (Infer / single-valued) 
+      dalykas * svarbus  (yra / nera) 
+      Ar dalykas yra svarbus?  (&Taip / &Ne / ) 
+    bus_egzaminas: Boolean (Infer / single-valued) 
+      dalyko egzaminas *  (bus / nebus) 
+      Ar bus dalyko egzaminas  (&Taip / &Ne / ) 
+    : Numerical (Infer / single-valued) 
+      dalykas turi * valandu
+      1..1000  valandos  (default: 60)
+      Kiek dalykas turi valandu?
+  
