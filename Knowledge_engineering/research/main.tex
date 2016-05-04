@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage[L7x]{fontenc}
@@ -6,6 +6,7 @@
 \usepackage{url}
 \usepackage{float}
 \usepackage{graphicx}
+\renewcommand{\baselinestretch}{1.2}
 \graphicspath{ {img/} }
 
 \begin{document}
@@ -53,14 +54,16 @@
 
 \input{section/kokios_technologijos_naudojamos.tex}
 
-\section{Kylančios problemos}
-
 \section{Išvados}
 
 \input{section/isvados.tex}
 
+\newpage
+
 \addcontentsline{toc}{section}{Literatūros ir informacinių šaltinių sąrašas}
 \renewcommand\refname{Literatūros ir informacinių šaltinių sąrašas}
+
+\nocite{han2011data}
 
 \bibliographystyle{plain}
 \bibliography{references}

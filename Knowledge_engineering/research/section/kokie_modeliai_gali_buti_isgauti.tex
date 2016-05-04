@@ -13,14 +13,97 @@ Nuspėjantis išgavimas atlieka esamų duomenų indukciją, kad atlikti spėjimu
 \subsection{Charakterizavimas ir diskriminavimas}
 
 Duomenų esybės gali būti surištos su objektu ar koncepcija.
-Pavyzdžiui, \textit{AllElectronics} parduotuvėje, prekių pardavimui klasės 
+Pavyzdžiui, \textit{AllElectronics} parduotuvėje, prekės, kurios yra parduodamos, yra suskirstytos į dvi kategorijas -- kompiuteriai ir spausdintuvai. Parduotuvės pirkėjai gali būti skirstomi į biudžetinius ir daug išleidžiančius pirkėjus.
+Yra labai naudinga aprašyti esamas klases.
+Toks aprašymas arba sąvoka yra vadinama klasės aprašymas.
+Aprašymai gali būti išvesti iš duomenų charakterizavimo, grupuojant duomenis pagal tyrimą bendromis sąvokomis arba diskriminuojant, lyginant planinę klasę su viena ar rinkiniu palyginamų klasių arba taikant abu metodus.
+
+Duomenų charakterizavimas yra grupavimas pagal pagrindinius planinės klasės charakteristikas arba ypatybes. 
+Duomenis, kurie priklauso tam tikrai klasei, yra dažniausiai pateikiami naudotojo taikant užklausą.
+Pavyzdžiui, norint išsiaiškinti kokie programinės įrangos paketo pardavimai praeitais metais padidėjo 10\%, priklausantys duomenis gali būti pasiekiami paleidžiant užklausą į duomenų bazę.
+Egzistuoja keli efektyvūs duomenų grupavimo ir charakterizavimo metodai.
+Paprasčiausias duomenų grupavimas yra paremtas statistiniais įverčiais.
+
+Duomenų charakterizavimo išvados gali būti pateikiamas skirtingomis formomis.
+Pavyzdžiui pyrago, juostine diagrama, kreive, daugelio dimensijų duomenų kubais ir daugelio dimensijų lentelėmis.
+Gauti aprašymai gali būti atvaizduoti kaip bendri sąryšiai ar taisyklės pavidalu, kitaip vadinai charakteristikos taisyklėmis.
+
+Duomenų diskriminavimas yra planinės klasės duomenų pagrindinių ypatybių palyginimas su kitų objektų ypatybėmis.
+Planinės ir lyginamosios klasės gali būti pateiktos naudotojo, o reikiami duomenų objektai gali būti pateikiami užklausos pagalba.
+Gaunamas rezultatas yra labai panašus į duomenų charakterizavimo rezultatą, tačiau diskriminavimo aprašymas turi įtraukti palyginamuosius įverčius, kurie leidžia atskirti planines ir kontrastines klases.
+Diskriminuoti aprašymai yra pateikiami diskriminanto taisyklių forma.
 
 \subsection{Dažniniai modeliai, asociacijos ir koreliacijos}
 
+Dažniniai modeliai, kaip sąlygoja pavadinimas, yra modeliai, kurie pažymi duomenų dažnumą.
+Egzistuoja daug dažninių modelių, tarp jų -- objektų grupių dažniai, objektų eilės dažniai, dažnių struktūros. 
+Grupiniai dažniai dažniausiai yra aprašomi objektai, kurie pasitaiko grupėje labai dažnai.
+Pavyzdžiui pienas ir duona, kurie dažniausiai yra perkami kartu maisto prekių parduotuvėje.
+Eilės dažnis yra toks objektų dažnis, kurie seka vienas po kito labai dažnai.
+Pavyzdžiui pirkėjas pradžioje perka nešiojama kompiuterį, paskui skaitmeninę kamerą ir tuomet atminties kortelę.
+Dažninės struktūros pažymį struktūrines formatas, kurios gali būti sujungiamos su grupiniais ir eilės dažnių modeliais. 
+Kaip pavyzdys gali būti grafas, medis, medžio lapas.
+Žinių išgavimas dažniais modeliais veda prie įdomių asociacijų ir koreliacijų atskleidimo duomenyse.
+
 \subsection{Klasifikavimas ir regresija}
+
+Klasifikavimas yra procesas, kurio tikslas yra rasti modelį, arba funkcija, kuri geriausia apibrėžia ir atskiria duomenų klases arba jų sąvokas.
+Modelis yra kuriamas testuojamų duomenų pagrindu. 
+Modelis yra naudojamas nuspėti klasės etiketėmis objektams, kurie neturi jokios etiketės.
+
+Gautas modelis gali būti pateiktas skirtingomis formomis -- kaip pavyzdžiui klasifikavimo taisyklėmis, sprendimo medžiais, matematine formuluote ar dirbtinių neuronų tinklais.
+Sprendimo medis yra struktūra, panaši į struktūrinę schemą, kur kiekvienas mazgas atlieka sprendimą pagal kažkokios ypatybės atributo vertę, kiekviena šaka atspindi galima loginės operacijos rezultatą, lapeliai atspindi turimas objektų grupes arba klases.
+Sprendimo medis gali lengvai būti koncertuojamas į klasifikavimo taisykles.
+Dirbtinių neuronų tinklas, kuomet naudojamas klasifikavimui, dažniausiai susideda iš panašaus į neuroną apdorojimo mazgą, su įvertintais sujungimais tarp vienetų.
+Egzistuoja daug kitų būtų konstruoti klasifikavimo modelį, kaip pavyzdžiui naivusis Bayesian klasifikatorius, vektoriaus palaikymo mašina ir k-artimi-kaimynai klasifikavimas.
+
+Kur klasifikavimas apsprendžia kategorinius žymeklius, regresiniai modelių pagalba galima atlikti nepertraukiamą funkcijos įverčių skaičiavimą.
+Tai reiškia, kad regresija gali būti naudojama nuspėti neturimus duomenų įverčius, o ne žymeklius.
+Nuspėjimo sąvoką galioja tiek skaitinei, tiek žymėjimo išraiškai.
+Regresinė analizė yra statistinė metodologija, kurie dažniausia yra naudojama skaitiniam nuspėjimui. 
+Verta paminėti, jog egzistuoja ir kiti metodai. 
+Regresija taip pat apima pasiskirstymo ir tendencijų identifikavimą, turint esamus duomenis.
+
+Klasifikavimas ir regresija gali būti panaudojami prieš aktualumo analizę, kurios tinklas yra atpažinti atributus, kurie stipriai įtakoje klasifikavimą ir regresijos procesą.
+Tokie atributai gali būti panaudoti klasifikavimo ir regresijos metu.
+Kiti atributai, kurie neturi įtakos, gali būti išmesti iš svarstymo.
 
 \subsection{Grupinė analizė}
 
+Skirtingai nuo klasifikavimo ir regresijos, kurios analizuoja pažymėtus duomenis, grupinė analizė dirba su duomenimis, kurie nėra pažymėti.
+Daugelio atveju duomenų apdorojimo pradžioje, gali neegzistuoti pažymėtų duomenų.
+Tokiu atveju, grupinė analizė gali būti panaudota priskiriant pradinius žymeklius duomenų grupėmis.
+Objektai yra grupuojami pagal ``vidinės klasės panašumo maksimumą ir išorinės klasės panašumo minimumą'' principą.
+Tai reiškia, kad objektų grupės yra formuojamos tokiu principu, jog objektai grupės viduje turi daug panašumu vienas su kitu ir labai mažai panašumų su objektais už grupės ribų. 
+Kiekviena grupė yra formuojama tokiu būdu, jog kiekvienai grupei galima sudaryti taisyklių sąrašą.
+Grupės sudarymas gali palengvinti taksonomijos formavimą -- sąvokų hierarchijų stebėjimą pagal grupuotus įvykius.
+
 \subsection{Išskirčių analizė}
 
+Duomenų rinkinys gali turėti objektų, kurie tiesiog nėra surišami su likusiais objektais pagal elgseną ar modelį. 
+Tokie duomenys vadinami išskirtys.
+Daugelis žinių išgavimo metodai išmeta tokius duomenis kaip triukšmas ar išskirtinumai.
+Tačiau, kai kurios taikytinos sritys (sukčiavimo atpažinimas) išskirtiniai atvejai yra žymiai įdomesni už paprastuosius.
+Tokia analizė vadinama išskirčių analizė arba anomalijų išgavimas.
+
+Išskirtys gali būti atpažintos naudojant statistinius bandymus, kurie priima pasiskirstymą arba duomenų tikimybės modelį arba naudoja nuotolio matavimus tarp objektų, kurie yra nutolę toliau negu kito objektai grupėse.
+
 \subsection{Modelių įdomumas}
+
+Žinių išgavimo sistemos turi potencialą generuoti milijonus tūkstančių modelių bei taisyklių.
+Tačiau kyla klausimas ar visi modeliai yra įdomus? Greitas ir paprastas atsakymas yra -- ne.
+Tik maža dalis modelių potencialiai gali generuoti kažkokį dėmesį duotam naudotojui.
+
+Tokia problema kelia rimtą klausimą žinių išgavimo sistemoms -- kaip galima įvertinti gautą modelį? Kaip įvertinti, kad jis yra įdomus ir turi kažkokios naudos naudotojui?
+
+Modelis yra įdomus tokiais atvejais, kai jis yra paprastai suprantamas naudotojui, galioja su tam tikru užtikrintumo lygiu duotiems duomenims, potencialiai yra naudingas bei išskirtinis.
+Modelis taip pat yra įdomus, jeigu jis patvirtinta hipotezę, kurią naudotojas turėjo iškėlęs prieš atliekant tyrimą. 
+Įdomūs modeliai pat pat yra vadinami žiniomis.
+
+Egzistuoja pora objektyvių vertinimo mechanizmų.
+Jie visi yra parmeti modelių radimo metodika ir po ja esančia statistika.
+Objektyvus taisyklės asociacijos matas turi forma $ X \rightarrow Y$, kuri vaizduoja procentine išraiška apie transakcija pagal esamas transakcijos taisykles.
+Toliau tai galima išreikšti tikimybe $P(X \cup Y)$, kur $X \cup Y$ žymi, kad transakcija egzistuoja $X$ ir $Y$ junginyje.
+Kitas objektyvus matas yra patikimumo matas, kuris suriša rastos taisyklės užtikrintumą.
+Tai galima išreikšti sąlygine tikimybe $P(Y|X)$ -- tikimybe, kad transakcija, kuris susideda iš $X$, taip pat susideda ir iš $Y$.
+

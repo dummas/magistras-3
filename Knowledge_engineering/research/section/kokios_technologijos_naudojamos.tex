@@ -1,0 +1,81 @@
+Žinių išgavimas labai priklauso nuo taikytinos srities, todėl jis surinko labai daug įrankių iš skirtingų sričių, kaip pavyzdžiui statistika, mašininis mokymas, modelio atpažinimas, duomenų bazės ir saugyklos, informacijos gavimas, vizualizavimas, algoritmai, didelio našumo kompiuterinės operacijos ir kiti.
+Dėl esamos srities neužtikrintumo, žinių išgavimo tyrimai ir vystymas taikomi labai plačiai.
+Čia bus aptarti keletas disciplinų apžvalgų, kuriuose yra taikytini žinių išgavimo metodai.
+
+\subsection{Statistika}
+
+Statistika yra studija apie duomenų rinkinį, analizę, interpretaciją arba suvokimą ir pateikimą.
+Žinių išgavimas turi gilių sąryšiu su statistika.
+
+Statistinis modelis yra matematinių funkcijų rinkinys, kuris aprašo turimo objektų elgesį, priklausomai nuo atsitiktinių įverčių ir jų tikimybės pasiskirstymo.
+Statistiniai modeliai yra plačiai naudojami duomenų ir jų grupių modeliavimui.
+Pavyzdžiui, žinių išgavimo uždaviniuose, kaip charakterizavimas ar klasifikavimas, norimų grupių statistiniai modeliai gali būti sukurti.
+Kitais žodžiais, statistiniai modeliai gali būti žinių išgavimo uždavinio rezultatas.
+Taip pat, žinių išgavimo uždavinys gali būti sukurtas, remiantis statistiniais modeliais.
+Kaip pavyzdžiui, galima panaudoti statistinį modelį, kad sugeneruoti trūkstamus duomenis arba simuliuoti triukšmą.
+Taip žinių išgavimo metu iš duomenų rinkinio galima išvalyti duomenis, kurie turi per daug triukšmo.
+
+Statistiniai tyrimai sukūrė įrankius, kurie gali nuspėti ir prognozuoti, remianti duomenimis ir modeliais.
+Metodai gali būti panaudoti apibendrinti arba apibūdinti duomenų rinkinį.
+Statistikos yra labai naudingas įrankis išgauti įvairius modelius iš duomenų, taip pat ir suprasti paslėptą mechanizmą ir su juo generuoti dar daugiau duomenų.
+
+Statistiniai metodai gali būti taip pat panaudoti įvertinti žinių išgavimo proceso rezultatą.
+Po klasifikavimo ar spėjimo modelio sukūrimo, modelis gali būti patikrintas naudojant statistinį hipotezės tikrinimą.
+Metodas priima statistinius sprendimus, naudojat eksperimentinius duomenis.
+Rezultatas yra vadinamas statistiškai reikšmingu, jeigu jis negalėjo nutikti atsitiktinai.
+Jeigu klasifikavimo arba spėjimo modelis palaiko tokią hipotezę, tuomet aprašomos statistikos modelis yra patvirtinamas.
+
+Statistinių modelių taikymas žinių inžinerijoje yra labai svarbus.
+Dažnai, kyla problema kaip proporcingai padidinti statistinį modelį didesniam duomenų kiekiui.
+Daugelis statistinių metodų turi didelį kompleksijos lygį ir juos skaičiuoti yra labai brangu.
+Kuomet jie yra pritaikomi labai dideliam duomenų kiekiui, reikalinga labai aiškiai nurodyti skaičiavimo resursus ir atlikti bent kažkokį optimizavimą, kitaip skaičiavimų kompleksija išlieka labai didelė.
+Iššūkis padidėja dar labiau, jeigu yra kalbama apie realaus laiko analizę.
+Pavyzdžiui užklausų pasiūlymai paieškos varikliuose, kur žinių išgavimas turi tęstis nuolat, naudojant pastoviai tekančius duomenis iš informacijos šaltinio.
+
+\subsection{Mašininis mokymas}
+
+Mašininis mokymas tiria kaip kompiuterinės programos gali išmokti, remiantis duomenimis.
+Pagrindinė tyrimo sritis yra kompiuterio programos, kurios automatiškai išmoksta atpažinti sudėtingus modelius ir gali priimti sprendimą, remiantis duomenimis.
+Pavyzdžiui, tipinė mašininio mokymo problema yra suprogramuoti kompiuterį, kad jis mokėti labai gerai atpažinti žmogaus ranka rašyta tekstą -- nuskaityti laiško adresą.
+
+Mašininis mokymas yra sparčiai auganti disciplina.
+Aprašysime pora klasikinių problemų mašininiam mokyme, kurie labai arti susiję su žinių išgavimu.
+
+Prižiūrimas mokymas yra klasifikavimo sinonimas.
+Prižiūrėjimas čia yra pažymėti duomenis iš mokymo duomenų rinkinio.
+Pavyzdžiui, pašto kodo atpažinimo problemoje, ranka rašyti pašto kodo numerių paveikslėliai ir jų atitikmenys yra naudojami kaip apmokymo duomenis, kurių pagrindu yra kuriamas klasifikavimo modelis.
+
+Neprižiūrimas mokymas yra pagrindas grupavimui.
+Apmokymo procesas nėra prižiūrimas, kadangi apmokymo duomenis nėra pažymėti.
+Paprastai, čia gali būti panaudoti grupavimo metodai atrasti duomenų grupes.
+Pavyzdžiui, neprižiūrimas mokymas gali priimti kaip pradinius duomenis ranka rašytus numeriu.
+Galima padaryti prielaida, jog algoritmas rado 10 objektų grupių.
+Tos grupės atitinka numerius nuo 0 iki 9.
+Tačiau, kadangi apmokymo duomenis nėra pažymėti, išmoktas modelis negali atpažinti semantinį duomenų grupės reikšmę.
+
+Dalinai prižiūrimas mokymas yra mašininio mokymo tipas, kuris reikalauja tiek pažymėtų, tiek nepažymėtų duomenų pradinių duomenų.
+Tokiu atveju, pažymėti duomenis yra panaudojami pradiniam objektų grupių sukūrimui, o ne pažymėti duomenis yra panaudojami tiksliau apibrėžti ribas tarp duomenų grupių.
+Dviejų grupių atveju, apie duomenis galima galvoti sekančiu būdu -- duomenis, kurie priklauso vienai grupei yra teigiami pavyzdžiai, o duomenis, kurie priklauso kitai grupei, yra vadinami neigiami pavyzdžiai.
+
+Aktyvus mokymas yra mašininio mokymo metodas, kuris leidžia naudotojui aktyviai pažaisti su apmokymo procesu.
+Aktyvus mokymas gali paklausti naudotojo kokiai grupei priklauso duomenų pavyzdys, o tas pavyzdys pradžioje nebuvo pažymėtas arba net buvo tiesiog sugeneruotas atsitiktinai programos.
+Tikslas yra optimizuoti modelio vertę, aktyviai mokantis iš žmonių.
+
+Kaip galima pamatyti, yra labai daug panašumų tarp žinių išgavimo ir mašininio mokymo.
+Klasifikavimo ir grupavimo uždaviniams spręsti, mašininio mokymo tyrimai paprastai susitelkia į modelio tikslumą.
+Be modelio tikslumo, žinių inžinerijos tyrimas teigia didelį indelį į efektyvumą ir į potencialų modelio plėtimą didesniam duomenų kiekiui.
+
+\subsection{Duomenų bazės sistemos ir duomenų saugyklos}
+
+Duomenų bazių sistemos tyrimas akcentuoja sukūrimą, palaikymą ir sistemos naudojimą organizacijai ir galutiniam naudotojui.
+TIksliau, duomenų sistemų tyrėjai nustatė labai aiškius duomenų modelio, užklausos kalbos, užklausos apdorojimo ir optimizavimo metodų, saugojimo ir indeksavimo principus.
+Duomenų bazių sistemos yra dažnai žinomos dėl plataus iškleidimo ir labai didelio duomenų kiekio apdorojimo.
+
+Daugelis žinių išgavimo uždavinių reikalauja apdoroti didelį duomenų kiekį -- ar jis būtų statiškai padėtas į duomenų bazę ar jis būtų nuolat einantis duomenų srautas.
+Dėl šios priežasties, žinių išgavimas gali labai gerai panaudoti duomenų bazių skaičiaus didinimo savybę, norint pasiekti didelį efektyvumą ir išplėtimą.
+Be to, žinių išgavimo uždaviniai gali būti išplėsti ir už esamos duomenų bazės sistemos ir patenkinti pažengusių naudotojų poreikius.
+
+Naujausios duomenų sistemos turi palaikymą semantiniam duomenų analizei, naudojant duomenų saugyklas ir žinių išgavimo struktūras.
+Duomenų saugyklos integruoja duomenis, kuris yra išgaunamos iš daugelio šaltinių ir daugelio laiko rėmų.
+Duomenis yra saugomi daugelio dimensijų erdvėje, formuodami dalinai realizuotus duomenų kubus.
+Duomenų kubas ne tik įgyvendina realaus laiko apdorojimą daugelio dimensijų duomenų bazėje, bet taip pat palaiko daugelio dimensijų žinių išgavimą.
