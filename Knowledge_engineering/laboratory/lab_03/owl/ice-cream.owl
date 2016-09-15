@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#"
+     xml:base="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasIngredient"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasIngredient -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasIngredient"/>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasIngredient"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Apple -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Apple">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#apple_flavour"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Bannana -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Bannana">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                        <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Blueberies_topping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Blueberies_topping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Caramel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Caramel">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#caramel_flavour"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_flavour"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Domain_entity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Domain_entity">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#FronzenYogurt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#FronzenYogurt">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#frozen_yogurt"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#apple_flavour"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Fruity">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Independent_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Independent_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Independent_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Independent_entity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Independent_entity">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Domain_entity"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Value"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Nut -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Nut">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#nut_flavour"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Plain -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Plain">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Straberies_topping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Straberies_topping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Sweet">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Value -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Value">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Domain_entity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Vanilla -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Vanilla">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Plain"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasFlavour"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#plain_flavour"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#hasTopping"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Plain"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#almond_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#almond_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#apple_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#apple_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#caramel_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#caramel_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_chip -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_chip">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#cookie_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#cookie_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#frozen_yogurt -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#frozen_yogurt">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#nut_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#nut_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#plain_flavour -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#plain_flavour">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Apple"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Bannana"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Caramel"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Vanilla"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Blueberies_topping"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Chocolate_topping"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#No_topping"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Straberies_topping"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#Ice_cream_topping"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#almond_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#apple_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#bannana_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#caramel_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_chip"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#chocolate_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#cookie_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#frozen_yogurt"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#nut_flavour"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/maksimnorkin/ontologies/2016/4/untitled-ontology-7#plain_flavour"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.3.20160319-0906) https://github.com/owlcs/owlapi -->
+

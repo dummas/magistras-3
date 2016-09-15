@@ -1,0 +1,150 @@
+Naudojama operacinė sistema yra ``Compute Node Kernel (CNK)'', kuri yra panaši į Linux ir suteikia naudotojui darbo aplinką leisti procesus \cite{milano2013ibm}.
+CNK įtraukia tokias paslaugas:
+
+\begin{itemize}
+    \item Proceso sukūrimas ir valdymas
+    \item Atminties valdymas
+    \item Proceso skrodimas
+    \item Patikimumas, pasiekiamumas ir universalumo valdymas
+    \item Bylų Į/I
+    \item Tinklas
+\end{itemize}
+
+Programinis paketas įtraukia į save standartines C/C++ ir Fortran darbo bibliotekas.
+Kiek įmanoma, yra palaikomos ir atviro standarto Portable Operacing System Interface (POSIX) sąsajas.
+CNK turi grubų gijų palaikymą, kuris įtraukia tokias technologijas kaip pthread, XL OpenMP ir GNU OpenMP.
+Native POSIX Thread Library pthreads įgyvendinimas yra palaikomas be modifikacijų.
+Statiškai sujungtos paleidžiamos programos pateikia optimalų veikimą, tačiau CNK taip pat palaiko ir dinamiškai sujungtas paleidžiamas programas.
+Iš dinamiškai sujungtų programinių programų yra palaikoma tik Python.
+
+\subsection{Į/I mazgų branduolys ir paslaugos}
+
+Į/I mazgas dirba ant branduolio, kuris yra pakeistas Red Hat Enterprise Linux 6 branduolys.
+Modifikacija pateikia platformos palaikymą ir didesnį našumą.
+
+Į/I mazgo programinis paketas suteikia Į/I paslaugas skaičiavimo mazgams.
+Pavyzdžiui, programos, kurios dirba ant skaičiavimo mazgų gali prieiti prie bylų serverių ir komunikuoti su procesais kitose mašinose.
+Į/I mazgai taip pat gali turėti svarbų vaidmenį paleidžiant ir sustabdant darbus ir koordinuojant jų darbą su skrodimo ir stebėjimo įrankiais.
+
+Blue Gene/Q yra be disko sistema, todėl bylų serveriai turi būti.
+Aukšto našumo lygiagreti bylų sistema turi būti.
+Blue Gene/Q yra labai lanksti ir palaiko skirtingas bylų sistemas, kurias palaiko Linux.
+Tipinė lygiagreti bylų sistema yra IBM General Parallel File System (GPFS) ir Lustre.
+
+Į/I magzai įtraukia pilną IP, TCP ir UDP protokolo įgyvendinimus.
+Šių protokolų poaibės yra pasiekiamos naudotojo procesams, kurie veikia ant apdorojimo mazgų ir turi susiejimą su Į/I mazgu.
+Programos procesai bendrauja su procesais, kurie veikia kituose sistemose per kliento pusės jungtis.
+Serverio pusės jungtys taip pat yra palaikomos.
+Į/I mazgo jungčių įgyvendinimas yra atliktas tokiu būdu, kad procesai iš apdorojimo mazgų, mano esą tiesiai ant Į/I mazgo.
+Tai reiškia, kad jungties port skaičius yra vienas adresas per grupę.
+Skaičiavimo mazgai dalinasi Į/I mazgo IP adresu.
+
+Į/I branduolio mazgas yra įgyvendintas taip, kad jis būtų kraunamas kuo rečiau.
+Krovimo procesas įtraukia krovimą į darbinę atmintį Linux branduolį ir jo paleidimą iš tos pačios atminties.
+Darbinės atminties įkrautas branduolys tuomet yra pateikiamas pradinei bylų sistemai.
+Sistema sudedama iš pagrindinių komandų, kurios yra skirtos pakrauti bylų sistemą ant aptarnavimo mazgo per Network File System (NFS).
+Krovimas toliau tęsiasi paleisdamas paleidžiant paleidimo programas iš NFS.
+Jis taip pat paleidžia naudojo parengtus paleidimo programas, atliekant specifinius veiksmus, kaip pavyzdžiui sistemos pranešimų konfigūracija ir jungimas aukšto našumo bylų sistemas.
+
+Bendros įrankių dėžės bibliotekos ir visi pagrindiniai Linux teksto ir kiauto įrankiai egzistuoja darbinėje atmintyje.
+Paketai, kaip pavyzdžiui GPFS, ir naudotojo pateiktos programos yra prijungiamos per NFS ir valdomos su administracinėmis teisėmis.
+
+\subsection{Žinučių perdavimo sąsaja}
+
+Žinučių perdavimo sąsajos įgyvendinimas Blue Gene/Q sistemoje yra MPICH2 standartas, kuris buvo sukurtas Argonne National Labs.
+
+Dinaminis proceso valdymo funkcija yra MPI-2 standartas ir nėra palaikoma Blue Gene/Q sistemos.
+Tačiau skirtingi gijų modeliai yra palaikomi.
+
+\subsection{Kompiliatoriai}
+
+Sistemos įrankių dėžės kompiliatoriai ir IBM XL kompiliatoriai Blue Gene/Q skaičiavimo sistemos mazgams yra galimi naudoti iš sistemos.
+Kadangi kompiliavimas yra atliekamas priekinio priėjimo mazguose ir ne ant Blue Gene/Q sistemos, yra naudojami daugybės platformos kompiliatoriai.
+
+\subsubsection{GNU kompiliatoriai}
+
+Kompiliatoriai yra paremti GNU šeimos kompiliatoriais.
+Kuomet yra diegiamas programinis paketas į sistemą, RPM paketų valdyklė yra suteikiama, kad naudotojai galėtų sukurti su sudiegti įrankių dėžę į \textit{gnu-linux} direktoriją.
+Tie patys kompiliatoriai yra panaudoti ir kuriant pačios Blue Gene/Q sistemos programas, todėl yra galimas pilnas bibliotekų palaikymas naudotojo programoms.
+
+\subsubsection{IBM XL kompiliatoriai}
+
+IBM XL kompiliatoriai Blue Gene/Q sistemai gali būti panaudoti programų kompiliavimui.
+Kompiliatorius gali sutekti aukštesnio lygio optimizavimo lygį, lyginant su GNU kompiliatoriais.
+XL kompiliatoriai palaiko vienos instrukcijos, daugybės duomenų vektorizavimą.
+Vektorizavimas suteikia automatinį kodo generavimą ketvirtos eilės slankaus skaičiaus naudojimui.
+Toks vienetas vienu metu gali atlaikyti keturias slankaus skaičiaus instrukcijas.
+XL kompiliatorius taip pat palaiko išeities kodo sintaksę, kurios pagalba galima skaidriau naudoti atmintį ir spekuliacines gijas.
+
+\subsubsection{MPI apgaubimo programos}
+
+MPI apgaubimo programos yra kompiliatoriaus apgaubimo programos, kurios suteikiamos Blue Gene/Q tvarkyklėje.
+Tokios programos gali būti panaudotos kompiliavimui ir sujungimui programų, kurios naudoja MPI.
+Skirtinos MPI programos yra galimos, priklausomai nuo panaudoto kompiliatoriaus ir nuo panaudotų bibliotekų versijos.
+Apgaubimo programos paleidžia reikalingą kompiliatorių ir sudeda visas reikalingas direktorijas, bibliotekas, ir parametrus, kurie yra reikalingi MPI programos kompiliavimui.
+Kiekvienai kompiliavimo kalbai ir Blue Gene/Q standartui, yra atitinkama MPI programa.
+Taip pat egzistuoja saugios gijos XL kompiliatoriaus versijos.
+
+\subsection{Programos vystymas ir skrodimas}
+
+Programos vystymo specialistai gali prieiti prie išorinės pusės mazgų, kad sukompiliuoti ir skrosti programas, kurios buvo priskirtos į sistemos darbo režimą ir atlikti kitus interaktyvius veiksmus.
+
+\subsubsection{Skrodimo programos}
+
+Sistema palaiko GNU Project Debugger (GDB) paleidimą su programomis, kurios veikia ant skaičiavimo mazgų.
+
+\subsubsection{Programų paleidimas}
+
+Sistemos programos gali dirbti skirtingais režimais.
+Dažniausiai naudojamas metodas yra naudoti darbo planuotoją, kuris palaiko Blue Gene/Q sistemą, kaip pavyzdžiui LoadLeveler planuotojas.
+Kita mažiau naudojama alternatyva yra naudoti \textit{runjob} komanda tiesiogiai.
+Visi planuotojai naudoja \textit{runjob} sąsaja darbų tvirtinimui, tačiau planuotojai taip pat gali apgaubti darbą su kita komanda arba darbo pridavimo sąsaja.
+
+\subsubsection{Programos atminties sąlygos}
+
+Sistemoje, visa fizinę atmintis ant vieno skaičiavimo mazgo yra $16~GB$, todėl rašant programinį paketą reikia turėti šitą informaciją omenyje.
+Kai kuri iš šios atminties jau yra užimta CNK.
+Dalinama atminties vieta taip pat yra paskiriama naudotojo procesui, kuomet procesas yra sukuriamas.
+
+CNK seka steko ir kaupo susidūrimus, kuomet kaupas yra plečiamas su \textit{brk()} ir \textit{mmap()} sistemos kvietimais.
+CNK ir jos privatūs duomenys yra apsaugomi nuo naudotojo procesų ar gijų skaitymo ir rašymo operacijų.
+Proceso kodo erdvė irgi yra apsaugoma nuo kitų procesų ar gijų.
+Kodas ir skaitymo duomenys yra padalinami tarp procesų, kurie dalinasi tą patį mazgą.
+
+Atminties dydis, kuris yra reikalingas programai yra svarbus dalykas Blue Gene/Q sistemai.
+Naudojama programos atmintis yra klasifikuojama:
+
+\begin{itemize}
+    \item bss -- ne inicializuoti statiniai ar paprasti kintamieji
+    \item data -- inicializuoti statiniai ar paprasti kintamieji
+    \item heap -- kontroliuojamas priskyrimo masyvas
+    \item stack -- kontroliuojamas automatinis masyvas ir kintamieji
+    \item text -- programos tekstas (instrukcijos) ir skaitymo duomenys
+\end{itemize}
+
+Blue Gene/Q sistema palaiko 64 bitų atminties modelį.
+Galima naudoti Linux \textit{size} komandą, parodyti programos naudojamą atminties dydį.
+Tačiau, \textit{size} komanda neparodo jokios informacijos apie paleisto proceso naudojamos steko ir kaupimo  atminties dydį.
+
+Galimas atminties dydis, kuris yra suteikiamas programai, priklauso nuo procesų skaičiaus viename mazge.
+Galimos $16~GB$ atminties dydis yra paskirstomas kaip įmanoma lygiai kiekvienam procesui, kuris dirba ant to mazgo.
+Kadangi atmintis yra ribotas resursas, dažniausiai rekomenduojama konservuoti programos atmintį.
+Kai kuriais atvejais, atminties reikalavimas gali būti sumažintas paskirstant duomenis, kurie buvo replikuoti originaliam kode.
+Tačiau tai reikalauja papildomos komunikacijos.
+Sistemoje veikiančių procesų skaičius gali būti labai didelis.
+Atmintį galima įsivaizduoti kaip dviejų dimensijų masyvą, kur viena dimensija yra procesų skaičius, o kita dimensija -- galimas atminties laukų skaičius.
+
+\subsubsection{Kiti pastebėjimai}
+
+Labai svarbu yra suprasti, jog operacinė sistema, kuri randasi ant skaičiavimo mazgo nėra pilnas Linux branduolys.
+Todėl reikia būti labai atsargiems tokiose operacijose:
+
+\begin{itemize}
+    \item Įėjimas ir išėjimas. Labai svarbu kreipti į tai dėmesį. CNK neatlieka jokio Į/I -- viskas yra atliekama Į/I mazgo
+    \item Bylų Į/I. Yra palaikoma labai limituota bylų sąsaja. Negalima naudoti asinchroninių bylų operacijų, kadangi tai sukelia klaidų darbo metu
+    \item Standartinė įvestis yra palaikoma Blue Gene/Q
+    \item Jungčių kvietimai yra palaikoma sistemos
+    \item Tiek statinis, tiek dinaminis jungimas yra palaikomas sistemos.
+    \item Kiauto programos nėra palaikomos CNK branguolio. Tik paleidžiama programa gali būti startuojama.
+    Todėl, jeigu programa reikalauja kiauto programos srautui kontroliuoti, srautas turi būti adaptuojamas.
+\end{itemize}

@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{pgfgantt}
+
+\title{Moderniosios operacinės sistemos\\Namų darbas 2\\Variantas 1}
+\author{Maksim Norkin\\ AKSfm-15}
+
+\begin{document}
+
+    \maketitle
+
+    \section{Užduotis}
+
+    Duotas procesų rinkinys su tokiomis CPĮ operacijų paketų trukmėmis milisekundėmis.
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            Procesas & CPĮ operacijų paketo trukmė, ms & Atsiradimo momentas, ms & Prioritetas \\ \hline
+            $P_1$ & 7 & 0 & 5 \\ \hline
+            $P_2$ & 1 & 1 & 1 \\ \hline
+            $P_3$ & 2 & 2 & 2 \\ \hline
+            $P_4$ & 3 & 3 & 4 \\ \hline
+            $P_5$ & 5 & 4 & 3 \\ \hline
+        \end{tabular}
+    \end{center}
+
+    Nupieškite Ganto diagramas iliustruojančias šių operacijų vykdymą pagal tokiu CPĮ planavimo algoritmus:
+
+    \begin{itemize}
+        \item Pirmas atėjo -- pirmas aptarnautas
+        \item Trumpiausias darbas -- pirmaeilis aptarnavimas, schema be pralenkimų
+        \item Trumpiausias darbas -- pirmaeilis aptarnavimas, schema su pralenkimais
+        \item Ciklinis, kai laiko kvantas 1 ms ir, kai laiko kvantas 3 ms;
+    \end{itemize}
+
+    Apskaičiuokite procesų laukimo, bei apyvartos trukmių vidutines vertes.
+
+    \section{Sprendimas}
+
+    \begin{figure}[H]
+        \begin{center}
+            \begin{ganttchart}[
+                hgrid=true,
+                vgrid=true,
+                group height = 0.1,
+                group left shift = 0,
+                group right shift = 0,
+                group peaks tip position = 0,
+                group peaks height = 0,
+                group peaks width = 0
+            ]{1}{19}
+                \gantttitlelist{0,...,18}{1} \\
+                \ganttgroup{$P_1$}{1}{7}  \ganttbar{}{1}{7} \\
+                \ganttgroup{$P_2$}{2}{8}  \ganttbar{}{8}{8} \\
+                \ganttgroup{$P_3$}{3}{10} \ganttbar{}{9}{10} \\
+                \ganttgroup{$P_4$}{4}{13} \ganttbar{}{11}{13} \\
+                \ganttgroup{$P_5$}{5}{19} \ganttbar{}{14}{19}
+            \end{ganttchart}
+        \end{center}
+        \caption{Pirmas atėjo -- pirmas aptarnautas. Vidutinis procesų laukimo laikas $5ms$, apyvartos trukmė $9.2ms$.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \begin{center}
+        \begin{ganttchart}[
+                hgrid=true,
+                vgrid=true,
+                group height = 0.1,
+                group left shift = 0,
+                group right shift = 0,
+                group peaks tip position = 0,
+                group peaks height = 0,
+                group peaks width = 0
+            ]{1}{19}
+                \gantttitlelist{0,...,18}{1} \\
+                \ganttgroup{$P_1$}{1}{7} \ganttbar{}{1}{7}\\
+                \ganttgroup{$P_2$}{2}{8} \ganttbar{}{8}{8} \\
+                \ganttgroup{$P_3$}{3}{10} \ganttbar{}{9}{10} \\
+                \ganttgroup{$P_4$}{4}{13} \ganttbar{}{11}{13} \\
+                \ganttgroup{$P_5$}{5}{19} \ganttbar{}{14}{19}
+            \end{ganttchart}
+        \end{center}
+        \caption{Trumpiausias darbas -- pirmaeilis aptarnavimas, be pralenkimų. Vidutinis procesų laukimo laikas $5ms$, apyvartos trukmė $9.2ms$.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \begin{center}
+        \begin{ganttchart}[
+                hgrid=true,
+                vgrid=true,
+                group height = 0.1,
+                group left shift = 0,
+                group right shift = 0,
+                group peaks tip position = 0,
+                group peaks height = 0,
+                group peaks width = 0
+            ]{1}{19}
+                \gantttitlelist{0,...,18}{1} \\
+                \ganttgroup{$P_1$}{1}{13} \ganttbar{}{1}{1} \ganttbar{}{13}{18} \\
+                \ganttgroup{$P_2$}{2}{2} \ganttbar{}{2}{2} \\
+                \ganttgroup{$P_3$}{3}{4} \ganttbar{}{3}{4} \\
+                \ganttgroup{$P_4$}{4}{4} \ganttbar{}{5}{7} \\
+                \ganttgroup{$P_5$}{5}{8} \ganttbar{}{8}{12}
+            \end{ganttchart}
+        \end{center}
+        \caption{Trumpiausias darbas -- pirmaeilis aptarnavimas, su pralenkimų. Vidutinis procesų laukimo laikas $3ms$, apyvartos trukmė $6.6ms$.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \begin{center}
+        \begin{ganttchart}[
+                hgrid=true,
+                vgrid=true,
+                group height = 0.1,
+                group left shift = 0,
+                group right shift = 0,
+                group peaks tip position = 0,
+                group peaks height = 0,
+                group peaks width = 0
+            ]{1}{19}
+                \gantttitlelist{0,...,18}{1} \\
+                \ganttgroup{$P_1$}{1}{17} \ganttbar{}{1}{1} \ganttbar{}{3}{3} \ganttbar{}{6}{6} \ganttbar{}{10}{10} \ganttbar{}{12}{12} \ganttbar{}{15}{15} \ganttbar{}{17}{17} \\
+                \ganttgroup{$P_2$}{2}{2}  \ganttbar{}{2}{2} \\
+                \ganttgroup{$P_3$}{3}{7}  \ganttbar{}{4}{4} \ganttbar{}{8}{8} \\
+                \ganttgroup{$P_4$}{4}{13} \ganttbar{}{5}{5} \ganttbar{}{9}{9} \ganttbar{}{13}{13} \\
+                \ganttgroup{$P_5$}{5}{18} \ganttbar{}{7}{7} \ganttbar{}{11}{11} \ganttbar{}{14}{14} \ganttbar{}{16}{16} \ganttbar{}{18}{18}
+            \end{ganttchart}
+        \end{center}
+        \caption{Ciklinis, kai laiko kvantas $1ms$. Vidutinis procesų laukimo laikas $5.8ms$, apyvartos trukmė $9.8ms$.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \begin{center}
+        \begin{ganttchart}[
+                hgrid=true,
+                vgrid=true,
+                group height = 0.1,
+                group left shift = 0,
+                group right shift = 0,
+                group peaks tip position = 0,
+                group peaks height = 0,
+                group peaks width = 0
+            ]{1}{19}
+                \gantttitlelist{0,...,18}{1} \\
+                \ganttgroup{$P_1$}{1}{17} \ganttbar{}{1}{3} \ganttbar{}{10}{12} \ganttbar{}{16}{17} \\
+                \ganttgroup{$P_2$}{2}{4} \ganttbar{}{4}{4} \\
+                \ganttgroup{$P_3$}{3}{6} \ganttbar{}{5}{6}  \\
+                \ganttgroup{$P_4$}{4}{9} \ganttbar{}{7}{9} \\
+                \ganttgroup{$P_5$}{5}{19} \ganttbar{}{13}{15} \ganttbar{}{18}{19}
+            \end{ganttchart}
+        \end{center}
+        \caption{Ciklinis, kai laiko kvantas $3ms$. Vidutinis procesų laukimo laikas $5.2ms$, apyvartos trukmė $8.8ms$.}
+    \end{figure}
+
+\end{document}

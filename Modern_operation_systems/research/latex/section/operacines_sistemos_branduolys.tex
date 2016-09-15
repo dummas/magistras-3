@@ -1,0 +1,59 @@
+Branduolys suteikia klijus, kuris sujungia visus sistemos komponentus, kad jie galėtų dirbti kartu.
+Čia bus apžvelgti pora funkcionalumų, kurie yra įgyvendinti kaip CNK ir Į/I mazgo branduolys, bei informacija apie: skaičiavimo mazgo branduolys, Į/I mazgo branduolio vaidmuo.
+
+\subsection{Skaičiavimo mazgo branduolys}
+
+CNK yra lankstus ir lengvas branduolys Blue Gene/Q sistemos skaičiavimo mazgams, kuris palaiko įvertinimo režimus ir naudojo programas.
+Jis suteikia operacinę sistemą, kuri labai panaši į Linux operacinė sistemą ir palaiko platų Linux sistemos palaikomų kvietimų skaičių.
+Toks poaibis yra paremtas ant Blue Gene/P sistemos, kuri parodė gerą Linux operacinės sistemos palaikymą ir perkėlimą.
+CNK yra optimizuotas specialiai Blue Gene/Q programos specifinei integracinei schemai.
+
+CNK palaiko gijas ir dinaminį sujungimą, kaip dalies Blue Gene/Q sistemos, kuri dar labiau pagerina suderinamumą su Linux operacine sistema.
+Kai yra paleidžiama naudojo programa, CNK sujungia Į/I mazgus per torus tinklą.
+Toks sujungimas bendrauja per procesus, kurie yra vadinami \textit{Kontroliavimo ir Į/I paslaugos}, kurios dirba ant Į/I mazgo.
+Programos lygmenyje, CNK palaiko tokias sąsajas:
+
+\begin{itemize}
+    \item Žinučių perdavimo sąsaja tarp skirtingų mazgų, naudojant MPI biblioteką
+    \item Atvirą platų apdorojimo sąsaja
+    \item Standartizuotus IBM XML šeimos kompiliatorius su XLC/C++, XLF bei GNU šeimos kompiliatorių
+    \item Stipriai optimizuotas matematikos bibliotekas, kaip pavyzdžiui IBM inžinerijos ir mokslo paprogrames biblioteka (ESSL)
+    \item GNU kompiliatorių rinkinio (GCC) C biblioteka
+\end{itemize}
+
+CNK suteikia tokias paslaugas:
+
+\begin{itemize}
+    \item Torus tiesioginį atminties priėjimą (DMA), kuris suteikia priėjimą prie skaitymo, rašymo, bei jų dviejų operacijų atminties priėjimą nepriklausomai kiekvienam proceso vienetui. DMA torus sąsaja yra galima naudotojo erdvėje, kas leidžia komunikuoti bibliotekoms ir siųsti žinutes tiesiogiai iš programos, be branduolio įsikišimo. Branduolys su aparatine įranga atlieka saugų registrų limitavimą, kuris draudžia DMA kreiptis į atmintį iš aplikacijos. Tokie limitavimai, kartu su elektroniniu torus skirstymu, suteikia saugumą tarp programų
+    \item Bendros atminties priėjimą vietiniam mazge
+    \item Aparatinės įrangos konfigūravimą
+    \item Atminties valdymą
+    \item MPI topologiją
+    \item Bylų Į/I
+    \item Jungčių sujungimą
+    \item Signalus
+    \item Gijų valdymą
+    \item Torus tinklui transportavimo lygį 
+\end{itemize}
+
+\subsubsection{Skaičiavimo mazgo būsena}
+
+Blue Gene/Q aparatinė įranga neturi būsenos -- nėra jokios tik skaitymui skirtos atminties (ROM) ar paprastos Į/I sistemos (BIOS).
+Kuomet aparatinė įranga yra perkraunama, sistemos kontrolė turi pakrauti kiekvienam skaičiavimo mazgui operacinę sistemą į atmintį.
+Tai yra atliekama per dvi fazes:
+
+\begin{itemize}
+    \item Mažas \textit{mikro-programa} komponentas yra pakraunamas į kiekvieno skaičiavimo mazgo darbinę atmintį (RAM). Šis \textit{mikro-programa} paleidžia ir inicializuoja kritines Blue Gene/Q lusto vietas.
+    \item Per specializuotą protokolą yra atsiunčiama likusi branduolio dalis. Paskui tos dalys yra paleidžiamos ir šitas paleidimas leidžia prisijungti prie Torus tinklo.
+\end{itemize}
+
+\subsubsection{Mikro-programa}
+
+Mikro-programa suteikia žemo lygio galimybių paslaugas tiek Blue Gene specifiniams poreikiams, tiek Linux operacinei sistemai, bei CNK.
+Tokia paslauga suteikia patikimą sprendimą per visus mazgus, kartu izoliuojant branduolius nuo kontrolės sistemos įgyvendinimo specifikos.
+Paprasčiausio mazgo paslaugos suteikia tą patį žemo lygio aparatinės įrangos paleidimą ir sąsajų paleidimą Linux operacinei sistemai ir skaičiavimo mazgo branduoliui.
+
+\subsection{Į/I branduolio vaidmuo}
+
+Į/I mazgo branduolys suteikia Į/I paslaugas skaičiavimo mazgams ir dirba ant visų Į/I mazgų.
+Taip pat mazgas atlieka vaidmenį paleidžiant ir sustabdant darbus, bei koordinavimo veiksmuose su skrodimu ir sekimo įrankiais. Į/I mazgas neturi įtakos programai, tačiau labai verta į jį atkreipti dėmesį, kai yra derinamas Į/I sparta.

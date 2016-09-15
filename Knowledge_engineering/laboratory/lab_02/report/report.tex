@@ -1,0 +1,64 @@
+\documentclass[11pt, a4paper, lithuanian]{article}
+
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{listings}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{subcaption}
+
+\author{AKSfm-15, Maksim Norkin}
+\title{Žinių inžinerija\\Antras laboratorinis darbas}
+
+\lstset{language=Lisp,
+  columns=fixed,
+  numbers=none,
+  showspaces=false,
+  xleftmargin=20pt
+}
+
+\begin{document}
+
+    \maketitle
+
+    \section{Užduotis}
+
+    Sukurti ekspertinę sistema Jess sistemos pagalba. Ekspertinė sistema turi turėti nemažiau 20 faktų failą bei ne mažiau 15 taisyklių bazę. 
+
+    \section{Atliktas darbas}
+
+    Pasirinktas elementas labai paprastas, kuris turi tik vardą ir elementų skaičių. Kodas yra patiektas \ref{code:template-item} pav.
+
+    \begin{figure}[h!]
+      \centering
+      \lstinputlisting{source/element.clj}
+      \caption{Dalykas šablonas}
+      \label{code:template-item}
+    \end{figure}
+
+    Toliau yra aprašomos taisyklės. Kiekviena taisyklė susideda iš jos pavadinimo, bei elementų tikrinimo. Kodas yra pateiktas \ref{code:rule-three} pav. Šiuo atveju yra aprašytos trys taisyklės, kurios tikrina ar egzistuoja elementai su deramu pavadinimu ir atitinkamu skaičiumi tų elementų. Pavyzdžiui su ``Spicy carrot Salad'', rezultatas bus atvaizduotas, jeigu yra toks elementas, kurio pavadinimas yra ``carrot'', bei jo kiekis yra daugiau už du, bei elementas, kurio pavadinimas yra ``garlic'', bei kurio skaičius turi būti didesnis arba lygus vienam.
+
+    \begin{figure}[h!]
+      \centering
+      \lstinputlisting{source/rule.clj}
+      \caption{Taisyklių aprašymas}
+      \label{code:rule-three}
+    \end{figure}
+
+    Toliau seka sistemos faktai -- t.y. mes apibrėžiam duomenis, kuriuos šiuo metu turime. Pavyzdinis kodas pateiktas \ref{code:fact-four} pav. Faktų aprašymas pažymi kas šiuo metu yra žinoma. Čia yra pateikiami esami elementai -- jų pavadinimas, kartu su elementų kiekiu. Šitie duomenys yra naudojami taisyklių tikrinime.
+
+    \begin{figure}[h!]
+      \centering
+      \lstinputlisting{source/fact.clj}
+      \caption{Faktų aprašymas}
+      \label{code:fact-four}
+    \end{figure}
+
+    \section{Išvados}
+
+    Laboratorinio darbo metu buvo sukurta ekspertine sistema Jess sistemos pagalba. Sistemos kalba yra labai panaši į vieną iš naudojamų programavimo kalbų dialektą, todėl laboratorinis darbo įgyvendinimas buvo labai patogus. Laboratorinio darbo metu buvo pateikti 20 faktų ir 16 taisyklių.
+
+\end{document}

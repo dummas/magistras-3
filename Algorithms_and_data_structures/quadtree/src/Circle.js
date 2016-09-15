@@ -22,6 +22,9 @@
     THE SOFTWARE.
 */
 
+var image = new Image();
+image.src = 'img/test.jpg';
+
 function Circle(bounds, radius)
 {
     Shape.call(this);
@@ -126,19 +129,9 @@ Circle.prototype._draw = function()
     var g = this.graphics;
     
     g.clear();
-    g.setStrokeStyle(1);
-    g.beginStroke(Graphics.getRGB(0,0,0, 0.4));
     
-    if(this.isColliding)
-    {
-        g.beginFill("rgba(217,83,77,0.7)");
-    }
-    else
-    {
-        g.beginFill("rgb(255,255,255)");
-    }
-    
-    g.drawCircle(this.radius, this.radius, this.radius);
+    g.beginBitmapFill(image);
+    g.rect(0, 0, 20, 20);
     
     this.uncache();
     this.cache(-1,-1, this.width + 2, this.height + 2);

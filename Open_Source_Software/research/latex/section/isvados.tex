@@ -1,0 +1,16 @@
+Kursinio darbo metu buvo parašytas programinis paketas \textit{Cortex-M4} pagrindu veikiančiai įrangai, kuri sugeba bendrauti su \textit{MPU 9250} devynių ašių MEMS jutikliu, naudojant I2C komunikacijos sąsaja. Nuskaityti duomenis toliau yra pateikiami į kompiuterį apdorojimui. 
+Duomenų nuskaitymas kompiuterio dalyje taip pat reikalauja programinio paketo, kuris sugeba suprasti atiduodamus duomenis iš STM32. 
+Šiame darbe ši programinė įranga nėra aprašyta, kadangi tai nebuvo pagrindinė darbo užduotis.
+
+Panaudotos specialios \textit{mbed} bibliotekos, kurios žymiai palengviną pačios programinės įrangos kūrimą ir sutaupo labai daug laiko, kadangi nebelieka būtinybės aiškintis koks registras kokiam registre yra aktyvuotas. Biblioteka aprašo visus šituos parametrus simboline kalba, kurią paskui yra labai lengva panaudoti ir toliau operuoti.
+
+Programinis paketas turi būti parašytas su \textit{C/C++} programavimo kalba ir įrašytas į sisteminę atmintį, įrangai vykdyti. Rašymui į įranga panaudojamas \textit{st-link} programinis paketas, kuris sugeba bendrauti su įterptinės sistemos atmintimi.
+
+Išanalizavus dvi atviro kodo licencijas, buvo pasirinkta BSD modifikuota licencija. 
+Išanalizavus alternatyvas programines įrangas buvo pastebėta, jog programuotojai noriai dalinasi programiniu kodu su bendruomene. 
+Dėl šios priežasties tikslas buvo panaudoti kuo atviresnę licencija, taip toliau tęsiant atvirą standartą.
+Pirmoji, MIT licencija duotam darbui labai gerai tinka ir jinai pilnai pateisina norimos licencijos aprašymą.
+Licencija nebuvo pasirinkta, dėl autoriaus reputacijos nepaisymo.
+BSD licencija buvo pasirinkta būtent dėl to, jog jinai saugo autoriaus privatumą viešoje erdvėje.
+
+Visą išeitinį kodas yra pasiekiamas https://github.com/dummas/upgraded-giggle.

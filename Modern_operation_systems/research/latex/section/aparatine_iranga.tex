@@ -1,0 +1,31 @@
+The Blue Gene/Q sistema yra trečia Blue Gene šeimos kompiuterių architektūros karta \cite{gilge2014ibm}.
+Sistema sujungia daugybe komponentų, tarp kurių yra vienas ar daugiau skaičiavimo spintų ir neprivalomi Į/I spintos.
+Sistema tankiai susideda iš skaičiavimo mazgų, Į/I spintos ir aptarnavimo kortelės.
+Papildoma geležis yra susiejama su saugojimo posisteme, pagrindinis aptarnavimo mazgu (SN), išorinio priėjimo mazgu (FENs) ir komunikacijos posisteme.
+Į/I stalčiai, kurie susideda Į/I mazgų, sujungtu su funkciniu vietiniu tinklu (LAN) bendravimui su bylų serveriais, FENs ir SN.
+Aptarnavimo kortelės sujungtos su valgymo potinkliu ir yra naudojami SN Blue Gene/Q geležies kontrolei.
+
+Aptarnavimo mazgas pateikia vieną tašką, per kurį galima kontroliuoti ir administruoti Blue Gene/Q sistemą.
+Yra įmanoma operuoti sistema, kuri susideda tik iš vieno aptarnavimo mazgo.
+Tačiau sistemos aplinka taip pat gali būti sukonfigūruota įtraukti potinklio aptarnavimo mazgus, didesniam plečiamumui.
+
+Priekinio priėjimo mazgui, kuris taip pat vadinamas kaip prisijungimo mazgas, pateikia sistemos resursus, kurie programinės įrangos kūrėjui leidžia prisijungti prie sistemos.
+Programuotojai redaguoja ir kompiliuoja programinius paketus, sukuria darbus ir kontrolės bylas, paleidžia darbus sistemoje, nagrinėja gautos programos rezultatus ir atlieka kitus darbus.
+
+Skaičiavimo kortos susideda iš 16 IBM Blue Gene/Q PowerPC A2 branduolio procesorių ir 16 GB darbinės atminties.
+Trisdešimt dvi tokios kortos gali būti įtrauktos į mazgo plokštę ir 16 mazgo kortos yra laikomos midplane.
+Kompiuterio dėžė gali būti sukonfigūruota dirbti tiek su vienu, tiek su puse midplane.
+Sistema gali būti išplėsta iki 512 kompiuterių dėžės.
+
+Kompiuterių dėžių komponentai yra vėsinami arba vandeniu arba oru.
+Vanduo yra naudojamas apdorojimo mazguose.
+Oras yra naudojamas maitinimo tiekime ir Į/I stalčiuose, kurie yra prijungti prie sistemos.
+
+Į/I stalčiai yra arba atskiros dėžės arba statomos ant kompiuterių dėžių, dažnai vadinamos viršaus kepurės.
+Aštuoni Į/I mazgai yra talpinami kiekvienoje iš Į/I stalčių.
+Kompiuterinės dėžės yra konfigūruojamos iki keturių Į/I stalčių, du per midplane, naudojant viršutinę kepurę.
+Į/I stalčių pozicija Į/I dėžėse yra reguliuojama didelių sistemų diegime, kur Į/I mazgų skaičius negali būti talpinamas spintoje.
+
+
+
+

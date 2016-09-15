@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<title>exam</title>
+
+
+<style type="text/css">
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Derinių ir gretinių taikymas</h1>
+
+<p>Visi junginiai skirstomi į derinius ir gretinius. Junginius iš k (1 &lt; k &lt; n) elementų vadiname deriniais, jeigu elementai junginyje nesikartoja ir elementų išdėstymo tvarka nėra svarbi, t.y. sukeitę elementus vietomis, gauname tą patį junginį. Derinių skaičių žymime \(C_n^k\) ir randame pagal formulę</p>
+
+<p>\[
+C_n^k = \frac{n!}{k!(n-k)!}
+\]</p>
+
+<p>Pavyzdžiui, jeigu turime 5 skirtingus patiekalus, tai pietų meniu iš 3 patiekalų galime sudaryti \(C_5^3 = 10\) būdų.</p>
+
+<p>Junginius iš k (1 &lt; k &lt; n) elementų vadiname gretiniais, jeigu elementai junginyje nesikartoja ir elementų išdėstymo tvarka yra svarbi, t.y. sukeitę elementus vietomis, gauname naują junginį. Gretutinių skaičių žymime \(A_n^k\) ir randame pagal formulę:</p>
+
+<p>\[
+A_n^k = \frac{n!}{(n-k)!}
+\]</p>
+
+<p>Pavyzdžiui, jeigu turime 6 rūšių augalų sėklas ir reikia skirtingais augalais apželdinti 3 gretimas aikšteles, tai galime padaryti \(A_6^3 = 6 * 5 * 4 = 120\) būdų.</p>
+
+<p>Jeigu k = n, tai tokie gretiniai skiriasi tik elementų išdėstymo tvarka, jie vadinami kėliniais. Kėlinių skaičių žymime \(P_n\) ir randame pagal formulę</p>
+
+<p>\[
+P_n = A_n^k = n!
+\]</p>
+
+<p>Priminsime, kad 0! = 1.</p>
+
+<h1 id="toc_1">Kombinatorinių objektų generavimo bendroji schema</h1>
+
+<p>Bendroji algoritmų schema, dažniausiai naudojama generuoti kombinatorinius objektus:</p>
+
+<div><pre><code class="language-none">GenerateCombinatorialObjects()
+begin
+(1)    ok = InitObject(P)
+(2)    while ( ok == true ) do
+(3)        P.Update();
+(4)        ok = P.GenerateNext();
+       end do
+end GenerateCombinatorialObjects</code></pre></div>
+
+<p>Realizuodami konkretų algoritmą, turime nurodyti, kaip inicializuojame pradinį objektą P, bei sukurti algoritmą, generuojantį naują objektą, gretimą turimam. jeigu visi junginiai jau peržiūrėti, tai funkcija grąžina kintamojo reikšmę <code>ok = false</code>.
+Funkcija <code>P.Update()</code> vykdo taikomosios programos skaičiavimus, paprasčiausiu atveju galima išspausdinti šį junginį. Jeigu objektų generavimo tvarka yra nesvarbi, tai funkcija <code>P.GenerateNext()</code> išrenka bet kurį dar nenaudotą objektą.</p>
+
+<h1 id="toc_2">Derinių generavimo algoritmai ir skirtumai tarp jų</h1>
+
+<h2 id="toc_3">Leksikografine tvarka</h2>
+
+<ul>
+<li>Padinio derinio inicializavimas. Pradinį \(C_n^k\) derinį sudaro <code>k</code>mažiausių aibės <code>A</code>elementų -- <code>(1, 2, ..., N)</code></li>
+<li>Gretimo derinio skaičiavimas. Tarkime, kad turime derinį <code>(i_1, i_2, ..., i_k)</code>, tada gretimą derinį, didesnį už duotąjį skaičiuojame tokiu algoritmu:
+
+<ul>
+<li>Randame pirmą iš dešinės elementą \(i_j\), tenkinantį sąlygą \(i_j &lt; (n-k+j)\). Čia įvertiname tai, kad didžiausias derinys yra \((n-k+1, n-k+2, ..., n)\), todėl visiems deriniams turi būti išpildyta sąlyga<br>
+\[
+i_l &lt; (n-k+l), l = 1, ..., k
+\]</li>
+<li>Imame didesnį aibės <code>A</code>elementą <code>i_j := i_j + 1</code>, o likusius derinio elementus užpildome gretimais <code>A</code> elementais.</li>
+</ul></li>
+<li>Generavimo pabaigos požymio nustatymas. Jeigu <code>i_1 = n - k + 1</code>, tai reiškia, kad jau suradome visus derinius. Algoritme šią sąlygą realizuojame naudodami pagalbinį nulinį derinio kraštinį elementą.</li>
+</ul>
+
+<p>Derinių generavimas leksikografine tvarka
+\(
+C_5^3
+\)</p>
+
+<p>Aibė <code>A</code> turi penkis elementus <code>A = {1, 3, 5, 7, 9}</code>. Paskutinis (didžiausias) derinys yra (5, 7, 9). Šia informaciją naudojame ieškodami naujo derinio, gretimojo radimui. Gauname tokią derinių seką:</p>
+
+<div><pre><code class="language-none">(1, 3, 5), (1, 3, 7), (1, 3, 9), (1, 5, 7), (1, 5, 9),
+(1, 7, 9), (3, 5, 7), (3, 5, 9), (3, 7, 9), (5, 7, 9).</code></pre></div>
+
+<h2 id="toc_4">Minimalių pokyčių tvarka</h2>
+
+<p>Sudaroma tokia derinių seka, kai vienas šios sekos narys yra gaunamas iš prieš jį stovinčio derinio, pakeitus jame vieną elementą kitu. Taip generuoti derinius yra sudėtingiau, nei leksikografine didėjimo tvarka.
+Panašiai kaip ir aibės poaibių generavimo algoritme naudosime Grėjaus sekas. Kiekvieną derinį užrašysime dvejetainiu kodu <code>(b_1, b_2, ..., b_n)</code>, čia \(b_j=1\), jeigu j-tasis aibės <code>A</code> elementas priklauso deriniui ir \(b_j=0\) priešingu atveju. \(C_n^k\) derinių dvejetainiuose koduose yra po <code>k</code> vienetų ir <code>(n-k)</code> nulių.
+Minimalaus pokyčio tvarka generuotoje sekoje dviejų gretimų darinių koduose skiriasi tik du bitai, vienam nulis keičiamas vienetu, kitam -- vienetas keičiamas nuliu. Pavyzdžiui, du gretimi kodai</p>
+
+<div><pre><code class="language-none">(0, 0, 1, 0, 1, 1),
+(1, 0, 0, 0, 1, 1),</code></pre></div>
+
+<p>Generuoja \(C_6^3\) derinius <code>(3, 5, 6)</code> ir <code>(1, 5, 6)</code>.</p>
+
+<p>Pažymėkime <code>n</code>bitų ilgio Grėjaus seką <code>G(n)</code>, tą pačią seką, užrašytą atvirkščia tvarka, žymėsime <code>G^R(n)</code>, o Grėjaus posekį, sudarytą iš <code>k</code> vienetų ir <code>(n-k)</code> nulių, pažymėkime <code>G(n, k)</code>.</p>
+
+<p>Derinių generavimas minimalių pokyčių tvarka 
+\(
+C_5^3
+\)</p>
+
+<p>Sudarome Grėjaus seką <code>G(4)</code>, <code>#</code>  išskirti posekio <code>G(4,2)</code> elementai</p>
+
+<div><pre><code class="language-none">p = 0  (0, 0, 0, 0),
+p = 1  (0, 0, 0, 1),
+p = 2  (0, 0, 1, 1), #
+p = 3  (0, 0, 1, 0),
+p = 4  (0, 1, 1, 0), #
+p = 5  (0, 1, 1, 1),
+p = 6  (0, 1, 0, 1), #
+p = 7  (0, 1, 0, 0),
+p = 8  (1, 1, 0, 0), # 
+p = 9  (1, 1, 0, 1), 
+p = 10 (1, 1, 1, 1),
+p = 11 (1, 1, 1, 0), 
+p = 12 (1, 0, 1, 0), #
+p = 13 (1, 0, 1, 1),
+p = 14 (1, 0, 0, 1), #
+p = 15 (1, 0, 0, 0)</code></pre></div>
+
+<p>Imkime raidžių aibę <code>A={a, b, c, d}</code>, tuomet naudodami seką <code>G(4, 2)</code> minimalių pokyčių tvarka generuojame visus derinius po dvi raides</p>
+
+<div><pre><code class="language-none">(c, d), (b, c), (b, d), (a, b), (a, c), (a, d).</code></pre></div>
+
+<h1 id="toc_5">Kėlinių generavimo algoritmai ir skirtumai tarp jų</h1>
+
+<h2 id="toc_6">Leksikografine didėjimo tvarka</h2>
+
+<p>Kėlinių generavimo algoritmams naudosime baigtinę objektų aibę <code>A</code>, turinčia <code>n</code>elementų</p>
+
+<p>\[
+A = {a_1, a_2, ..., a_n}
+\]</p>
+
+<p>Iš aibės <code>A</code> elementų sudarytus kėlinius galime palyginti sąryšio atžvilgiu</p>
+
+<p>\[
+(a_{i1}, a_{i2}, ..., a_{in}) \prec (a_{j1}, a_{j2}, ..., a_{jn})
+\]</p>
+
+<p>Sudaromi pagrindiniai bendrosios schemos algoritmai:</p>
+
+<ul>
+<li>Pradinio kėlimo inicializavimas. Pradinį <code>Pn</code> kėlinį sudaro aibės <code>A</code> elementai, išdėstyti didėjimo tvarka <code>(1, 2, ..., n)</code></li>
+<li>Gretimo kėlinio skaičiavimas. Tarkime turime kėlinį <code>(p_1, p_2, ..., p_n)</code>, tada gretimą kėlinį, didesnį už duotąjį, skaičiuojame tokiu algoritmu:
+
+<ul>
+<li>Randame pirmą iš dešinės porą, tenkinančią sąlygą <code>p_i &lt; p_{i+1}</code></li>
+<li>Tarp elementų \({p_{i+1}, ..., p_n}\) randame mažiausią elementą, didesnį už <code>p_i</code>:
+\(
+p_j = \min(p_k : p_k &gt; p_i)
+\)</li>
+<li>Elementus \(p_i\) ir \(p_j\) sukeičiame vietomis</li>
+<li>Elementus \({p_{i+1}, ..., p_n}\) išdėstome atvirkščia tvarka</li>
+</ul></li>
+</ul>
+
+<p>Generavimo pabaigos požymio nustatymas. Jeigu i=0, tai reiškia, kad jau suradome visus kėlinius. Algoritme šią sąlygą realizuojame naudodami pagalbinį nulinį kėlimo barjerinį elementą.
+Kaip pavyzdį, imkime kėlinį <code>(3, 7, 5, 8, 6, 4, 2, 1)</code> ir generuokime gretimą didesnį kėlinį. Pirmame cikle randame pirmąjį iš dešinės didėjančių skaičių porą <code>(5, 8)</code>. Mažiausias skaičius didesnis už <code>5</code> yra <code>6</code>, šiuos skaičius sukeičiame vietomis, gauname junginį <code>(3, 7, 6, 8, 5, 4, 2, 1)</code>. Tada visus skaičius po 6 užrašome atvirkščia tvarka ir gauname naują kėlinį <code>(3, 7, 6, 1, 2, 4, 5, 8)</code>.</p>
+
+<p>Nelygybė </p>
+
+<p>\[
+(p_1, p_2, ..., p_n) \prec (\pi_1, \pi_2, ..., \pi_n)
+\]</p>
+
+<p>tik tada ir tik tada, kai</p>
+
+<p>\[
+p_l = \pi_l, l = 1, ..., k - 1, p_k &lt; \pi_k
+\]</p>
+
+<p>Akivaizdu, kad pradinis kėlinys <code>(1, 2, ..., n)</code> yra mažiausias kėlinys. Tarkime, kad algoritmas tęsi <code>(pi_1, pi_2, ..., p_n)</code> kėlinių seką iki <code>(p_1, p_2, ..., p_n)</code>. Įrodysime, kad naujas kėlinys yra mažiausias kėlinys, didesnis už <code>(p_1, p_2, ..., p_n)</code>. Šis kėlinys yra didesni, nes </p>
+
+<p>\[
+p_l = \pi_l, l = 1, ..., i-1, p_i &lt; \pi_i = p_j
+\]</p>
+
+<p>Mažesnio kėlinio sudaryti negalėjome, nes tarp visų skaičių \((p_{i+1}, ..., p_n)\) naudotoji reikšmė <code>\pi_i = p_j</code> yra mažiausias skaičius, didesnis už <code>p_i</code>. Jeigu parinktume skaičių, mažesnį už <code>p_i</code>, tai gautume mažesnį kėlinį, o ne didesnį.</p>
+
+<h2 id="toc_7">Minimalių pokyčių tvarka</h2>
+
+<p>Sudarome tokią kėlinių seką, kai kiekvienas šios sekos narys gaunamas iš prieš jį stovinčio kėlinio, sukeitus du gretimus elementus vietomis.
+Metodo idėja labai paprasta, ji grindžiama matematine indukcija. Pradedame nuo sekos sudarymo, kai <code>k=1</code>, tada <code>P_1</code> turi tik vieną elementą <code>(1)</code>. Tarkime, kad jau generavome kėlinių seką <code>P_{n-1}</code>:</p>
+
+<p>\[
+P_{n-1} = { \Pi_1, \Pi_2, ..., \Pi(n-1)! }
+\]</p>
+
+<p>Tada kėlinių seką <code>P_n</code> generuojame tokiu būdu: iš eilės imame sekos <code>P_{n-1}</code> elementus <code>\Pi_i</code> ir į visas galimas pozicijas įterpiame <code>n</code>. Jei <code>i</code>yra nelyginis, tai šį procesą vykdome iš dešinės į kairę, jei <code>i</code> yra lyginis, tai iš kairės į dešinę.</p>
+
+<p>Pradedame nuo sekos <code>P_1 = {(1)}</code>. Tada generuojame kėlinių seką</p>
+
+<p>\[
+P_2 = {(1, 2), (2, 1)}
+\]</p>
+
+<p>Dabar galime sudaryti kėlinių seką <code>P_3</code>. Į kėlinį <code>\Pi_1 = (1, 2)</code> įterpiame naują skaičių <code>3</code> iš dešinės į kairę, o kėlinį <code>\Pi_2 = (2,1)</code> -- iš kairės į dešinę</p>
+
+<p>\[
+P_3 = {(1,2,3), (1,3,2), (3, 1, 2), (3, 2, 1), (2, 3, 1), (2, 1, 3)}
+\]</p>
+
+<p>Gretimi kėliniai gaunami sukeitus du gretimus elementus vietomis.</p>
+
+<h1 id="toc_8">Kombinatoriniai skaičių teorijos algoritmai ir skirtumai tarp jų</h1>
+
+<p>Skaičių teorijoje yra daug kombinatorinių uždavinių apie skaičių sekų, turinčių įvairias savybes, generavimą. Taip pat skaičių išdėstymą į specialias sandaugas ar sumas. Jie naudojami informacijai koduoti ir šifruoti.
+Natūralusis skaičius, didesnis nei 1, kuris dalijamas tik iš savęs ir vieneto, yra pirminis skaičius. Vienetas nelaikomas nei pirminiu, nei sudėtiniu. Mažiausi pirminiai skaičiai: 2, 3, 5, 7, 11, 13.
+Nesunku įrodyti, kad pirminių skaičių yra be galo daug. Skaičių teorijoje įrodyta daug teiginių apie pirminių skaičių pasiskirstymą.
+Pažymėkime \(\pi(x)\) funkciją, parodančią kiek yra pirminių skaičių, ne didesnių už <code>x</code>, tuomet <code>pi(13) = 6</code>.
+Yra įrodyta, kad </p>
+
+<p>\[
+\pi(x) \approx \frac{x}{ln x}, x \rightarrow \infty
+\]</p>
+
+<p>Tikslesnį <code>pi(x)</code> asimptotinį įvertį gauname naudodamiesi teiginiu, kad tikimybė, jog atsitiktinai pasirinktas skaičius <code>x</code> pirminis, yra lygi </p>
+
+<p>\(\frac{1}{ln(x)}\)
+\[\pi(x) \approx \int_2^x\frac{1}{ln(t)}dt\]</p>
+
+<p>Iš apibrėžimo gauname pirmąjį pirminių skaičių radimo algoritmą: tikriname, ar skaičius n dalijasi iš kurio nors natūraliojo skaičiaus, mažesnio už jį patį, jeigu tokių skaičių nerandame, tai <code>n</code> yra pirminis.</p>
+
+<div><pre><code class="language-none">GeneratePrime2(N)
+begin
+    for (n =2; n &lt;= N; n++) do
+        ok = true, i = 2;
+        while (i &lt;= |\sqrt{n}| &amp;&amp; ok == true) do
+            if (n % i == 0) ok = false;
+            i := i + 1;
+        end do
+        if (ok == true) then
+            Print(n);
+        end if
+    end do
+end GeneratePrime2</code></pre></div>
+
+<p>Algoritmą galime dar patobulinti, pažymėję, kad jei skaičius <code>n</code> nėra pirminis, tai jį galime vieninteliu būdu išskaidyti į pirminių skaičių sandaugą</p>
+
+<p>\[
+n = p_1p_2\bullet\bullet\bullet p_k, p_1 &lt; p_2 &lt; \bullet\bullet\bullet &lt; p_k
+\]</p>
+
+<p>Todėl užtenka patikrinti, ar <code>n</code> dalinasi iš kokio nors pirminio skaičiaus, ne didesnio už 
+\(
+\sqrt{N}
+\)</p>
+
+<p>Šiuos skaičius saugome masyve <code>P</code>.</p>
+
+<div><pre><code class="language-none">GeneratePrime3(N)
+begin
+    GeneratePrime2(|\sqrt(N)|);
+    for (n=2; n &lt;= N; n++) do
+        ok = true, i = 1;
+        while (i &lt;= pi(|\sqrt(N)|) &amp;&amp; P(i) &lt;= |\sqrt{n}| &amp;&amp; ok == true) do
+            if (n % i == 0) ok = false;
+            i := i + 1;
+        end do
+        if (ok == true) then
+            Print(n);
+        end if
+    end do
+end GenereatePrime3</code></pre></div>
+
+<h2 id="toc_9">Rėčio algoritmas</h2>
+
+<p>Šiame algoritme nereikia atlikti dalybos veiksmų, nors kaip tik šis veiksmas naudojamas pirminių skaičių apibrėžime. Rėčio algoritme visus natūraliuosius skaičius iki <code>n</code>surašome į masyvą. paskui imame mažiausią pirminį skaičių 2 ir visus jo kartotinius <code>m = 2k</code> pažymėkime kaip sudėtinius skaičius. Pirmasis nepažymėtas skaičius (mūsų atveju 3) yra pirminis, tada pašaliname visos jo kartotinius, t.y. skaičius <code>m=3k</code>. Šį procesą kartojame su visais pirminiais skaičiais, ne didesniais už <code>\sqrt{n}</code>. Toks procesas tikrai panašus į sijojimą su rėčio, tik šiame algoritme išsijojame nereikalingus kartotinius skaičius <code>2k</code>, <code>3k</code>, <code>5k</code>, ...</p>
+
+<h2 id="toc_10">Laimingi skaičiai</h2>
+
+<p>Tai sudėtingesnis rėčio algoritmo atvejis, kai generuojami laimingi skaičiai, likę natūraliųjų skaičių aibėje pašalinus kas antrą skaičių, paskui iš likusios aibės kas n-tajį skaičių, čia n gautas laimingas skaičius. Skaičiai, kurie lieka nepašalinti, ir yra laimingi.
+Pradedame nuo pirmojo laimingo skaičiaus -- vieneto. 
+Tada pašaliname kas antrą skaičių, gauname nelyginių skaičių seką: <code>1, 3, 5, 7, 9, ...</code>
+Tada šaliname kas trečią likusį skaičių: <code>1, 3, 7, 9, 13, 15, 19, 21, ...</code>
+Trečiuoju žingsnių pašaliname kas septintą skaičių: <code>1, 3, 7, 9, 13, 15, 21, 25, ...</code></p>
+
+<p>Laimingų skaičių pasiskirstymo dėsniai panašūs į atitinkamus pirminių skaičių dėsnius, pavyzdžiui, tikimybę, kad skaičius <code>n</code> yra laimingas, asimptotiškai lygi </p>
+
+<p>\[
+\frac{1}{ln(n)}
+\]</p>
+
+<p>Laimingų skaičių generavimo rėčio algoritmą realizuoti sudėtingiau, nes skaičiaus likimas priklauso ne nuo jo pradinės padėties, bet nuo likusių elementų skaičiaus. Todėl tenka papildomai skaičiuoti sekos elementus arba seką saugoti tiesiniame sąraše.</p>
+
+<h1 id="toc_11">Grafai ir jų vaizdavimas</h1>
+
+<p>Yra sunku parinkti duomenų struktūra. Būtina atsižvelgti į du kriterijus:</p>
+
+<ul>
+<li>Saugomos informacijos apimtį</li>
+<li>Veiksmų su grafais atlikimo efektyvumą</li>
+</ul>
+
+<p>Ypač dažnai reikia rasti viršūnes, kurios yra gretimos duotajai. Dažniausiai grafo struktūrą apibrėžiame naudodami tiesines algebros duomenų struktūrą -- matricas. Kadangi matricos yra įvairių tipų, galime prisitaikyti prie grafo briaunų pasiskirstymo ir jų kiekio.</p>
+
+<p>Išnagrinėsime 2 svarbius atvejus:</p>
+
+<ul>
+<li>Kai grafas yra artimas pilnajam</li>
+<li>Kai kiekviena viršūnė sujungta tik su nedideliu skaičiumi kaimyninių viršūnių.</li>
+</ul>
+
+<p>Grafo viršūnių gretimumo matrica</p>
+
+<ul>
+<li>Turime grafą <code>G = (V, E)</code>, kurį apibrėžiama <code>n*n</code> dydžio matrica
+\[
+S = \begin{bmatrix} 
+S_{11} &amp; S_{12} &amp; \dots &amp; S_{1n} \\
+S_{21} &amp; S_{22} &amp; \dots &amp; S_{2n} \\
+\dots &amp; \dots &amp; \dots &amp; \dots \\
+S_{n1} &amp; S_{n2} &amp; \dots &amp; S_{nn} \\
+\end{bmatrix}
+\]</li>
+<li>Jos elementai yra tokie
+\[
+S_{ij} = \left\{ \begin{array}{ll} 
+1, e_{ij} = (v_i, v_j) \in E \\
+0, e_{ij} \notin E
+\end{array} \right .
+\]</li>
+<li>Jei grafas yra svertinis, tai gretimumo matricoje saugome ir brianų svorius
+\[
+S_{ij} = \left\{ \begin{array}{ll} 
+w_{ij}, e_{ij} \in E \\
+0, e_{ij} \notin E
+\end{array} \right .
+\]</li>
+<li>Jei grafas nėra orientuotasis, tai jo gretimumo matrica <code>S</code>yra simetrinė
+\[
+S_{ij} = S_{ji}, 1 &lt; i, j &lt; n
+\]</li>
+<li>Matricos <code>S</code> i-tosios eilutės nenuliniai elementai apibrėžia tas viršūnes \(v_j\), į kurias galima pateikti iš <code>v_i</code> viršūnės.</li>
+<li>Atitinkamai, j-ojo stulpelio nenuliniai elementai apibrėžia viršūnes \(v_i\), iš kurių galima patekti į <code>v_j</code>.</li>
+<li>Saugomos informacijos apimtis yra \(n^2\) skaičių, viršūnės \(v_i\) visas gretimas viršūnes randame, atlikę <code>n</code> veiksmų.</li>
+<li>Šį duomenų struktūra ypač efektyvi, kai reikia parinkti ar \(e_{ij} \in E\), tokio veiksmo sąnaudos yra <code>O(1)</code> eilės dydis</li>
+</ul>
+
+<p>Suspausto formato matrica</p>
+
+<ul>
+<li>Dažniausiai grafo viršūnių laipsnis (gretimų viršūnių skaičius) yra daug mažesnis už <code>n</code>.</li>
+<li>Todėl didesnioji grafo viršūnių gretimumo matricos koeficientų dalis yra nuliai ir toks informacijos saugojimo būdas nėra ekonomiškas</li>
+<li>Tiesinėje algebroje matricas, kurių eilučių nenulinių koeficientų skaičius yra daug mažesnis už stulpelių skaičių, vadiname retomis</li>
+<li>Joms saugoti taikome įvairius informacijos suspaudimo būdus</li>
+<li>Masyve <code>A</code> iš eilės surašome visų viršūnių gretimas viršūnes</li>
+<li>Šio masyvo ilgis lygus grafo briaunų skaičiui <code>E</code></li>
+<li>Masyvo <code>R</code> elementas ir, nurodo viršūnės <code>v_i</code> gretimų viršūnių sąrašo pradžią masyve <code>A</code>, taigi <code>v_i</code> kaimynų aibę apibrėžiame \(N(v_i) = { v_{aj} : r_i &lt;= j &lt; r_{i+1}}\)</li>
+<li>Masyvo <code>R</code> ilgis yra (n+1), paskutinį elementą \(r_{n+1} = |E| +1\) naudojame apibrėžiami <code>v_n</code> kaimynus</li>
+<li>Jeigu turime įvertinti grafą <code>G</code>, tai masyve <code>W</code> saugome atitinkamų briaunų svorius</li>
+<li>Briaunos numeruojamos taip pat, kaip ir gretimos viršūnės <code>A</code> masyve</li>
+<li>Pirmojo grafo viršūnių gretimumo matrica
+\[
+A_1 = (2, 3, 4, 1, 5, 1, 4, 6, 1, 3, 5, 2, 4, 3) \\
+R_1 = (1, 4, 6, 9, 12, 14, 15, 15)
+\]</li>
+<li>Paskutinė viršūnė <code>v_7</code> yra izoliuota, todėl jos kaimynų aibė
+\[
+N(v_7) = { v_{aj} : 15 &lt; j &lt; 15 }
+\]</li>
+<li>Antrojo ir trečiojo grafų viršūnių gretimumo matricos
+\[
+A_2 = (2, 1, 1, 4, 2, 3), \\
+R_2 = (1, 2, 3, 5, 7), \\
+A_3 = (2, 3, 4, 1, 6, 1, 4, 5, 1, 3, 5, 6, 3, 4, 2, 4), \\
+W_2 = (1, 1, 3, 1, 5, 1, 2, 2, 3, 2, 4, 3, 2, 4, 5, 3), \\
+R_3 = (1, 4, 6, 9, 13, 15, 17),
+\]</li>
+</ul>
+
+<h1 id="toc_12">Trumpiausio kelio radimo algoritmai</h1>
+
+<h2 id="toc_13">Dijkstros algoritmas</h2>
+
+<p>Pirmiausia spręsime 2 uždavinį -- rasime trumpiausius kelius nuo viršūnės <code>v</code>iki visų kitų įvertintojo grafo viršūnių \(w \in V\). Masyve <code>D</code> saugome trumpiausių kelių iki kiekvienos viršūnės ilgius, masyvą <code>P</code>panaudojame maršrutui optimaliai atstatyti, o <code>i</code>-tojo elemento reikšmė \(p_i = k\) parodo, kad į \(v_i\) viršūnę patenkame iš \(v_k\) viršūnės.</p>
+
+<p>Tegul <code>S</code>yra aibė viršūnių, iki kurių jau radome trumpiausią kelią. Pradžioje šiai aibei priklauso tik pradinė viršūnė <code>v</code>. Vykdydami algoritmą kiekviename žingsnyje aibę <code>S</code> papildome nauja viršūne.</p>
+
+<p>Aibėje <code>Q</code> saugome viršūnes, iki kurių trumpiausias kelias dar nežinomas. Taupydami kompiuterio atmintį, galime apsiriboti tik aibe <code>S</code>arba <code>Q</code>, kadangi \( Q = \frac{V}{S}\), tačiau algoritmo realizacija yra efektyvesnė, kai parenkame tinkamą duomenų struktūrą aibei <code>Q</code> saugoti. Tarsime, kad pradinė yra \(v_1\) viršūnė.</p>
+
+<p>Vykdydami pirmąjį algoritmo žingsnį, randame viršūnę \(w_1\), iki kurios kelias iš \(v_1\) yra trumpiausias. Paskui nagrinėjame visas naujosios viršūnės dar neperrinktas kaimynes \(v_j\) ir lyginame dviejų kelių ilgius: Geriausio iš iki šiol žinomų ir naujo kelio, kai pirmiausia trumpiausiu keliu einame į \(w_1\), o iš jos pasiekiame \(v_j\). Šį algoritmą kartojame ir kituos žingsniuose. </p>
+
+<p>Dijkstros algoritme naudojame godžiojo metodo principą -- kiekvienu žingsniu pasirenkame geriausią lokalų sprendinį. Godusis algoritmas nebūtinai garantuoja gautojo sprendinio globalų optimalumą.</p>
+
+<p>Pavyzdys</p>
+
+<p><img src="img/dijkstra.png" alt="pavyzdys"></p>
+
+<p>Rasime trumpiausius kelius iš viršūnės \(v_1\) iki visų likusių grafo viršūnių. Aibė <code>S</code> ir masyvų <code>D</code>, <code>P</code> pradinė reikšmės yra tokios</p>
+
+<p>\[
+i = 0: S = {v_1} \\
+D = (0, 70, 40, \infty, 100, \infty), P = ( 1,1,1,1,1,1)
+\]</p>
+
+<p>Algoritmo vykdymo eiga yra tokia</p>
+
+<p>\[
+i = 1 : S = {v_1, v_3}, D = (0, 70, 50, 65, 100, \infty), P = (1,1,1,3,1,1)
+i = 2 : S = {v_1, v_3, v_4}, D = (0, 70, 50, 65, 95, 110), P = (1,1,1,3,4,4)
+i = 3 : S = {v_1, v_3, v_4, v_2}, D = (0, 70, 50, 65, 95, 90), P = (1,1,1,3,4,2)
+i = 4 : S = {v_1, v_3, v_4, v_2, v_6}, D = (0, 70, 50, 65, 94, 90), P = (1,1,1,3,6,2)
+i = 5 : S = {v_1, v_3, v_4, v_2, v_6, v_5}, D = (0, 70, 50, 65, 94, 90), P = (1,1,1,3,6,2)
+\]</p>
+
+<p>Tada trumpiausias kelias, jungiantis \(v_1\) ir \(v_5\) yra \(p=(v_1, v_2, v_6, v_5)\), o jo ilgis  \(|p| = 94\). Jeigu būtų reikėję rasti trumpiausią kelią iki \(v_4\) viršūnės, tai algoritmas būtų baigtas po antrojo žingsnio, o \(p=(v_1, v_3, v_4)\).</p>
+
+<p>Sudėtingumas. Vykdant Dijkstros algoritmą, ciklą kartojame \((|V| - 1)\) kartą. Kiekvienu žingsniu randame aibės \(Q\) viršūnę, iki kurios kelio ilgis trumpiausias. Šios operacijos sudėtingumas priklauso nuo duomenų struktūros, realizuojančios aibę \(Q\). Jeigu naudojame masyvą, tai veiksmų skaičius \(O(|Q|)\), todėl trumpiausių kelių ilgių paieška iš viso reikalauja \(O(|V|^2)\) veiksmų. Kiekvieno grafo briauna analizuojama tik vieną kartą, todėl kelių ilgiai perskaičiuojami \(|E|\) kartų, ir atliekame \(O(|E|)\) veiksmų.</p>
+
+<p>Dijkstors algoritmo skaičiavimų apimtis yra \(O(|V|^2)\) veiksmų.</p>
+
+<h2 id="toc_14">Didžiausios keliamos galio kelio radimas</h2>
+
+<p>Tai dar vienas iš uždavinių, kuri turime įvertintąjį grafą \(G = (V, E)\), kurio briaunų įverčiai rodo didžiausią krovinio svorį, kurį galima vežti šia atkarpa. Reikia rasti kelius, jungiančius duotąją grafo viršūnę \(v \in V\) su kitomis viršūnėmis \(w \in V\), kad leistinas vežamų krovinių svoris būdų didžiausias. Uždavinio sprendimo algoritmą gauname modifikuodami Dijkstro algoritmą. Trumpiausias kelias, jungiantis \(v\) su \(w\), kurį galima uždaryti </p>
+
+<p>\[
+|p_{min}| = min_{p} \sum_{j=0}^{m(p) - 1} |e_{j,j+1}|
+\]</p>
+
+<p>Tada dažniausios keliamosios galios kelio radimo uždavinį užrašome taip</p>
+
+<p>\[
+|p_{max}| = max_{p} min_{0 &lt; j &lt; m(p) -1} |e_{j,j+1}|
+\]</p>
+
+<h2 id="toc_15">Floido algoritmas</h2>
+
+<p>Spręsdami 4 uždavinį, kai reikia rasti trumpiausius kelius tarp visų įvertintojo grafo G viršūnių porų. Šį uždavinį galime spręsti Dijkstros algoritmu, kurį kartojame <code>n</code> kartų su vis kita pradine viršūne. Tokio metodo skaičiavimų apimtis yra </p>
+
+<p>\[
+O (|V|^2 log|V| + |V||E|)
+\]</p>
+
+<p>Vietoje godžiojo metodo taikysime dinaminio programavimo metodą. Tada reikia užrašyti variacinę sąlygą, susiejančią viso uždavinio spręndinį su mažesnių uždavinių optimaliais sprendiniais.</p>
+
+<p>Pažymėkime \(D_k\) matricą, kurios koeficientai \(d_{ij}(k)\) apibrėžia ilgų trumpiausio kelio nuo viršūnės \(v_i\) iki viršūnės \(v_j\), kuriame nėra tarpinių viršūnių, kurių indeksai didesni už \(k\).</p>
+
+<h1 id="toc_16">Minimalus dengiantysis medis ir jo radimo algoritmai</h1>
+
+<p>Oh god</p>
+
+<h1 id="toc_17">Specialieji grafų algoritmai</h1>
+
+<h1 id="toc_18">Didžiausio srauto radimo tinkluose algoritmai</h1>
+
+<h1 id="toc_19">Keliaujančio pirklio uždavinys</h1>
+
+<h1 id="toc_20">Daugianario reikšmės apskaičiavimo būdai</h1>
+
+<p>Reikia apskaičiuoti daugianario</p>
+
+<p>\[
+p(x) = a_0 x^n + a_1x^{n-1} + a_2 x^{n-2} + ... + a_{n-1}x + a_n
+\]</p>
+
+<p>Reikšmę taške <code>x</code>, kai žinomos koeficientų <code>a</code> reikšmės</p>
+
+<div><pre><code class="language-none">float DaugianarioReiksme (double x)
+begin
+(1) pX=A(n), xN=1;
+(2) for (j=n-1; j&gt;=0; j--) do
+(3)   xN=xN*x;
+(4)   pX=pX+A(j)*xN;
+    end
+(5) return(pX);</code></pre></div>
+
+<p>Vykdydami pateiktą algoritmą atliekame <code>2n</code> daugybos ir <code>n</code> sumavimo veiksmų.</p>
+
+<p>Daugianario reikšmę apskaičiuojame efektyviau naudodami Hornerio skaičiavimo schemą.</p>
+
+<div><pre><code class="language-none">float HornerioSchema (double x)
+begin
+(1) pX=A(0);
+(2) for (j=1; j&lt;=n; j++) do
+(3)   pX=pX*x+A(j);
+    end
+(5) return(pX);</code></pre></div>
+
+<p>Vykdydami Hornerio algoritmą, atliekame <code>n</code> daugybos ir <code>n</code>sumavimo veiksmų, t.y. daugybos veiksmų skaičius sumažėjo perpus.</p>
+
+<p>Taikydami skaldyk ir valdyk metodiką, gauname dar efektyvesni algoritmą.</p>
+
+<ul>
+<li>Skaičiuokime daugianario \(x^{256}\) reikšmę</li>
+<li>Hornerio algoritmu teks atlikti 255 daugybos veiksmus</li>
+</ul>
+
+<div><pre><code class="language-none">    float FastPolynom (double x)
+    begin
+    (1) pX=x*x;
+    (2) for (j=1; j&lt;=2; j++) do
+    (3)   pX=pX*pX;
+        end do
+    (4) return(pX)
+    end HornerioSchema</code></pre></div>
+
+<p>Paskutiniame algoritme rezultatas gaunamas atlikus 3 daugybos veiksmus. </p>
+
+<p>Nagrinėkime daugianarį, kurio laipsnis \(n = 2^k-1, k &gt; 1\), o koeficientas, esant didžiausiam laipsniui, lygus vienetui</p>
+
+<p>\[
+p_n(x) = x^n + a_1 x^{x-1} + a_2 x^{n-2} + ... + a_{n-1}x +a_n \\
+p_n(x) = (x^m + b) q(x) + r(x), m = 2^{k-1}
+\]</p>
+
+<p>Čia \(q_j(x)\), \(r_j(x)\) yra tokio pačio tipo, bet žemesnio laipsnio \(j=2^{k-1}-1\), daugianariai</p>
+
+<p>\[
+q_j(x) = x^j + c_1x^{j-1} + c_2x^{j-2} + ... + c_{j-1}x + c_j \\
+r_j(x) = x^j + d_1x^{j-1} + d_2x^{j-2} + ... + d_{j-1}x + d_j
+\]</p>
+
+<p>Todėl ir jiems galima taikyti tokį patį algoritmą.</p>
+
+<p>Naujuoju algoritmu daugianario reikšmę apskaičiuojame atlikę \(\frac{n}{2}\) daugybos ir \(\frac{3n}{2}\) sumavimo veiksmų.</p>
+
+<p>Daugianario reikšmės skaičiavimo pavyzdys. Pirmiausiai turime apskaičiuoti pagalbinių žemesniosios eilės daugianarių koeficientus. Imkime septintosios eilės daugianarį</p>
+
+<p>\[
+p_7(x) = x^7 + 3x^6 + 2x^5 + 13x^4 - x^3 + 9x^2 - 2x - 32
+\]</p>
+
+<p>Kadangi \(7=2^3-1\), tai \(m=4\) ir gauname daugiklį \((x^4+b)\). Rasime tokią konstantą <code>b</code>, kad abiejų daugianarių \(q_3(x)\) ir \(r_3(x)\) koeficientai, esant didžiausio laipsnio nariui, būtų lygus vienetui, t.y. galiotų lygybė</p>
+
+<p>\[
+p_7(x) = (x^4 + b)(x^3 + q_2(x) + x^3 +r_2(x))
+\]</p>
+
+<p>Palyginę koeficientus, kai \(x^3\), gauname lygtį \(b + 1 = -1\) arba \(b = -2\). Taigi ieškome daugianarių \(q_3(x)\) ir \(r_3(x)\), tenkinančią lygybę</p>
+
+<p>\[
+p_7(x) = (x^4 - 2)q_3(x) + r_3(x)
+\]</p>
+
+<p>Juos randame \(p_7(x)\) dalindami iš \((x^4 - 2)\)</p>
+
+<p>\[
+p_7(x) = (x^4 - 2)(x^3 + 3x^2 + 2x + 13) + (x^3 + 15x^2 + 2x - 6)
+\]</p>
+
+<p>Kitu etapu panašiai išskaidome daugianarius \(q_3(x)\) ir \(r_3(x)\)</p>
+
+<p>\[
+q_3(x) = (x^2+1)(x+3)+(x+10), \\
+r_3(x) = (x^2+1)(x+15)+(x-6)
+\]</p>
+
+<p>Gauname tokį daugianario \(p(x)\) išskaidymą į paprastesnius daugiklius</p>
+
+<p>\[
+p_7(x) = (x^4-2)((x^2+1)(x+3)+(x+10))((x^2+1)(x+15)+(x-6))
+\]</p>
+
+<h1 id="toc_21">Matricų veiksmai</h1>
+
+<p>Turime \(n*m\) ir \(m*k\) dydžio matricas <code>A</code> ir <code>B</code>. Jų sandauga \(C=AB\) yra \(n*k\) dydžio matrica</p>
+
+<p>\[
+c_{ij} = \sum_{l=1}^{m} a_{il}b_{lj}
+\]</p>
+
+<p>Vykdydami matricų daugybos algoritmą, atliekame \(nkm\) daugybos ir \(nk(m-1)\) sudėties veiksmų. Jeigu visos matricos yra \(n*n\) dydžio, tai algoritmo sudėtingumas \(2n^3\) aritmetinių veiksmų.</p>
+
+<p>Matricos daugybos uždaviniui egzistuoja sudėtingesni, bet ir spartesni skaičiavimo algoritmai. Nagrinėkime kvadratinės \(n*n\) dydžio matricos <code>A</code>, <code>B</code> ir <code>C</code>, kurias paskirstome į \(m*m\) dydžio blokines matricas, \(m=\frac{n}{p}\). Tuomet matricų sandaugą galime išreikšti tokiu algoritmu</p>
+
+<p>\[
+C_{ij} = \sum_{k=1}^p A_{ik}B_{kj}, 1 &lt; i, j &lt; p
+\]</p>
+
+<p>\(m*m\) dydžio matricų sandaugas \(A_{ik}B_{kj}\) skaičiuojame pirmuoju algoritmu. Tuomet naujo algoritmo veiksmų skaičius yra toks pat, kaip ir senojo, tik pasikeitė veiksmų atlikimo tvarka. </p>
+
+<p>Nagrinėkime pavyzdį, kai \(p=2\), tada matricas išskaidome į \(n/2*n/2\) dydžio blokus</p>
+
+<p>\[
+\begin{bmatrix}
+C_{11} &amp; C_{12} \\
+C_{21} &amp; C_{22} \\
+\end{bmatrix} =
+\begin{bmatrix}
+A_{11} &amp; A_{12} \\
+A_{21} &amp; A_{22}
+\end{bmatrix}
+\begin{bmatrix}
+B_{11} &amp; B_{12} \\
+B_{21} &amp; B_{22}
+\end{bmatrix}
+\]</p>
+
+<p>Gauname 4 matricų lygybes</p>
+
+<p>\[
+C_{11} = A_{11}B_{11} + A_{12}B_{21}, C_{12} = A_{11}B_{12} + A_{12}B_{22} \\
+C_{21} = A_{21}B_{11} + A_{22}B_{21}, C_{22} = A_{21}B_{12} + A_{22}B_{22}
+\]</p>
+
+<p>Tegul \(n=2^k\), tada gautąsias aštuonias matricų sandaugas vėl skaičiuojame tokiu pačiu rekursyviuoju algoritmu. Pažymėkime algoritmo aritmetinių veiksmų skaičių \(T(n)\), šią funkciją randame spręsdami rekursijos lygtį</p>
+
+<p>\[
+T(1) = 1,\\
+T(n) = 8T(n/2)+n^2 
+\]</p>
+
+<p>Lygties eilės mažinimo metodu apskaičiuojame tokio uždavinio sprendį</p>
+
+<p>\[
+T(n) = 2n^3 - n^2
+\]</p>
+
+<p>Vėl gavime tokį patį algoritmo sudėtingumo įvertį, kaip ir naudodami klasikinį matricų sandaugos algoritmą.</p>
+
+<p>Štarsenas sukūrė naują rekusyvujį matricos daugybos algoritmą. </p>
+
+<p>Matricos <code>C</code> koeficientų skaičiavimo formulėse vietoj 8 daugybų atliekamos tik 7, tačiau papildomai vykdome keturiolika matricų sumavimo veiksmų. Matricų daugybos sudėtingumas \(2n^3\), o sumavimas \(n^2\).</p>
+
+<p>Dviejų matricų sandaugos skaičiavimas Štarseno algoritmu. Skaičiuojame sandauga <code>A</code>, <code>B</code>, kai</p>
+
+<p>\[
+A = \begin{bmatrix}
+5 &amp; 2 \\
+3 &amp; 7
+\end{bmatrix},
+B = \begin{bmatrix}
+2 &amp; 4 \\
+1 &amp; 8
+\end{bmatrix}
+\]</p>
+
+<p>Pirmiausiai apskaičiuojame pagalbinius koeficientus</p>
+
+<p>\[
+P_1 = (5+7)(2+8) = 120\\
+P_2 = (3+7)2 = 20 \\
+P_3 = 5(4-8) = -20 \\
+P_4 = 7(1-2)=-7 \\
+P_5 = (5+2)8 = 56 \\
+P_6 = (3-5)(2+4) = -12 \\
+P_7 = (2-7)(1+8)= -45 
+\]</p>
+
+<p>Tada skaičiuojame matricos <code>C</code> koeficientus. Gauname tokį rezultatą</p>
+
+<p>\[
+\begin{bmatrix}
+5 &amp; 2 \\
+3 &amp; 7 
+\end{bmatrix}
+\begin{bmatrix}
+2 &amp; 4 \\
+1 &amp; 8 
+\end{bmatrix} = 
+\begin{bmatrix}
+12 &amp; 36 \\
+13 &amp; 68
+\end{bmatrix}
+\]</p>
+
+<h1 id="toc_22">Greitoji furjė transformacija</h1>
+
+<p>Turime <code>n</code>kompleksinių skaičių vektorių</p>
+
+<p>\[
+X = (x_0, x_1, ..., x_{n-1})
+\]</p>
+
+<p>Tuomet diskrečioji Furjė transformacija yra apibrėžiama lygtimis</p>
+
+<p>\[
+f_j = \sum_{k=0}^{n-1} x_k e^{-\frac{2\pi i}{n}jk}, j = 0, 1, ..., n-1
+\]</p>
+
+<p>Ši transformacija naudojama skaitmeniniams signalams analizuoti, vaizdams atpažinti, medicinoje, diferencialinėms lygtims spręsti, telekomunikacijoje ir kitur. DFT yra sudėtingas algoritmas. Skaičiuodami \(f_j\) atliekame \(O(n)\) veiksmų.</p>
+
+<p>FFT algoritme taikome skaldyk ir valdyk metodiką. Panagrinėsime atvejį, kai \(n=2^k\). Tuomet DFT uždavinį dalijame į 2 per pus mažesnius uždavinius. Pirmas uždavinys skaičiuos \({x_0, x_2, ..., x_{n-2}}\), antras \({x_1, x_3, ..., x_{n-1}}\) koeficientus.</p>
+
+<p>Kol kas nesumažinome algoritmo sudėtingumo, tik pakeitėme veiksmų atlikimo tvarką. Pasirodo, kad visų sumų skaičiuoti nereikia, nes galioja periodinės lygybės.</p>
+
+<p>Taigi reikia apskaičiuoti dviejų \(n/2\) ilgio sekų DFT koeficientus -- reikia atlikti skaidymą. Skaidymą kartojame ir skaičiuodami trumpesnių skaičių sekų DFT koeficientus. Gauname rekursyvųjį FFT algoritmą.</p>
+
+<p>Sudėtingumo lygtis</p>
+
+<p>\[
+T(n) = \left\{ \begin{array}{ll} 
+2T(n/2)+2n, n&gt; 1, \\
+1, n=1
+\end{array} \right.
+\]</p>
+
+<p>Lygties sprendinį randame lygties eilės mažinimo metodu</p>
+
+<p>\[
+T(n) = 2^k + 2 \sum_{j=0}^{k-1} 2^j 2^{k-j} = 2^k (1+2k) = 2n log(n) + n
+\]</p>
+
+<p>Taigi, greitosios Furjė transformacijos algoritmo sudėtingumas \(O(n log(n))\). Pavyzdžiui, skaičiuojant \(2048\) ilgio vektoriaus DFT koeficientus, tada FFT algoritmas maždaug 100 kartų spartesnis.</p>
+
+<h1 id="toc_23">P ir NP sudėtingumo uždaviniai</h1>
+
+<p>Susipažinsime su daugelio uždavinių sudėtingumo klasifikacija, kuri padės pasirinkti teisingą jų sprendimo strategiją. Svarbu žinoti, kada galime ieškoti tikslaus uždavinio sprendinio, o kada reikia tenkintis euristiniais algoritmais ir spręsti uždavinį tik apytiksliai. </p>
+
+<h2 id="toc_24">P sudėtingumo uždaviniai</h2>
+
+<p>Nagrinėdami uždavinius dažnai jų sudėtingumas būdavo \(O(n^k)\) veiksmų. Tokius uždavinius vadiname polinominio sudėtingumo ir jų klasę žymime \(P\).</p>
+
+<p>Polinominio sudėtingumo uždavinius dažnai vadiname praktiškai išsprendžiamais uždaviniais, nes jų sprendimo laikas yra gana trumpas ir taikydami galime ieškoti tikslių sprendinių. Daugianario laipsnis \(k\) algoritmo sudėtingumo įvertyje turi būti nedidelis, nes net ir \(O(n^10)\) sudėtingumo algoritmas yra neefektyvus nors kiek didesniam uždaviniui spręsti.</p>
+
+<h2 id="toc_25">NP sudėtingumo uždaviniai</h2>
+
+<p>Egzistuoja daug svarbių taikomųjų uždavinių, kuriems kol kas sukurti tik eksponentinio \(O(a^n)\) arba faktorialinio \(O(n!)\) sudėtingumo algoritmai. Labai svarbu išmanyti tokius uždavinius, nes taikydami juos sprendžiame tik apytiksliai ir naudojame polinominio sudėtingumo euristinius algoritmus (kuprinės užpildymo uždavinys)</p>
+
+<p>Šioje grupėje išskiriame NP uždavinių klasę. </p>
+
+<ul>
+<li>Pirma, nagrinėjame tik sprendimo priėmimo uždavinius, kai reikia duoti atsakymą taip arba be į pateiktą klausimą</li>
+<li>Antra, NP klasės uždaviniams nežinome polinominio sudėtingumo sprendimo algoritmų, tačiau atlikę \(O(n^k)\) veiksmų, galime patikrinti, ar duotasis objektas yra uždavinio sprendinys.</li>
+</ul>
+
+<h2 id="toc_26">NP sudėtingumo uždaviniai</h2>
+
+<p>Taigi P klasės uždavinius galime greitai išspręsti, o spręsdami NP klasės uždavinius, mokame tik greitai patikrinti sprendinį. Kiekvienas polinominio sudėtingumo uždavinys priklauso NP klasei, nes, radę sprendinį galime nebetikrinti jo teisingumo. Žinome, kad išspręsti uždavinį yra daug sudėtingiau, nei patikrinti ar turime sprendinį.</p>
+
+<p>Kol kas neįrodyta, kad \(P \neq NP\), t.y. nežinome nė vieno uždavinio, kurio sprendinio patikrinimo algoritmas yra polinominio sudėtingumo, o patį sprendinį galime rasti tik atlikę eksponentinį skaičių veiksmų.</p>
+
+<h2 id="toc_27">NP pilnieji uždaviniai</h2>
+
+<p>Uždavinių klasė, kurios savybes smarkiai didina tikimybę, kad hipotezė \(P \neq NP\) teisinga. Dažnai matematikoje uždavinį transformuojame į kitą, jam ekvivalentų, o šį jau mokame spręsti. Tarp NP sudėtingumo uždavinių apibrėžiame NP pilnųjų uždavinių poaibį, kurį žymėsime NPC. Jam priklauso sudėtingiausi uždaviniai, kurie parenkami taip, kad jei pavyktų sukurti kurio nors šios klasės uždavinio polinominio sudėtingumo sprendimo algoritmą, tai ir bet kurį kitą NP klasės uždavinį galėtume išspręsti atlikę polinominį skaičių veiksmų.</p>
+
+<h1 id="toc_28">Lygiagretieji kompiuteriai ir jų algoritmai</h1>
+
+<p>Spręsdami daugelį svarbių technikos, informatikos uždavinių, turime atlikti tiek daug skaičiavimų, kad net ir naudodami pačius greičiausius šiuolaikinius kompiuterius negalime laiku rasti atsakymo. Kitų didelių uždavinių ribojamuoju veiksniu gali tapti vieno kompiuterio atminties resursai. Tokiais atvejais padeda lygiagrečiosios skaičiavimo sistemos.</p>
+
+<p>Nuoseklieji kompiuteriai turi tik po vieną skaičiavimo ir valdymo įrenginį. Konstruodami lygiagretųjį kompiuterį, galime naudoti daugiau procesorių. Sudarydami lygiagrečiuosius algoritmus sprendžiame kelis pagrindinius uždavinius, tarp jų svarbiausi -- uždavinio išskaidymas į mažesnes užduotis, jų paskirstymas procesoriams ir duomenų persiuntimas tarp procesorių. Būtent duomenų persiuntimo algoritmai esmingai priklauso nuo kompiuterio atminties architektūros.</p>
+
+<p>Skirsime dvi dideles lygiagrečiųjų kompiuterių grupes:</p>
+
+<ul>
+<li>Bendros paskirties kompiuterius</li>
+<li>Paskirstytosios atminties kompiuterius</li>
+</ul>
+
+<p>Šis padalijimas yra svarbus ne tik sudarant ir analizuojant lygiagrečiuosius algoritmus, bet ir juos realizuojant kompiuterio programa. Vieni programavimo principai ir priemonės skirti bendrosios atminties kompiuteriams, visai kiti -- paskirstytosios atminties kompiuteriams.</p>
+
+<h2 id="toc_29">Bendrosios atminties lygiagretieji kompiuteriai</h2>
+
+<p>Visi procesoriai atlieka veiksmus su tam tikrais duomenimis, kuriuos perskaito ir užrašo į jiems skiriamas atminties ląsteles. Bendrosios atminties lygiagretieji kompiuteriai turi tik vieną atminties bloką, ir visi procesoriai gali tiesiogiai pasiekti visas atminties vietas. Bendrosios atminties kompiuteriuose lygiagretusis algoritmas vykdomas daugeliu procesų. Kai skaičiuojamos parengtos vykdyti užduotys, naudojamas bet kuris laisvas procesas, todėl norint sumažinti duomenų kopijavimo sąnaudas, operatyviosios atminties turinys sinchronizuojamas visuose procesoriuose. Dėl to atsiranda papildomų algoritmo vykdymo sąnaudų.</p>
+
+<h2 id="toc_30">Paskirstytos atminties lygiagretieji skaičiavimai</h2>
+
+<p>Dabar kiekvienas procesorius gali tiesiogiai perskaityti ir įrašyti tik duomenis, esančius jo lokaliojo atmintyje. Jeigu algoritmui vykdyti reikalingi duomenys, saugomi kitame procesoriuje, tai antras procesorius turi nusiųsti pirmajam pranešimą su reikalinga informacija. Duomenų persiuntimu turi pasirūpinti pats programuotojas, nurodydamas, kas, kam ir kada turi siųsti ar gauti pranešimą. Aišku toks duomenų siuntimas tampa ir algoritmo vykdymo sinchronizavimo tašku.</p>
+
+<p>Taigi, duomenų mainai paskirstytosios atminties lygiagrečiuose kompiuteriuose yra sudėtingesni nei bendrosios atminties lygiagrečiuose kompiuteriuose. Tačiau šiuo atveju nesusiduriame su svarbia problema, kuri egzistuoja bendrosios atminties kompiuteriuose, kai keli procesoriai vienu metu bando skaityti arba rašyti į tą pačią atminties vietą. Kadangi visus pakeitimus gali atlikti tik tas procesorius, kurio lokalioje atmintyje saugomi duomenys, tai nesunku kontroliuoti duomenų mainus ir jų eiliškumą.</p>
+
+<h2 id="toc_31">Lygiagrečiųjų algoritmų sudarymo etapai</h2>
+
+<p>Sudarysime bendrą schemą, kuria remdamiesi galime spręsti visus per paskaitas nagrinėjamus uždavinius.</p>
+
+<p>Sudarydami bet kokį lygiagretųjį algoritmą, pirmiausiai turime išskirti nepriklausomas užduotis, kurias skirtingi procesoriai gali spręsti tuo pačiu metu. Kuo daugiau tokių užduočių, tuo daugiau procesorių galime naudoti uždaviniui spręsti ir tolygiau paskirstyti tarp visų procesorių darbą. Kiekvienos užduoties atlikimas priklauso nuo tam tikrų duomenų, todėl siekiame, kad šiuos duomenis jau turėtų pats procesas, kuriam skirta užduotis. Priešingu atveju papildomą informaciją reikia persiųsti iš kito procesoriaus, o tai gan ilgai trunkantis veiksmas.</p>
+
+<p>Užduotis grupuojame taip, kad procesoriams kuo rečiau reikėtų keistis didesniais informacijos kiekiais. Bet toks užduočių sujungimas reiškia mažesnį jų kiekį. Kompromisinio sprendimo radimas ir daro užduočių sąrašo sudarymą sudėtingu uždaviniu.</p>
+
+
+
+<script type="text/x-mathjax-config">
+if (typeof MathJaxListener !== 'undefined') {
+  MathJax.Hub.Register.StartupHook('End', function () {
+    MathJaxListener.invokeCallbackForKey_('End');
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+</body>
+
+</html>

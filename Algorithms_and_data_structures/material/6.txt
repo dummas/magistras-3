@@ -1,0 +1,691 @@
+Specialieji algoritmai
+Doc. dr. Raimondas Pomarnacki
+1
+
+Specialiai algoritmai
+Turinys
+Daugianario reikšmės skaičiavimas
+Matricų daugyba
+Greitoji Furjė transformacija
+P ir NP sudėtingumo uždaviniai
+Lygiagretieji algoritmai
+
+
+
+
+
+
+Daugianario reikšmės skaičiavimas
+
+Daugianario reikšmės skaičiavimas
+Reikia apskaičiuoti daugianario
+	
+Reikšmę taške x, kai žinomos koeficientų {a0,a1,...,an} reikšmės
+ Daugianario reikšmės skaičiavimo algoritmas
+	float DaugianarioReiksme (double x)
+	begin
+	  (1) pX=A(n), xN=1;
+	  (2) for (j=n-1; j>=0; j--) do
+	  (3)   xN=xN*x;
+	  (4)   pX=pX+A(j)*xN;
+	      end
+	  (5) return(pX);
+	End DaugianarioReiksme
+
+Daugianario reikšmės skaičiavimas
+Vykdydami pateikta algoritmą atliekame 2n daugybos ir n sumavimo veiksmų.
+Daugianario reikšmę apskaičiuojame efektyviau naudodami Hornerio skaičiavimo schemą
+	float HornerioSchema (double x)
+	begin
+	  (1) pX=A(0);
+	  (2) for (j=1; j<=n; j++) do
+	  (3)   pX=pX*x+A(j);
+	      end do
+	  (4) return(pX)
+	end HornerioSchema
+
+
+
+Daugianario reikšmės skaičiavimas
+Vykdydami Hornerio algoritmą, atliekame n daugybos ir n sumavimo veiksmų, t. y. daugybos veiksmų skaičius sumažėjo perpus
+Taikydami skaldyk ir valdyk metodą gauname dar efektyvesni algoritmą
+Skaičiuokime daugianario x256 reikšmę
+Hornerio algoritmu teks atlikti 255 daugybos veiksmus
+Naujas algoritmas
+	float FastPolynom (double x)
+	begin
+	  (1) pX=x*x;
+	  (2) for (j=1; j<=2; j++) do
+	  (3)   pX=pX*pX;
+	      end do
+	  (4) return(pX)
+	end HornerioSchema
+
+
+Daugianario reikšmės skaičiavimas
+Paskutinime algoritme rezultatas gaunamas atlikus 3 daugybos veiksmus
+Nagrinėkime daugianarį, kurio laipsnis n=2k-1, k>1, o koeficientas, esant didžiausiam laipsniui, lygus vienetui
+
+
+Čia qj(x), rj(x) yra tokio pačio tipo, bet žemesnio laipsnio j=2k-1-1 daugianariai
+
+
+todėl ir jiems galima taikyti tokį patį algoritmą
+
+Daugianario reikšmės skaičiavimas
+Įvertinsime gautojo rekursinio algoritmo sudėtingumą
+Skaičiuodami daugianarių x2,x4,...,x2k-1 reikšmes atliekame vieną daugybos ir du sudėties veiksmus
+Pažymėkime D(n) ir S(n) daugybos ir sumavimo veiksmų skaičius. Juos randame spręsdami rekurenčiąsias lygtis
+
+
+Naudodami lygties eilės žeminimo metodą, gauname tokį sumavimo veiksmų skaičių
+
+
+
+
+Taigi naujuoju algoritmu daugianario reikšmę apskaičiuojame atlikę n/2 daugybos ir 3n/2 sumavimo veiksmų
+
+
+Daugianario reikšmės skaičiavimas
+Pavyzdys. Daugianario reikšmės skaičiavimas
+Pirmiausiai turime apskaičiuoti pagalbinių žemesniosios eilės daugianarių koeficientus
+Imkime septintosios eilės daugianarį
+
+Kadangi 7=23-1, tai m=4 ir gauname daugiklį (x4+b)
+Rasime tokią konstantą b, kad abiejų daugianarių q3(x) ir r3(x) koeficientai, esant didžiausiojo laipsnio nariui, būtų lygus vienetui, t. y. galiotų lygybė
+
+Palyginę koeficientus, kai x3, gauname lygtį b + 1 = -1 arba b = -2
+Taigi ieškome daugianarių q3(x) ir r3(x), tenkinančių lygybę
+
+Daugianario reikšmės skaičiavimas
+Pavyzdys. Daugianario reikšmės skaičiavimas
+Juos randame p7(x) dalindami iš (x4-2)
+
+
+Kitu etapu panašiai išskaidome daugianarius q3(x) ir r3(x)
+
+
+
+Gauname tokį daugianario p(x) išskaidymą į paprastesnius daugiklius
+
+
+
+
+
+
+Matricų daugyba
+
+Matricų daugyba
+Turime n*m ir m*k dydžio matricas A ir B
+
+
+
+Jų sandauga C=AB yra n*k dydžio matrica
+
+Matricų daugyba
+Matricų sandaugos algoritmas
+MatrixMultiplication (A, B, C, int n, int m, int k)
+Begin
+  (1) for (i=1; i<=n; i++)
+  (2)   for (j=1; j<=n; j++)
+  (3)     C(i,j)=0;
+  (4)     for (r=1; r<=m; r++) do
+  (5)       C(i,j)+=A(i,r)*B(r,j);
+  (6)     end do
+  (7)   end do
+  (8) end do
+End MatrixMultiplication
+
+Matricų daugyba
+Vykdydami matricų daugybos algoritmą, atliekame nkm daugybos ir nk(m-1) sudėties veiksmų
+Jeigu visos matricos yra n*n dydžio, tai algoritmo sudėtingumas – 2n3 aritmetinių veiksmų
+
+Matricos daugybos uždaviniui egzistuoja sudėtingesni, bet ir spartesni skaičiavimo algoritmai
+Nagrinėkime kvadratinės n*n dydžio matricos A, B ir C, kurias paskirstome į m*m dydžio blokines matricas, m=n/p
+
+Matricų daugyba
+Tuomet matricų sandaugą galime išreikšti tokiu algoritmu
+
+m*m dydžio matricų sandaugas AikBkj skaičiuojame pirmuoju algoritmu
+Tuomet naujo algoritmo veiksmų skaičius yra toks pat, kaip ir senojo, tik pasikeitė veiksmų atlikimo tvarka
+Nagrinėkime pavyzdį, kai p=2, tada matricas išskaidome į n/2*n/2 dydžio blokus
+
+
+
+
+
+Matricų daugyba
+Gauname 4 matricų lygybes
+
+
+Tegul n=2k, tada gautąsias aštuonias matricų sandaugas vėl skaičiuojame tokiu pačiu rekursyviuoju algoritmu
+Pažymėkime algoritmo aritmetinių veiksmų skaičių T(n), šią funkciją randame spręsdami rekursijos lygtį
+
+
+Lygties eilės mažinimo metodu apskaičiuojame tokio uždavinio sprendinį
+
+
+
+
+
+Matricų daugyba
+Vėl gavome tokį patį algoritmo sudėtingumo įvertį, kaip ir naudodami klasikinį matricų sandaugos algoritmą
+1969 m. Štrasenas sukūrė naują rekursyvųjį matricos daugybos algoritmą.
+Matricos C koeficientų skaičiavimo formulėse vietoj aštuonių daugybų atliekamos tik 7, tačiau papildomai vykdome keturiolika matricų sumavimo veiksmų
+Pastaba. Matricų daugybos sudėtingumas yra 2n3, o sumavimas n2
+Štraseno algoritmo formulės. Pirmiausia apskaičiuojame 7 pagalbines matricas
+
+
+
+
+Matricų daugyba
+1969 m. Štrasenas sukūrė naują rekursyvųjį matricos daugybos algoritmą.
+Tada jau Galime skaičiuoti matricos C koeficientus
+
+
+
+Atlikome 7 daugybos ir 18 sumavimo veiksmų
+Klasikiniame variante reikia atlikti 8 daugybos ir 4 sumavimo veiksmus
+
+
+
+Matricų daugyba
+Pavyzdys. Dviejų matricų sandaugos skaičiavimas Štraseno algoritmu
+Skaičiuojame sandauga AB, kai
+
+
+Pirmiausia apskaičiuojame pagalbinius koeficientus
+
+
+
+Tada skaičiuojame matricos C koeficientus
+
+
+Matricų daugyba
+Pavyzdys. Dviejų matricų sandaugos skaičiavimas Štraseno algoritmu
+Gauname tokį rezultatą
+
+
+Įvertinsime Štraseno algoritmo sudėtingumą. Bendrą aritmetinių veiksmų skaičių T(n) randame spręsdami rekursijos lygtį 
+
+Matricų daugyba
+Pavyzdys. Dviejų matricų sandaugos skaičiavimas Štraseno algoritmu
+Taikydami lygties mažinimo metodu apskaičiuojame uždavinio sprendinį
+
+
+
+Taigi Štraseno algoritmo sudėtingumas O(n2,81)
+Realizuodami Štraseno algoritmą, rekursiją dažniausiai baigiame anksčiau, kai n~40, o tokio dydžio matricas jau dauginame standartiniu algoritmu
+
+
+
+
+
+
+Greitoji Furjė transformacija
+
+Greitoji Furjė transformacija
+ 
+
+FFT algoritmas
+ 
+
+FFT algoritmas
+Kol kas nesumažinome algoritmo sudėtingumo, tik pakeitėme veiksmų atlikimo tvarką
+Pasirodo, kad visų sumų skaičiuoti nereikia, nes galioja lygybės
+
+
+Tada gauname tokias DFT koeficientų išraiškas
+
+FFT algoritmas
+ 
+
+FFT algoritmas
+Tokį skaidymą kartojame ir skaičiuodami trumpesnių skaičių sekų DFT koeficientus
+Gauname rekusyvųjį FFT algoritmą
+Pateikto algoritmo sudėtingumo lygtis
+
+Lygties sprendinį randame lygties eilės mažinimo metodu
+
+Taigi greitosios Furjė transformacijos algoritmo sudėtingumas O(nlogn).
+Pavyzdžiui, skaičiuojant 2048 ilgio vektoriaus DFT koeficientus, tada FFT algoritmas maždaug 100 kartų spartesnis
+
+
+
+
+
+
+P ir NP sudėtingumo uždaviniai
+
+P ir NP sudėtingumo uždaviniai
+Susipažinsime su daugelio uždavinių sudėtingumo klasifikacija, kuri padės pasirinkti teisingą jų sprendimo strategiją
+
+Svarbu žinoti, kada galime ieškoti tikslaus uždavinio sprendinio, o kada reikia tenkintis euristiniais algoritmais ir spręsti uždavinį tik apytiksliai
+
+P sudėtingumo uždaviniai
+Nagrinėdami uždavinius dažnai jų sudėtingumas būdavo O(nk) veiksmų
+Čia n yra dydis, charakterizuojantis duomenų skaičių, k algoritmo sudėtingumo eilė
+Tokius uždavinius vadiname polinominio sudėtingumo ir jų klasę žymime P
+
+Pavyzdys, kai sudedame ir dauginame dvi n*n dydžio matricas A ir B
+Matricų sumą A + B apskaičiuojame atlikę n2 sudėties veiksmų, o tų pačių matricos sandaugos AB sudėtingumas yra 2n3 aritmetinių veiksmų
+
+
+P sudėtingumo uždaviniai
+ 
+
+NP sudėtingumo uždaviniai
+Egzistuoja daug svarbių taikomųjų uždavinių, kuriems kol kas sukurti tik eksponentinio O(an) arba faktorialinio O(n!) sudėtingumo algoritmai
+Labai svarbu išmanyti tokius uždavinius, nes taikydami juos sprendžiame tik apytiksliai ir naudojame polinominio sudėtingumo euristinius algoritmus
+
+Pvz., kuprinės užpildymo uždavinys
+
+NP sudėtingumo uždaviniai
+Pavyzdžiui, reikia sudaryti visus skirtingus n daiktų išdėstymo variantus
+Jų yra n!, todėl. Net ir tada, kai naują dėstinį gauname atlikę O(1) veiksmą, visus variantus rasti yra O(n!) sudėtingumo uždavinys
+Ši funkcija didėja labai greitai
+Tarkime, per 1 s galime generuoti 1 milijardą variantų.
+Tada 15 daiktų išdėstymo variantus skaičiuotume 22 min, 18 daiktų – 74 paras, o 20 daiktų – 77 metus
+Palyginkime n2 ir 2n sudėtingumo algoritmus
+Padidinus duomenų skaičių dvigubai, polinominio sudėtingumo algoritmo skaičiavimo trukmė padidėja 4 kartus
+Eksponentinio sudėtingumo algoritmo skaičiavimo trukmė padidėja 2 kartus, pridėjus tik vieną papildomą duomenį, ir keturis kartus, pridėjus 2 duomenis
+Visuose praktiniuose uždaviniuose toks uždavinio duomenų skaičiaus didėjimas yra visai nereikšmingas, bet skaičiavimo trukmė išauga labai smarkiai 
+
+NP sudėtingumo uždaviniai
+ 
+
+NP sudėtingumo uždaviniai
+Nagrinėkime NP klasės uždavinių specialius sprendimo algoritmus, sudarytus iš dviejų dalių
+Atlikę O(nm) veiksmų, generuojame naują potencialų sprendinį
+Naudodami polinominio sudėtingumo O(nk) algoritmą, patikriname ar radome sprendinį. Jei spėjimas buvo nesėkmingas, tai vėl atliekame pirmąjį žingsnį
+Jeigu tikrinant sprendinį nepavyksta esmingai sumažinti bandymų skaičius, ir tikriname beveik visus galimus variantus, tai tokio algoritmo sudėtingumo funkcija yra O(an) arba O(n!) eilės
+Sprendžiant skaičių rūšiavimo uždavinį tikriname
+ar masyvas jau surūšiuotas ir galime atmesti neperspektyvius variantus
+Tarkime, kad tikrindami vykdome burbulo algoritmą ir sukeičiame vietomis tuos elementus, kuriems šį sąlyga negalioja
+Tada, atlikę O(n) veiksmų, gauname naują masyvą, kurio didžiausias elementas jau atsidūrė reikiamoje vietoje
+Taigi duomenų aibė sutrumpėja vienu vienetu ir skirtingų variantų lieka tik (n-1)!
+Atlikę dar O(n-1) veiksmų vėl sumažiname variantų skaičių dar (n-1) kartą
+Kartodami burbulo algoritmo pagrindinį žingsnį, surūšiuojame visą masyvą, ir tokio algoritmo sudėtingumas O(n2)
+
+
+NP sudėtingumo uždaviniai
+ 
+
+NP pilnieji uždaviniai
+ 
+
+NP pilnieji uždaviniai
+ 
+
+NP pilnieji uždaviniai
+ 
+
+NP pilnieji uždaviniai
+ 
+
+NPC sudėtingumo uždavinių pavyzdžiai
+Spręskime dėžių užpildymo uždavinį, tada formuluojame klausimą: ar galima visus daiktus sukrauti į k dėžių ?
+Jei k>=n, tai atsakymas – taip
+Taip pat akivaizdu, kad atsakymas bus ne, jei      k < v1 + v2 + … + vn
+Tačiau pasirinkę k, artimą minimaliam dėžių skaičiui, gauname labai sudėtingą uždavinį, kurio nemokame spręsti polinominio sudėtingumo algoritmu
+
+
+
+
+
+
+Lygiagretieji algoritmai
+
+Lygiagretieji algoritmai
+Spręsdami daugelį svarbių technikos, informatikos, gamtos mokslų uždavinių, turime atlikti tiek daug skaičiavimų, kad net ir naudodami pačius greičiausius šiuolaikinius kompiuterius negalime laiku rasti atsakymo
+Kitų didelių uždavinių ribojamuoju veiksniu gali tapti vieno kompiuterio atminties resursai
+Tokiais atvejais padeda lygiagrečiosios skaičiavimo sistemos
+
+Lygiagretieji kompiuteriai
+Nuoseklieji kompiuteriai turi tik po vieną skaičiavimo ir valdymo įrenginį
+Konstruodami lygiagretųjį kompiuterį, galime naudoti daugiau procesorių
+Sudarydami lygiagrečiuosius algoritmus sprendžiame kelis pagrindinius uždavinius, tarp jų svarbiausi – uždavinio išskaidymas į mažesnes užduotis, jų paskirstymas procesoriams ir duomenų persiuntimas tarp procesorių
+Būtent duomenų persiuntimo algoritmai esmingai priklauso nuo kompiuterio atminties architektūros
+
+Lygiagretieji kompiuteriai
+Skirsime dvi dideles lygiagrečiųjų kompiuterių grupes
+Bendrosios atminties kompiuterius
+Paskirstytosios atminties kompiuterius
+Šis padalijimas yra svarbus ne tik sudarant ir analizuojant lygiagrečiuosius algoritmus, bet ir juos realizuojant kompiuterio programa
+Vieni programavimo principai ir priemonės skirti bendrosios atminties kompiuteriams, visai kiti – paskirstytosios atminties kompiuteriams
+
+Bendrosios atminties lygiagretieji kompiuteriai
+Visi procesoriai atlieka veiksmus su tam tikrais duomenimis, kuriuos perskaito ir užrašo į jiems skirtas atminties ląsteles
+Bendrosios atminties lygiagretieji kompiuteriai turi tik vieną atminties bloką, ir visi procesoriai gali tiesiogiai pasiekti visas atminties vietas
+Bendrosios atminties kompiuteriuose lygiagretusis algoritmas vykdomas daugeliu procesų
+Kai skaičiuojamos parengtos vykdyti užduotys, naudojamas bet kuris laisvas procesas, todėl norint sumažinti duomenų kopijavimo sąnaudas, operatyviosios atminties turinys sinchronizuojamas visuose procesoriuose
+Dėl to atsiranda papildomų algoritmo vykdymo sąnaudų
+
+Paskirstytos atminties lygiagretieji skaičiavimai
+Dabar kiekvienas procesorius gali tiesiogiai perskaityti ir įrašyti tik duomenis, esančius jo lokaliojo atmintyje
+Jeigu algoritmui vykdyti reikalingi duomenys saugomi kitame procesoriuje, tai antrasis procesorius turi nusiųsti pirmajam pranešimą su reikalinga informacija
+Pranešimo perdavimo mechanizmas toks
+vienas procesorius siunčia pranešimą
+O kitas procesorius, kuriam reikalingi duomenys, laukia, kol pranešimas ateis
+Duomenų persiuntimu turi pasirūpinti pats programuotojas, nurodydamas, kas, kam ir kada turi siųsti ar gauti pranešimą
+Aišku toks duomenų siuntimas tampa ir algoritmo vykdymo sinchronizavimo tašku
+
+
+Paskirstytos atminties lygiagretieji skaičiavimai
+Taigi duomenų mainai paskirstytosios atminties lygiagrečiuose kompiuteriuose yra sudėtingesni nei bendrosios atminties lygiagrečiuose kompiuteriuose
+Tačiau šiuo atveju nesusiduriame su svarbia problema, kuri egzistuoja bendrosios atminties kompiuteriuose, kai keli procesoriai vienu metu bando skaityti arba rašyti į tą pačią atminties vietą
+Kadangi visus pakeitimus gali atlikti tik tas procesorius, kurio lokalioje atmintyje saugomi duomenys, tai nesunku kontroliuoti duomenų mainus ir jų eiliškumą
+
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Lygiagrečiųjų algoritmų analizė yra sudėtingesnė, nes tenka įvertinti ir kompiuterio, kuriuo skaičiuojame, ypatybes
+Lygiagrečiųjų algoritmų teorinė analizė yra netgi svarbesnė, nes eksperimentuoti su tokiais kompiuteriais daug brangiau
+
+Pažymėkime Tp laiką, per kurį duotąjį uždavinį išsprendžiame lygiagrečiuoju algoritmu, naudodami p procesorių
+Tegul T0 yra laikas, per kurį tą patį uždavinį išsprendžiame greičiausiu nuosekliuoju algoritmu
+Pažymėtina, kad T1 gali būti ir didesnis už T0, nes geriausiąjį nuoseklųjį algoritmą ne visada pavyksta sėkmingai realizuoti lygiagrečiuoju kompiuteriu
+
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Apibrėšime 2 svarbius dydžius, naudojamus lygiagretiesiems algoritmams analizuoti
+Lygiagrečiojo algoritmo spartinimo koeficientu vadinamas santykis
+
+
+įvertinantis pagreitėjimą, kurį pasiekiame spręsdami uždavinį lygiagrečiuoju algoritmu ir naudodami p procesorių.
+Būtent ši charakteristika yra svarbi daugeliui lygiagrečiųjų kompiuterių vartotojų
+Idealiu atveju tikimės, kad, didėjant procesorių skaičiui p, spartinimo koeficientas Sp didės tiesiškai
+
+Tačiau, realiai eksperimentuojant, dažniausiai matomas sudėtingesnis spartinimo kitimas
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Kol procesorių nėra labai daug, funkcija Sp nelabai skiriasi nuo tiesinės funkcijos, tačiau, didėjant p, ji auga lėčiau, funkcijos grafikas pasiekia asimptotinį rėžimą – tolesnis procesorių skaičiaus didinimas nedaug sumažins uždavinio sprendimo trukmę
+
+Kitas svarbus lygiagrečiųjų algoritmų rodiklis yra algoritmo efektyvumo koeficientas, parodantis, kokią dalį procesorių pajėgumo pasitelkėme, spręsdami uždavinį duotuoju lygiagrečiuoju algoritmu
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Pavyzdys. Skaliarinės sandaugos skaičiavimo lygiagretusis algoritmas
+Apskaičiuokime dviejų vektorių X ir Y skaliarinę sandaugą
+
+
+Tarkime, kad dviejų skaičių sandaugą ir sumą skaičiuojame vieną laiko vienetą
+Tada vienu procesoriumi dviejų vektorių skaliarinę sandaugą apskaičiuojame per
+
+laiko vienetų
+Tarkime, kad N=2k, ir turime p=N procesorių
+Pažymėkime dviejų komponenčių sandaugą si=xiyi
+Tada vektorių skaliarinę sandaugą skaičiuojame lygiagrečiuoju algoritmu
+
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Pavyzdys. Skaliarinės sandaugos skaičiavimo lygiagretusis algoritmas
+Įvertinsime lygiagrečiojo algoritmo vykdymo trukmę
+Procesorius numeruokime, kaip tai įprasta lygiagrečiųjų algoritmų teorijoje  - nuo 0 iki p-1
+Pirmuoju žingsniu visi procesoriai vienu metu apskaičiuoja xjyj sandaugas
+Tada nelyginiai procesoriai (2j+1) nusiunčia savo turimą sandaugą greta esantiems procesoriams 2j, j=0,1, …, p/2-1 ir baigia darbą
+Procesoriai, kurių numeriai yra lyginiai, sumuoja turimą tarpinę sumą su atsiųstu rezultatu
+Toliau šis procesas kartojamas: procesoriai (4j+2) siunčia informaciją procesoriams 4j ir baigią darbą, procesoriai 4j sumuoja gautą rezultatą su turima tarpine suma
+Atlikus (k+1) žingsnį, nulinis procesorius apskaičiuoja reikiamą skaliarinės sandaugos reikšmę
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Pavyzdys. Skaliarinės sandaugos skaičiavimo lygiagretusis algoritmas
+Tarkime, kad komunikacijos sąnaudos yra nereikšmingos, tada
+
+Kadangi aritmetinės sumos reikšmė nepriklauso nuo veiksmų tvarkos, tai lygiagrečiojo algoritmo vykdymo sąnaudos T0 = T1
+Taigi lygiagrečiojo algoritmo spartinimo koeficientas yra
+
+
+o algoritmo efektyvumas yra
+
+
+Didinant N, gauname tokius asimptotinius lygiagrečiojo skaliarinės sandaugos algoritmo spartinimo ir efektyvumo koeficientų įverčius
+
+
+Lygiagrečiųjų algoritmų sudėtingumo teorija
+Šiuo algoritmu siekėme greičiausiai suskaičiuoti skaliarinę sandaugą, tačiau pasitelktų procesorių naudojimas buvo labai neveiksmingas – po pirmojo algoritmo žingsnio lygiai pusė procesorių baigė darbą, po antro žingsnio liko dirbti tik ketvirtadalis procesorių ir taip toliau
+Sudarytasis algoritmas gali būti naudojamas ir daug veiksmingiau, jei pasitelksime tik p=N/m procesorių
+Kaip pavyzdį imkime N=1024, p=32, tada pirmuoju žingsniu visi procesoriai vienu metu apskaičiuoja lokalias m=32 narių sumas, tai užtrunka 63 laiko vienetus
+Paskui vėl vykdomas anksčiau pavyzdyje pateiktas algoritmas
+Jis užtrunka penkis laiko vienetus
+Todėl gauname tokius lygiagrečiojo algoritmo spartinimo ir efektyvumo koeficientų įverčius
+
+Amdahlo dėsniai
+Svarbu žinoti, kaip pagreitės algoritmo realizavimas, kai uždavinį spręsime naudodami daugiau procesorių
+
+Teorema (Pirmasis Amdahlo dėsnis). Tarkime, kad r yra ta algoritmo dalis, kurią galime apskaičiuoti vienu metu, o s=1-r yra likusi algoritmo dalis, kurią galime vykdyti tik nuosekliai. Tada algoritmo spartinimo koeficientas yra įvertinamas nelygybe
+
+Amdahlo dėsniai
+Įrodymas. Iš teoremos sąlygų įvertiname algoritmo realizavimo trukmę
+
+Todėl lygiagrečiojo algoritmo spartinimo koeficientas yra ne didesnis už
+
+
+
+Sp formulė paaiškina spartinimo koeficiento dinamiką
+Iš pradžių, daugėjant procesorių, beveik tiesiškai proporcingai sutrumpėja uždavinio sprendimo trukmė Tp, tačiau kai tik lygiagrečioji algoritmo sąnaudų dalis susilygina su nuosekliosios dalies sąnaudomis, t. y. r/p≈s, toliau daugėjant procesorių algoritmas jau mažai pagreitėja
+
+
+Amdahlo dėsniai
+Amdahlo dėsnis yra gana pesimistiškas, kai uždavinį norime spręsti pasitelkę daug procesorių
+Tačiau šį dėsnį įrodėme tarę, jog uždavinio skaičiavimo apimtis yra fiksuota
+Daugeliui uždavinių būdinga, kad, didėjant uždaviniui, nuosekliosios algoritmo dalies skaičiavimų apimtis didėja lėčiau už lygiagrečiosios dalies apimtį
+Pažymėkime n uždavinio dydį apibūdinantį parametrą
+Nagrinėkime abstraktų algoritmą, kurio nuoseklioji ir lygiagrečioji dalys yra atitinkamai lygios Qs ir Qr aritmetinių veiksmų
+Tarkime, kad, didėjant uždavinio dydžiui, yra teisingi tokie įverčiai
+
+o koeficientai qs, qr nepriklauso nuo uždavinio dydžio
+
+Amdahlo dėsniai
+Teorema (apibendrintas Amdahlo dėsnis). Tarkime, kad algoritmo lygiagrečioji ir nuoseklioji dalys tenkina įverčius. Tada pakankamai dideliems n lygiagrečiojo algoritmo spartinimo koeficientas tenkina sąlygą
+
+Įrodymas. Pažymėkime Qs ir Qr koeficientų santykį t=qr/qs
+Tada algoritmo nuoseklioji dalis yra
+
+
+O lygiagrečioji dalis
+
+
+Todėl lygiagrečiojo algoritmo spartinimo koeficientas yra
+
+Amdahlo dėsniai
+Įrodymas.
+Fiksuokime procesorių skaičių ir didinkime uždavinio dydį n, tada gausime, kad
+
+
+Taigi didelio dydžio uždavinių spartinimo koeficientas yra artimas procesorių skaičiui p
+Todėl gauname svarbią išvadą, kad lygiagretieji algoritmai yra ypač efektyvūs, kai, imdami daugiau procesorių, sprendžiame vis didesnio dydžio uždavinius
+Lygiagretieji algoritmai gali būti ne tokie efektyvūs, kai norime tą patį uždavinį išspręsti greičiau
+
+Izoefektyvumo funkcija
+Nagrinėdami paprasčiausius lygiagrečiuosius algoritmus, įsitikinome, kad jų efektyvumas visada mažesnis už vieną
+Taip yra dėl to, kad procesoriai turi persiųsti duomenis vienas kitam, ir retai pavyksta taip padalyti užduotis, kad, sprendžiant visą uždavinį, visi procesoriai atliktų naudingus skaičiavimus
+Dabar apibrėšime matą, įvertinanti šias papildomas lygiagrečiojo algoritmo sąnaudas
+Tarsime, kad laiko matavimo vienetu yra vienos elementarios algoritmo operacijos atlikimo trukmė
+Tada greičiausio nuosekliojo algoritmo skaičiavimo trukmė sutampa su algoritmo sudėtingumu
+
+Izoefektyvumo funkcija
+Lygiagrečiojo algoritmo papildomomis sąnaudomis vadinsime visų procesorių bendro skaičiavimo laiko greičiausio nuosekliojo algoritmo skaičiavimo laiko skirtumą
+
+Matome, kad lygiagrečiojo algoritmo papildomų sąnaudų dydis priklauso nuo procesorių skaičiaus p ir uždavinio dydžio W, todėl dažnai naudosime žymenį 
+
+Izoefektyvumo funkcija
+Pavyzdys. Iteracinių tiesinės algebros algoritmų papildomos sąnaudos
+Daugelis tiesinės algebros uždavinių efektyviai sprendžiami iteraciniais algoritmais
+Tokių metodų nuosekliojo algoritmo vienos iteracijos realizavimo sąnaudos yra proporcingos matricos elementų skaičiui, todėl W=n2
+Naudodami p procesorių, tą patį algoritmą realizuojame per
+
+
+Laiko vienetų
+Tada lygiagrečiojo algoritmo papildomos sąnaudos yra
+
+Izoefektyvumo funkcija
+Pavyzdys. Iteracinių tiesinės algebros algoritmų papildomos sąnaudos
+Atlikę nesudėtingus skaičiavimus, iš Tp išraiškos randame optimalų procesorių skaičių, kai duotąjį uždavinį išsprendžiame greičiausiai
+
+Imdami daugiau procesorių, sumažintume lygiagrečiojo algoritmo skaičiavimo trukmę, bet dar daugiau padidėtų papildomos sąnaudos
+Dabar lygiagrečiojo algoritmo efektyvumo koeficientą Ep išreiškime uždavinio dydžio W ir algoritmo papildomų sanąudų Kp funkcija
+
+
+Izoefektyvumo funkcija
+Kaip matėme, daugėjant procesorių, lygiagrečiojo algoritmo papildomos sąnaudos irgi didėja
+Norėdami, kad algoritmo efektyvumas nepasikeistų, atitinkamai turime sunkinti uždavinį
+
+
+Išsprendę šią lygtį, randame uždavinio dydžio W priklausomybę nuo procesorių skaičiaus W=f(p), garantuojančią norimą lygiagrečiojo algoritmo efektyvumą
+Tokią funkciją vadinsime izoefektyvumo funkcija
+Ji priklauso ir nuo sprendžiamo uždavinio, ir nuo lygiagrečiojo kompiuterio charakteristikų
+Kuo šios funkcijos augimo greitis yra mažesnis, tuo lygiagretusis algoritmas yra lengviau išplečiamas, t. y. mažiau reikia sunkinti uždavinį, kad efektyviai panaudotume daugiau procesorių
+
+Izoefektyvumo funkcija
+Pavyzdys. Iteracinių algebros algoritmų izoefektyvumo funkcija
+Tokių algoritmų papildomas sąnaudas jau anksčiau pateikiau. Apibrėžkime konstanta
+
+
+Priklausančią nuo siekiamo lygiagrečiojo algoritmo efektyvumo
+Tada lygiagrečiojo algoritmo izoefektyvumo funkcija apibrėžiama lygtimi
+
+
+Išsprendę šią lygtį, randame izoefektyvumo funkciją
+
+
+Taigi padidinę procesorių skaičių keturis kartus, uždavinio dydį turime didinti šešiasdešimt keturis kartus, jei norime, kad algoritmo efektyvumas liktų toks pats
+Prisiminsimę, kad W=n2, gauname, jog matricos turi padidėti aštuonis kartus
+
+Izoefektyvumo funkcija
+Ne visada pavyksta nesunkiai išspręsti lygtį, iš kurios randame izoefektyvumo funkciją
+Tada dažniausiai nagrinėjame atskirų papildomų sąnaudų narių įtaką ir išrenkame tą funkciją, kuri apibrėžia greičiausią izoefektyvumo funkcijos didėjimą
+Tokia metodika leidžia įvertinti tik asimptotinį izoefektyvumo funkcijos didėjimo greitį
+Kai procesorių skaičius nėra didelis, izoefektyvumo funkcija gali esmingai priklausyti ir nuo žemesniosios eilės narių
+
+Duomenų persiuntimo sąnaudų teorinis modelis
+Nagrinėdami paprasčiausius lygiagrečiuosius algoritmus, matėme, kad skaičiuojant procesoriai turi keistis informacija
+Duomenų persiuntimo trukmė labai priklauso nuo lygiagrečiojo kompiuterio tipo ir tinklo topologijos
+Priminsiu, kad bendrosios atminties lygiagrečiuosiuose kompiuteriuose kiekvienas procesorius tiesiogiai gali perskaityti bet kurio kintamojo reikšmę arba užrašyti naują jo reikšmę
+Tačiau reikia atsižvelgti į šių kompiuterių atminties hierarchiją
+Kiekvienam procesoriui kai kurie duomenys yra pasiekiami greičiau negu kitiems
+
+Duomenų persiuntimo sąnaudų teorinis modelis
+Paskirstytosios atminties lygiagrečiuose kompiuteriuose procesoriai keičiasi duomenimis, siųsdami pranešimus
+Tarkime, kad pranešimą sudaro n skaičių
+Tada gana tiksliai vieno pranešimo persiuntimo sąnaudas galime įvertinti formule
+
+čia b yra vieno skaičiaus siuntimo laikas, atvirkštinis dydis 1/b vadinamas duomenų perdavimo linijos pločiu
+a fizikinė prasmė
+Prieš išsiųsdami pranešimą, siuntėjas pagal tam tikrus reikalavimus parengia pranešimo turinį, prideda papildomus pranešimo atributus, susisiekia su procesu, atsakingą už duomenų siuntimą kompiuterių tinkle, nustato optimalų maršrutą.
+Šias sąnaudas žymėsime ts ir vadinsime pranešimo parengimo laiku
+
+Duomenų persiuntimo sąnaudų teorinis modelis
+a fizikinė prasmė
+Išsiuntus pranešimą, turi praeiti tam tikras laikas, kol informacija apie pranešimą pasieks adresatą, ir jis nusprendžia, kur dėti pranešimą, arba persiunčia jį kitam procesui
+Šį laiką žymėsime th ir vadinsime pranešimo judėjimo laiku
+Tada a įvertina suminį šių sąnaudų dydį
+
+šis dydis vadinamas starto laiku
+Vėliau pranešimo persiuntimo greitis priklauso tik nuo to, koks yra perdavimo linijos plotis 
+Visuose lygiagrečiuose kompiuteriuose pradinė pranešimo perdavimo stadija yra daug ilgesnė už vieno skaičiaus persiuntimo laiką, a yra didesnis už b šimtus ir net tūsktančius kartų
+
+Duomenų persiuntimo sąnaudų teorinis modelis
+Šis skirtumas ypač didelis kompiuterių klasteriuose, sujungtuose vietiniu tinklu
+Net ir toks paprastas duomenų persiuntimo sąnaudų teorinis modelis yra naudingas, kuriant lygiagrečiuosius algoritmus
+Pirmoji praktinė rekomendacija yra tokia
+Kelis trumpus pranešimus tikslinga susieti į vieną pranešimą, taip sutaupomos parengimo sąnaudos
+
+Grupinės duomenų persiuntimo operacijos
+Nagrinėsime 2 sudėtingesnes kominikavimo operacijas
+Pažymėtina, kad šios operacijos yra dualios, vieną operaciją gauname iš kitos, keisdami siuntėjo ir gavėjo kryptis
+Paskleidimo operacija
+Vienas procesorius siunčia tą patį pranešimą visiems kitiems procesoriams
+Duomenų siuntėjas gali būti kiekvienas procesorius
+Surinkimo operacija
+Vienas procesorius surenka rezultatus iš visų kitų procesorių
+Surenkant rezultatus, duomenims gali būti pritaikyta bet kokia asociatyvioji operacija: sumavimas, daugyba, maksimumo radimas ir kitos
+Dviejų vektorių skaliarinės sandaugos skaičiavimo algoritme, baigę skaičiuoti lokaliąsias sumas sudedame lokaliąsias sumas
+
+
+Grupinės duomenų persiuntimo operacijos
+Nesunku pastebėti, kad surinkimo ir paskleidimo operacijos yra dualios, duomenų persiuntimas vyksta tarp tų pačių procesorių, tik pranešimų siuntėjai ir gavėjai sukeičiami vietomis
+Surenkant apskaičiuojama visų procesų atitinkamų elementų suma, kurią saugo nulinis procesorius
+Įvairiems kompiuterių tinklams sudarome skirtingus duomenų paskleidimo algoritmus
+Stengiamės išnaudoti visas tinklo jungtis
+Kaip pavyzdį nagrinėkime žiedinį tinklą
+Pažymėkime nuliniu numeriu procesorių, siunčiantį pranešimą
+Tada pirmuoju žingsniu jis nusiunčia pranešimą (p-1)-ajam procesoriui, o pirmasis procesorius – antrajam procesoriui
+Algoritmo j-uoju žingsniu (j-1)-asis procesorius nusiunčia pranešimą j-ajam procesoriui, o (p-j+2)-asis procesorius nusiunčia (p-j+1)-ajam
+Atlikus [p/2] žingsnių, visi procesoriai turi pranešimo kopiją
+
+
+Grupinės duomenų persiuntimo operacijos
+Kaip pavyzdį nagrinėkime žiedinį tinklą
+Tada paskleidimo operacijos sąnaudos žiediniame tinkle įvertinamos formule
+
+
+
+čia [z] pažymėjome mažiausią sveikąjį skaičių, ne mažesnį už z
+
+
+Lygiagrečiųjų algoritmų sudarymo etapai
+Sudarysime bendrą schemą, kuria remdamiesi galime spręsti visus per paskaitas nagrinėjamus uždavinius
+Ji pateikia tik svarbiausius darbo etapus, bet nepateikia galutinio lygiagrečiojo algoritmo
+Suformuluojame esminius klausimus, į kuriuos reikia atsakyti kuriant lygiagretųjį algoritmą
+Kaip išskaidyti uždavinį į nepriklausomas užduotis ?
+Kokio dydžio užduotis pasirinkti ?
+Kiek reikia procesorių, kad uždavinį išspręstume greičiausiai ?
+Kaip paskirstyti užduotis tarp procesorių ?
+
+Nepriklausomų užduočių sąrašas
+Sudarydami bet kokį lygiagretųjį algoritmą, pirmiausia turime išskirti nepriklausomas užduotis, kurias skirtingi procesoriai gali spręsti tuo pačiu metu
+Kuo daugiau yra tokių užduočių, tuo daugiau procesorių galime naudoti uždaviniui spręsti ir tolygiau paskirstyti tarp visų procesorių darbą
+Kiekvienos užduoties atlikimas priklauso nuo tam tikrų duomenų, todėl siekiame, kad šiuos duomenis jau turėtu tas procesas, kuriam skirta užduotis
+Priešingu atveju papildomą informaciją reikia persiųsti iš kito procesoriaus, o tai gana ilgai trunkantis veiksmas
+Taigi užduotis grupuojame taip, kad procesoriams kuo rečiau reikėtų keistis didesniais informacijos kiekiais
+Bet toks užduočių sujungimas reiškia mažesnį jų kiekį
+Kompromisinio sprendimo radimas ir daro užduočių sąrašo sudarymą sudėtingu uždaviniu
+
+Nepriklausomų užduočių sąrašas
+Pažymėkime T užduočių aibę
+
+Kiekvieną užduotį Vi apibūdinsime dviem dydžiais (ti,Di), čia ti yra užduoties vykdymo trukmė etaloniniu procesoriumi, o Di yra duomenų, reikalingų vykdyti šiai užduočiai, aibė
+Pažymėtina, kad nebūtinai visos užduotys, net ir tikslus jų skaičius, yra žinomos pradedant spręsti uždavinį
+Kai kurios užduotys gali būti generuojamos vykdant algoritmą
+Tokių pavyzdžių rasime spręsdami netiesines lygtis, skaičiuodami integralus, rūšiuodami skaičių masyvus
+Ne visos aibė T užduotys gali būti vykdomos nepriklausomai viena nuo kitos
+Pažymėkime Vi <- Vj sąlygą, kad užduotis Vj gali būti pradėta skaičiuoti tik tada, kai pasibaigė užduotis Vi
+
+
+Nepriklausomų užduočių sąrašas
+Vi yra vadinama užduoties Vj pirmtake
+Taigi sudarę užduočių sąrašą, turime jį topologiškai surūšiuoti
+Visų eiliškumo sąlygų aibę pažymėkime
+
+
+lygiagretųjį algoritmą vaizduojame orientuotuoju cikliniu grafu G=(T,P)
+Šis grafas būtinai yra ciklinis, nes priešingu atveju negalėtume atlikti kai kurių užduočių
+Grafo viršūnių svoriai rodo šių užduočių vykdymo trukmę
+
+Užduočių sprendimo tvarkaraštis
+ 
+
+Užduočių sprendimo tvarkaraštis
+Ieškome tokio korektiško užduočių sprendimo tvarkaraščio, kurį vykdydami uždavinį išsprendžiame greičiausiai
+Jeigu optimaliame tvarkaraštyje kai kurios aibės sj yra tuščiosios, tai, realizuodami algoritmą, naudosime mažiau procesorių nei galėtume
+Sudaryti optimalų tvarkaraštį yra labai sunkus uždavinys
+Tik kai kuriais atvejais yra žinomi polinominio sudėtingumo algoritmai, leidžiantys rasti optimalius tvarkaraščius
+Dažniausiai tokie algoritmai yra nežinomi arba jie yra daug sudėtingesni už uždavinį, kurį norime išspręsti
+Tariame, kad žinome visą užduočių sąrašą ir turime lygiagrečiojo algoritmo grafą G. 
+Be to, užduočių vykdymo laikas yra žinomas iš anksto
+Tada optimalaus sąrašo sudarymas yra optimizavimo uždavinys
+Pažymėkime Ti(S) i-tojo procesoriaus skaičiavimo trukmę, kai naudojame užduočių paskirstymą S 
+
+Užduočių sprendimo tvarkaraštis
+Optimalus tvarkaraštis yra uždavinio sprendinys
+
+Kai kuriais atvejais yra sukurti paprasti sprendimo algoritmai
+Pavyzdžiui, jei visos užduotys vykdomos tiek pat laiko ir grafas G yra miškas, tai egzistuoja polinominio sudėtingumo optimalaus tvarkaraščio sudarymo algoritmas
+Toks algoritmas yra žinomas ir tada, kai visų užduočių vykdymo trukmė yra vienoda ir turime 2 vienodus procesorius
+Tačiau jei užduočių vykdymo trukmė yra kintama arba procesoriai yra heterogeniški, arba turime daugiau nei 2 procesorius, tai optimalaus tvarkaraščio sudarymas yra NP sudėtingumo uždavinys
+Todėl dažniausiai tenkinamės tokiais algoritmais, kurie per gana trumpą laiką leidžia sudaryti panašų į optimalų tvarkaraštį
+Vienas iš populiariausių yra sąrašo paskirstymo algoritmas
+Parengta užduotimi vadinsime tokią užduotį, kurios visos pirmtakės jau įvykdytos
+
+Sąrašo paskirstymo algoritmas
+
+Lygiagretusis Dijkstors algoritmas

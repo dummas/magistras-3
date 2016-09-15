@@ -1,0 +1,64 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\graphicspath{{img/}}
+\usepackage{tikz}
+\usepackage{gensymb}
+\usepackage{subfig}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+  \begin{titlepage}
+    \begin{center}
+      \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
+      \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
+      \textsc{\Large Objekto padėties nustatymas taikant MEMS jutiklius}\\[60mm]
+      \textsc{\Large Juodraštis}\\[60mm]
+      \vfill
+      {\large Vilnius \\ \the\year}
+    \end{center}
+  \end{titlepage}
+
+  \tableofcontents
+
+  \newpage
+
+  \section{Įvadas}
+
+  \input{section/ivadas.tex}
+
+  \section{MEMS jutikliai}
+
+  \input{section/mems_jutiklis.tex}
+
+  \section{Signalų filtrai}
+
+  \input{section/filtrai.tex}
+
+  \section{Literatūros apžvalga}
+
+  \input{section/literaturos_apzvalga.tex}
+
+  \section{Naudojama įranga}
+
+  \input{section/naudojama_iranga.tex}
+
+  \section{Išvados}
+
+  \input{section/isvados.tex}
+
+  \newpage
+
+  \bibliographystyle{plain}
+  \bibliography{references}
+
+\end{document}

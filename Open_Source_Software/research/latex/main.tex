@@ -1,0 +1,66 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\renewcommand{\baselinestretch}{1.5}
+\graphicspath{ {img/} }
+
+\begin{document}
+\begin{titlepage}
+  
+  \begin{center}
+    \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
+    \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
+    \textsc{\Large Atviro programinė įranga}\\[10mm]
+    \textsc{\normalsize Kursinis darbas}\\[40mm]
+    \begin{minipage}{1\textwidth}
+      \begin{flushright}
+        \emph{Darbą atliko:} Maksim Norkin, AKSfm-15\\
+        \emph{Darbą tikrino:} Doc. Raimondas Pomarnacki\\
+      \end{flushright}
+    \end{minipage}
+    \vfill
+    {\large Vilnius \\ \the\year}
+  \end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+
+\section{Įvadas. Užduoties analizė}
+
+\input{section/ivadas.tex}
+
+\section{Analogiškos paskirties programinės įrangos apžvalga}
+
+\input{section/analogiskos_programines_irangos_apzvalga.tex}
+
+\section{Programinės įrangos kūrimas}
+
+\input{section/programines_irangos_kurimas.tex}
+
+\section{Programinės įrangos licencijavimas}
+
+\input{section/programines_irangos_licencijavimas.tex}
+
+\section{Išvados}
+
+\input{section/isvados.tex}
+
+\newpage
+
+\addcontentsline{toc}{section}{Literatūros ir informacinių šaltinių sąrašas}
+\renewcommand\refname{Literatūros ir informacinių šaltinių sąrašas}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\newpage
+
+\addcontentsline{toc}{section}{Priedai}
+\renewcommand\refname{Priedai}
+
+\end{document}

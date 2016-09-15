@@ -27,11 +27,11 @@ var quadStage;
 var circles;
 var tree;
 
-var CIRCLE_COUNT = 100;
+var CIRCLE_COUNT = 0;
 var bounds;
 var shape;
 var fps;
-var showOverlay = false;
+var showOverlay = true;
 
 
 function init()
@@ -46,21 +46,6 @@ function init()
     
     circles = [];
     
-    var check = document.getElementById("showQuadCheck");
-    check.onclick = function(e)
-    {
-        if(e.target.checked)
-        {
-            showOverlay = true;
-        }
-        else
-        {
-            shape.graphics.clear();
-            quadStage.update();
-            showOverlay = false;
-        }
-    };
-    
     var canvas = document.getElementById("canvas");
     var quadCanvas = document.getElementById("quadCanvas");
     quadStage = new Stage(quadCanvas);
@@ -72,7 +57,7 @@ function init()
     tree = new QuadTree(bounds, false, 7);
     
     fps = new Text();
-    fps.x = 10;
+    fps.x = 100;
     fps.y = 15;
     
     stage.addChild(fps);
@@ -81,21 +66,21 @@ function init()
     
     var params = parseGetParams();
     
-    var circlesParam = params.circleCount;
-    if(circlesParam)
-    {
-        circleCount = parseInt(circlesParam);
-        
-        if(circleCount)
-        {
-            CIRCLE_COUNT = circleCount;
-        }
-    }   
-    
-    initCircles();
+    //initCircles();
     
     stage.update();
     quadStage.update();
+
+    quadCanvas.onclick = function (e) {
+        var x = e.clientX - quadCanvas.offsetParent.offsetLeft;
+        var y = e.clientY;
+        
+        initCircle(x, y);
+
+        updateTree();
+
+        CIRCLE_COUNT = CIRCLE_COUNT + 1;
+    }
     
     this.tick = tick_quad;
     
@@ -105,43 +90,32 @@ function init()
     Ticker.addListener(window);
 }
 
-function initCircles()
+/** Initialize the circle */
+function initCircle(x, y)
 {
-    var c;
-    var g;
-    
-    var x, y;
-    
-    //note, we are sharing the same graphics instance between all shape instances
-    //this saves CPU and memory, but could lead to some weird bugs, so keep that in mind
-    
-    var radius;
-    for(var i = 0; i < CIRCLE_COUNT; i++)
+
+    radius = 10;
+    c = new Circle(bounds, radius);
+
+    if(x + c.width > bounds.width)
     {
-        radius = Math.ceil(Math.random() * 10) + 1;
-        c = new Circle(bounds, radius);
-        
-        x = Math.random() * bounds.width;
-        y = Math.random() * bounds.height;
-        
-        if(x + c.width > bounds.width)
-        {
-            x = bounds.width - c.width - 1;
-        }
-        
-        if(y + c.height > bounds.height)
-        {
-            y = bounds.height - c.height - 1;
-        }
-        
-        c.x = x;
-        c.y = y;
-        
-        stage.addChild(c);
-        circles.push(c);
-        tree.insert(c);
+        x = bounds.width - c.width - 1;
     }
+    
+    if(y + c.height > bounds.height)
+    {
+        y = bounds.height - c.height - 1;
+    }
+    
+    c.x = x;
+    c.y = y;
+    
+    stage.addChild(c);
+    circles.push(c);
+    tree.insert(c);
+
 }
+
 
 function updateTree()
 {
@@ -292,8 +266,8 @@ function renderQuad()
 {
     var g = shape.graphics;
     g.clear();
-    g.setStrokeStyle(1);
-    g.beginStroke("#000000");
+    g.setStrokeStyle(5);
+    g.beginStroke("#333");
     
     drawNode(tree.root);
 }

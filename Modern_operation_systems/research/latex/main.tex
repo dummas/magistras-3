@@ -1,0 +1,70 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{graphicx}
+\renewcommand{\baselinestretch}{1.2}
+\graphicspath{ {img/} }
+
+\begin{document}
+\begin{titlepage}
+  
+  \begin{center}
+    \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
+    \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
+    \textsc{\Large Modernios operacinės sistemos}\\[10mm]
+    \textsc{\normalsize IBM MIRA}\\[40mm]
+    \begin{minipage}{1\textwidth}
+      \begin{flushright}
+        \emph{Darbą atliko:} Maksim Norkin, AKSfm-15\\
+        \emph{Darbą tikrino:} Prof. Vytautas Urbanavičius\\
+      \end{flushright}
+    \end{minipage}
+    \vfill
+    {\large Vilnius \\ \the\year}
+  \end{center}
+\end{titlepage}
+\tableofcontents
+\newpage
+
+% Juos aprašyti akcentuojant
+% Aparatinę įrangą,
+% Operacinę sistemą,
+% Sprendžiamus uždavinius.
+
+\section{Įvadas}
+
+\input{section/ivadas.tex}
+
+\section{Aparatinė įranga}
+
+\input{section/aparatine_iranga.tex}
+
+\section{Operacinė sistema}
+
+\input{section/operacine_sistema.tex}
+
+\section{Operacinės sistemos branduolys}
+
+\input{section/operacines_sistemos_branduolys.tex}
+
+\section{Sprendžiami uždaviniai}
+
+\input{section/sprendziami_uzdaviniai.tex}
+
+\section{Išvados}
+
+\input{section/isvados.tex}
+
+\newpage
+
+\addcontentsline{toc}{section}{Literatūros ir informacinių šaltinių sąrašas}
+\renewcommand\refname{Literatūros ir informacinių šaltinių sąrašas}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
