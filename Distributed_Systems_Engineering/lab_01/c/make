@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#export LD_LIBRARY_PATH=/usr/local/lib
+
+mpicc -lm -o 1 /home/PSI/Desktop/Desktop/MPI/hello.c
+mpiexec -n 10 /home/PSI/Desktop/Desktop/MPI/1
+
+#mpicc -lm -o mpi hello.c
+#mpiexec -n 10 mpi
