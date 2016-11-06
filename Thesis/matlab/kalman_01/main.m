@@ -5,11 +5,14 @@ clear all;
 clc;
 
 dT = 0.05;
-F = [1 dT; 0 1];
+F = [
+    1 dT; 
+    0 1
+];
 H = [1 0];
 
 x0 = [0;0];
-sigma_a = 0.2;
+sigma_a = 0.05;
 
 Q = sigma_a^2;
 R = 0.01;
