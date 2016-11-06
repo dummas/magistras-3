@@ -81,6 +81,7 @@ Tokiu būdu, paleidus virtualią mašiną, gaunamas rezultatas
 
 ## Išvados
 
-Namų darbo metu buvo sukurta virtuali mašina ir paleistas http protokolo serveris, kurio pagalba iš serverio galima pateikti naudotojui turinį. Serverio sprendimas pasirinktas ``nginx`` [1], dėl licencijos yra labai patikimo veikimo. Visas darbas buvo atliktas, panaudojus ``vagrant`` automatizavimo įrankį.
+Namų darbo metu buvo sukurta virtuali mašina ir paleistas http protokolo serveris, kurio pagalba iš serverio galima pateikti naudotojui turinį. Serverio sprendimas pasirinktas ``nginx`` [1], dėl licencijos yra labai patikimo veikimo. Visas darbas buvo atliktas, panaudojus ``vagrant`` automatizavimo įrankį. Visas kodas yra pasiekiamas ``github`` paskyroje [2].
 
 [1]: http://nginx.org/en/ 
+[2]: https://github.com/dummas/magistras-3/tree/master/Open_Source_Software/lab_05

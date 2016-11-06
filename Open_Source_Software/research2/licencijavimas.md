@@ -205,8 +205,35 @@ LGPL pateikia alternatyvią licenciją, kuri turi dauguma GPL privalumų, būten
 LGPL licencijuotos bibliotekos gali būti sujungtos su ne GPL licencijuotomis programomis, įtraukiant ir nuosavas programas.
 Tačiau, bibliotekoms nėra būtina turėti LGPL licenciją ir kaip sekanti nuostata pabrėžia, geriausias bibliotekai turėti GPL licenciją.
 
-Visoje licencijos įžangoje yra du pagrindiniai dalykai, kurie skiriasi nuo GPL.
-Pirmas skirtumas
+Egzistuoja du nauji punktai, kuriuos yra svarbu pažymėti. Pirmas yra programuotojo licencijos pasirinkimo klausimas. Egzistuoja dvi galimybes -- arba pasirinkti GPL arba LGPL.
+Pradžioje dar galima pasakyti, kad programuotojas gali pasirinkti kokia licenciją pritaikyti savo programinei įrangai ir bibliotekoms.
+Į tą sąrašą įtraukiami bet kokios licencijos, patvirtintos atviro kodo fondo ar ne.
+Tiems, ką domina pritaikyti GPL modelį, punktas konkrečiai nurodo linkti į LGPL pusę, tokiu atveju kai biblioteka yra skirta pakeisti jau egzistuojantį komercinį produktą.
+Antras punktas, kurį verta paminėti yra skirtumas LGPL licencijoje tarp ''paremtas biblioteka darbas'', kas iš tikrųjų yra darbas, kuriam jau būtų taikoma GPL licencija, ir ''darbas, kuris yra naudojamas su biblioteka'', kuriam jau nebūtų taikoma GPL.
+
+### The Mozilla Public License 1.1
+
+Sausio 1998, ``Netscape Communications`` nusprendė išleisti binarinį savo interneto prieigos programos versiją nemokamai.
+Per 24 valandas nuo šito paskelbimo, buvo taip pat nuspręsta išleisti ir pradinį programos kodą.
+To rezultate, kompanijai teko spręsti dvi užduotis vienu metu -- spręsti technines kodo problemas, kadangi kai kurie autoriai nenorėjo atskleisti savo kodo publikai ir ištiesinti licencijavimo klausimą.
+Tokių rezultatų vaisius yra dvi licencijos -- ``The Netscape License`` (NPL) ir ``Mozilla Public License`` (MPL).
+NPL buvo labai panaši į MPL, tačiau ji rezervavo tam tikras teises įmonei.
+Pati svarbiausia yra Netscape teisė į licencijos keitimą kodui, kuris buvo pateiktas trečių šalių, jau priklausantis programinės įrangos kodui.
+Trečios šalies autoriai, kurie atliko pakeitimą NPL licencijuotam kode, gali prarasti visas savo išeities kodo teises, kadangi jas perima ``Netscape``.
+Kitu atveju, GPL garantuoja, kad trečios šalies pakeitimai visuomet bus pasiekiami bendruomenei.
+
+MPL licencija sudaro hibridą idėjų tarp GPL ir BSD licencijų, kurios jau buvo aptartos ankščiau.
+Licencija nusako specialią kodo vietą, kaip kodo padengimas, GPL atveju yra pritaikoma labai daug ribojimų, viena kurių yra kodo pateikimas bendruomenei.
+MPL leidžia atlikti tokius veiksmus tik didesniuose darbuose, kas reiškia, kad MPL kodas gali būti sujungtas su kita licencija.
+Tokia sąlyga yra griežtai draudžiama GPL licencijos atveju, tačiau leidžiama BSD.
+MPL yra kompromisas tarp BSD ir GPL licencijų.
+
+Dėka to, kad šita licencija buvo rašyta didelės Amerikos korporacijos, visa licencija yra skaitoma kaip standartine korporacijos sutartis, kuri pradedama nuo sąvokų aprašymų, prieš neriant į ilgą sąrašą punktų.
+
+MPL yra labai populiari atviro kodo licencija.
+Jinai yra labai gerai sukonstruota, gerai parašyta, todėl rado savo vietoje tarp kitų licencijų.
+Nors projektų, kuris paremti MPL licencija ir yra labai mažai.
+
 
 ## Išvados
 
