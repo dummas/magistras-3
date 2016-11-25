@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc -o hello Hello.c -framework OpenCL

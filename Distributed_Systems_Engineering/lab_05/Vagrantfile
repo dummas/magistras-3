@@ -40,6 +40,9 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
+  # Sync data folder
+  config.vm.synced_folder "data", "/data"
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -49,6 +52,7 @@ Vagrant.configure("2") do |config|
     vb.gui = false
     vb.customize ["modifyvm", :id, "--usbehci", "off"]
     vb.customize ["modifyvm", :id, "--usb", "off"]
+    vb.customize ["modifyvm", :id, "--vram", "12"]
 
     # Customize the amount of memory on the VM:
     vb.memory = "1024"
@@ -70,5 +74,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y ocl-icd-opencl-dev
+    apt-get install -y gcc
   SHELL
 end

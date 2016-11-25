@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc -o hello OpenCL.c init.c masyvai.c -framework OpenCL
