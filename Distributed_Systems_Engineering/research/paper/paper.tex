@@ -1,0 +1,440 @@
+\documentclass[12pt, a4paper, lithuanian]{article}
+
+\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[L7x]{fontenc}
+\usepackage[lithuanian]{babel}
+\usepackage{listings}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{amsmath, amssymb}
+\renewcommand{\baselinestretch}{1.5}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+
+\author{AKSfm-15, Maksim Norkin}
+\title{Pažengęs žinučių eilių protokolas\\AMQP}
+\date{}
+
+\begin{document}
+
+    \maketitle
+
+    \newpage
+
+    \tableofcontents
+
+    \newpage
+
+    \section{Įvadas}
+
+    Pažengęs žinučių eilių protokolas (angl. \textit{Advanced Message Queuing Protocol}) yra atviras internetinis protokolas perduoti žinutes \cite{OASISAdv29:online, vinoski2006advanced}.
+
+    AMQP yra sudarytas iš poros lygių.
+    Žemiausias lygis aprašo efektyvų, binarinį, iš kliento į klientą protokolą žinučių transportavimui tarp dviejų procesų per tinklą.
+    Virš šito sluoksnio, žinučių sluoksnis aprašo abstraktų žinutės formatą, su konkrečiu kodavimu.
+    Kiekvienas konkretus AMQP procesas turi turėti galimybę siųsti ir priimti žinutes pagal nurodytą standartinę koduotę.
+
+    AMQP aprašo laido lygio protokolą žinučių perdavimui verslo lygyje.
+    Apibrėžimas yra gan lankstus, todėl yra leidžiama labai platus žinučių elgesys, priklausomai kas yra reikalaujama iš verslo.
+    AMQP neaprašo laido lygio skirtumus tarp kliento ir brokerio, kadangi pats protokolas yra simetrinis.
+    Yra tikimąsi, ir net yra skatinama, kad skirtingi AMQP įgyvendinimai turėtų skirtingas galimybes.
+    Klientų bibliotekų sugebėjimai tikimąsi, kad turi skirtingus reikalavimus, skirtingai nuo brokerio, kur sekantys turi kitus lūkesčius nuo maršrutizatoriaus.
+
+    Protokolo įgyvendinimas turi palaikyti protokolo derybas, ir tuomet išskirti, apdoroti ir sukurti kadrus, pagal reikalingą formatą ir semantikas.
+    Toliau yra aprašytas sistemos tipą ir koduotės tipus, kuriuos turi įgyvendinti kiekvienas protokolo atlikimas.
+    Antrame skyriuje bus aprašytas žinučių transportavimas, kurio pagrindas yra TCP.
+    Kiekvienas protokolo atlikimas turi turėti šito lygio įgyvendinimą.
+
+    \section{Tipų sistemą}
+
+    AMQP tipų sistema aprašo sąrašą dažniausiai naudojamų primityvių duomenų pateikimų tipų \cite{OASISAdv52:online}.
+    AMQP reikšmės gali būti komentuojami su papildoma semantine informacija, praplečiant primityvius tipus.
+    Tai leidžia asocijuoti AMQP reikšmes su išoriniu tipu, kuris nėra aprašytas AMQP primityvu.
+    Kaip pavyzdys gali būti nuoroda, kuri dažniausiai yra apibrėžiama kaip eilutė, tačiau ne visos eilutės yra teisingos nuorodos.
+    Gan daug programavimo kalbų ir programų aprašo specifinį duomenų tipą nuorodos tipo informacijai.
+    AMQP tipų sistema leidžia apibrėžti kodą, kurio pagalba yra komentuojama eilutė, kuomet reikšmė turi būti nuoroda.
+
+    \subsection{Primityvus tipai}
+
+    AMQP tipų sistema aprašo standartinį tipą primityvių duomenų tipų atvaizduoti kaip ir dažnas skaliarines vertes ir dažnus sąrašus.
+    Skaliariniai tipai yra loginis, sveiki, realūs skaičiai, laiko žymos, UUID, simboliai, eilutės, binariniai duomenys ir simboliai.
+    Sąrašo tipai yra sudaryti iš masyvo, sąrašo ir žemėlapių.
+
+    \subsection{Aprašomi tipai}
+
+    Primityvūs tipai, kurie yra aprašyti AMQP gali būti tiesiogiai atvaizduoti daugelį pagrindinių tipų daugelyje programavimo kalbų, ir yra labai svarbūs paprastam duomenų perdavimui.
+    Praktikoje, net patys paprasčiausi sprendimai gali turėti savo adaptuotą tipą, kuris yra panaudotas modeliuoti programos srityje.
+    Žinučių perdavimo programose, šitie duomenų tipai turi būti praplėsti iki pačio perdavimo.
+
+    AMQP suteikia tokias galimybes per komentuojamą aprašo segmentą \textit{descriptor}.
+    Aprašas suformuoja asociaciją tarp adaptuoto tipo ir AMQP tipo.
+    Šita asociacija nurodo, kad AMQP tipas yra atstovaujamas adaptuoto tipo.
+    Gaunama AMQ tipo ir aprašo kombinacija yra vadinama aprašo tipu.
+
+    Aprašytas tipas yra sudarytas iš dviejų informacijos sudedamųjų tipo dalių.
+    Jis nurodo tiek AMQP tipą, tiek adaptyvų tipą (kartu ir ryšį tarp jų), ko pasekoje jis gali būti suprantamas dviejuose lygiuose.
+    Programa su turimomis žiniomis apie sritį gali suprasti aprašytą tipą kaip adaptyvų, ko pasekoje sugeba atkoduoti ir apdoroti, atitinkamai pagal srities semantiką.
+    Programa be papildomų žinių gali suprasti aprašytą tipą kaip AMQP tipą, atkoduoti ir apdoroti jas.
+
+    \subsection{Kombinuoti tipai}
+
+    AMQP aprašo pora kombinuotų tipų, kurie yra naudojami koduojant struktūrinius duomenis, tokius kaip kadro turinį.
+    Kombinuotas tipas aprašo kombinuotą vertę, kur kiekviena sudėtinės dalies reikšmė yra identifikuojama kaip gerai žinomas laukas.
+    Kiekvienas kombinuoto tipo aprašymas turi savyje iš eilės einančius laukus, su savo specifiniu vardu, tipu ir įvairove.
+    Kombinuotų tipų aprašymai taip pat įtraukia vieną ar keletą aprašą (simbolinį ar/arba skaitinį), kuris yra naudojamas atvaizdavimo identifikavimui.
+    Sudėtiniai tipai formaliai yra aprašomi XML kalba.
+
+    \subsection{Riboti tipai}
+
+    AMQP aprašo tokį duomenų tipą, kuris yra vadinamas ribotas tipas.
+    Tai yra naujas tipas, kuris yra išvestas iš esamo tipo, kur leidžiamos naujo tipo reikšmės yra dalis aprašytos reikšmių aibės.
+    Riboti tipai yra dažniausiai naudojami programavimo konstruktorių, dažniausiai vadinamos kaip išvardijimas, kurie AMQP terminologijoje yra riboti sveikų skaičių tipai.
+    Tačiau, AMQP ribotų tipų aprašymas taip pat gali atvaizduoti atviresnį ribotą tipą, kaip pavyzdžiui URL, kuris gali būti interpretuojamas kaip ribotas eilutės tipas.
+
+    Riboto tipo aprašymas gali būti apribotas galimų reikšmių aibe.
+    Aibe galima aprašyti kaip iš anksto apibrėžtą reikšmių sąrašą arba kaip atviro tipo sąrašą.
+    Formaliam apibrėžime, kiekviena leidžiama reikšmė yra vadinama pasirinkimu ir visos galimos reikšmės yra aprašytos formaliame apibrėžime.
+    Paskutiniu atveju, ribojimo apibrėžimas pateikiamas tekstu formaliame tipo apibrėžime.
+
+    Egzistuojantis tipas, kuris yra panaudotas kuriant ribotą tipą, apibrėžiamas kaip šaltinio ribojimo tipas. 
+    Ribojimo tipas gali ir gali ne būti komentuotas su aprašymu ant laido, priklausomai nuo formalaus apibrėžimo tipo.
+
+    \subsection{Tipų kodavimas}
+
+    AMQP koduoti duomenų srautai susideda iš bitų sekos, kurioje nėra jokių tipų, su įdiegtais konstruktoriais.
+    Įdiegti konstruktoriai rodo kaip interpretuoti bitų sekas, kurios yra už jų.
+    Konstruktoriai gali būti interpretuojami kaip funkcijos, kurios suvartoja bitus be tipų iš atviros pabaigos bitų srauto ir sukonstruoja reikšmė, kuri yra su tipu.
+    AMQP koduotas duomenų srautas visuomet prasideda nuo konstruktoriaus.
+
+    AMQP konstruktorius susideda iš primityvaus formato kodo arba aprašyto formato kodo.
+    Primityvus formato kodas yra AMQP primityvaus tipo konstruktorius.
+    Aprašytas formato kodas susideda iš aprašo ir primityvaus formato kodo.
+    Aprašas pateikia kaip sukurti srities specifinį tipą iš AMQP primityvios reikšmės.
+
+    Aprašo formatuoto kodo dalis yra iš savęs bet kokia galima AMQP koduota vertę, įtraukiant ir kitas aprašytas reikšmes.
+    Formalūs kodai sujungia į vieną iš keturių skirtingų kategorijų: fiksuoto dydžio, kintamo dydžio, kombinuoti ir masyvo.
+    Kiekvienos kategorijos reikšmės yra užkoduotas pagal bendrą pagrindinę struktūrą, kurios parametras yra ilgis.
+    Dukterinė kategorija formalaus kodo viduje identifikuoja tiek kategoriją, tiek ilgį.
+
+    Fiksuoto ilgio bloko ilgis yra aprašomas išskirtinai pagal dukterinės kategorijos formalaus kodo ilgio reikšmę.
+    Kintamo dydžio bloko ilgis yra aprašomas pagal koduotės dydį, kuris yra prieš duomenis. Užkoduoto segmento dydis yra pateikiamas formalus kodo dukterinėje kategorijoje. Kombinuoti duomenys yra koduojami pagal dydį ir skaičių, kuris seka pagal polimorfinės skaičiavimo eilės reikšmes.
+    Kiekviena sudėtines dalies vertė pradedama nuo konstruktoriaus, kuris nurodo duomenų, kurie seka, semantikas ir kodavimą.
+    Masyvo duomenys yra koduojami kaip dydis ir duomenų skaičius, po kurio seka masyvo elementų konstruktorius, po kurio seka monomorfinė reikšmių eilė, užkoduota pagal pateiktą masyvo konstruktorių.
+
+    \section{Transportavimas}
+
+    \subsection{Konceptualus modelis}
+
+    AMQP tinklo protokolas \cite{OASISAdv34:online} susideda iš mazgų, kurie yra sujungti per sąryšiais.
+    Mazgai yra pavadintos esybės, kurios yra atsakingos už saugų žinučių saugojimą ir transportavimą.
+    Žinutės gali sklisti iš, baigtis mazge bei gali būti išsiųsti į kitus mazgus.
+
+    Sąryšis yra dviejų krypčių maršrutas tarp dviejų mazgų. Jis prisijungia prie mazgo galinio taško (angl. \textit{terminus}).
+    Egzistuoja du galinio taško tipai: šaltiniai ir gavėjai.
+    Galinis taškas yra atsakingas už ateinančių ir išeinančių žinučių srauto būsenos sekimą.
+    Šaltiniai seka išeinančias žinutes, o gavėjai seka ateinančias žinutes.
+    Žinutės gali keliauti tik per jungtį, jeigu jos patenkina šaltinio reikalavimus.
+
+    Kai žinutė keliauja per AMQP tinklą, jos saugaus saugojimo ir perdavimo atsakomybė keliauja kartu tarp mazgų.
+    Jungimo protokolas valdo atsakomybės perdavimą tarp šaltinio ir gavėjo.
+
+    Mazgai gyvena konteineryje.
+    Konteinerių pavyzdžiai gali būti brokerių ir klientų programos.
+    Kiekvienas konteineris gali laikyti daugiau negu vieną mazgą.
+    AMQP mazgų pavyzdžiai yra kūrėjai, gavėjai ir eilės.
+    Kurėjai ir gavėjai yra elementai, kurie yra aplikacijos dalis, kuri generuoja ir apdoroja žinutes.
+    Eilės yra subjektai, kurie saugo ir persiunčia žinutes.
+
+    \subsection{Versijos derinimas}
+
+    Prieš siunčiant bet kokius kadrus duomenų per jungtį, klientas privalo pradėti nuo protokolo antraštės siuntimo, kuri aprašo protokolo versiją, kuri bus naudojama jungties metu.
+    Protokolo antraštė susideda iš žodžio "AMQP" didelėmis raidėmis, po kurio iškart seka protokolo identifikavimo numeris, kuris yra nulis, toliau seka trys be ženklo baitai, kurie pavaizduoja pagrindinę, antrinę ir peržiūros protokolo versiją.
+
+    Bet kokie duomenys, kurie yra pateikiami po protokolo antrašte turi būti su ta pačia protokolo versija.
+    Jeigu ateinančios ir išeinančios protokolo antraštės nesutampa, dalyviai privalo terminuoti išeinantį sujungimą ir klausytis ateinančios sujungimo tol, kol yra baigiami siųsti duomenys.
+
+    \subsection{Jungtis}
+
+    AMQP jungtys yra padalintos į kanalus, kuriais komunikacija veikia dviems kryptimis.
+    Jungties galinis taškas susideda iš dviejų kanalų tipų: ateinantis ir išeinantis.
+    Jungties taškas pažymi ateinančius duomenų paketus, išskyrus atidarymo ir uždarymo, atėjimo kanalui, priklausomai nuo to kanalo identifikavimo numerio.
+
+    Tai kelia reikalavimą jungčiai turėti du žymenis.
+    Pirmas žymuo yra ateinančio kanalo numeris, o antras yra išeinančio kanalo taškas, pagal išeinančio kanalo identifikavimo numerį.
+
+    Kanalais veikia komunikacija abiems kryptimis, todėl kiekvienas sujungimo taškas turi atskirtus atėjimo ir išėjimo kanalus.
+    Kanalo numeriai yra apibrėžiami atsižvelgiant į kryptį, taip nesukuriant jokios asociacijos tarp atėjimo ir išėjimo kanalų, kurie netyčia gali turėti tą patį identifikavimo numerį.
+
+    \section{Žinučių perdavimas}
+
+    Žinučių perdavimo sluoksnis yra paremtas ant tipų ir transportavimo sąvokų \cite{OASISAdv71:online}.
+    Transportavimo lygmuo aprašo sąrašą plėtinių taškų, kurie yra tinkami naudoti skirtingose žinučių programose.
+    Žinučių lygmuo aprašo standartizuotą šitų plėtinių naudojimą, norint suteikti žinučių perdavimo sąveikas.
+    Šis standartas aprašo:
+
+    \begin{itemize}
+        \item Žinutės formatą
+        \begin{itemize}
+            \item Bazinės žinutės savybes
+            \item Bazinės žinutės struktūrizuotos ir nestruktūrizuotų skirsnių formatus 
+            \item Komentuotos žinutės antraštes ir poraštes
+        \end{itemize}
+        \item Žinučių siuntimo būsenas, kurios keliauja tarp mazgų
+        \item Žinučių būsenas, kurios yra patalpintos į paskirstymo mazgą
+        \item Šaltinius ir tikslus
+        \begin{itemize}
+            \item Numatytą siuntimų išdėstymą 
+            \item Galimus rezultatus
+            \item Žinučių mazge filtravimas
+            \item Paskirstymo būseną, norint pasiekti žinutes, kurios yra patalpintos paskirstymo mazge
+            \item Mazgo sukūrimas pagal poreikį
+        \end{itemize}
+    \end{itemize}
+
+    \subsection{Žinutės formatas}
+
+    Terminas žinutė žinučių perdavimo pasaulyje yra naudojamas skirtingose konotacijose.
+    Siuntėjas gali galvoti apie žinutę kaip apie laike nesikeičiantį duomenų vienetą, kuris yra atiduodamas žinučių perdavimo infrastruktūrai pristatymui.
+    Gavėjas dažniausiai galvoja apie žinutę ne tik apie gautą žinutės turinį, bet ir apie papildomą informaciją, kurią atneša kartu su savimi infrastruktūra.
+    Norint išvengti painiavos mes formaliai apibrėžiame bazine žinutė, kuri reiškia žinutę, kuri buvo išsiųsta siuntėjo ir aprašyta žinutę, kuri reiškia žinutę, kurią mato gavėjęs.
+
+    Aprašyta žinutė susideda iš bazinės žinutė, sudėjus aprašymo sekcijas antraštėje ir gale tarp bazinės žinutės.
+    Egzistuoja dvi aprašymo klasės: aprašymai, kurie keliauja kartu su žinute visuomet ir aprašymai, kurie yra suvartojami sekančio mazgo.
+
+    Bazinė žinutė susideda iš trijų segmentų: standartinės savybės, programos savybės ir programos duomenis.
+    Žinutė yra nekeičiama pačiam AMQP tinkle.
+    Tai reiškia, kad jokios skyriai negali būti pakeisti bet kokio mazgo, kuris elgiasi kaip AMQP tarpininkas.
+    Jeigu bazinės žinutės skyrius yra pakeičiamas, tai jis negali būti atliktas tarpininko.
+    Konkretūs sekcijų dekodavimas negali būti keičiamas.
+    Tai išsaugo žinučių kodus, parašus remiantis tik žinutės kodavimu.
+
+    Konkreti žinutės struktūrą, kartu su kodavimu, yra aprašoma pagal žinutes formatą. Bendrai paėmus, žinutę sudaro tokios sekcijos:
+
+    \begin{itemize}
+        \item Antraštės dalis
+        \item Priėmimo aprašymo dalis
+        \item Žinutės aprašymo dalis
+        \item Savybės aprašymo dalis
+        \item Programos savybės aprašymo dalis
+        \item Turinys susideda iš vieno iš šių pasirinkimų: duomenų dalis, eilės dalis arba reikšmės dalis
+        \item Poraštės dalis
+    \end{itemize}
+
+    \subsubsection{Antraštė}
+
+        Perneša žinutės antraštės duomenis. 
+        Antraštės dalis neša standartinę pernešimo informaciją apie žinutė per AMQP tinklą.
+        Jeigu antraštės dalis yra praleista, gavėjas privalo numatyti tinkamas numatytas reikšmes tiems laukams antraštėje, nebent šitos vertės yra valdomos kito mazgo ar gavėjo.
+
+        \begin{itemize}
+            \item \textit{Durable} savybė. Ilgo laiko žinutės negali būti pamestos, net nutikus netikėtam programos sustabdymui ar perkrovimui.
+            Gavėjas, kuris negali suteikti tokių garantijų neturi priimti žinučių, kurių antraštėje yra ilgo laiko savybė.
+            \item \textit{Priority} savybė. Šitas laukas turi savyje informaciją apie žinutės prioritetą. Didesni skaičiai nurodo aukštesnį žinutės prioritetą. Žinutės su didesniu prioritetu gali būti pristatytos ankščiau už tas žinutes, kurių prioritetas yra žemesnis.
+            \item \textit{Ttl} savybė. Trukmė milisekundėmis, kurios nurodo kiek žinutė yra galiojanti.
+            Jeigu šita savybė yra nurodoma, tuomet žinutės galiojimo laikas bus apskaičiuotas nuo tada, kai žinutę priims tarpininkas.
+            Žinutės, kurios gyvena ilgiau už nustatytą laiką bus išmestos.
+            Kuomet žinutė yra perduodama per tarpininką, perduodamos žinutės antraštėje turi būti nurodyta \textit{ttl} vertė, kuri būtų skirtumas tarp dabartinio laiko ir formalaus apskaičiuoto žinutės gyvavimo laiko -- sumažintos \textit{ttl} reikšmės. Taip apsisaugojant nuo žinučių perdavimo amžino žiedo.
+            \item \textit{First-acquirer} savybė. Jeigu šita savybė yra \textit{true}, tuomet žinutė nebuvo dar nieko priimta. Jeigu šita reikšmė yra \textit{true}, tuomet šita žinutė jau buvo priimta kažkokiam mazge.
+            \item \textit{Delivery-count} savybė. Tai yra skaičius, kuris reiškia kiek kartų buvo bandoma pateikti gavėjui šitą žinutę. Jeigu šita vertė yra didesnė už nulį, tuomet šitą savybę galima naudoti kaip pakartotino perdavimo indikatorių. Pirmo perdavimo metu, vertė visuomet bus nulis. 
+            Vertė yra didinama priklausomai nuo gaunamo rezultato ir aprašyto rezultato taisyklių.
+        \end{itemize}
+
+    \subsubsection{Priėmimo aprašymas}
+
+        Priėmimo aprašymo dalis yra naudojama konkrečiai perdavimo savybėms žinutės antraštėje.
+        Priėmimo aprašymas neša informaciją iš siuntėjo gavėjui.
+        Jeigu gavėjas nesupranta duoto aprašymo, jis negali atlikti pateiktus veiksmus ir niekas negali atlikti jo atliktus veiksmus.
+        Aprašymai gali būti specifiniai, priklausomai nuo įgyvendinimo arba bendri bendriems įgyvendinimams.
+        Galimybės yra sprendžiamos sujungimo metu ir šaltinis su adresatu turi nustatyti kokie aprašymai yra palaikomi.
+        Palaikomų perdavimo aprašymų sąrašas yra palaikomas.
+        Simbolinis raktas \textit{rejected} yra rezervuotas komunikacijos klaidoms pažymėti, dirbant su atmestomis žinutėmis.
+        Bet kokios reikšmės, kurios turi bendrų bruožų su \textit{rejected} raktų turi turėti \textit{error} tipą.
+
+        Jeigu priėmimo aprašymo skiltis yra ignoruojama, tai yra tas pats, kas visiškai tuščias priėmimo aprašymas žinutėje.
+
+    \subsubsection{Žinutės aprašymas}
+
+        Žinutės aprašymo dalis yra naudojama savybėms, kurios orientuotos į infrastruktūrą ir turi būti palaikomos kiekviename perdavimo žingsnyje.
+        Žinutės aprašymai turi perteikti informaciją apie žinutę.
+        Tarpininkai turi skleisti aprašymus, nebent aprašymai specialiai keičiami arba modifikuojami.
+
+        Galimybės yra nustatomos sukuriant jungtį ir šaltinis su adresatu gali naudoti nuspręsti kokius aprašymus abudu supranta.
+
+    \subsubsection{Savybės}
+
+        Savybių dalis yra naudojama konkrečiam savybių įverčiams. Visos savybės yra aprašytos.
+        Savybių aprašymas yra dalis pagrindinės žinutės, ko pasekoje, šitos savybės negali būti keičiamos.
+
+        \begin{itemize}
+            \item \textit{message-id}; Naudojamas kaip žinutės identifikatorius sistemoje. Žinutės kūrėjas dažniausiai yra atsakingas už \textit{message-id} savybės priskyrimą tokiu būdu, kuris garantuotų unikalumą per visą sistemą.
+            Brokeris gali nuspręsti išmesti žinutę, jeigu pakartotinė vertė yra gaunama iš to paties mazgo.
+            \item \textit{user-id}; Naudojamas naudotojo identifikavimui, kuris sukūrė žinutę. Klientas nustato šitą reikšmę, ir jinai gali būti identifikuojama tarpinikuose.
+            \item \textit{to}; Naudojama identifikuoti mazgą, kuriam yra skirta žinutė. 
+            \item \textit{subject}; Paprastas laukas, kuris naudojamas žinutei ir jos tikslui aprašyti.
+            \item \textit{reply-to}; Mazgo adresas, kuriam siųsti atsaką.
+            \item \textit{correlation-id}; Tai yra kliento specifinė savybė, kuri gali būti naudojama žymint ar identifikuojant žinutes tarp klientų.
+            \item \textit{content-type}; Nustato žinutės turinio tipą, kaip pavyzdžiui \textit{text/plain}
+        \end{itemize}
+
+    \subsection{Paskirstymo mazgai}
+
+    Žinučių perdavimo lygmuo aprašo paskirstymo mazgui sąrašą būsenų.
+    Ne visi mazgai yra paskirstymo mazgai, tačiau aprašymas leidžia kažkokiam standartinam informacijos perdavimui su tais mazgais, kurie yra paskirstymo mazgai.
+    Perėjimas tarp šitų būsenų yra kontroliuojama žinučių perdavimu iš arba į paskirstymo mazgą ir baigtine žinutės perdavimo būsena.
+    Verta pažymėti, kad žinutės būsena vienam paskirstymo mazge neįtakoja kitos žinutės būsenos kitame mazge.
+
+    Numatyti nustatymai garantuoja, kad žinutės pradės nuo \textit{AVAILABLE} būsenos.
+    Prieš inicijuojant \textit{acquiring} perdavimą, žinutė pereis į \textit{ACQUIRED} būseną.
+    Kai tik žinutė pasiekia šitą būseną, ją leidžiama įgyti perdavimui į kitus mazgus.
+
+    Žinutė liks šitoje būsenoje paskirstymo mazge, kol visas perdavimas nebus užbaigtas.
+    Perdavimo būsena pas siuntėja, sprendžia kaip žinutė praeina, kai viskas perdavimas yra užbaigtas.
+    Jeigu perdavimo būsena siuntėjo pusėje yra nežinoma, yra paveldima numatyta būsena.
+
+    Perdavimo būsena gali taip pat nutikti spontaniškai perdavimo mazge.
+    Pavyzdžiui, žinutė su \textit{ttl} baigia gyvenimą, ir šitas efektas leidžia žinutei pereiti iš \textit{AVAILABLE} būsenos į \textit{ARCHIVED} būseną.
+    Tokiu būdu bet kokie žinutės perdavimai yra sustabdomi ir pasiekiamas sustojimo rezultatas paskirstymo mazge, nepriklausomai nuo siuntėjo būsenos.
+
+    \subsection{Perdavimo būsena}
+
+    Žinučių perdavimo lygmuo aprašo specifinį perdavimo būsenų sąrašą, kuris gali būti naudojamas identifikuojant žinutės perdavimo būseną siuntėjo pusėje.
+    Perdavimo būsenos gali būti terminuotos ir ne terminuotos.
+    Kai tik perdavimas pasiekia terminuotą perdavimo būseną, būsena toliau nekinta.
+    Terminuota būsena yra traktuojama kaip rezultatas.
+
+    Galimas rezultatas yra formaliai aprašymas žinutės perdavimo lygmenyje identifikuojant rezultatą siuntėjui:
+
+    \begin{itemize}
+        \item \textit{accepted}: nurodo žinutės sėkmingą priėmimą;
+        \item \textit{rejected}: nurodo negalima ir blogo formato žinutę;
+        \item \textit{released}: nurodo, kad žinutė nebus apdorojama;
+        \item \textit{modified}: nurodo, kad žinutė buvo pakeista, tačiau nebuvo apdorota;
+    \end{itemize}
+
+    \section{Projektas}
+
+    Projektui įgyvendinti pirmiausiai yra reikalingas serveris, kuris įgyvendintų AMQP protokolą.
+    Šitai užduočiai atlikti buvo pasirinktas RabbitMQ \cite{RabbitMQ71:online} sprendimas, kuris yra labai nemokamas ir labai patikimas AMQP žinučių brokeris.
+
+    \subsection{Žinučių brokeris}
+
+    Serverio diegimui bus panaudotas Vagrant \cite{Vagrantb88:online}, iš pagrindinė dalis yra serverio diegimo eilutės
+
+    \begin{lstlisting}
+        apt-get install rabbitmq-server -y
+    \end{lstlisting}
+
+    Taip pat, norint pasiekti serverį, būtina yra sukurti lokalų tinklą tarp virtualios mašinos ir sistemos, su kuria yra dirbama.
+    Vagrant leidžia tai labai paprastai pasiekti su viena konfigūracijos eilute
+
+    \begin{lstlisting}
+        config.vm.network "private_network", ip: "192.168.33.10"
+    \end{lstlisting}
+
+    Atliekame \textit{vagrant up} ir serverio programinės įrangos sprendimas paruošiamas.
+
+    \subsection{Siuntėjas}
+
+    Siuntėjo programa pradedama nuo sujungimo sukūrimo
+
+    \begin{lstlisting}
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters('192.168.33.10')
+        )
+    \end{lstlisting}
+    kur yra nurodomas brokerio IP adresas, prie kurio reikia prisijungti.
+    Toliau pagal turimą sujungimą reikia sukurti kanalą, per kurį jau vyks visa komunikacija tarp brokerio iš siuntėjo.
+
+    \begin{lstlisting}
+        channel = connection.channel()
+    \end{lstlisting}
+
+    Siuntėjo pusėje yra reikalaujama deklaruoti eilę, į kurią bus siunčiamas pranešimas
+
+    \begin{lstlisting}
+        channel.queue_declare(queue='hello')
+    \end{lstlisting}
+
+    Taip yra įgyvendinami visi žingsniai, kurie yra reikalingi, norint pradėti siųsti žinutes į serverį. 
+    Žinutės į serverį siunčiamos nurodant kokio brokerio pavadinimą reikia naudoti. Šiuo atveju bus pasirinktas numatytas vardas. Sekantis argumentas yra pati žinutė
+
+    \begin{lstlisting}
+        channel.basic_publish(
+            exchange='',
+            body='Hello world!'
+        )
+    \end{lstlisting}
+
+    Po to, kai žinutė yra išsiunčiama, uždarome visą sujungimo grandinę
+
+    \begin{lstlisting}
+        connection.close()
+    \end{lstlisting}
+
+    Taip yra įgyvendinamas paprastas žinučių siuntimas.
+
+    \subsection{Gavėjas}
+
+    Gavėjo dalies pradžia yra labai panaši į siuntėjo dalies pradžią. Pirmiausiai yra inicijuojamas sujungimas su serveriu, iš to sujungimo yra sukuriamas kanalas, per kurį yra bendraujama su serveriu. Kliente taip pat yra reikalaujama deklaruoti norimos eilės pavadinimą
+
+    \begin{lstlisting}
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters(
+                host='192.168.33.10'
+            )
+        )
+
+        channel = connection.channel()
+
+        channel.queue_declare(queue='hello')
+    \end{lstlisting}
+
+    Tolimesnis žingsnis yra ateinančių žinučių priėmimas. Kadangi mes negalime žinoti kada ateis žinutė, mums reikia nustatyti bendrą žinučių apdorojimo sritį ir klausytis ateinančių žinučių. Kai tik ateis žinutė, jinai paprasčiausiai bus parodyta programos lange.
+
+    Žinutės klausymosi argumentas yra eilės pavadinimas, ir metodas, į kurį bus siunčiama gauta informacija iš serverio.
+
+    \begin{lstlisting}
+        def callback(ch, method, properties, body):
+            print(" [x] recevied %r" % body)
+
+        channel.basic_consume(callback, queue='hello', no_ack=True)
+    \end{lstlisting}
+
+    Po šito aprašymo seka pačio klausymosi inicijavimas
+
+    \begin{lstlisting}
+    channel.start_consuming()
+    \end{lstlisting}
+
+    Tiek kodo reikia įgyvendinti patį paprasčiausią žinučių siuntimą ir gavimą.
+
+    \begin{figure}
+
+        \label{img:producer_consumer_example}
+    \end{figure}
+
+    \section{Išvados}
+
+    Kursinio darbo metu buvo išnagrinėtas AMQP protokolas. 
+    Pateikti apatinių lygmenų aprašymai, pradedant nuo žemiausio, kuris aprašo efektyvų, binarinį, iš kliento į klientą protokolą žinučių transportavimui tarp dviejų procesų per tinklą.
+
+    AMQP yra unikalus tame, kad įgyvendinta tipų sistemą, kurioje yra tiek primityvūs duomenų tipai, tiek kombinuoti.
+    Yra žengiama dar toliau įgyvendinant aprašomuosius tipus, kur pats programuotojas gali aprašyti jam reikiamą duomenų tipą, kurį be didelio laiko investavimo gali suprasti tiek siuntėjas, tiek gavėjas.
+
+    Protokolo transportavimo mechanizmas turi atskiras dalis, kurios turi savo įsipareigojimus. Pagrindinė transportavimo sudedamoji dalis yra mazgai.
+    Jie atlieka pernešimo funkcija tarp jungčių.
+
+    Darbo pabaigoje yra pateikiamas projektinis darbas, kurio tikslas yra įgyvendinti žinučių siuntimą ir gavimą. Žinučių serveris yra sukurtas virtualioje mašinoje.
+    Pats žinučių siuntimas ir gavimas yra įgyvendintas python programavimo kalbos pagalba.
+    Kaip matoma iš pateiktų pavyzdžių, kažkokių specifinių reikalavimų siuntimu ir gavimui nėra pateikiama.
+    Užtenka pačios paprasčiausios konfigūracijos norint pradėti siųsti bei gauti žinutes iš serverio.
+
+    \newpage
+    \section{Literatūra}
+
+    \bibliographystyle{plain}
+    \bibliography{references}
+
+
+\end{document}
