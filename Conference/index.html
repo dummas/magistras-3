@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Pagreičio jutiklio triukšmo mažinimas</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Pagreičio jutiklio triukšmo mažinimas</h2>
+					Maksim Norkin, AKSfm-15
+				</section>
+				<section>
+					<h3>Problema</h3>
+				</section>
+				<section>
+					<h3>Triukšmas</h3>
+					<img data-src="img/ax_accel.png" alt="Pagreitis" /><br/>
+					<small>Pagreičio jutiklio duomenis pagal x ašį</small>
+				</section>
+				<section>
+					<h4>Integruojame</h4>
+					<img data-src="img/ax_velocity.png" alt="Greitis" /><br />
+					<small>Greičio duomenis, integruojant pagreičio duomenis pagal x ašį</small>
+				</section>
+				<section>
+					<h5>Integruojame</h5>
+					<img data-src="img/ax_distance.png" alt="Atstumas" /><br />
+					<small>Atstumo duomenis, integruojant integruojant pagreičio duomenis pagal x ašį</small>
+				</section>
+				<section>
+					<h3>Šaltiniai</h3>
+					<ul>
+						<li>Nuolatinė dedamoji</li>
+						<li>Atsitiktinis pagreičio pokytis</li>
+						<li>Vibraciniai triukšmai</li>
+						<li>Temperatūriniai efektai</li>
+						<li>Kalibravimo klaidos</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Kalman filtras</h3>
+					<small>(Linear Kalman filter)</small>
+				</section>
+				<section>
+					<h2>Modelis</h2>
+					<small>$\hat{x}_k = \begin{bmatrix} p_k \\ v_k \end{bmatrix}$</small>
+					<small>$P_k = \begin{bmatrix} \Sigma_{pp} \Sigma_{pv} \\ \Sigma_{vp} \Sigma_{vv} \end{bmatrix}$</small>
+				</section>
+				<section>
+					<h2>Modelis #2</h2>
+					<small>$\hat{x}_k = \begin{bmatrix} p_k \\ v_k \end{bmatrix} = \begin{bmatrix} p_{k-1} + \Delta t v_{k-1} \\ v_{k-1} \end{bmatrix}$</small>
+					<br /><br />
+					<small>$\hat{x}_k = \begin{bmatrix} 1 & \Delta t \\ 0 & 1 \end{bmatrix} \hat{x}_{k-1}  = F_k \hat{x}_{k-1}$</small>
+					<br /><br />
+					<small>$P_k = F_k P_{k-1} F_k^T$</small>
+				</section>
+				<section>
+					<h2>Spėjimas ir matavimas</h2>
+					<img data-src="img/gauss_4.jpg" width="400px" alt="Matavimas ir spėjimas" /><br />
+					<small>Spėjimo ir realaus matavimo vidurkis ir kovariacija</small>
+				</section>
+				<section>
+					<h2>Spėjimo ir matavimas #2</h2>
+					<img data-src="img/gauss_joint.png" width="400px" /><br />
+					<small>Spėjimo ir realaus matavimo sujungimas</small>
+				</section>
+				<section>
+					<h2>Tiesinis Kalman filtras</h2>
+					<div style="width: 50%; float: left">
+						<img data-src="img/linear_kalman_filter.png" alt="Tiesinis kalman filtras" />
+					</div>
+					<div>
+						<table style="font-size: 26px;">
+							<tr>
+								<th></th>
+								<th>$\mu$</th>
+								<th>$\sigma$</th>
+							</tr>
+							<tr>
+								<td>Pradiniai</td>
+								<td>0.0299</td>
+								<td>0.1196</td>
+							</tr>
+							<tr>
+								<td>Filtruoti</td>
+								<td>0.0017</td>
+								<td>0.0026</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				<section>
+					<h2>Išplėstas Kalman filtras</h2>
+					<small>(Extended Kalman filter)</small>
+				</section>
+				<section>
+					<h2>Jacobian Matrica</h2>
+					<img data-src="img/image001.gif" alt="Tangent Plane" />
+				</section>
+				<section>
+					<h2>Išplėstas Kalman filtras</h2>
+					<div style="width: 50%; float: left">
+						<img data-src="img/extended_kalman_filter.png" alt="Išplėstas Kalman filtras" />
+					</div>
+					<div>
+						<table style="font-size: 26px;">
+							<tr>
+								<th></th>
+								<th>$\mu$</th>
+								<th>$\sigma$</th>
+							</tr>
+							<tr>
+								<td>Pradiniai</td>
+								<td>0.0299</td>
+								<td>0.1196</td>
+							</tr>
+							<tr>
+								<td>Filtruoti</td>
+								<td>-0.0546</td>
+								<td>0.0288</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				<section>
+					<h2>Sekamas Kalman filtras</h2>
+					<small>(Unscented Kalman filter)</small>
+				</section>
+				<section>
+					<h2>Sekamas Kalman filtras</h2>
+					<div style="width: 50%; float: left">
+						<img data-src="img/unscented_kalman_filter.png" alt="Sekamas Kalman filtras" />
+					</div>
+					<div>
+						<table style="font-size: 26px;">
+							<tr>
+								<th></th>
+								<th>$\mu$</th>
+								<th>$\sigma$</th>
+							</tr>
+							<tr>
+								<td>Pradiniai</td>
+								<td>0.0299</td>
+								<td>0.1196</td>
+							</tr>
+							<tr>
+								<td>Filtruoti</td>
+								<td>-0.0413</td>
+								<td>0.0253</td>
+							</tr>
+						</table>
+					</div>
+				</section>
+				<section>
+					<h2>Kas iš to</h2>
+					<table>
+						<tr>
+							<th></th>
+							<th>$\mu$</th>
+							<th>$\sigma$</th>
+						</tr>
+						<tr>
+							<td>Pradiniai duomenys</td>
+							<td>0.0299</td>
+							<td>0.1196</td>
+						</tr>
+						<tr>
+							<td>Tiesinis Kalman filtras</td>
+							<td>0.0017</td>
+							<td>0.0026</td>
+						</tr>
+						<tr>
+							<td>Išplėstas Kalman filtras</td>
+							<td>-0.0546</td>
+							<td>0.0288</td>
+						</tr>
+						<tr>
+							<td>Sekamas Kalman filtras</td>
+							<td>-0.0413</td>
+							<td>0.0253</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Tolimesnis darbas</h2>
+					<ul>
+						<li>Skaičiavimai</li>
+						<li>Dalelių filtras</li>
+						<li>Įgyvendinimas įterptinėje sistemoje</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Ačiū</h1>
+					<small>Klausimai? 😊</small>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				slideNumber: 'c/t',
+				progress: true,
+				controls: false,
+				transition: 'none',
+				math: {
+			        mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+			        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+			    },
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
