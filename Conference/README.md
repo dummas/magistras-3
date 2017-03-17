@@ -14,7 +14,7 @@ Tačiau yra bet, ir tas "bet" šiuo atveju yra "triukšmas".
 
 Iš kur atsiranda tiek daug triukšmo? Yra penki jo šaltiniai.
 
-Pirmas šaltinis yra nuolatinė dedamoji, kuri yra skirtumas tarp matuojamos vertės ir tealios vertės. Yra galimybių vertinti dedamąja matuojant jutiklį labai ilgą laiką, kurį tuo metu neveikia jokia išorinė jėga. Tačiau yra izoliacijos problemų dėl gravitacijos. Praktikoje yra naudojamas kalibravimo procesas, kurio metu įrenginys yra prijungimas prie paviršiaus, kurio orientacija gali būti labai tiksliai kontroliuojama.
+Pirmas šaltinis yra nuolatinė dedamoji, kuri yra skirtumas tarp matuojamos vertės ir realios vertės. Yra galimybių vertinti dedamąja matuojant jutiklį labai ilgą laiką, kurį tuo metu neveikia jokia išorinė jėga. Tačiau yra izoliacijos problemų dėl gravitacijos. Praktikoje yra naudojamas kalibravimo procesas, kurio metu įrenginys yra prijungimas prie paviršiaus, kurio orientacija gali būti labai tiksliai kontroliuojama.
 
 Antras šaltinis yra atsitiktinis pagreičio pokytis. Jį galima laikyti baltu triukšmu (baltas triukšmas yra toks triukšmas, kurio energetinis spektras yra pastovus visiems dažniams). To pasekoje pagreičio jutiklio baltas triukšmas sukuria antro lygio atsitiktinį įverčių vaikščiojimą pozicijoje, su vidurkiu nulis ir standartiniu nuokrypiu.
 
