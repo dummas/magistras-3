@@ -49,7 +49,7 @@ Kalibravimui reikalingi parametrai yra randami pirmiausiai apverčiant prototipi
 
 Sekantis įrenginys nagrinėjimui yra giroskopas ir jo sukimo pokytis. Orientacijos įvertis yra gaunamas paprasčiausiai integruojant sukimo pokytį. Toks integralas sudaro galimybei atsirasti dreifui. Dreifas yra didžiausias klaidos šaltinis pigiuose MEMS jutikliuose. Darbe yra pastebėta, jog kalibruoti giroskopą nėra būtina, bet labai svarbu yra identifikuoti dreifą prieš pradedant matavimus. Tokiu tikslius matavimo pradžioje giroskopas yra paliekamas ramybės būsenoje. Tai yra pasiekiama įrenginį prilaikant ant stalo. Dažniausiai tokiu atveju bus matoma tiesiog nuolatinė dedamoji, tačiau niekas negarantuoja stabilios nuolatinės dedamosios. Klaida gali kisti per laikotarpį, todėl pažymėtina yra atlikti papildomas korekcijas per matavimo laikotarpį.
 
-Toliau yra pateikiamas pavyzdys su naudojama įranga, konkrečiai su Samsung Galaxy Nexus telefonu. Labai svarbi detalė yra automatinė nuolatinės dedamosios korekcija, kuri įrenginyje įvyksta po $8~s$. Tai yra vadina \textit{ZUPT} (angl. \textit{Zero velocity UPdaTe}). Korekcija įvykdoma tik tuomet, kai jutiklis nėra judinamas. 
+Toliau yra pateikiamas pavyzdys su naudojama įranga, konkrečiai su Samsung Galaxy Nexus telefonu. Labai svarbi detalė yra automatinė nuolatinės dedamosios korekcija, kuri įrenginyje įvyksta po $8~s$. Tai yra vadina \textit{ZUPT} (angl. \textit{Zero velocity UPdaTe}). Korekcija įvykdoma tik tuomet, kai jutiklis nėra judinamas.
 
 Pereinama nuo pačių jutiklių duomenų prie duomenų apdorojimo. Jutiklių matmenų nuskaitymui yra panaudojamas kelio skaičiavimo metodas (angl. \textit{Dead Reckoning}). Navigacijos labui, kampo pokytis yra integruojamas, o pagreičio jutiklis yra panaudojamas tik žingsnio radimui. Turint informacijos apie žingsnio ilgį ir esamą kryptį, santykinė pozicija gali būti apibrėžta taikant vektorinę sudėtį (angl. \textit{polar appending}). Įvertinant triukšmą, kuri turi tiek pagreičio, tiek giroskopo jutikliai vien tik jų duomenimis pasikliauti nėra galima, todėl reikia įsivesti pagalbos metodiką, kuri supaprastinama iki filtro problemos. Tai labai padeda išspręsti dviejų stochastinių elementų duomenų sujungimą. Sprendimui atlikti yra parenkamas Kalman filtras. Taip pat į papildomą pagalbą yra pajungiamas ir žemėlapis, kurio pagalba galima filtruoti duomenis.
 
@@ -76,11 +76,11 @@ Dalelių filtro rezultatas yra pateikiamas \ref{fig:pozition_estimation_with_par
 
 Tolimesniam darbe yra apžvelgiamos papildomos galimybės remti objekto pozicijos nustatymą, pavyzdžiui WiFi, magnetiniu lauku ar optinėmis sistemomis. Šio darbo tikslas nėra tokių sistemų nagrinėjimas, todėl tolimesnis darbo analizavimas yra stabdomas.
 
-Darbo tikslas yra parodyti galima sistemos konstrukcija, kurios pagalba galima sukonstruoti pastato vidaus pozicijos nustatymo sistema, naudojant mobilų telefoną. Žemėlapio ir jutiklių kombinacija vektoriuje suteikia galimybę savarankiškai nustatyti dabartinę poziciją ir yra nepriklausoma nuo esamos pastato infrastruktūros ir pačios konstrukcijos ypatybės. Pozicijos nustatymas panaudojus Kalman arba dalelių filtrą yra įmanomas.  
+Darbo tikslas yra parodyti galima sistemos konstrukcija, kurios pagalba galima sukonstruoti pastato vidaus pozicijos nustatymo sistema, naudojant mobilų telefoną. Žemėlapio ir jutiklių kombinacija vektoriuje suteikia galimybę savarankiškai nustatyti dabartinę poziciją ir yra nepriklausoma nuo esamos pastato infrastruktūros ir pačios konstrukcijos ypatybės. Pozicijos nustatymas panaudojus Kalman arba dalelių filtrą yra įmanomas.
 
 \subsection{Dirbtinės žuvies pozicijos nustatymas}
 
-Antras darbas apžvalgai yra pozicijos nustatymo sistema, nagrinėjanti povandeninių objektų pozicijos nustatymo atvejį \cite{yoo2011fuzzy}, ``Fuzzy logic based 2D position estimation for small robotic fish using low cost MEMS accelerometer''. Darbe yra pasiūloma efektyvi kalibravimo metodika ir dviejų dimensijų pozicijos nustatymo algoritmas, kuris yra paremtas raiškios logikos metodika. 
+Antras darbas apžvalgai yra pozicijos nustatymo sistema, nagrinėjanti povandeninių objektų pozicijos nustatymo atvejį \cite{yoo2011fuzzy}, ``Fuzzy logic based 2D position estimation for small robotic fish using low cost MEMS accelerometer''. Darbe yra pasiūloma efektyvi kalibravimo metodika ir dviejų dimensijų pozicijos nustatymo algoritmas, kuris yra paremtas raiškios logikos metodika.
 
 Pradedama nuo jutiklio klaidos modelio. Iš jutiklio nuskaitytą vertę galima išskaidyti į pilną vertę sudarančias komponentes. Dažniausiai vertė yra užrašoma tokia forma:
 
@@ -89,7 +89,7 @@ Pradedama nuo jutiklio klaidos modelio. Iš jutiklio nuskaitytą vertę galima i
 \end{equation}
 kur $a_{m,j}$ yra pagreičio vertę $j$ ašyje, $a_t$ yra tikrasis pagreitis ašyje, $B$ yra įrangos pagreičio dedamoji, $S$ yra klaidos matricos santykio dydis, $N$ yra ne statmena matrica, o $\epsilon$ yra atsitiktinis triukšmas. Dedamoji, santykis ir ne statmena matrica yra pagrindiniai deterministiniai įverčiai šioje lygtyje. Jeigu šitos klaidos yra sumažinamos, tuomet liekamosios vertės bus labai mažos ir to pasekoje bus labai mažas sistemos dreifas. Kalibracijos procesas sprendžia šitą problemą, todėl labai svarbu atlikti šitą procesą prieš atliekant navigacinius matavimus. Pigioms ir praktinėms reikmėms, paprastas ir patikimas kalibracijos metodas yra labai reikalingas.
 
-Kalibravimo procedūra susideda iš įrenginio išėjimo palyginimo su žinoma verte. Taip galima įvertinti išėjimo kokybę. Nuolatinės pozicijos šešių ašių kalibravimo metodika yra vertinama kaip dažniausiai naudojama metodika \cite{syed2007new}. Metodikos kokybė priklauso nuo to, kaip gerai įrenginio ašys yra sulygiuotos su vietinio kalibravimo įrenginio ašimis. Tokia procedūra gali sėkmingai nustatyti nuolatinę dedamąja ir santykio įvertį, tačiau nėra įmanoma įvertinti ne statmenumą. Darbas siūlo pagerinti šešių ašių kalibravimo metodiką 
+Kalibravimo procedūra susideda iš įrenginio išėjimo palyginimo su žinoma verte. Taip galima įvertinti išėjimo kokybę. Nuolatinės pozicijos šešių ašių kalibravimo metodika yra vertinama kaip dažniausiai naudojama metodika \cite{syed2007new}. Metodikos kokybė priklauso nuo to, kaip gerai įrenginio ašys yra sulygiuotos su vietinio kalibravimo įrenginio ašimis. Tokia procedūra gali sėkmingai nustatyti nuolatinę dedamąja ir santykio įvertį, tačiau nėra įmanoma įvertinti ne statmenumą. Darbas siūlo pagerinti šešių ašių kalibravimo metodiką
 
 \begin{equation}
     G = \tilde{M} \tilde{A}
@@ -100,7 +100,7 @@ kur $G$ yra pagreičio jutiklio matavimo vektorius, $\tilde{M}$ yra ne statmenos
     \tilde{M} = G \cdot \tilde{A}^T \cdot (\tilde{A}\tilde{A}^T)^{-1}
 \end{equation}
 
-Taip ir randami kalibravimo parametrai, kurie užtikrina ne statmenos matricos parametrų apskaičiavimą. 
+Taip ir randami kalibravimo parametrai, kurie užtikrina ne statmenos matricos parametrų apskaičiavimą.
 
 Tolimesnis darbas fokusuojamas į klaidų aptikimą jutiklių matavimuose. Dėl didelių trukdžių vandens terpėje, paprastas linijinis filtras yra nepakankamas norint pašalinti kiek įmanoma daugiau triukšmo \cite{gaysse2005using}. Atsitiktinis triukšmas sukelia didžiausią klaidą, kuri pastoviai didėja su laiku dėl dvigubos integracijos. Sprendžiant šitą problemą, yra reikalingas sudėtingesnis procesas triukšmui šalinti. Darbe yra siūloma naudoti raiškios logikos filtravimo metodą, kuris susideda iš išorinių veiksnių detektoriaus (angl. \textit{Outlier Detector}), pataisymo (angl. \textit{Correction}) ir judėjimo detektoriaus (angl. \textit{Movement Detector}). Prieš paduodant signalą į nurodytus blokus, jis yra padorojamas judančio vidurkio filtru (angl. \textit{Moving Average Filter}).
 
@@ -117,9 +117,9 @@ Judančio vidurkio filtras yra naudojamas dėl jo paprastumo, lyginant su kitais
     \bar{a}_k = \frac{1}{n} \sum_{i=k-n+1}^{k} a_i
 \end{equation}
 
-Išorinių veiksnių detektorius dirba su trejais matavimais, $a[n]$, $a[n-1]$ ir $a[n-2]$. Jeigu $a[n-2]$ ir $a[n-1]$ skirtumas yra teigiamai didelis, o $a[n]$ ir $a[n-1]$ skirtumas yra neigimai didelis, tuomet pagreičio jutiklio įverčiui yra reikalingas pataisymas. Jeigu $a[n-2]$ ir $a[n-1]$ yra teigiamai mažas, o $a[n]$ ir $a[n-1]$ skirtumas yra neigiamai mažas, tuomet pagreičio jutiklio duomenų taisyti nereikia. 
+Išorinių veiksnių detektorius dirba su trejais matavimais, $a[n]$, $a[n-1]$ ir $a[n-2]$. Jeigu $a[n-2]$ ir $a[n-1]$ skirtumas yra teigiamai didelis, o $a[n]$ ir $a[n-1]$ skirtumas yra neigimai didelis, tuomet pagreičio jutiklio įverčiui yra reikalingas pataisymas. Jeigu $a[n-2]$ ir $a[n-1]$ yra teigiamai mažas, o $a[n]$ ir $a[n-1]$ skirtumas yra neigiamai mažas, tuomet pagreičio jutiklio duomenų taisyti nereikia.
 
-Korekcijos blokas veikia labai paprastu metodu. Jeigu $a[n-1]$ signalo vertė yra gerokai didesnė už $a[n-2]$ ir $a[n]$, tuomet teigiama, kad signalą $a[n-1]$ reikia taisyti ir jam yra priskiriama $a[n-2]$ vertė. 
+Korekcijos blokas veikia labai paprastu metodu. Jeigu $a[n-1]$ signalo vertė yra gerokai didesnė už $a[n-2]$ ir $a[n]$, tuomet teigiama, kad signalą $a[n-1]$ reikia taisyti ir jam yra priskiriama $a[n-2]$ vertė.
 
 Judesio detektavimas yra vykdomas remiantis
 
@@ -142,4 +142,4 @@ Rezultatai yra pateikiami \ref{fig:fuzzy_logic_filter} pav. MEMS pagreičio juti
 
 Darbas pateikia efektyvų pagreičio jutiklio kalibravimo metodika ir raiškios logikos signalo filtravimą, ko pasekoje galima apytiksliai nusakyti dirbtines žuvies pozicija vandenyje, naudojant pigų MEMS jutiklį. Pasiūlyta kalibravimo metodika atsižvelgia į ne statmenus atsitiktinumus, kartu su duomenų santykiu, lyginant su žinoma sistema. Raiškios logikos sistema susideda iš trijų pagrindinių elementų, kurie yra naudojami koreguojant jutiklio reikšmę. Pirmas yra išorės veiksnių detektorius, kurio uždavinys yra nustatyti ar gautas įvertis yra pačio narinėjamo objekto ar dėl išorinių jėgų. Antras elementas yra paprastas korekcijos mechanizmas, kuris tikrina ar nėra atsitiktinių įverčių triukšmo. Jo veikimas remiasi dabartiniu ir paskutinių dviejų įverčių palyginimui. Paskutinis elementas yra realaus judesio detektavimas, kurio matematinis modelis apskaičiuoja modulinę kvadratų sumą. Tolimesnis rezultatas yra sujungiamas per raiškios logikos filtrą ir pateikiamas galutinė pagreičio jutiklio reikšmė.
 
-\subsection{}
+% TODO:

@@ -1,12 +1,12 @@
-Darbo metu yra reikalavimas praktiškai pritaikyti atliktą analizę ir sudaryti sistemą, kuri geba nustatyti savo pozicija erdvėje, turint tik esamus jutiklius. 
-Praktinė dalies pritaikymas yra pasirinktas naudojant \textit{STM32} platformą kaip pagrindą programinei įrangai. 
+Darbo metu yra reikalavimas praktiškai pritaikyti atliktą analizę ir sudaryti sistemą, kuri geba nustatyti savo pozicija erdvėje, turint tik esamus jutiklius.
+Praktinė dalies pritaikymas yra pasirinktas naudojant \textit{STM32} platformą kaip pagrindą programinei įrangai.
 Jutiklis yra pasirinktas \textit{MPU 9250}.
 
 \subsection{Vystymo plokštė}
 
-Naudojama \textit{STM32 Nucleo} plokštė yra įperkamas ir lankstus būdas naudotojams išbandyti idėjas ir sukurti prototipą su bet kuriuo iš STM32 serijos mikro-valdikliu \cite{STM3258:online}. 
-Yra labai platus pasirinkimas, pradedant nuo aukštos galios iki elektrai taupių. 
-Geras palaikymas \textit{Arduino} tipo specializuotomis plokštėmis, kurias galima naudoti praplečiant \textit{STM32 Nucleo} galimybes. 
+Naudojama \textit{STM32 Nucleo} plokštė yra įperkamas ir lankstus būdas naudotojams išbandyti idėjas ir sukurti prototipą su bet kuriuo iš STM32 serijos mikro-valdikliu \cite{STM3258:online}.
+Yra labai platus pasirinkimas, pradedant nuo aukštos galios iki elektrai taupių.
+Geras palaikymas \textit{Arduino} tipo specializuotomis plokštėmis, kurias galima naudoti praplečiant \textit{STM32 Nucleo} galimybes.
 Labai yra paprasta programuoti įterptinę sistemą, kadangi gaminys yra komplektuojamas su \textit{ST-LINK/V2-1} programatoriumi (angl. \textit{programmer}) ir skrodėju (angl. \textit{debugger}).
 STM32 platforma turi unikalią biblioteką, HAL, kurios tikslas yra kurti kodą, kuris yra lengviau transportuojamas tarp kitų STM32 mikro-valdiklių.
 Tai yra labai unikali savybė, kurios pagalba lengviau galima pernešti projektą, kuris buvo kuriamas vienam mikro-valdikliui, ir pritaikyti ant kito STM32 mikro-valdiklio.
@@ -17,11 +17,11 @@ Pasirinktas jutiklis yra \textit{MPU-9250} \cite{MPU-96:online}, devynių ašių
 Originalus \text{MPU-9250} jutiklis yra pateikiamas \textit{3x3x1mm} \textit{QFN} pakete, kas suteikia jam mažiausio pasaulyje devynių ašių jutiklio statusą.
 Jis sutelkia savyje projektavimo inovacijas, kurios leidžia smarkiai sumažinti įrenginio dydį ir energijos suvartojimą, tuo pat metu ir pagerinti charakteristika, sumažinti kainą.
 
-Pats įrenginys naudoja labai mažai energijos, gamintojas nurodo $9.3\mu A$ naudojimą. 
+Pats įrenginys naudoja labai mažai energijos, gamintojas nurodo $9.3\mu A$ naudojimą.
 Yra nurodoma, jog jutiklis turi labai geras triukšmo savybes; palyginus su alternatyvomis, kampinio pagreičio jutiklio triukšmas yra sumažintas tris kartus, magnetinio jutiklio iki keturių kartų.
 Jutiklis sudaromas iš dviejų dalių.
 Pirma dalis yra \textit{MPU-6500}, kurį sudaro trijų ašių kampinio pagreičio jutiklis, trijų ašių pagreičio jutiklis ir \textit{Digital Motion Processor} (DMP), kuris sugeba atlikti MotionFustion skaičiavimus.
-Antra dalis yra \textit{AK8963}, kuris suteikia trijų ašių magnetometro duomenis. 
+Antra dalis yra \textit{AK8963}, kuris suteikia trijų ašių magnetometro duomenis.
 Toks lustas gali būti panaudotas sprendimuose, kuriuose reikalaujamas \textit{MPU-9250} ar \textit{MPU-6500}, kadangi yra suteikiamas lankstumas.
 
 Pagrindiniai pakeitimai, kurie pagerina produkto kokybę yra žemo galios naudojimo pagreičio jutiklio palaikymas.
@@ -37,7 +37,7 @@ Bendra sistema yra sudaryta iš pagrindinės plokštės ir jutiklio, kurie turi 
 
 \subsubsection{I2C}
 
-I2C buvo sukurtas 1982 metais, su tikslu paprastai sujungti CPU su periferiniais luitais pačiam televizoriuje. 
+I2C buvo sukurtas 1982 metais, su tikslu paprastai sujungti CPU su periferiniais luitais pačiam televizoriuje.
 Periferiniai įrenginiai dažniausiai yra jungiami prie CPU per atminties segmentus.
 Vienas iš dažniausiai naudojamų sprendimų yra sujungti mikro-valdiklio lygiagrečius adresus ir duomenų jungtis.
 Iš to seka labai daug litavimo PCB plokštėje ir papildoma ``klijų logika'' atkoduojant adresą iš jungties, prie kurios yra prijungti įrenginiai.
@@ -62,7 +62,7 @@ Duomenų greičiai gali sudaryti nuo $100 kbps$, $400 kbps$ ir $3.4 Mbps$, dirba
 \subsubsection{SPI}
 
 \textit{Serial Peripheral Protocol} (SPI) buvo pirmą kartą buvo pristatytas su mikro-kontroleriu, kuris buvo paremtas tokia pačia architektūra, kaip ir populiarus Motorola 6800 mikro-procesorius, kuris buvo išleistas 1979.
-SPI apibrėžia išorinį mikro-valdiklio junginį, kuris buvo naudojamas sujungti mikro-valdikliui su periferiniais įrenginiais naudojant keturis laidus. 
+SPI apibrėžia išorinį mikro-valdiklio junginį, kuris buvo naudojamas sujungti mikro-valdikliui su periferiniais įrenginiais naudojant keturis laidus.
 Skirtingai negu I2C, labai yra sunku rasti formalią specifikaciją, kuri apibrėžia SPI magistralę.
 Detalesnei dokumentacijai reikia nagrinėti mikro-valdiklio specifikaciją ir ieškoti kažkokios konkrečios informacijos.
 
@@ -94,14 +94,14 @@ I2C tokiu atžvilgiu yra limituotas iki $1Mbps$ greituoju ir $3.4Mbps$ labai gre
 Paskutinis reikalauja papildomų I/O buferio mazgų, kurie nėra labai paprastai gaunami.
 
 SPI yra labai lengvas įgyvendinime, labai paprastai suprantamas ir įgyvendinimas veda prie didelio lankstumo ir pokyčių lengvumo.
-Paprastumas yra didžiausias SPI privalumas. 
+Paprastumas yra didžiausias SPI privalumas.
 Dėl šių priežasčių buvo pasirinktas SPI protokolas įgyvendinimui.
 
 \subsection{Programinė įranga}
 
 Programinė įrangą yra įgyvendinta HAL bibliotekų pagalba, kurias generuoja kitas STM32 vystymo įrankis, kuris vadinasi STM32Cube \cite{STM3293:online}.
 
-Įrankis kartu yra pateikiamas su STM32CubeMX grafine sąsaja, kurios pagalba ir yra generuojamas pradinis C programinis kodas, 
+Įrankis kartu yra pateikiamas su STM32CubeMX grafine sąsaja, kurios pagalba ir yra generuojamas pradinis C programinis kodas,
 pasitelkus paprasta grafine sąsaja.
 Be HAL bibliotekų, kartu yra pateikiami vidurinio sluoksnio komponentai, kurie yra skirti dirbti su RTOS, USB, TCP/IP bei grafine sąsajomis.
 Visos įterptinių sistemų komponentai yra pateikiami su pavyzdžiais.
@@ -112,7 +112,7 @@ Sistema taip pat leidžia apskaičiuoti numatytą galios naudojimą, bei nustaty
 Galiausiai, naudotojas tiesiog paleidžia C kodo generavimą, priklausomai nuo konfigūracijos.
 Kodas yra paruoštas naudoti skirtingose programinės įrangos vystymo aplinkose.
 Labai patogi savybė yra naudotojo kodo išsaugojimas.
-Kuomet yra pakartotinai keičiama įterptinės sistemos konfigūracija -- pridedamas papildomas komunikacijos protokolas ar koreguojamas jau esamas -- per naujo sugeneruotas kodas palieka naudotojo sugeneruotas kodo dalis nepaliestas. 
+Kuomet yra pakartotinai keičiama įterptinės sistemos konfigūracija -- pridedamas papildomas komunikacijos protokolas ar koreguojamas jau esamas -- per naujo sugeneruotas kodas palieka naudotojo sugeneruotas kodo dalis nepaliestas.
 Tai yra iš ties patogi sistemos ypatybė, kadangi prototipo vystymo stadijoje, įterptinės sistemos konfigūracijos pokyčiai yra labai dažnas darbo atvejis.
 Šio darbo praktinės dalies mikro-procesoriaus konfigūracija yra pateikiama \ref{fig:stm32_cube_mx} pav., kuri buvo sudaryta panaudojus būtent šį įrankį.
 
@@ -131,11 +131,11 @@ Tolimesnė SPI komunikacija yra vykdoma pagal protokolą.
 
 Prieš pradedant bet kokių jutiklio duomenų nuskaitymą, būtina pasitikrinti ar komunikacija su jutikliu yra galima.
 Tokiu tikslu jutikliui yra siunčiamas pasisveikinimo kodas -- \textit{0x75}.
-Į kurį jutiklis turi atsakyti \textit{0x71}. 
+Į kurį jutiklis turi atsakyti \textit{0x71}.
 Jeigu atsakymas nėra toks -- vadinasi komunikacija nėra vykdoma ir jokie duomenų mainai nėra galimi.
 Iš praktinės dalies galima paminėti, jog jeigu yra gaunamos kažkokios kraštutinės reikšmės -- \textit{0x00} arba \textit{0xFF}, SPI protokolo sujungimas visiškai nedirba ir problema tikrai bus arba litavime arba pačiuose kontaktuose, bet tikrai ne programinėje įrangoje.
 
-Tolimesnis žingsnis yra normalizavimas. 
+Tolimesnis žingsnis yra normalizavimas.
 Kiekvienas MPU-9250 yra normalizuojamas gamykloje, tačiau nėra pašalinama \textit{z} ašies gravitacinė komponentė.
 Tai padaryta dėl to, kad skirtingose planetos vietose gravitacinė komponentė yra skirtinga, todėl jos normalizuoti nėra tikslo.
 Kadangi vis tiek atliksime normalizavimą vienai ašiai -- galime iškarto normalizuoti ir likusias tris -- tiek linijinio, tiek kampinio pagreičio komponentes.
@@ -148,4 +148,4 @@ Skirtingi sprendimai renka skirtingus mėginių skaičių, todėl šiuo atveju b
 Tolimesnė eiga yra rasti visų mėginių vidurkį, pagal kiekvieną ašį.
 Šitie skaičiai ir yra nuolatinės dedamosios komponentai. Juos reikia pašalinti iš gautų iš jutiklių duomenų.
 
-
+Turint normalizuotus jutiklių duomenis, įmanomas duomenų rinkimas.

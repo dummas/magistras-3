@@ -1,159 +1,629 @@
 Šiame skyriuje apžvelgti pagrindiniai signalų filtravimo įrankiai, kurie yra plačiai naudojami inercinėse navigacinėse sistemose.
 
 \subsection{Kalman filtras}
-    
+
     Kalman filtras \cite{kalman1960new} yra vienas iš labiausiai naudojamų duomenų sujungimo algoritmų informacijos apdorojimo pramonės srityje \cite{faragher2012understanding}. Pats žymiausias Kalma filtro panaudojimas jo ankstyvoje stadijoje yra \textit{Apollo} navigaciniam kompiuteryje, kuris nugabeno \textit{Neil Armstrong} iki mėnulio ir svarbiausia -- atgal. Šiais laikais, Kalman filtrą galima rasti beveik kiekviename įrenginyje -- mobiliam telefone, kompiuteriniuose žaidimuose.
 
-\subsubsection{Formuluotė}
+    \subsubsection{Diskretaus laiko Kalman filtro išvedimas}
 
-    Kalman filtro išvedimas yra vykdomas, naudojant vektorinę algebrą kaip mažiausias kvadratinės klaidos nustatymas \cite{bibby1977prediction}. Išvedimas yra galimas panaudojus Gauso pasiskirstymo pagrindinę savybę -- Gauso pasiskirstymų suma yra kitas Gauso pasiskirstymas.
-
-    Kalman filtro modelis numato sistemos būsena laike $t$ yra kilus iš būsenos $t-1$ ir apskaičiuojama
+    Tarkime, kad turime linijinę diskretaus laiko sistemą
 
     \begin{equation}
-        \label{eq:kalman}
-        \mathbf{x}_t = \mathbf{F}_t\mathbf{x}_{t-1} + \mathbf{B}_t\mathbf{u}_t + \mathbf{w}_t,
+        x_k = F_{k-1}x_{k-1} + G_{k-1}u_{k-1} + w_{k-1}
     \end{equation}
-    kur 
+    \begin{equation}
+        y_k = H_k x_k + v_k
+    \end{equation}
+
+    Proceso triukšmai ${w_k}$ ir ${v_k}$ yra baltas, nulinio vidurkio, be koreliacijos ir žinomos kovariacijos matricos
+
+    \begin{equation}
+    w_k \sim (0, Q_k)
+    \end{equation}
+    \begin{equation}
+    v_k \sim (0, R_k)
+    \end{equation}
+    \begin{equation}
+    E[w_k w_j^T] = Q_k \delta_{k-j}
+    \end{equation}
+    \begin{equation}
+    E[v_k v_j^T] = R_k\delta_{k-j}
+    \end{equation}
+    \begin{equation}
+    E[v_k w_j^T] = 0,
+    \end{equation}
+    
+    kur $\delta_{k-j}$ yra Kroneckerio delta funkcija, $\delta_{k-j} = 1$, jeigu $k=j$ ir $\delta_{k-j} = 0$, kai $k \neq j$.
+    Tikslas yra spėti $x_k$ būsena, remiantis žiniomis apie sistemos dinamikas ir turimu mėginiu, kuris yra triukšmingas ${y_k}$.
+    Informacijos kiekis, kuris yra galimas spėjimui skiriasi nuo problemos, kuria yra norima išspręsti.
+    Jeigu egzistuoja visi mėginiai, iki laiko $k$, kuriuos galima panaudoti $x_k$ spėjimui, galima suformuoti tolesnį spėjimą, kuri galima pažymėti kaip $\hat{x}_k^{+}$.
+    Ženklas $+$ reikia, kad spėjimas yra tolimesnis.
+    Vienas iš būdu kaip galima suformuoti tolimesnę būseną yra apskaičiuoti spėjamą $x_k$ vertę, kuri priklauso nuo turimų mėginių iki laiko $k$:
+
+    \begin{equation}
+        \hat{x}_k^{+} = E[x_k|y_1,y_2, \dots , y_k]
+    \end{equation}
+
+    Jeigu turimi visi matavimai prieš (ir neįtraukiant) laiką $k$ naudojimui, tuomet galima suformuluoti ankstesnį spėjimą, kuris yra žymimas kaip $\hat{x}_k^{-}$.
+    Pagalbinis žymėjimas $-$, reiškia ankstesnį spėjimą.
+    Vienas iš būdų suformuluoti ankstesnį spėjimą yra apskaičiuoti $x_k$ vertę, kuri priklauso nuo visų turimų matavimų prieš laiką $k$:
+
+    \begin{equation}
+        \hat{x}_k^{-} = E[x_k|y_1,y_2,\dots, y_{k-1}]
+    \end{equation}
+
+    Labai svarbu pažymėti, jog $\hat{x}^-_k$ ir $\hat{x}_k^{+}$ abu kartu yra spėjimai tokio pačio lygumo; jie abu yra $x_k$ spėjimai.
+    Tačiau, $\hat{x}_k^-$ yra $x_k$ spėjimas prieš $y_k$ matavimą, o $\hat{x}_k^+$ yra spėjimas po to, kai $y_k$ matavimas yra atliktas.
+    Natūraliai yra tikimąsi, jog $\hat{x}_k^+$ bus geresnis spėjimas už $\hat{x}_k^-$, kadangi tuo metu yra daugiau informacijos skaičiuojant $\hat{x}_k^+$:
+
     \begin{itemize}
-        \item $\mathbf{x}_t$ yra būsenos vektorius, kuris nusako sistemos būsenos įverčius -- greitį, pagreitį, poziciją laike $t$;
-        \item $\mathbf{u}_t$ yra vektorius, kuris yra sudaromas iš kontrolinės struktūros -- vairo pasukimo kampas, pedalo paspaudimo kampas;
-        \item $\mathbf{F}_t$ yra būsenos perėjimo matrica, kuri pritaiko kiekvieną sistemos parametrą laike $t-1$, laikui $t$;
-        \item $\mathbf{B}_t$ yra kontrolės įėjimo matrica, kuri pritaiko kontrolės įėjimo parametrą būsenos vektoriui;
-        \item $\mathbf{w}_t$ yra vektorius, kuris susideda iš proceso būsenos parametrų triukšmo. Proceso triukšmas yra numatomai išvedamas iš nulinio vidurkio paprasto paskirstymo bendros variacijos;
+        \item $\hat{x}_k^-$ = $x_k$ spėjimas prieš mėginio gavimą laiku $k$
+        \item $\hat{x}_k^+$ = $x_k$ spėjimas, po mėginio gavimo laiku $k$
     \end{itemize}
 
-    Sistemos įverčio matavimas taip pat gali būti atliekamas, panaudojus modelį
+    Jeigu egzistuoja mėginiai po laiko $k$, kuriuos galima naudoti $x_k$ spėjimui, tuomet galima suformuoti glotnesnį spėjimą.
+    Vienas iš būdų suformuoti glotnesnį spėjimą yra apskaičiuoti tikėtiną $x_k$ vertę, kuri priklauso nuo visų turimų įverčių
 
     \begin{equation}
-        \mathbf{z}_t = \mathbf{H}_t\mathbf{x}_t + \mathbf{v}_t,
+        \hat{x}_{k|k+N} = E[x_k|y_1,y_2,\dots,y_k,\dots, y_{k+N}],
     \end{equation}
-    kur
-    \begin{itemize}
-        \item $\mathbf{z}_t$ yra matavimų vektorius;
-        \item $\mathbf{H}_t$ yra transformavimo matrica, kuri perkelia būsenos vektoriaus parametrus į įverčio sritį;
-        \item $\mathbf{v}_t$ yra triukšmo vektorius, kuris yra nusakomas kiekvienam įverčiui atskirai. Yra priimama, kad jis yra Gauso baltas triukšmas su nuliniu vidurkiu, kaip ir proceso triukšmas.
-    \end{itemize}
-
-    Pavyzdžio iliustracijai bus pasirinktas tiesus linijinis sekimo uždavinys -- judantis traukinys. Tokiu atveju būsenos vektorius $\mathbf{x}_t$ bus sudarytas iš dviejų komponenčių -- pozicija ir pagreitis
+    kur $N$ yra teigimas skaičius, kurio vertė priklauso nuo specifinės problemos, kuri yra sprendžiama.
+    Jeigu galima rasti geriausią $x_k$ spėjimą daugiau negu vienu žingsniu greičiau už turimus mėginius, galima suformuluoti spėjamą būseną.
 
     \begin{equation}
-        \mathbf{x}_t = \left[ \begin{matrix} x_t \\ \dot{x}_t \end{matrix} \right]
+        \hat{x}_{k|k-M} = E[x_k|y_1,y_2, \dots, y_{y-M}],
     \end{equation}
+    kur $M$ yra teigiamas skaičius, kurio vertė priklauso nuo sprendžiamo uždavinio. 
 
-    Traukinio vairuotojas gali paspausti stabdžio arba pagreičio didinimo pedalą ir abu šie veiksmai gali būti traktuojami kaip pridėtos jėgos $\mathbf{f}_t$ ir traukinio masės funkcija $\mathbf{m}$. Tokia kontrolės informacija yra saugoma kontrolės vektoriuje
+    Tolimesniam žymėjime bus pateiktas $\hat{x}_0^+$ įvertis, kuris parodys pradinį $x_0$ įvertinimą prieš bet kokius turimus mėginius.
+    Pirmas mėginys yra gaunamas laiku $k=1$.
+    Kadangi neegzistuoja jokie mėginiai, kuriuos galima panaudoti spėti $x_0$, yra logiška suformuoti $\hat{x}^+_0$ kaip pradinės būsenos $x_0$ tikėtiną įvertį:
 
     \begin{equation}
-        \mathbf{u}_t = \frac{\mathbf{f}_t}{\mathbf{m}}.
+        \hat{x}_0^+ = E(x_0)
     \end{equation}
 
-    Ryšį tarp pridėtos jėgos per greičio arba stabdžio pedalą per laiką $\Delta t$ ir pozicija ir traukinio pagreičiu galima išreikšti
+    Spėjimo klaidos kovariacijos matricai pažymėti bus panaudotas $P_k$ žymėjimas.
+    $P_k^-$ žymi $\hat{x}_k^-$ įvertinimo klaidos kovariaciją, o $P_k^+$ žymi $\hat{x}_k^+$ įvertinimo klaidą.
 
     \begin{equation}
-        \mathbf{x}_t = \mathbf{x}_t + (\dot{\mathbf{x}}_{t-1} \times \Delta t) + \frac{\mathbf{f}_t(\Delta t)^2}{2\mathbf{m}}
+        P_k^- = E[(x_k - \hat{x}_k^-)(x_k - \hat{x}_k^-)^T]
     \end{equation}
     \begin{equation}
-        \dot{\mathbf{x}}_t = \dot{\mathbf{x}}_{t-1} + \frac{\mathbf{f}_t \Delta t}{\mathbf{m}},
-    \end{equation}
-    kurios gali būti perrašomos į matricinę formą lengesniai asociacijai su \ref{eq:kalman} lygtimi
-
-    \begin{equation}
-        \left[ \begin{matrix} x_t \\ \dot{x}_t \end{matrix} \right] = 
-        \left[ \begin{matrix} 1 & \Delta t \\ 0 & 1\end{matrix} \right]
-        \left[ \begin{matrix} x_{t-1} \\ \dot{x}_{t-1} \end{matrix} \right] +
-        \left[ \begin{matrix} (\Delta t)^2 / 2 \\ \Delta t \end{matrix} \right] \frac{f_t}{m}
-    \end{equation}
-    Iš to seka, kad mūsų sistemos būsenos perdavimo matrica yra 
-
-    \begin{equation}
-        \mathbf{F}_t = \left[ \begin{matrix} 1 & \Delta t \\ 0 & 1 \end{matrix} \right],
-    \end{equation}
-    ir kontrolės matrica
-
-    \begin{equation}
-        \mathbf{B}_t = \left[ \begin{matrix} (\Delta t)^2/2 \\ \Delta t \end{matrix} \right].
+        P_k^+ = E[(x_k - \hat{x}_k^+)(x_k-\hat{x}_k^+)^T]
     \end{equation}
 
-    Modelio pagalba negalima nustatyti sistemos būseną $\mathbf{x}_t$, tačiau Kalman filtras suteikia algoritmą nustatyti spėjamą $\hat{\mathbf{x}}_t$ sujungiant sistemos ir triukšmo modelio įverčius su linijinės funkcijos parametrais. Spėjamas parametrų įverčių įtaka būsenos vektoriui dabar yra traktuojama kaip tikimybės tankio funkcija, o ne konkrečiais įverčiais, kadangi Kalman filtras yra paremtas Gauso pasiskirstymu. 
+    Po to, kai yra apdorotas įvertis laike $(k-1)$, gaunamas $x_{k-1}$ įvertinimas (žymimas $\hat{x}_{k-1}^+$) ir įverčio kovariacijos matrica (žymima $P_{k-1}^+$).
+    Kai ateina laikas $k$, prieš apdorojant įverčiui laike $k$, apskaičiuojame $x_k$ įvertį (žymima $\hat{x}_k^-$) ir įverčio klaidos kovariacijos matricą (žymima $P_k^-$).
+    Tuomet yra apdorojamas gautas įvertis laike $k$ ir patobuliname įvertį $x_k$.
+    Gautas galutinis įvertis $x_k$ yra žymimas $\hat{x}_k^+$, o jo kovariacijos matrica $P_k^+$.
 
-    Kalman filtro algoritmas susideda iš dviejų etapų -- spėjimas ir įverčio atnaujinimas. Paprasto Kalman filtro lygtis būsenos spėjimui yra
-
-    \begin{equation}
-        \mathbf{\hat{x}}_{t|t-1} = \mathbf{F}_t\mathbf{\hat{x}}_{t|t-1} + \mathbf{B}_t \mathbf{u}_t
-    \end{equation}
-
-    \begin{equation}
-        \label{eq:pdf_covariance}
-        \mathbf{P}_{t|t-1} = \mathbf{F}_t\mathbf{P}_{t-1|t-1} \mathbf{F}_t^T + \mathbf{Q}_t,
-    \end{equation}
-    kur $\mathbf{Q}_t$ yra proceso triukšmo kovariacijos matrica, kuri yra skirta įvesties kontrolės triukšmui.
-    Įverčio atnaujinimo lygtis yra
+    Spėjimo procesas pradedamas nuo $\hat{x}_0^+$, geriausiai žinomos pradinės $x_0$ būsenos.
+    Turint $\hat{x}_0^+$, kaip apskaičiuoti $\hat{x}_1^-$?
+    Reikia prilyginti $\hat{x}_1^- = E(x_1)$.
+    Reikia pažymėti, jog $\hat{x}_0^+ = E(x_0)$, ir prisiminti, kad $x$ vidurkis kinta laike
 
     \begin{equation}
-        \mathbf{\hat{x}}_{t|t} = \mathbf{\hat{x}}_{t|t-1} + \mathbf{K}_t(\mathbf{z}_t - \mathbf{H}_t \mathbf{\hat{x}}_{t|t-1})
-    \end{equation}
-
-    \begin{equation}
-        \mathbf{P}_{t|t} = P_{t|t-1} - \mathbf{K}_t \mathbf{H}_t \mathbf{P}_{t|t-1},
-    \end{equation}
-    kur
-    \begin{equation}
-        \mathbf{K}_t = \mathbf{P}_{t|t-1} \mathbf{H}_t^T(\mathbf{H}_t\mathbf{P}_{t|t-1}\mathbf{H}_t^T + \mathbf{R}_t)^{-1}
+        \bar{x}_k = F_{k-1}\bar{x}_{k-1} + G_{k-1}u_{k-1}
     \end{equation}
     
-
-    \subsubsection{Sprendimas}
-
-    Toliau tęsiant turimą pavyzdį, galim atlikti sekančius matavimus nuo laiko momento $t=0$, kai traukinys vis dar stovi iki $t=1$, kai traukinys jau pajudėjo iš savo pradinės vietos. Pirmas matavimas bus atliekamas pasitelkus prielaidą, kad yra žinoma kiek traukinio vairuotojas paspaudė greičio pedalą. Remiantis tokia logika mes galime atlikti pirmą spėjimą su tam tikru neužtikrintumu kokia yra traukinio pozicija $t=1$ laiko momentu. Antras matavimas bus atliekamas, panaudojus radijo stotelę -- bus siunčiamas radijo signalas į traukinio pusę ir laukiamas grįžtamasis ryšis. Taip galima spėti kokiu nuotoliu nuo radijo stotelės yra objektas. 
-
-    Abiejų būsenos pozicijos spėjimus galima išreikšti Gauso pasiskirstymo funkcijomis. Taip pat reikia įvesti dimensijų transformavimo santykį, kuris paprastumo dėlei dabar su pasirinktas $1/c$. Pirmas matavimas
+    Tokiu atveju gaunama
 
     \begin{equation}
-        y_1(r; \mu_1, \sigma_1, c) = \frac{1}{\sqrt{2\pi (\sigma_1/c)^2}} e^{\frac{(r-\mu_1/c)^2}{2 (\sigma_1/c)^2}}.
+        \hat{x}_1^- = F_0\hat{x}_0^+ + G_0u_0
     \end{equation}
-    Antras matavimas
+
+    Šita lygtis yra specifinė lygtis, kuri rodo kaip gauti $\bar{x}_1^-$ iš $\bar{x}_0^+$. Labiau bendrinant, gaunama lygtis
 
     \begin{equation}
-        y_2(r; \mu_2, \sigma_2, c) = \frac{1}{\sqrt{2\pi (\sigma_2/c)^2}} e^{\frac{(r-\mu_2/c)^2}{2 (\sigma_2/c)^2}}.
+        \hat{x}_k^- = F_{k-1}\bar{x}_{k-1}^+ + G_{k-1}u{k-1}
     \end{equation}
 
-    Tolimesnis sprendimas yra apjungti abu matavimus su tikslu mažinti klaidos tikimybę, kur sujungtas vidurkis gali būti išreikštas
-    
-    \begin{equation}
-        \frac{\mu_f}{c} = \frac{\mu_1}{c} + \frac{ (\frac{\sigma_1}{c})^2 (\mu_2 - \frac{\mu_1}{c}) }{(\frac{\sigma_1}{c})^2 + \sigma_2^2}
-    \end{equation}
+    Ir jinai yra vadinama $\bar{x}$ laiko atnaujinimo lygtis.
+    Nuo laiko $(k-1)^+$ iki laiko $k^-$, būsenos įvertis kinta tokiu pačiu principu, kaip ir būsenos vidurkis.
+    Neegzistuoja jokios papildomos informacijos, kuri leistu atnaujinti būseną tarp laiko $(k-1)^+$ ir $k^-$, todėl reikia tiesiog atnaujinti būsenos įvertį, remiantis sistemos dinaminėmis žiniomis.
 
-    \begin{equation}
-        \mu_f = \mu_1 + \left( \frac{ \frac{\sigma_1^2}{c} }{ ( \frac{\sigma_1}{c} )^2 + \sigma_2^2 } \right) \cdot 
-        \left( \mu_2 - \frac{\mu_1}{c} \right).
-    \end{equation}
-    
-    Pakeičiant $H = 1/c$ ir $K = ( H\sigma_1^2 )/(H^2\sigma_1^2 + \sigma_2^2)$, gauname
+    Toliau reikia apskaičiuoti laiko atnaujinimo $P$ lygtį.
+    Pradedama nuo $P_0^+$, kuris žymi pradinės būsenos įverčio $x_0$ kovariaciją.
+    Jeigu labai gerai yra žinoma apie pradinę sistemos būseną, tuomet $P_0^+ = 0$.
+    Jeigu visiškai nėra aišku apie pradinę sistemos būseną, tuomet $P_0^+ = \inf$.
+    Bendrai, $P_0^+$ parodo pradinės $x_0$ būsenos neužtikrintumą
 
     \begin{equation}
-        \mu_f = \mu_1 + K \cdot (\mu_2 - H\mu_1).
+        P_0^+ = E[(x_0 - \hat{x}_0^+)(x_0 - \hat{x}_0^+)^T]
     \end{equation}
 
-    Panašiu principu gaunam ir sujungta pasiskirstymo variaciją
+    Turint $P_0^+$, kaip apskaičiuoti $P_1^-$? Reikia prisiminti kaip linijinės diskretaus laiko būsenos kovariacija kinta su laiku ir gaunam
 
     \begin{equation}
-        \frac{\sigma_f^2}{c^2} = \left(\frac{\sigma_1}{c}\right)^2 - \frac{\left(\frac{\sigma_1}{c}\right)^2}{ \left( \frac{\sigma_1}{c} \right)^2 + \sigma_2^2 }
-    \end{equation}
-    
-    \begin{equation}
-        \sigma_f^2 = \sigma_1^2 - \left( \frac{ \frac{\sigma_1^2}{c} }{ \left( \frac{\sigma_1}{c} \right)^2 + \sigma_2^2 }  \right) \frac{\sigma_1^2}{c} = \sigma_1^2 - KH\sigma_1^2
+        P_1^- = F_0 P_0^+F_0^T + Q_0
     \end{equation}
 
-    Tokiu pavidalu yra įmanoma sutapatinti įverčius su Kalmano algoritmo parametrais -- 
-    \begin{itemize}
-        \item $\mu_f \rightarrow \hat{\mathbf{x}}_{t|t}$: būsenos vektorius;
-        \item $\mu_1 \rightarrow \hat{\mathbf{x}}_{t|t-1}$: būsenos vektorius prieš duomenų sujungimą, spėjimą;
-        \item $\sigma_f^2 \rightarrow \mathbf{P}_{t|t}$: kovariacinė matrica po duomenų sujungimo;
-        \item $\sigma_1^2 \rightarrow \mathbf{P}_{t|t-1}$: kovariacinė matrica prieš duomenų sujungimą;
-        \item $\mu_2 \rightarrow \mathbf{z}_t$: matavimo vektorius;
-        \item $\sigma_2^2 \rightarrow \mathbf{R}_t$: matavimo neapibrėžtumo matrica;
-        \item $H \rightarrow \mathbf{H}_t$: transformavimo matrica;
-    \end{itemize}
-    
+    Tai yra specifinė lygtis, o bendresnė lygtis atrodo taip
+
+    \begin{equation}
+        P_k^- = F_{k-1}P_{k-1}^+F_{k-1}^T + Q_{k-1},
+    \end{equation}
+    ir vadinama $P$ laiko atnaujinimo lygtimi.
+
+    Aukščiau yra išvestos lygtis, kurios yra skirtos apskaičiuoti $\hat{x}$ ir $P$.
+    Dabar reikalinga išvesti lygtis, kurios skirtos atnaujinti $\hat{x}$ ir $P$ po atlikto sistemos matavimo.
+    Turint $\hat{x}_k^-$, kaip apskaičiuoti $\hat{x}_k^+$? Tiek $x_k^-$ ir $x_k^+$ yra $x_k$ įverčiai.
+    Vienintelis skirtumas tarp $\hat{x}_k^-$ ir $\hat{x}_k^+$, kad $\hat{x}_k^+$ yra gaunamas turint mėginį $y_k$.
+    Remiantis mažiausių kvadratų teorija, mėginys $y_k$ keičia $x$ konstantos spėjimą:
+
+    \begin{equation}
+        K_k = P_{k-1}H_k^T(H_kP_{k-1}H_k^T + R_k)^{-1} = P_kH_k^TR_k^-1
+    \end{equation}
+    \begin{equation}
+        \bar{x}_k = \bar{x}_{k-1} + K_k(y_k - H_k\bar{x}_{k-1})
+    \end{equation}
+    \begin{equation}
+        P_k = (I - K_kH_k)P_{k-1},
+    \end{equation}
+    kur $\bar{x}_{k-1}$ ir $P_{k-1}$ yra įvertinimas ir jo kovariacija prieš $y_k$ matavimą ir $\bar{x}_k$ ir $P_k$ yra įvertinimas ir jo kovariacija po $y_k$ matavimo.
+
+    Atlikę porą pakeitimų, gauname
+
+    \begin{equation}
+        K_k = P_{k}^+H_k^TR_k^{-1}
+    \end{equation}
+    \begin{equation}
+        \bar{x}_k^+ = \bar{x}_k^- + K_k(y_k - H_k\bar{x}_k^-)
+    \end{equation}
+    \begin{equation}
+        P_k^+ = (I-K_kH_k)P_{k}^-
+    \end{equation}
+
+    Taip yra gaunamos lygtis, kurios yra naudojamos įverčiams $\bar{x}_k$ ir $P_k$ atnaujinti, po gauto mėginio.
+    Matrica $K_k$ aukštesnėse lygtyse yra vadinama Kalmano augimu.
+
+    \subsubsection{Pavyzdys}
+
+    Geriau suprasti turimą teoriją, pateikiamas Niutono sistemos pavyzdys, kurioje nėra jokios triukšmo, su pozicija $r$, greičiu $v$ ir pastoviu pagreičiu $a$.
+    Sistema galima apibūdinti kaip
+
+    \begin{equation}
+        \begin{bmatrix} \dot{r} \\ \dot{v} \\ \dot{a} \end{bmatrix} = 
+        \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}
+        \begin{bmatrix} r \\ v \\ a \end{bmatrix}
+    \end{equation}
+    \begin{equation}
+        \dot{x} = Ax
+    \end{equation}
+
+    Diskretizuota sistemos versija (su diskretizacijos periodu $T$) yra užrašoma kaip\
+
+    \begin{equation}
+        x_{k+1} = Fx_k,
+    \end{equation}
+    kur $F$ yra duodamas kaip
+
+    \begin{equation}
+        F = exp(AT) = I + AT + \frac{(AT)^2}{2!} + \dots =
+        \begin{bmatrix}
+            0 & T & T^2/2 \\
+            0 & 1 & T \\ 
+            0 & 0 & 1
+        \end{bmatrix}
+    \end{equation}
+
+    Kalmano filtras tokiai sistemai yra išreiškiamas
+
+    \begin{equation}
+        \bar{x}_k^- = F\bar{x}_{k-1}^+
+    \end{equation}
+    \begin{equation}
+        P_k^- = FP_{k-1}^+ F^T + Q_{k-1} = FP_{k-1}^+ F^T
+    \end{equation}
+
+    Ką galima pastebėti, kad kovariacijos įverčio klaidos matrica didėja tarp laiko $(k-1)^+$ (laikas $(k-1)$, po kurio gautas įvertis yra apdorotas) ir $k^-$ (laikas $k$, prieš apdorojant gautą įvertį).
+    Kadangi nėra gaunamas joks mėginys tarp laikų $(k-1)^+$ ir $k^-$, yra daug logikos, jog duota kovariacijos matrica didėja.
+    Dabar galima įvesti triukšmą, kuris būtų mėginio gavimo triukšmas $\sigma^2$
+
+    \begin{equation}
+        y_k = H_kx_k + v_k = \begin{bmatrix} 1 & 0 & 0 \end{bmatrix} x_k + v_k
+    \end{equation}
+    \begin{equation}
+        v_k ~ (0, R_k)
+    \end{equation}
+    \begin{equation}
+        R_k = \sigma^2
+    \end{equation}
+
+    Kalmano augimas gaunamas kaip
+
+    \begin{equation}
+        K_k = P_k^-H_k^T(H_kP_k^-H_k^T+R_k)^{-1}
+    \end{equation}
+
+    Perrašius $P_k$ kaip trijų elementų vektorių
+
+    \begin{equation}
+        K_k = \begin{bmatrix} P_{k,11}^- \\ P_{k,12}^- \\ P_{k,13}^- \end{bmatrix} \frac{1}{P_{k,11}^- + \sigma^2}
+    \end{equation}
+
+    Tolimesnė kovariacija gaunama
+
+    \begin{equation}
+        P_k^+ = P_k^- - K_kH_kP_k^-
+    \end{equation}
+
+    Kai yra gaunamas naujas matavimas, yra natūraliai tikimąsi, jog būsenos spėjimas bus tikslesnis.
+    Tai reiškia, jog kovariacija mažės, ką ir rodo lygtis.
+
+    \subsection{Ištiesintas Kalman filtras}
+
+    Šiame skyriuje parodoma kaip ištiesinti ne tiesinę sistemą ir tuomet panaudoti Kalman filtro teoriją įvertinant skirtumus tarp būsenos ir nominalios būsenos vertės.
+    Toliau tai suteiks ne tiesinės sistemos būsenos įvertinimą.
+    Ištiesintas Kalman filtras yra išvedamas iš nuolatinio laiko požiūrio, o diskretaus ar hibridinio laiko išvedimai yra analogiški.
+
+    Tarkime, egzistuoja toks ne tiesinės sistemos modelis:
+
+    \begin{equation}
+        \dot{x} = f(x,u,w,t)
+    \end{equation}
+    \begin{equation}
+        y = h(x,v,t)
+    \end{equation}
+    \begin{equation}
+        w ~ (0,Q)
+    \end{equation}
+    \begin{equation}
+        v ~ (o,R)
+    \end{equation}
+
+    Sistemos lygtis $f(\cdot)$ ir matavimo lygtis $h(\cdot)$ yra ne tiesinės funkcijos.
+    Bus naudojama Tailoro eilutė išplėsti šitas lygtis aplink nominalią kontrolę $u_0$ ir nominalią būseną $x_0$ su $y_0$ išėjimu, bei triukšmu $w_0$ir $v_0$.
+    Šios nominalios vertės yra paremtos ankstesniu spėjimu apie sistemos trajektoriją.
+    Pavyzdžiui, jeigu sistemos lygtis pateikia lėktuvo dinamikas, tuomet nominali kontrolė, būsena ir išėjimas gali būti suplanuoto skrydžio trajektorija.
+    Reali skrydžio trajektorija skirsis nuo šios nominalios trajektorijos dėl modeliavimo klaidos, trikdymų ir kitų nenumatytų efektų.
+    Tačiau reali trajektorija turi būti arti nominalios trajektorijos, tokiu atveju Tailoro eilutės tiesinimas turi būti labai arti.
+    Tailoro eilutės išskleidimas suteikia
+
+    \begin{equation}
+        \begin{aligned}
+            \dot{x} &\approx f(x_0, u_0, w_0, t) + \frac{\delta f}{\delta x}\Bigr|_{0} (x-x_0) + \frac{\delta f}{\delta u}\Bigr|_{0} (u-u_0) + \frac{\delta f}{\delta w}\Bigr|_{0} (w-w_0) \\
+            &= f(x_0, u_0, w_0, t) + A\Delta x + B \Delta u + L \Delta w
+        \end{aligned}
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            y &\approx h(x_0, v_0, t) + \frac{\delta h}{\delta x}\Bigr|_{0}(x-x_0) + \frac{\delta h}{\delta v}\Bigr|_{0}(v-v_0) \\
+            &= h(x_0, v_0, t) + C \Delta x + M \Delta v
+        \end{aligned}
+    \end{equation}
+
+    Šie dalinių matricų A, B, C, L ir M išvestinės yra išskiriamos iš aukštesnių lygčių.
+    Indeksas "0" rodo, kad dalinę išvestinę reikia atlikti esant nominaliai kontrolei, būsenai, išėjimui ir triukšmams.
+
+    Galima padaryti prielaida, kad nominalaus triukšmo įverčiai yra abu lygus 0 šiuo atveju.
+    Kadangi jie abu yra lygus 0, tuomet $\delta w(t) = w(t)$ ir $\delta v(t) = v(t)$.
+    Toliau galima teigti, kad kontrolė $u(t)$ yra labai gerai žinoma.
+    Bendru atveju, tai yra labai gera prielaida, kadangi kontrolės įėjimas $u(t)$ yra pateiktas sistemos kontrolės, kuri neturi turėti jokių abejonių įverčiuose.
+    Tai reiškia, kad $u_0(t) = u(t)$ ir $\delta u(t) = 0$.
+    Tačiau, realybėje gali būti neužtikrintumas kontrolės išėjime, kadangi jos yra sujungtos su kažkokiu įtaisu, kuris turi savo vidurkį ir triukšmą.
+    Dabar galima aprašyti nominalios sistemos trajektoriją kaip
+
+    \begin{equation}
+        \label{eq:nominal_sistem_trajektory}
+        \begin{aligned}
+            \dot{x}_0 &= f(x_0, u_0, w_0, t) \\
+            y_0 &= h(x_0, v_0, t)
+        \end{aligned}
+    \end{equation}
+
+    Aprašytas nukrypimas nuo tikros sistemos būsenos išvestinę iš nominalios būsenos išvestinės ir nukrypimas nuo realaus mėginio iš nominalaus mėginio
+
+    \begin{equation}
+        \Delta \dot{x} = \dot{x} - \dot{x}_0 \\
+        \Delta y = y - y_0
+    \end{equation}
+
+    Su šitais apibrėžimais, lygtis tampa
+
+    \begin{equation}
+        \Delta \dot{x} = A \Delta x + Lw = A \Delta x \tilde{w}
+    \end{equation}
+    \begin{equation}
+        \tilde{w} \sim (0, \tilde{Q}), \tilde{Q} = LQL^T
+    \end{equation}
+    \begin{equation}
+        \Delta y = C \Delta x + Mv = C \Delta x + \tilde{v}
+    \end{equation}
+    \begin{equation}
+        \tilde{v} \sim (O, \tilde{R}), \tilde{R} = MRM^T
+    \end{equation}
+
+    Ši lygtis yra tiesinė sistema su $\Delta x$ būsena ir $\Delta y$ mėginiu.
+    Tokiu atveju galima panaudoti Kalamna filtrą spėti $\Delta x$.
+    Filtro įėjimas susideda iš $\Delta y$, kuris yra skirtumas tarp realaus matavimo $y$ ir nominalaus matavimo $y_0$.
+    Kalmano filtro išėjimas $\Delta x$ yra įvertinimas skirtumo tarp realios būsenos $x$ ir nominalios būsenos $x_0$.
+    Kalmano filtro lygtis ištiesintai sistemai yra
+
+    \begin{equation}
+        \label{eq:linerialized_kalman_filter}
+        \begin{aligned}
+            \Delta \hat{x} (0) &= 0\\
+            P(0) &= E[(\Delta x(0) - \Delta \hat{x}(0))(\Delta{x}(0) - \Delta \hat{x}(0))^T]\\
+            \Delta \dot{\hat{x}} &= A \Delta \hat{x} \\
+            K &= PC^T\tilde{R}^{-1}\\
+            \dot{P} &= AP + PA^T + \tilde{Q} - PC^T\tilde{R}^{-1}CP\\
+            \hat{x} &= x_0 + \Delta \hat{x}
+        \end{aligned}
+    \end{equation}
+
+    Kalmano filtrui, $P$ yra kovariacijos matricos klaida.
+    Ištiesintas Kalman filtras nėra tikras filtras, dėl klaidų, kurias suteikia ištiesinimas.
+    Tačiau, jeigu ištiesinimo klaidos yra mažos, $P$ turėtų būti apie spėjimo klaidos kovariacijos įvertį.
+
+
+\subsection{Išplėstas Kalman filtras}
+
+    Ankstesniam skyriuje buvo aptartas linijinis Kalman filtras, kuris yra naudojamas spėti ne tiesinės sistemos būsenai.
+    Išvedimas buvo paremtas ne tiesinės sistemos tiesinimu aplink nominalų būsenos trajektorijos pokytį.
+    Klausimas kyla, kaip gi reikia nustatyti tą nominalę būsenos trajektoriją?
+    Kai kuriais atvejais, tai nėra labai paprastas uždavinys.
+    Tačiau, kadangi Kalman filtras spėja sistemos būseną, galima panaudoti patį Kalman filtrą, kaip tą sistemos trajektorijos nominalę.
+    Tai yra šioks toks savikėlimo metodas.
+    Tiesinam ne tiesinę sistemą aplink Kalman filtro būsenos spėjimą, o Kalman filtro įvertinimas paremtas tiesine sistema.
+    Tai yra išplėsto Kalman filtro idėja, kuri buvo pasiūlyta Stanley Schmidt.
+    Autorius norėjo pritaikyti Kalman filtrą ne tiesinėms erdvėlaivio navigacijos problemoms spręsti.
+
+\subsubsection{Nepertraukiamo laiko išplėstas Kalman filtras}
+
+        Sujungiant \ref{eq:nominal_sistem_trajektory} ir \ref{eq:linerialized_kalman_filter} lygtis, gaunama
+
+        \begin{equation}
+            \dot{x}_0 + \delta \dot{\hat{x}} = f(x_0, u_0, w_0, t) + A \Delta \hat{x} + K[y-y_0 -C(\hat{x} - x_0)]
+        \end{equation}
+
+        Toliau reikia pasirinkti tokį $x_0(t)=\hat{x}(t)$, kad $\Delta\hat{x}(t) = 0$ ir $\Delta\hat{\bar{x}}(t) = 0$.
+        Kitais žodžiais, tiesinimo trajektorija $x_0(t)$ yra lygi ištiesinto Kalman filtro įverčiui $\hat{x}(t)$.
+        Tuomet nominalaus įverčio išraiška tampa
+
+        \begin{equation}
+            y_0 = h(x_0, v_0, t) = h(\hat{x}, v_0, t)
+        \end{equation}
+
+        Tai yra ekvivalentu ištiesintam Kalman filtrui, tačiau čia pasirinkta $x_0 = \hat{x}$ ir yra perskirstytos lygtis, kad tiesiogiai gauti $\hat{x}$.
+        Kalman padidėjimas yra toks pats, kaip ir ankščiau.
+        Tačiau šita formuluotė naudoja mėginį $y$ tiesiogiai, ir išėjime būsenos įvertis $\hat{x}$ irgi yra pateikiamas tiesiogiai.
+        Tai yra dažnai žymima kaip išplėstas Kalman-Bucy filtras, kadangi Ričardas Bucy bendradarbiavo su Rudolfu Kalman pirmoje publikacijoje apie nepertraukiamo laiko Kalman filtrą.
+        Nepertraukiamo laiko išplėstas Kalman filtras gali būti suvestas į tokius punktus
+
+        \begin{itemize}
+            \item Sistemos lygtis yra tokios
+            \begin{equation}
+                \begin{aligned}
+                \bar{x} &= f(x, u, w, t) \\
+                y &= h(x, v, t) \\
+                w &\sim (0,Q) \\
+                v &\sim (0, R)
+                \end{aligned}
+            \end{equation}
+            \item Apskaičiuoti duotas dalines išvestinių matricas kaip dabartinės būsenos įvertinimus
+            \begin{equation}
+                \begin{aligned}
+                    A &= \frac{\delta f}{\delta x}\Bigr|_{\hat{x}} \\
+                    L &= \frac{\delta f}{\delta w}\Bigr|_{\hat{x}} \\
+                    C &= \frac{\delta h}{\delta x}\Bigr|_{\hat{x}} \\
+                    M &= \frac{\delta h}{\delta v}\Bigr|_{\hat{x}}
+                \end{aligned}
+            \end{equation}
+            \item Apskaičiuoti duotas matricas
+            \begin{equation}
+                \label{eq:ekf_q_r}
+                \begin{aligned}
+                    \tilde{Q} &= LQL^T \\
+                    \tilde{R} &= MRM^T
+                \end{aligned}
+            \end{equation}
+            \item Išspręsti Kalman filtro lygtis
+            \begin{equation}
+                \label{eq:ekf}
+                \begin{aligned}
+                    \hat{x}(0) &= E[x(0)]  \\
+                    P(0) &= E[ (x(0) - \hat{x}(0))(x(0) - \hat{x}(0))^T ] \\
+                    \dot{\hat{x}} &= f(\hat{x}, y, w_0, t) + K[y - h(\hat{x}, v_0, t)] \\
+                    K &= PC^T\tilde{R}^{-1} \\
+                    \dot{P} &= AP + PA^T + \tilde{Q} - PC^T\tilde{R}^{-1}CP
+                \end{aligned}
+            \end{equation}
+        \end{itemize}
+        
+        
+	\subsubsection{Hibridinis Kalman filtras}
+	
+	Daugelis inžinerinių sistemų seka nenutrūkstamo laiko dinamikas, o matavimai yra atliekami diskrečiam laike.
+	Tokia situacija dažniausiai pasitaiko praktikoje.
+	Tokiu atveju standartinis praplėstas Kalman filtras nėra tinkamas, todėl reikia atlikti pakeitimus.
+	
+	Egzistuoja nuolatinio laiko sistema su diskretiniais matavimais
+	
+    \begin{equation}
+    	\begin{aligned}
+    		\dot{x} &= f(x,u,w,t) \\
+    		y_k &= h_k(x_k, v_k) \\
+    		w(t) &\sim (0, Q) \\
+            v_k &\sim (0, R_k)
+    	\end{aligned}
+    \end{equation}
+
+    Proceso triukšmas $w(t)$ yra nuolatinio laiko triukšmas su kovariacija $Q$, o matavimo triukšmas $v_k$ yra diskretaus laiko baltas triukšmas, su kovariacija $R_k$.
+    Tarp matavimų įvyksta būsenos nustatymas, remiantis žinoma ne tiesine sistemos dinamika, kartu su kovariacija. Lygiai taip pat, kaip ir su paprastu praplėstu Kalman filtru, pagal \ref{eq:ekf} lygtį.
+
+    \begin{equation}
+        \dot{P} = AP + PA^T + LQL^T - PC^T(MRM^T)^{-1}CP
+    \end{equation}
+
+    Hibriniam išplėsto Kalman atveju, nereikia įtraukti R įverčio, kadangi P yra integruojamas tarp matavimų, kurių metu nėra jokių matavimų.
+    Žiūrint iš kitos pusės, kuomet nėra jokių matavimų, kovariacija R yra lygi begalybei, todėl paskutinis terminas lygus nuliui.
+    Iš to seka tokios laiko atnaujinimo lygtis
+
+    \begin{equation}
+        \begin{aligned}
+            \hat{\dot{x}} &= f(\hat{x}, u, w_0, t) \\
+            \dot{P} &= AP + PA^T + LQL^T,
+        \end{aligned}
+    \end{equation}
+    kur $A$ ir $L$ yra duoti \ref{eq:ekf_q_r} lygtyje.
+    Šitos lygtis yra skirtos skaičiuoti $\hat{x}$ iš $\hat{x}^+_{k-1}$ iki $\hat{x}^-_k$ ir P iš $P^+_{k-1}$ iki $P^-_k$.
+    Reikia pastebėti, kad $w_0$ yra nominalaus proceso triukšmas.
+
+    Kiekvieno matavimo metu, yra atnaujinamas būsenos spėjimas ir kovariaciją, pagal diskretaus laiko Kalman filtro lygtis
+
+    \begin{equation}
+        \begin{aligned}
+            K_k &= P^-_k H_k^T (H_kP_k^-H_k^T + M_kR_kM_k^T)^{-1} \\
+            \hat{x}_k^+ &= \hat{x}_k^- + K_k[ y_k - h_k(\hat{x}_k^-, v_0, t_k) ] \\
+            P_k^+ &= (I - K_kH_k)P_k^-(I - K_kH_k)^T + K_kM_kR_kM_k^TK_k^T,
+        \end{aligned}
+    \end{equation}
+    kur $v_0$ yra nominalus matavimo triukšmas, $H_k$ yra $h_k(x_k, v_k)$ dalinė išvestinė nuo $x_k$ ir $M_k$ yra $h_k(x_k, v_k)$ dalinė išvestinė nuo $v_k$.
+    $H_k$ ir $M_k$ yra skaičiuojami esant $\hat{x}_k^-$.
+
+    Reikia pažymėti, kad $P_k$ ir $K_k$ negali būti apskaičiuoti šalutiniu laiko, kadangi jie priklauso nuo $H_k$ ir $M_k$, kurie yra priklausomi nuo $\hat{x}_k^-$, kuris pats priklauso nuo triukšmingų matavimų.
+    Iš to seka, kad stabilus praplėsto Kalman filtro sprendimas neegzistuoja.
+
+\subsection{Sekamas Kalman filtras}
+
+%Unscented Kalman filter
+
+Kaip buvo aptarta ankščiau, išplėstas Kalman filtras yra plačiausiai naudojamas būsenos įvertinimo algoritmas netiesinėms sistemoms.
+Tačiau, šis filtras gali būti sunkus derinti ir dažnai gaunamas rezultatas yra nepatikimas, jeigu sistema blogai priima tiesinimą.
+Tai yra dėl to, kad filtras labai stipriai remiasi tiesinimu skleisti būsenos vidurkį ir kovariaciją.
+Kaip alternatyva yra sekamas Kalman filtras, kuris sumažina tiesinimo klaidas.
+
+Sekama transformacija yra paremta dviems principais.
+Pirma, yra lengva atlikti ne tiesinę transformaciją ant vieno taško (skirtingai nuo viso dokumento transformaciją).
+Antra, nėra labai sudėtinga rasti būsenos taškų rinkinį erdvėje, kurie apytiksliai parodytų realią dokumento būseną.
+
+Remiantis šiomis idėjomis, galima teigti, kad yra žinomas vektoriaus $x$ vidurkis $\hat{x}$ ir kovariacija $P$.
+Tuomet reikia rasti deterministinį vektorių rinkinį, kurie vadinasi sigma taškai, kuriuos apibūdina vidurkis ir kovariacija, kurie savo ruoštu yra lygus $\hat{x}$ ir $P$.
+Sekantis žingsnis yra pritaikyti ne tiesinę funkciją $y = h(x)$ kiekvienam deterministiniam vektoriui ir gauti transformuotus vektorius.
+Apibūdinantis vidurkis ir kovariacija duos bendrą supratimą apie tikrąjį $y$ vidurkį ir kovariaciją.
+Tai yra raktas sekamai transformacijai.
+
+Kaip pavyzdį galima pateikti $x$, kuris yra $n~x~1$ vektorius, kuris yra transformuotas ne tiesinės funkcijos $y = h(x)$.
+Imami $2n$ $x^{(i)}$ sigma taškai:
+
+\begin{equation}
+    \begin{aligned}
+    x^{(i)} &= \tilde{x} + \tilde{x}^{(i)}, i = 1, \cdot, 2n \\
+    \tilde{x}^{(i)} &= (\sqrt{nP})^T_i, i = 1,\cdot,n\\
+    \tilde{x}^{(n+i)} &= -(\sqrt{nP})^T_i, i = 1, \cdot, n,
+    \end{aligned}
+\end{equation}
+kur $\sqrt{nP}$ yra matrica, kurios šaknys tenkina $(\sqrt{nP})^T\sqrt{nP} = nP$ ir $(\sqrt{nP})_i$ yra $\sqrt{nP}^1$ $i$ eilutė.
+
+Sekamas Kalman filtras yra suvedamas į tokius punktus
+
+\begin{itemize}
+    \item Turima $n$ eilės diskretinio laiko sistema
+    \begin{equation}
+        \begin{aligned}
+            x_{k+1} &= f(x_k, u_k, t_k) + w_k \\
+            y_k &= h(x_k, t_k) + v_k \\
+            w_k &~ (0, Q_k) \\
+            v_k &~ (0, R_k)
+        \end{aligned}
+    \end{equation}
+    \item Filtras yra inicijuojamas
+    \begin{equation}
+        \begin{aligned}
+            \hat{x}_0^+ &= E(x_0)\\
+            P_0^+ &= E[ (x_0 - \hat{x}_0^+)(x_0 - \hat{x}_0^+)^T ]
+        \end{aligned}
+    \end{equation}
+    \item Įvykdomos laiko atnaujinimo lygtis, kurios naudojamos apskaičiuoti būsenos įvertį ir kovariaciją iš vieno laiko matavimo į sekantį
+    \begin{equation}
+        \hat{x}_k^- = \frac{1}{2n} \sum_{i=1}^{2n} \hat{x}_k^{(i)}
+    \end{equation}
+    \begin{equation}
+        P_k^- = \frac{1}{2n} \sum_{i=1}^{2n}( \hat{x}_k^{(i)} - \hat{x}_k^- )( \hat{x}_k^{(i)} - \hat{x}_k^- )^T + Q_{k-1}
+    \end{equation}
+    \item Atnaujinamas įverčio spėjimas
+    \begin{equation}
+        P_{xy} = \frac{1}{2n}\sum_{i=1}^{2n} (\hat{x}_k^{(i)} - \hat{x}_k^- )( \hat{y}_k^{(i)} - \hat{y}_k^- )^T 
+    \end{equation}
+    \begin{equation}
+        \begin{aligned}
+            K_k &= P_{xy}P_y^{-1} \\
+            \hat{x}_k^+ &= \hat{x}_k^- + K_k(y_k - \hat{y}_k) \\
+            P_k^+ &= P_k^- - K_kP_yK_k^T
+        \end{aligned}
+    \end{equation}
+\end{itemize}
+
+Algoritmas laikosi nuostato, kad proceso yra įverčio lygtis yra tiesinės ir įvertina triukšmą.
+Bendru atveju proceso ir įverčio lygtis gali turėti ne tiesinio triukšmo, kuris ateina į procesą.
+
+Sekamas filtras gali gerokai pagerinti būsenos įverčio spėjimo našumą, lyginant su išplėstiniu Kalman filtru ne tiesinėms sistemoms.
+Papildomai galima paminėti, kad išplėstinis filtras reikalauja Jacobian sprendimo, o šis filtras to nereikalauja.
+Tai yra privalumas, kadangi kai kurioms sistemos Jacobian skaičiavimas yra greitas ir paprastas, tačiau kitoms sistemoms tai yra labai sudėtingas uždavinys.
+
 \subsection{Dalelių filtras}
+
+Dalelių filtrai turėjo pradžią dar 1940, su Metropolio darbais.
+Norbertas Wiener pasiūlė dalelių filtro idėja.
+Tačiau tik 1980 metais kompiuterio pajėgumai išaugo tiek, kad galima būtų išbandyti idėją.
+Net ir šiais laikais, dalelių filtro skaičiavimo našta yra pagrindinė priežastis dėl ko jisai nėra toks paplitęs.
+Dalelių filtras yra statistinis, brutalios jėgos įvertinimo būdas, kuris dažnai veikia labai gerai tose situacijose, kur Kalman filtras turi sunkumų (sistemos, kurios yra labai netiesinės).
+Dalelių filtras yra vadinamas įvairiais pavadinimais -- sekvencinis svarbumo atrinkimas, savaiminis filtravimas, kondensacijos algoritmas, sąveikaujančių dalelių aproksimacija, Monte Carlo filtravimas ir kt.
+
+Dalelių filtrai kyla iš Nikolo Metropolis darbų 1949 metais, kuomet jis pasiūlė studijuoti sistemas stebint grupės dalelių savybes, o ne kiekviena dalelę atskirai.
+Jis panaudojo analogija kortų žaidimui.
+Kokia yra tikimybė laimėti kortų žaidimą?
+Tokia tikimybę yra labai sunku analitiškai išskaičiuoti.
+Tačiau, jeigu žmogus žaidžia žaidimą kažkiek kartų, ir pora jų laimi, laimėjimo statistiką galima apskaičiuoti remiantis vien tik šiais duomenimis
+
+\begin{equation}
+    Pr(Success) \approx \frac{Success}{Trails}
+\end{equation}
+
+Dalelių filtras atlieka visiškai netiesinį sistemos būsenos įvertinimą.
+Tačiau kiekvienas sprendimas turi savo kainą.
+Dalelių filtro atveju to kaina yra aukštas atliekamų skaičiavimų skaičius.
+Egzistuoja tokios problemos, kurioms verta pridėti papildomų skaičiavimo našumo, norint išspręsti uždavinį.
+Tačiau ne visos problemos yra tokios.
+Dėl šios priežasties verta atlikti detalią problemos analizę.
+
+Dalelių filtras buvo sukurtas skaitmeniškai įgyvendinti Bayesian įvertinimą.
+Pagrindinė idėja yra labai paprasta ir intuityvi.
+Įvertinimo pradžioje, atsitiktinai generuojamas skaičius $N$ būsenos vektorių, remiantis pradiniu $p(x_0)$ pasiskirstymu.
+Šitie vektoriai yra vadinamos dalelėmis ir yra žymimos kaip $x^+_{0,i}~(i=1,\cdot,N)$.
+Kiekvienu laiko žingsniu $k=1,2,\cdot$ dalelės skleidžiamos kitam laiko žingsniui, naudojantis proceso funkcija $f()$:
+
+\begin{equation}
+    x^-_{k,i} = f_{k-1}(x^+_{k-1,i}, w^i_{k-1})~(i=1,\cdot,N),
+\end{equation}
+kur kiekvienas $w^i_{k-1}$ yra triukšmo vektorius yra atsitiktinai generuojamas, remiantis žinomu pasiskirstymu $w_{k-1}$.
+Po to, kai yra gautas įvertis laiku $k$, apskaičiuojama sąlyginė kiekvienos dalelės $x^-_{k,i}$ santykinė tikimybė.
+
+\begin{equation}
+    q_i = P[ (y_k = y^*) | (x_k = x^-_{k,i}) ]
+\end{equation}
+
+Toliau reikia normalizuoti sąlygines tikimybes
+
+\begin{equation}
+    q_i = \frac{q_i}{\sum_{j=1}^{N} q_j}
+\end{equation}
+
+Taip yra užtikrinama, kad visų tikimybių suma yra lygi vienam.
+Sekantis žingsnis yra iš naujo surinkti daleles iš apskaičiuotų tikimybių.
+Tai galima atlikti įvairiai ir vienas iš būdų:
+\begin{itemize}
+    \item Sugeneruoti atsitiktinį skaičių $r$ iš tolygiai paskirstytos tikimybės
+    \item Sukaupti tikimybes $q_i$ į sumą po vieną, kol visa suma nebus didesnė už $r$.
+\end{itemize}
+
+Turint naujus dalelių rinkinius $x^+_{k,i}$, kurie yra paskirstyti pagal tikimybių pasiskirstymą.
+Iš čia galima apskaičiuoti bet kokį norimą statistinį įvertinimą.
+Pavyzdžiui, norint apskaičiuoti laukiamą vertę $E(x_k|y_k)$, tai galima aproksimuoti kaip dalelių vidurkį
+
+\begin{equation}
+    E(x_k | y_k ) \approx \frac{1}{N} \sum_{i=1}^{N} x^+_{k,i}
+\end{equation}
 
