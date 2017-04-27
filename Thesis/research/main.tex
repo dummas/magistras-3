@@ -1,5 +1,6 @@
-\documentclass[11pt, a4paper]{article}
-\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
+%\documentclass[11pt, a4paper]{article}
+\documentclass[]{vgtuef}
+%\usepackage[left=25mm,right=15mm,top=15mm,bottom=15mm]{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage[L7x]{fontenc}
 \usepackage[lithuanian]{babel}
@@ -14,22 +15,68 @@
 \usepackage{gensymb}
 \usepackage{epstopdf}
 \renewcommand{\baselinestretch}{1.5}
-\usepackage{subfig}
+\usepackage{subfig} 
+\usepackage{lastpage}
 \usepackage{pgfplots}
+\usepackage{afterpage}
 \usetikzlibrary{arrows}
 
 \begin{document}
 
   \begin{titlepage}
     \begin{center}
-      \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[2mm]
-      \textsc{\Large Elektroninių sistemų katedra}\\[70mm]
-      \textsc{\Large Objekto padėties nustatymas taikant MEMS jutiklius}\\[60mm]
-      \textsc{\Large Juodraštis}\\[60mm]
+      \includegraphics[width=70pt]{img/vgtu_logo.png}\\
+      \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[1mm]
+      \textsc{\Large Elektronikos fakultetas}\\[1mm]
+      \textsc{\Large Elektroninių sistemų katedra}\\[40mm]
+      \textsc{\Large Maksim NORKIN}\\[1mm]
+      \textsc{\Large Objekto padėties nustatymas taikant MEMS jutiklius}\\[15mm]
+      \textsc{\Large Investigation of the MEMS Sensor Based Object Position Estimation Methods}\\[10mm]
+      \textsc{\large Magistro baigiamasis darbas}\\[10mm]
+      \textsc{Informatikos inžinerijos studijų kryptis}\\
+      \textsc{Informacinių elektroninių sistemų studijų programa, valst. kodas 621E15003}\\
+      \textsc{Atvirojo kodo sistemų specializacija}\\
       \vfill
-      {\large Vilnius \\ \the\year}
+      {\large Vilnius, \the\year}
     \end{center}
   \end{titlepage}
+
+
+  \begin{titlepage}
+    \setcounter{page}{7}
+    \thispagestyle{plain}
+    \begin{center}
+      \textsc{\Large Vilniaus Gedimino Technikos universitetas}\\
+      \textsc{\Large Elektronikos fakultetas}\\
+      \textsc{\Large Elektroninių sistemų katedra}\\[10mm]
+      \hfill
+      \begin{minipage}{.35\linewidth}
+        \begin{flushleft}
+          \uppercase{Tvirtinu}\\
+          Katedos vedėjas\\[5mm]
+          \makebox[1.8in]{\hrulefill}\\
+          \scriptsize{\textit{(parašas)}}\\
+          \normalsize{\the\year m. \makebox[0.45in]{\hrulefill} mėn. \makebox[0.15in]{\hrulefill} d.}\\
+        \end{flushleft}
+      \end{minipage}\\[10mm]
+      \textsc{\Large Maksim NORKIN}\\[1mm]
+      \textsc{\Large Objekto padėties nustatymas taikant MEMS jutiklius}\\[15mm]
+      \textsc{\Large Investigation of the MEMS Sensor Based Object Position Estimation Methods}\\[10mm]
+      \textsc{\large Magistro baigiamasis darbas}\\[10mm]
+      \textsc{Informatikos inžinerijos studijų kryptis}\\
+      \textsc{Informacinių elektroninių sistemų studijų programa, valst. kodas 621E15003}\\
+      \textsc{Atvirojo kodo sistemų specializacija}\\
+    \end{center}
+    \afterpage{\null\newpage}
+  \end{titlepage}
+
+  \setcounter{page}{8}
+
+  % Anotacija
+  \input{section/anotacija.tex}
+  \afterpage{\null\newpage}
+
+  \newpage
 
   \tableofcontents
 
@@ -55,13 +102,13 @@
 
   \input{section/naudojama_iranga.tex}
 
-  \section{Matavimai}
-
-  \input{section/matavimai.tex}
-
   \section{Modelis}
 
   \input{section/modelis.tex}
+
+  \section{Įgyvendinimas}
+
+  \input{section/igyvendinimas.tex}
 
   \section{Išvados}
 

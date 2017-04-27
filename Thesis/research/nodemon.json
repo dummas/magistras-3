@@ -1,0 +1,8 @@
+{
+    "verbose": true,
+    "execMap": {
+        "rs": "pdflatex main.tex",
+        "pde": "pdflatex main.tex"
+    },
+    "ext": "tex"
+}

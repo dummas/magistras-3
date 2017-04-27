@@ -32,7 +32,7 @@
     \begin{equation}
     E[v_k w_j^T] = 0,
     \end{equation}
-    
+
     kur $\delta_{k-j}$ yra Kroneckerio delta funkcija, $\delta_{k-j} = 1$, jeigu $k=j$ ir $\delta_{k-j} = 0$, kai $k \neq j$.
     Tikslas yra spėti $x_k$ būsena, remiantis žiniomis apie sistemos dinamikas ir turimu mėginiu, kuris yra triukšmingas ${y_k}$.
     Informacijos kiekis, kuris yra galimas spėjimui skiriasi nuo problemos, kuria yra norima išspręsti.
@@ -73,7 +73,7 @@
     \begin{equation}
         \hat{x}_{k|k-M} = E[x_k|y_1,y_2, \dots, y_{y-M}],
     \end{equation}
-    kur $M$ yra teigiamas skaičius, kurio vertė priklauso nuo sprendžiamo uždavinio. 
+    kur $M$ yra teigiamas skaičius, kurio vertė priklauso nuo sprendžiamo uždavinio.
 
     Tolimesniam žymėjime bus pateiktas $\hat{x}_0^+$ įvertis, kuris parodys pradinį $x_0$ įvertinimą prieš bet kokius turimus mėginius.
     Pirmas mėginys yra gaunamas laiku $k=1$.
@@ -106,7 +106,7 @@
     \begin{equation}
         \bar{x}_k = F_{k-1}\bar{x}_{k-1} + G_{k-1}u_{k-1}
     \end{equation}
-    
+
     Tokiu atveju gaunama
 
     \begin{equation}
@@ -184,7 +184,7 @@
     Sistema galima apibūdinti kaip
 
     \begin{equation}
-        \begin{bmatrix} \dot{r} \\ \dot{v} \\ \dot{a} \end{bmatrix} = 
+        \begin{bmatrix} \dot{r} \\ \dot{v} \\ \dot{a} \end{bmatrix} =
         \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}
         \begin{bmatrix} r \\ v \\ a \end{bmatrix}
     \end{equation}
@@ -203,7 +203,7 @@
         F = exp(AT) = I + AT + \frac{(AT)^2}{2!} + \dots =
         \begin{bmatrix}
             0 & T & T^2/2 \\
-            0 & 1 & T \\ 
+            0 & 1 & T \\
             0 & 0 & 1
         \end{bmatrix}
     \end{equation}
@@ -336,7 +336,7 @@
     \end{equation}
 
     Ši lygtis yra tiesinė sistema su $\Delta x$ būsena ir $\Delta y$ mėginiu.
-    Tokiu atveju galima panaudoti Kalamna filtrą spėti $\Delta x$.
+    Tokiu atveju galima panaudoti Kalmano filtrą spėti $\Delta x$.
     Filtro įėjimas susideda iš $\Delta y$, kuris yra skirtumas tarp realaus matavimo $y$ ir nominalaus matavimo $y_0$.
     Kalmano filtro išėjimas $\Delta x$ yra įvertinimas skirtumo tarp realios būsenos $x$ ir nominalios būsenos $x_0$.
     Kalmano filtro lygtis ištiesintai sistemai yra
@@ -360,8 +360,8 @@
 
 \subsection{Išplėstas Kalman filtras}
 
-    Ankstesniam skyriuje buvo aptartas linijinis Kalman filtras, kuris yra naudojamas spėti ne tiesinės sistemos būsenai.
-    Išvedimas buvo paremtas ne tiesinės sistemos tiesinimu aplink nominalų būsenos trajektorijos pokytį.
+    Ankstesniam skyriuje buvo aptartas tiesinis Kalman filtras, kuris yra naudojamas spėti ne tiesinės sistemos būseną.
+    Išvedimas buvo paremtas ne tiesinės sistemos tiesinimu aplink nominalios būsenos trajektorijos pokytį.
     Klausimas kyla, kaip gi reikia nustatyti tą nominalę būsenos trajektoriją?
     Kai kuriais atvejais, tai nėra labai paprastas uždavinys.
     Tačiau, kadangi Kalman filtras spėja sistemos būseną, galima panaudoti patį Kalman filtrą, kaip tą sistemos trajektorijos nominalę.
@@ -431,16 +431,16 @@
                 \end{aligned}
             \end{equation}
         \end{itemize}
-        
-        
+
+
 	\subsubsection{Hibridinis Kalman filtras}
-	
+
 	Daugelis inžinerinių sistemų seka nenutrūkstamo laiko dinamikas, o matavimai yra atliekami diskrečiam laike.
 	Tokia situacija dažniausiai pasitaiko praktikoje.
 	Tokiu atveju standartinis praplėstas Kalman filtras nėra tinkamas, todėl reikia atlikti pakeitimus.
-	
+
 	Egzistuoja nuolatinio laiko sistema su diskretiniais matavimais
-	
+
     \begin{equation}
     	\begin{aligned}
     		\dot{x} &= f(x,u,w,t) \\
@@ -545,7 +545,7 @@ Sekamas Kalman filtras yra suvedamas į tokius punktus
     \end{equation}
     \item Atnaujinamas įverčio spėjimas
     \begin{equation}
-        P_{xy} = \frac{1}{2n}\sum_{i=1}^{2n} (\hat{x}_k^{(i)} - \hat{x}_k^- )( \hat{y}_k^{(i)} - \hat{y}_k^- )^T 
+        P_{xy} = \frac{1}{2n}\sum_{i=1}^{2n} (\hat{x}_k^{(i)} - \hat{x}_k^- )( \hat{y}_k^{(i)} - \hat{y}_k^- )^T
     \end{equation}
     \begin{equation}
         \begin{aligned}
@@ -626,4 +626,3 @@ Pavyzdžiui, norint apskaičiuoti laukiamą vertę $E(x_k|y_k)$, tai galima apro
 \begin{equation}
     E(x_k | y_k ) \approx \frac{1}{N} \sum_{i=1}^{N} x^+_{k,i}
 \end{equation}
-

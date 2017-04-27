@@ -1,0 +1,44 @@
+\BOOKMARK [1][-]{section.1}{Ivadas}{}% 1
+\BOOKMARK [1][-]{section.2}{MEMS jutikliai}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Giroskopas}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Nuolatine dedamoji}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Atsitiktinis kampinis pokytis}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Nuolatines dedamosios stabilumas}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Temperaturiniai efektai}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Kalibravimo klaidos}{subsection.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Pagreicio jutiklis}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Nuolatine dedamoji}{subsection.2.3}% 10
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Atsitiktinis pagreicio pokytis}{subsection.2.3}% 11
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Vibraciniai triuk\235mai}{subsection.2.3}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Temperaturiniai efektai}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.5}{Kalibravimo klaidos}{subsection.2.3}% 14
+\BOOKMARK [1][-]{section.3}{Signalu filtrai}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Kalman filtras}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Diskretaus laiko Kalman filtro i\235vedimas}{subsection.3.1}% 17
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Pavyzdys}{subsection.3.1}% 18
+\BOOKMARK [2][-]{subsection.3.2}{I\235tiesintas Kalman filtras}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.3}{I\235plestas Kalman filtras}{section.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Nepertraukiamo laiko i\235plestas Kalman filtras}{subsection.3.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Hibridinis Kalman filtras}{subsection.3.3}% 22
+\BOOKMARK [2][-]{subsection.3.4}{Sekamas Kalman filtras}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.5}{Daleliu filtras}{section.3}% 24
+\BOOKMARK [1][-]{section.4}{Literaturos ap\236valga}{}% 25
+\BOOKMARK [2][-]{subsection.4.1}{Pozicijos nustatymas naudojant mobilu telefona}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.2}{Dirbtines \236uvies pozicijos nustatymas}{section.4}% 27
+\BOOKMARK [1][-]{section.5}{Naudojama iranga}{}% 28
+\BOOKMARK [2][-]{subsection.5.1}{Vystymo plok\235te}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.2}{Jutiklis}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.3}{Komunikacija}{section.5}% 31
+\BOOKMARK [3][-]{subsubsection.5.3.1}{I2C}{subsection.5.3}% 32
+\BOOKMARK [3][-]{subsubsection.5.3.2}{SPI}{subsection.5.3}% 33
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Palyginimas}{subsection.5.3}% 34
+\BOOKMARK [2][-]{subsection.5.4}{Programine iranga}{section.5}% 35
+\BOOKMARK [1][-]{section.6}{Modelis}{}% 36
+\BOOKMARK [2][-]{subsection.6.1}{Pradinis modelis}{section.6}% 37
+\BOOKMARK [2][-]{subsection.6.2}{Kalman filtro modelis}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.3}{I\235plestas Kalman filtras}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.4}{Sekamas Kalman filtras}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.5}{Modelio pasirinkimas}{section.6}% 41
+\BOOKMARK [1][-]{section.7}{Igyvendinimas}{}% 42
+\BOOKMARK [1][-]{section.8}{I\235vados}{}% 43
+\BOOKMARK [1][-]{section.9}{*}{}% 44
