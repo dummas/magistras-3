@@ -16,9 +16,9 @@
 \usepackage{epstopdf}
 \renewcommand{\baselinestretch}{1.5}
 \usepackage{subfig} 
-\usepackage{lastpage}
+%\usepackage{lastpage}
 \usepackage{pgfplots}
-\usepackage{afterpage}
+%\usepackage{afterpage}
 \usetikzlibrary{arrows}
 
 \begin{document}
@@ -67,22 +67,26 @@
       \textsc{Informacinių elektroninių sistemų studijų programa, valst. kodas 621E15003}\\
       \textsc{Atvirojo kodo sistemų specializacija}\\
     \end{center}
-    \afterpage{\null\newpage}
+    %\afterpage{\null\newpage}
   \end{titlepage}
 
   \setcounter{page}{8}
 
   % Anotacija
   \input{section/anotacija.tex}
-  \afterpage{\null\newpage}
-
+  
   \newpage
 
   \tableofcontents
 
   \newpage
 
-  \section{Įvadas}
+  \section*{Žymenys ir santrumpos}
+
+  \input{section/zymenis_ir_santrympos.tex}
+
+  \section*{ĮVADAS}
+  \addcontentsline{toc}{section}{Įvadas}
 
   \input{section/ivadas.tex}
 
@@ -102,7 +106,7 @@
 
   \input{section/naudojama_iranga.tex}
 
-  \section{Modelis}
+  \section{Modelio apibrėžimas}
 
   \input{section/modelis.tex}
 
@@ -110,13 +114,18 @@
 
   \input{section/igyvendinimas.tex}
 
-  \section{Išvados}
+  \newpage
+
+  \section*{Išvados}
+  \addcontentsline{toc}{section}{Išvados}
 
   \input{section/isvados.tex}
 
   \newpage
 
-  \bibliographystyle{plain}
+  \addcontentsline{toc}{section}{Literatūra}
+
+  \bibliographystyle{apa}
   \bibliography{references}
 
 \end{document}

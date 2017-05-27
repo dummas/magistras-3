@@ -1,110 +1,161 @@
-Šiame skyriuje apžvelgti MEMS pagreičio ir giroskopo tipo jutikliai. Aptariama kokie yra didžiausi jų privalumai ir trūkumai -- didelis duomenų triukšmas ir kaip galima tai kompensuoti ar mažinti.
+Šiame skyriuje apžvelgti MEMS pagreičio ir giroskopo tipo jutikliai. 
+Aptariama, kokie yra didžiausi jų privalumai ir trūkumai (didelis duomenų triukšmas ir būdai jiems kompensuoti ar mažinti).
 
 \subsection{Giroskopas}
 
-MEMS tipo jutiklis \cite{perlmutter2012high} yra gaminamas, naudojant silikono micro apdorojimą staklėmis, turi labai mažai dalių ir palyginai pigus gamyboje.
+MEMS tipo jutiklis \cite{perlmutter2012high} yra gaminamas staklėmis iš silikono mikro-apdorojimo būdu, turi labai mažai dalių, o jo gamybos kaštai yra gana maži.
 
-MEMS giroskopai pasiduoda \textit{Coriolis efektui}, kuris teigia, turint koordinačių ašį, sukantis kampiniu greičiu $w$, objektas su mase $m$, kuris juda greičiu $v$, yra veikiamas jėgos
+MEMS giroskopai yra veikiami \textit{Coriolio efekto}, kuris sako, jog turint koordinačių ašį, sukantis kampiniu greičiu $w$, objektas su mase $m$, kuris juda greičiu $v$, yra veikiamas jėgos
 
 \begin{equation}
     F_c = -2m(w \times v)
 \end{equation}
 
-MEMS giroskopai susideda iš vibracinės kilmės elementų, kurie yra naudojami matuojant \textit{Coriolis} efektui. Egzistuoja labai daug vibracinių geometrijų, tarp kurių yra vibracinis ratas ir kamertono giroskopai. Paprasčiausia geometrija susideda iš vienos masės, kuri skirta vibruoti viena ašimi. Kai tik giroskopas yra pasukamas, įvedama antrinė vibracija statmenai pirminei ašiai dėka \textit{Coriolis} jėgai. Dėka šito, kampinis greitis gali būti apskaičiuotas, matuojant antrinį apsisukimą. Šiuo metu MEMS jutikliai negali pasiekti tokio tikslumo lygio, kokį siūlo optiniai jutikliai, tačiau yra tikimąsi ateityje, kad MEMS jutikliai pavys optinių jutiklių tikslumu.
+MEMS giroskopai susideda iš vibracinės kilmės elementų, kurie yra naudojami matuojant \textit{Coriolio} efektą. 
+Egzistuoja labai daug vibracinių geometrijų, tarp kurių yra vibracinis ratas ir kamertono giroskopai. 
+Paprasčiausia geometrija susideda iš vienos masės, kuri skirta vibruoti viena ašimi. 
+Kai tik giroskopas yra pasukamas, įvedama antrinė vibracija statmenai pirminei ašiai dėl \textit{Coriolis} jėgos. 
+Dėl to, kampinis greitis gali būti apskaičiuojamas, matuojant antrinį apsisukimą. 
+Šiuo metu MEMS jutikliai negali pasiekti tokio tikslumo lygio, kokį siūlo optiniai jutikliai, tačiau yra tikimasi, kad ateityje MEMS jutikliai tikslumu nebus prastesni nei optiniai jutikliai.
 
-MEMS jutikliai turi labai daug privalumų prieš kitus jutiklius \cite{titterton2004strapdown}:
+MEMS jutikliai turi labai daug privalumų, palyginti su kitais jutikliais \cite{titterton2004strapdown}:
 
 \begin{itemize}
-    \item Mažas dydis;
-    \item Mažas svoris;
-    \item Patvari konstrukcija;
-    \item Mažos galios naudojimas;
-    \item Labai greitas paleidimo laikas;
-    \item Pigi gamyba, esant dideliam mastui;
-    \item Patikimi;
-    \item Reikalauja labai mažai priežiūros;
-    \item Galimi naudojimai nedraugiškoje aplinkoje;
+    \item mažas dydis;
+    \item mažas svoris;
+    \item patvari konstrukcija;
+    \item mažos galios naudojimas;
+    \item labai greitas paleidimo laikas;
+    \item pigi gamyba, esant dideliam mastui;
+    \item patikimi;
+    \item reikalauja labai mažai priežiūros;
+    \item gali būti naudojami sudėtingomis sąlygomis;
 \end{itemize}
 
 \subsubsection{Nuolatinė dedamoji}
 
-Vidutinis kampo pokyčio matavimas, palaikant visišką giroskopo ramybės būseną, yra skaitomas kaip nuolatinė giroskopo dedamoji. Matuojama yra $\degree/h$. Nuolatinės dedamosios klaida $\epsilon$, yra apskaičiuojama integruojant ir priklauso nuo laiko $\theta(t) = \epsilon \cdot t$.
+Vidutinis kampo pokyčio matavimas, palaikant visišką giroskopo ramybės būseną, yra laikomas nuolatine giroskopo dedamąja. 
+Matuojama yra $\degree/h$. 
+Nuolatinės dedamosios klaida $\epsilon$ yra apskaičiuojama integruojant ir priklauso nuo laiko $\theta(t) = \epsilon \cdot t$.
 
-Klaida gali būti nustatyta, panaudojus labai ilgo laikotarpio vidutinę vertę, kuomet giroskopas yra paliktas visiškos ramybės būsenoje ir nėra veikiamas jokių sukimų. Kai tik nuolatinė dedamoji yra žinoma, labai yra svarbu ją kompensuoti tikro matavimo metu.
+Klaida gali būti nustatyta, panaudojus labai ilgo laikotarpio vidutinę vertę, kuomet giroskopas yra paliktas visiškos ramybės būsenos ir nėra veikiamas jokių išorinių jėgų. 
+Kai tik nuolatinė dedamoji yra žinoma, labai yra svarbu ją kompensuoti tikro matavimo metu.
 
 \subsubsection{Atsitiktinis kampinis pokytis}
 
-Jutiklio vertės nuėmimo metu, yra galimas triukšmas, kurį sukelia terminiai ir mechaniniai trukdžiai, kurių dažnis yra gerokai didesnis už jutiklio vertės nuėmimo dažnį.
-Tokių veiksnių rezultatas yra gautas signalas, kuriame yra balto triukšmo. Tai yra paprasčiausia eilė skaičių, kurių vidurkis lygus nuliui, neturi jokios koreliacijos ir yra visiškai atsitiktiniai skaičiai. Tokiu būdu kiekvienas atsitiktinis skaičius yra tolygiai paskirstytas ir turi baigtinį pasiskirstymą $\sigma^2$.
+Jutiklio vertės matavimo metu yra galimas triukšmas, sukeliamas terminių ir mechaninių trukdžių, kurių dažnis yra žymiai didesnis už jutiklio vertės matavimo dažnį.
+Tokių veiksnių rezultatas yra signalas, kuriame yra balto triukšmo. 
+Tai yra paprasčiausia eilė skaičių, kurių vidurkis lygus nuliui.
+Nėra jokios koreliacijos ir yra visiškai atsitiktiniai skaičiai. 
+Tokiu būdu kiekvienas atsitiktinis skaičius yra tolygiai paskirstytas ir turi baigtinį $\sigma^2$ pasiskirstymą.
 
-Be formuluotės išvedimo (detalus išvedimas yra pateikiamas \cite{woodman2007introduction}), galima teigti, jog triukšmas įveda ``atsitiktinio vaikščiojimo'' (angl. \textit{random walk}) klaidą integraliniam signale, kuri yra nulinio vidurkio ir variacija
+Net ir neišvedus formulės (detalus išvedimas yra pateikiamas \cite{woodman2007introduction}) galima teigti, jog triukšmas įveda ,,atsitiktinio vaikščiojimo'' (angl. \textit{random walk}) klaidą integraliniame signale, kuri yra nulinio vidurkio ir kurios variacija didėja nuo laiko pokyčio šaknies.
 \begin{equation}
     \sigma_{\theta} (t) = \sigma \cdot \sqrt{ \delta t \cdot t}
 \end{equation}
-didėja nuo laiko pokyčio šaknies. Čia $\sigma$ yra triukšmo signalo pokytis, $t$ yra visas jutiklio įverčio nuskaitymo periodas, o $\delta t$ yra laiko skirtumas tarp nuskaitymų.
+Čia $\sigma$ yra triukšmo signalo pokytis, $t$ yra visas jutiklio įverčio nuskaitymo periodas, o $\delta t$ yra laiko skirtumas tarp nuskaitymų.
 
-Kadangi dominantis matas yra kaip triukšmas įtakoja integralinį signalą, labai dažnai gamintojai nurodo gaminamo jutiklio atsitiktinį kampinį pokytį. Jis yra žymimas $\degree/\sqrt{h}$. Pavyzdžiui, jeigu jutiklis yra $0.3\degree / \sqrt{h}$, tai reiškia, jog po vienos valandos standartinės variacijos pozicijos orientacijos klaida sudarys $0.3\degree$, po dviejų valandų $\sqrt{2} * 0.3 = 0.42 \degree$.
+Kadangi dominantis įvertis yra kaip triukšmas, lemiantis integralinį signalą, labai dažnai gamintojai nurodo gaminamo jutiklio atsitiktinį kampinį pokytį. Jis yra žymimas $\degree/\sqrt{h}$. 
+Pavyzdžiui, jeigu jutiklis yra $0,3\degree / \sqrt{h}$, tai reiškia, jog po vienos valandos standartinės variacijos pozicijos orientacijos klaida sudarys $0,3\degree$, po dviejų valandų $\sqrt{2} * 0,3 = 0.42 \degree$.
 
 \subsection{Nuolatinės dedamosios stabilumas}
 
-Nuolatinė dedamoji MEMS giroskope keičiasi laikui bėgant dėl virpėjimo triukšmo elektronikos ir kituose įtaisuose, kurie potencialiai gali būti paveikti atsitiktiniu virpėjimu. Virpėjimo triukšmas yra $1/f$ spektro, kurio efektai yra pastebimi elektroniniuose komponentuose, žemuose dažniuose. Aukštuose dažniuose virpėjimas yra užtemdomas balto triukšmo. Nuolatinės dedamosios nestabilumas, kuris kyla dėl virpėjimo dažniausiai yra modeliuojamas kaip atsitiktinis kampinis pokytis.
+Nuolatinė dedamoji MEMS giroskope keičiasi laikui bėgant dėl virpėjimo triukšmo elektronikos ir kituose įtaisuose, kurie potencialiai gali būti paveikti atsitiktinio virpėjimo. 
+Virpėjimo triukšmas yra $1/f$ spektro, kurio efektai yra pastebimi elektroniniuose komponentuose, esant žemiems dažniams. 
+Esant aukštiems dažniams virpėjimas yra uždengiamas balto triukšmo. 
+Nuolatinės dedamosios nestabilumas, kuris kyla dėl virpėjimo, dažniausiai yra modeliuojamas kaip atsitiktinis kampinis pokytis.
 
-Nuolatinės dedamosios stabilumo įvertis nurodo kiek jinai gali keistis per fiksuotą laiko tarpą, dažniausiai imamas $100~s$ laiko rėžiai, kuomet aplinka nesikeičia visiškai. Įvertis žymimas kaip $1\sigma$ ir matuojamas $\degree/h$ arba $\degree/s$, kai įranga yra labai netiksli. Nuolatinės dedamosios stabilumas yra modeliuojamas kaip atsitiktinis vaikščiojimas. Tai galima interpretuoti turint $B_t$ kaip dedamosios vertė laiku $t$, tuomet $1\sigma$ stabilumas $0.01\degree/h$ per 100 sekundžių reiškia, kad dedamoji laiku $t+100$ yra atsitiktinis skaičius, kurio vertė yra tikimąsi $B_t$ ir $0.01\degree/h$ variacija. Per laiką, tai sukuria atsitiktinį vaikščiojimą, kurio nukrypimas didėja per laiko vieneto šaknį. Dėl šitos priežasties, nuolatinės dedamosios stabilumas yra žymimas kaip dedamosios atsitiktinis vaikščiojimo matas
+Nuolatinės dedamosios stabilumo įvertis nurodo, kiek gali keistis per fiksuotą laiko tarpą. 
+Dažniausiai imamas $100~s$ laiko rėžis, kuomet aplinka visiškai nesikeičia. 
+Įvertis žymimas kaip $1\sigma$ ir matuojamas $\degree/h$ arba $\degree/s$, kai įranga yra labai netiksli. 
+Nuolatinės dedamosios stabilumas yra modeliuojamas atsitiktinio vaikščiojimo procesu. 
+Tai galima interpretuoti turint $B_t$ kaip dedamosios vertė laiku $t$, tuomet $1\sigma$ stabilumas $0,01\degree/h$ per 100 sekundžių reiškia, kad dedamoji laiku $t+100$ yra atsitiktinis skaičius, kurio vertė yra tikėtina $B_t$ su $0,01\degree/h$ variacija. 
+Po tam tikro laiko, variacija sukuria atsitiktinį vaikščiojimą, kurio nuokrypis didėja per laiko vieneto šaknį. 
+Dėl šitos priežasties nuolatinės dedamosios stabilumas yra žymimas kaip dedamosios atsitiktinis vaikščiojimo matas
 
 \begin{equation}
     BRW (\degree / \sqrt{h}) = \frac{BS(\degree/h)}{\sqrt{t(h)}},
 \end{equation}
 kur $t$ yra nuolatinės dedamosios stabilumo laikas.
 
-Praktikoje yra truputi kitaip. Jeigu stabilumas būtų modeliuojamas kaip atsitiktinis ėjimas, tai integracinis įverčio skaičiavimas smarkiai padidintų klaidos įvertį. To pasekoje, yra nutariama kokiuose rėžiuose yra nurodomas stabilumas.
+Praktikoje yra truputį kitaip. 
+Jeigu stabilumas būtų modeliuojamas kaip atsitiktinis vaikščiojimas, tai integracinis įverčio skaičiavimas smarkiai padidintų klaidos įvertį. 
+Dėl to, yra nutarta nustatyti rėžius, kuriuose yra nurodomas stabilumas.
 
-\subsubsection{Temperatūriniai efektai}
+\subsubsection{Temperatūros efektai}
 
-Temperatūriniai svyravimai kyla dėl aplinkos nepastovumo ir pačio jutiklio temperatūros nepastovumo. Tokie svyravimai natūraliai įtakoja ir nuolatinę dedamąja. Jie visiškai nėra nurodomi nuolatinės dedamosios klaidos skaičiavimuose.
+Temperatūros svyravimai kyla dėl aplinkos temperatūros nepastovumo ir pačio jutiklio temperatūros nepastovumo. 
+Tokie svyravimai natūraliai įtakoja ir nuolatinę dedamąja. 
+Jie visiškai nėra nurodomi nuolatinės dedamosios klaidos skaičiavimuose.
 
-Bet koks likutinis nuolatinės dedamosios įterpimas dėl temperatūros pokyčio smarkiai padidins įverčio klaidą ir klaida didės su laiku. Santykis tarp temperatūros ir labai ne linijinis MEMS jutikliuose. Dauguma inercinių matavimo sistemų turi savyje viduje temperatūrinį daviklį, todėl matavimo klaidą galima kompensuoti tokiu būdu. Kai kurios matavimo sistemos siūlo automatinį klaidos taisymą.
+Bet koks likutinis nuolatinės dedamosios įterpimas dėl temperatūros pokyčio smarkiai padidins įverčio klaidą ir klaida laikui bėgant didės.
+Santykis MEMS jutikliuose tarp temperatūros ir klaidos yra netiesinis.
+Dauguma inercinių matavimo sistemų turi savo viduje temperatūros daviklį, todėl matavimo klaidą galima kompensuoti tokiu būdu. 
+Kai kurios matavimo sistemos siūlo automatinį klaidos taisymą.
 
 \subsubsection{Kalibravimo klaidos}
 
-Kalibravimo klaidų terminas susieja grupę klaidų šaltinių, kurie susideda iš santykio faktoriaus, lygiavimo ir giroskopų linijiškumo. Tokio tipo klaidas galima pastebėti tik išoriškai veikiant jutiklį ir stebint nuolatinės dedamosios pokytį. Tai sukelia integracinio signalo netikslumų, prie kurių prisideda papildomi svyravimai, kurio dydis yra santykis tarp pokyčio ir jo pokyčio vykdymo laiko. Dažniausiai tokio tipo klaidas galima išmatuoti ir jas kompensuoti.
+Kalibravimo klaidų terminas susieja grupę klaidų šaltinių, kurie susideda iš santykio faktoriaus, lygiavimo ir giroskopų tiesiškumo. 
+Tokio tipo klaidų galima pastebėti tik išoriškai veikiant jutiklį ir stebint nuolatinės dedamosios pokytį. 
+Tai sukelia integracinio signalo netikslumų, prie kurių prisideda papildomi svyravimai, kurių dydis yra santykis tarp pokyčio ir vykdymo laiko. 
+Dažniausiai tokio tipo klaidas galima išmatuoti ir jas kompensuoti.
 
 % Akcelerometras
 
 \subsection{Pagreičio jutiklis}
 
-Mikro-staklių pagaminti silikoniniai pagreičio jutikliai naudoja tokius pačius principus, kaip ir mechaniniai ar kietieji jutikliai. Egzistuoja du pagrindiniai tipai MEMS pagreičio jutiklių. Pirmas tipas yra mechaniniai pagreičio jutikliai, kurie yra pagaminti iš silikono ir naudoja mechaninių jutiklių principus. Antras tipas yra jutikliai, kurie matuoja vibracijos pokyčius vibraciniam elemente, kurie yra sukeliami įtampos pokyčiais.
+Mikro-staklių pagaminti silikoniniai pagreičio jutikliai naudoja tokius pačius principus, kaip ir mechaniniai ar kietieji jutikliai. 
+Egzistuoja du pagrindiniai MEMS pagreičio jutiklių tipai. 
+Pirmas tipas yra mechaniniai pagreičio jutikliai, kurie yra pagaminti iš silikono. 
+Jie veikia lygiai tokiais pačiais principais, kaip ir mechaniniai jutikliai. 
+Antras jutiklių tipas - kurie matuoja vibracijos pokyčius vibraciniam elemente, ko pasekoje yra stebimi įtampos pokyčiai.
 
-Pagreičio MEMS jutiklių privalumai yra lygiai tokie patys, kaip ir MEMS giroskopinių jutiklių. Taip pat, pagrindinis tokių jutiklių minusas prieš kitus yra mažas tikslumas. 
+Pagreičio MEMS jutiklių privalumai yra lygiai tokie patys, kaip ir MEMS giroskopinių jutiklių. 
+Taip pat, pagrindinis tokių jutiklių minusas prieš kito gaminimo tipo jutiklius - mažas tikslumas. 
 
 \subsubsection{Nuolatinė dedamoji}
 
-Vertės dedamoji pagreičio matavimo jutiklyje yra skirtumas tarp matuojamos vertės ir realios vertės, matuojama $m/s^2$. Pastovi dedamosios klaida $\epsilon$, po dvigubos integracijos, sukuria klaida kuri keturgubai didėja su laiku. Sukaupta klaida, priklausomai nuo pozicijos yra
+Vertės dedamoji, pagreičio matavimo jutiklyje, yra skirtumas tarp matuojamos vertės ir realios vertės, matuojama $m/s^2$.
+Pastovios dedamosios klaida $\epsilon$, po dvigubos integracijos, sukuria klaidą, kuri laikui bėgant didėja keturis kartus. 
+Sukaupta klaida, priklausomai nuo pozicijos yra
 
 \begin{equation}
     s(t) = \epsilon \cdot \frac{t^2}{2},
 \end{equation}
 kur $t$ yra integravimo laikas.
 
-Yra galimybių vertinti dedamąja matuojant jutiklio labai ilgą laiką, kuriuo neveikia jokia išorinė jėga. Deja, visiškai izoliuoti jutiklio nėra galima, kadangi iškarto erdvėje pradeda veikti gravitacija, kuri veikia jutiklį, patiekdama savo nuolatinę dedamąja. To pasekoje, labai svarbu yra žinoti įrenginio pozicija žemės atžvilgiu, nuo kurios pusės veikia gravitacinė jėga. Praktikoje tai yra pasiekiama naudojant kalibracijos procedūra, kurios metu įrenginys yra pritvirtinamas prie paviršiaus, kurio orientacija gali būti kontroliuojama labai tiksliai.
+Yra galimybių vertinti dedamąją atliekant matavimus su duotu jutikliu labai ilgą laiką, kuriuo neveikia jokia išorinė jėga. 
+Deja, visiškai izoliuoti jutiklio nėra galima, kadangi iškarto erdvėje pradeda veikti gravitacija, kuri veikia jutiklį, patiekdama savo nuolatinę dedamąja. 
+To pasekoje, labai svarbu yra žinoti įrenginio pozicija žemės atžvilgiu, iš kurios pusės veikia gravitacinė jėga. Praktikoje tai yra pasiekiama naudojant kalibravimo procedūra, kurios metu įrenginys yra pritvirtinamas prie paviršiaus, kurio orientacija gali būti kontroliuojama labai tiksliai.
 
 \subsubsection{Atsitiktinis pagreičio pokytis}
 
-Pagreičio MEMS jutiklio išėjimo matavimai yra veikiami balto triukšmo. Kaip jau buvo paminėta giroskopo atsitiktinio kampo pokyčio poskyryje, balto triukšmo integracija sudaro sąlygas variacijai didėti proporcingai $\sqrt{t}$. To pasekoje, jutiklio išėjime yra stebimas atsitiktinis verčių vaikščiojimas, kuris vertinamas $m/s/\sqrt{h}$. Praleidžiant standartinės variacijos išvedimą, kuris yra aprašytas \cite{woodman2007introduction}, galima iškarto teigti, kad pagreičio jutiklio baltas triukšmas sukuria antro lygio atsitiktinį verčių vaikščiojimą pozicijoje, su vidurkiu, kuris lygus nuliui ir standartiniu nuokrypiu
+Pagreičio MEMS jutiklio išėjimo matavimai yra veikiami balto triukšmo. 
+Kaip jau buvo paminėta giroskopo atsitiktinio kampo pokyčio poskyryje, balto triukšmo integracija sudaro sąlygas variacijai didėti proporcingai $\sqrt{t}$. 
+To pasekoje, jutiklio išėjime yra stebimas atsitiktinis verčių vaikščiojimas, kuris vertinamas $m/s/\sqrt{h}$. Praleidžiant standartinės variacijos išvedimą, kuris yra aprašytas \cite{woodman2007introduction}, galima iškarto teigti, kad pagreičio jutiklio baltas triukšmas sukuria antro lygio atsitiktinį verčių vaikščiojimą pozicijoje, su vidurkiu, kuris lygus nuliui ir standartiniu nuokrypiu
 
 \begin{equation}
     \sigma_{s}(t) \approx \sigma \cdot t^{3/2} \cdot \sqrt{\frac{\delta t}{3}},
 \end{equation}
-kuris didėja proporcingai nuo $t^{3/2}$. Čia $t$ yra visas matavimo laikas, $\delta t$ yra skirtumas tarp įverčio matavimo laikų.
+kuris didėja proporcingai nuo $t^{3/2}$. 
+Čia $t$ yra visas matavimo laikas, $\delta t$ yra skirtumas tarp įverčio matavimo laikų.
 
 \subsubsection{Vibraciniai triukšmai}
 
-MEMS tipo pagreičio jutikliai yra veikiami vibracijos triukšmo, kuris sukelia dedamosios stabilumo klaidą per laiką. Tokie nukrypimai yra dažnai modeliuojami kaip dedamosios atsitiktiniai judėjimai, kaip jau buvo aprašyta giroskopo atžvilgiu. Naudojantis tokiu modeliu, vibracijos sukuria antro lygio atsitiktinio vaikščiojimo triukšmą pagreičiui, proporcingai $t^{3/2}$ ir trečio lygio atsitiktinį vaikščiojimą, kuris yra proporcingas $t^{5/2}$.
+MEMS tipo pagreičio jutikliai yra veikiami vibracijos triukšmo, kuris sukelia nuolatinės dedamosios stabilumo klaidą per laiką. 
+Tokie nukrypimai yra dažnai modeliuojami kaip nuolatinės dedamosios atsitiktiniai judėjimai, kaip jau buvo aprašyta giroskopo atveju. 
+Naudojantis tokiu modeliu, vibracijos sukuria antro lygio atsitiktinio vaikščiojimo triukšmą pagreičiui, proporcingai $t^{3/2}$ ir trečio lygio atsitiktinį vaikščiojimą, kuris yra proporcingas $t^{5/2}$.
 
-\subsubsection{Temperatūriniai efektai}
+\subsubsection{Temperatūros efektai}
 
-Kaip ir giroskopu atžvilgiu, temperatūros pokyčiai įtakoja vibracinius pokyčius, kas sukelia dedamosios nestabilumus išėjimo signale. Dedamosios santykis su temperatūra labai priklauso nuo įrangos, tačiau dažniausiai jis yra ne linijinis. Bet koks liekamasis nuolatinės dedamosios komponentas sukelia klaida, kuri didėja keturgubai bėgant laikui. Pagreičio jutiklio korekcijos dėl temperatūros kai kurie matavimo įrenginiai automatiškai kompensuoja.
+Kaip ir giroskopu atžvilgiu, temperatūros pokyčiai įtakoja vibracinius pokyčius, kas sukelia dedamosios nestabilumus išėjimo signale. 
+Dedamosios santykis su temperatūra labai priklauso nuo įrangos, tačiau dažniausiai jis yra ne linijinis. 
+Bet koks liekamasis nuolatinės dedamosios komponentas sukelia klaida, kuri didėja keturgubai bėgant laikui. 
+Pagreičio jutiklio korekcijos dėl temperatūros kai kurie matavimo įrenginiai automatiškai kompensuoja.
 
 \subsubsection{Kalibravimo klaidos}
 
-Kalibravimo klaidos atsiranda kaip nuolatinės dedamosios klaidos. Jie pasirodo įverčiuose tik tuomet, kai jutiklis yra veikiamas kažkokio pagreičio jėgos. Taip pat verta pastebėti gravitacija, kadangi ji gali sukelti tokias laikinas klaidas ir tuomet, kai jutiklis yra pastovioje pozicijoje ir nėra veikiamas išorinės pagreičio jėgos.
+Kalibravimo klaidos atsiranda kaip nuolatinės dedamosios klaidos. 
+Jie pasirodo įverčiuose tik tuomet, kai jutiklis yra veikiamas kažkokio pagreičio jėgos. 
+Taip pat verta stebėti gravitaciją, kadangi ji gali sukelti tokias laikinas klaidas ir tuomet, kai jutiklis yra pastovioje pozicijoje ir nėra veikiamas išorinės pagreičio jėgos.
 

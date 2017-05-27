@@ -4,7 +4,7 @@
 
 \ProvidesClass{vgtuef}
 
-\LoadClass[12pt,a4paper,oneside,openright]{article}
+\LoadClass[13pt,a4paper,oneside,openright]{article}
 
 % Table of contents
 \RequirePackage{graphicx}
@@ -19,6 +19,8 @@
 \RequirePackage[bookmarks]{hyperref}
 \RequirePackage{fancyvrb}
 \RequirePackage{tocloft}
+\RequirePackage{mathptmx}
+\RequirePackage[numbers]{natbib}
 
 %% Lists
 %\RequirePackage{tweaklist}
@@ -78,10 +80,10 @@
 
 %% Source code style
 \lstset{
-  language=Matlab,
-  basicstyle=\fontfamily{pzc}\selectfont,
-  columns=fixed,
-  numbers=none,
+  language=C,
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  %numbers=none,
   showspaces=false,
   xleftmargin=20pt
 }
@@ -125,29 +127,19 @@
 \renewcommand\thesubsubsection{\thesubsection\arabic{subsubsection}.}
 \renewcommand{\cftdot}{}
 
-\RequirePackage{tocloft}
-
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
-
-\renewcommand{\cfttoctitlefont}{\hfill\bfseries\color{b1}\MakeUppercase}
+\renewcommand{\cfttoctitlefont}{\hspace{6mm}\bfseries\color{b1}\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{\hfill}
 
 % Section style
-\def\section{
-  \@startsection{section}{1}
-    {\z@}
-    {1.5ex plus 1.5ex minus 0.5ex}
-    {0.7ex plus 1ex minus 0ex}
-    {\normalfont\normalsize\scshape\bfseries\color{b1}\centering\large
-  }
-}
+\def\section{\@startsection{section}{1}{\z@}{1.5ex plus 1.5ex minus 0.5ex}{0.7ex plus 1ex minus 0ex}{\normalfont\normalfont\scshape\bfseries\color{b1}\centering\large}}
 \def\subsection{\@startsection{subsection}{2}{\z@}{1.5ex plus 1.5ex minus 0.5ex}{0.7ex plus .5ex minus 0ex}{\normalfont\normalsize\scshape\bfseries\color{b1}\large}}
 \def\subsubsection{\@startsection{subsubsection}{3}{\z@}{1.5ex plus 1.5ex minus 0.5ex}{0.7ex plus .2ex minus 0ex}{\normalfont\normalsize\scshape\bfseries\color{b1}\large}}
 
+
 \let\stdsection\section
 \renewcommand\section{\newpage\stdsection}
-\renewcommand{\thesection}{}
-\renewcommand\thesubsection{\@arabic\c@section.\@arabic\c@subsection}
+%\renewcommand{\thesection}{}
+%\renewcommand\thesubsection{\@arabic\c@section.\@arabic\c@subsection}
 
 % Listing style
 \newcommand{\blob}{\rule[.2ex]{0.7ex}{0.7ex}}

@@ -1,8 +1,42 @@
-Šiame darbe buvo aptartai MEMS tipo jutikliai ir galimas jų panaudojimas objekto pozicijos nustatymo procesui. Pradžioje buvo atlikta jutiklių analizė, panagrinėtas pagreičio ir giroskopo jutiklių darbas. Giroskopo atveju, matavimui yra naudojamas vibracinės kilmės elementas, kuris pasiduoda \textit{Coriolis} efektui. Iš šio reiškinio galima nuspręsti kampinio pagreičio pokytį. Pagreičio jutiklio atveju, yra du pagrindiniai įrenginio konstravimo būdai -- mechaniniai ir vibraciniai. Pagrindiniai MEMS tipo jutiklių privalumai prieš kitos formos įtaisus yra mažas dydis, svoris, pigi gamyba (esant dideliems kiekiams), patvari konstrukcija ir mažos galios naudojimas elektriniuose įtaisuose.
+Šiame darbe buvo aptarti MEMS tipo jutikliai ir galimas jų panaudojimas objekto pozicijos nustatymo tikslu. 
+Pradžioje buvo atlikta jutiklių analizė, išnagrinėtas pagreičio ir giroskopo jutiklių darbas. 
+Vertinant giroskopo jutiklio darbą nustatyta, kad matavimui atlikti yra naudojamas vibracinės kilmės elementas, kuris pasiduoda \textit{Coriolio} efektui. 
+Vertinant šį reiškinį galima nustatyti kampinio pagreičio pokytį. 
+Vertinant pagreičio jutiklio darbą nustatyta, kad yra du pagrindiniai įrenginio konstravimo būdai -- mechaniniai ir vibraciniai. 
+Pagrindiniai MEMS tipo jutiklių privalumai, palyginti su kitos formos įtaisais, yra mažas dydis, svoris, pigi gamyba (esant dideliems kiekiams), patvari konstrukcija ir mažos galios naudojimas elektriniuose įtaisuose.
 
-Kita medalio pusė yra didelis triukšmų šaltinių skaičius. Nuolatinės komponentės stabilumo, atsitiktinio vaikščiojimo klaidos, poveikis temperatūrai bei kalibravimo klaidos. Tiek pagreičio jutiklis, tiek giroskopas gali veikti gali veikti vibracinio elemento pagrindu. Tokie elementai yra veikiami vibracijos triukšmo ir įvelia į matavimą nukrypimus. Taip pat, bet koks fizinis kūnas reaguoja į temperatūrinius pokyčius. Čia irgi yra triukšmo šaltinis, kadangi prie skirtingų temperatūrų vibracinis elementas vibruoja skirtingai. Tokios problemos kelia iššūkius tyrėjams sugalvoti tokias sistemas, kurios sugeba dirbti kuo efektyviau ir mažinti klaidos įtaka galutiniams skaičiavimams.
+Kita medalio pusė yra didelis triukšmų šaltinių skaičius. 
+Nuolatinės komponentės stabilumo, atsitiktinio vaikščiojimo klaidos, poveikis temperatūrai bei kalibravimo klaidos. 
+Tiek pagreičio jutiklis, tiek giroskopas gali veikti vibracinio elemento pagrindu. 
+Tokie elementai yra veikiami vibracijos triukšmo ir todėl matavimo metu atsiranda nuokrypių. 
+Be to, bet koks fizinis kūnas reaguoja į temperatūros pokyčius. 
+Tai irgi yra triukšmo šaltinis, nes skirtingos temperatūros sąlygomis vibracinis elementas vibruoja skirtingai. 
+Tokios problemos kelia iššūkius tyrėjams kuriant tokias sistemas, kurios sugebėtų dirbti kuo efektyviau ir klaidų įtaka galutiniams skaičiavimams tikimybė būtų kuo mažesnė. 
 
-Apžvelgti keli darbai, kurių tikslas yra toks pats, tačiau naudojamos visiškai skirtingos metodikos tam tikslui išspręsti. Pirmas nagrinėjimui darbas naudoja tiek pagreičio, tiek kampinio pokyčio jutiklius. Kalibravimas atliekamas matuojant dreifą pirmas $6~s$. Toliau seka duomenų filtravimas, Kalman ir dalelių filtru. Abu filtrai galimai sprendžia navigacinę problemą. Antras darbas remiasi tik pagreičio jutikliu ir naudoja raiškios logikos elementą galutiniam pokyčio įverčiui rasti. Labai svarbu yra pažymėti, jog darbas pasiūlė gerą jutiklių kalibracijos mechanizmą, remiantis gautais rezultatais (\ref{fig:fuzzy_logic_filter} pav.). 
+Apžvelgti keli darbai, kurie siūlo spręsti nagrinėjamą uždavinį, tačiau naudojamos visiškai skirtingos metodikos tam tikslui išspręsti. 
+Viename iš darbų naudojami tiek pagreičio, tiek kampinio pokyčio jutikliai. 
+Kalibravimas atliekamas matuojant dreifą pirmas $6~s$. 
+Toliau seka duomenys filtruojami, Kalman ir dalelių filtru. 
+Abu filtrai galimai sprendžia navigacinę problemą. 
+Kitame darbe remiamasi tik pagreičio jutikliu, naudojamas raiškios logikos elementas galutiniam pokyčio įverčiui rasti. 
+Labai svarbu yra pažymėti, jog šitas darbas pasiūlė gerą jutiklių kalibracijos mechanizmą, remiantis gautais rezultatais (\ref{fig:fuzzy_logic_filter} pav.). 
 
-Iš atliktos analizės galima spręsti, jog objekto pozicijos nustatymo sistemos yra reikalingos ir laukiamos rinkoje. Didžiausia kliūtis naudoti tokias sistemas yra įvairūs triukšmai. Tiesiogiai šitų duomenų naudoti modelyje tiesiog nėra galima ir bet kokiu atveju reikia spręsti filtravimo uždavinį.
+Iš atliktos analizės galima spręsti, jog objekto pozicijos nustatymo sistemos yra reikalingos ir laukiamos rinkoje. 
+Didžiausia kliūtis naudoti tokias sistemas yra įvairūs triukšmai. 
+Tiesiogiai šitų duomenų naudoti modelyje tiesiog neįmanoma ir bet kokiu atveju reikia spręsti filtravimo problemą.
+
+Darbe yra palyginami trys filtrai -- tiesinis, išplėstas ir sekamas Kalman filtrai.
+Tiesinis Kalman filtras puikiai tinka spręsti tiesinio tipo uždavinius, tačiau netiesinėms sistemos jis visiškai netinka.
+Norint panaudoti Kalman filtrą spręsti netiesiniams uždaviniams, modelio netiesinę funkciją reikia tiesinti.
+Šitą problemą sprendžia išplėstinis Kalman filtras, kuris tiesina sistemą, naudojant Jacobian transformaciją ir sekamas Kalman filtras, kuris tiesina sistemą, naudojant sigma taškus.
+Palyginus išplėstinio ir sekamo Kalman filtro darbo rezultatus, buvo pasirinktas sekamas Kalman filtras įgyvendinimui įterptinėje sistemoje.
+
+Įgyvendinimui panaudota STM32 platforma su ,,Cortex-M4'' procesoriumi.
+Darbui su matricomis buvo panaudota matematinė procesoriaus posistemė didžiausiai spartai užtikrinti.
+Filtrui reikalingos papildomos funkcijos -- sigma taškų generavimas, \textit{Cholesky} dekompozicija buvo taip pat įgyvendintos.
+
+Objekto pozicijai nustatyti sprendimas yra galimas, tačiau visiškai nėra įskaičiuojamas objekto kampinis pagreitis.
+Tolimesnis darbas yra sujungti kampinio pagreičio jutiklio duomenis ir įgyvendinti pilną trijų dimensijų objekto pozicijos nustatymo sistemą.
+
+
 

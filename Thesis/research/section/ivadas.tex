@@ -1,7 +1,17 @@
-Objekto pozicijos nustatymas, panaudojus inercinius jutiklius remiasi prielaida, jog objektas lieka ramybės būsenoje tol, kol jį nepaveikia išorinė jėga. Tokia jėga suteikia objektui pagreitį. Jeigu rasta pagreitį galima išmatuoti ir suintegruoti, pagreičio ir pozicijos kitimas gali būti išmatuoti. Reikia nepamiršti, kad tokiu atveju matavimą sudarys dvi komponentės -- pagreitis dėl gravitacijos ir išorinės veikiančios jėgos pagreitis. Norint pašalinti gravitacijos komponentę iš pagreičio matavimo, reikia žinoti kokiu kampu akcelerometras yra vertikalės atžvilgiu.
-Tokio kampo matavimui, reikalingas kitas jutiklis, kuris vadinasi giroskopas. Jis matuoja kampo greitį, kurį matematiškai integruojant, galima rasti kampo greičio pokytį nuo pradinio, žinomo kampo \cite{sukkarieh2000low}.
 
-Akcelerometras suteikia pagreičio matavimo įverti stebimam objektui. Dažniausiai tokie matavimai yra žymimi $x$, judėjimą tiesiai, $y$, šonu ir $z$ vertikaliai. Giroskopas suteikia matavimus, kurie dengia nurodytas ašis ir yra užrašomi $\theta$, sūkiui, $\beta$ polinkiui ir $\gamma$ vingiavimui, kaip pavaizduota \ref{tikz:axis_of_the_system} pav. Tokių inercinių įverčių naudojimas turi pagrindinį privalumą -- stebimo objekto polinkis ir pagreitis gali būti vertinami bet kokioje navigacijoje.  
+
+Objekto pozicijos nustatymas, naudojant pagreičio jutiklius, remiasi prielaida, jog objektas lieka ramybės būsenoje tol, kol jį nepradeda veikti kažkokia išorinė jėga. 
+Tokia jėga suteikia objektui pagreitį. 
+Jeigu rastą pagreitį galima išmatuoti ir suintegruoti, pagreičio ir pozicijos kitimas gali būti išmatuotas. 
+Reikia nepamiršti, kad tokiu atveju matavimą sudarys dvi komponentės -- gravitacijos pagreitis ir išorinės veikiančios jėgos pagreitis. 
+Norint pašalinti gravitacijos komponentę iš pagreičio matavimo, reikia nustatyti, kokiu kampu pagreičio jutiklis yra vertikalės atžvilgiu.
+Kampui matuoti reikalingas kitas jutiklis - giroskopas.
+Jis matuoja kampo pokyčio greitį, kurį matematiškai integruojant, galima rasti kampo greičio pokytį \cite{sukkarieh2000low}.
+
+Akcelerometru nustatomas stebimo objekto pagreičio matavimo įvertis.
+Dažniausiai tokie matavimai yra žymimi $x$ (judėjimas tiesiai), $y$ (šonu) ir $z$ (vertikaliai). 
+Giroskopas suteikia matavimus, kurie dengia nurodytas ašis ir yra užrašomi $\theta$, sūkiui, $\beta$ polinkiui ir $\gamma$ vingiavimui, kaip pavaizduota \ref{tikz:axis_of_the_system} pav. 
+Tokių inercinių įverčių naudojimas turi pagrindinį privalumą -- stebimo objekto polinkis ir pagreitis gali būti vertinami bet kokioje navigacijoje.  
 
 \begin{figure}[H]
     \centering
@@ -19,8 +29,25 @@ Akcelerometras suteikia pagreičio matavimo įverti stebimam objektui. Dažniaus
     \label{tikz:axis_of_the_system}
 \end{figure}
 
-Inercinės navigacijos sistemos yra naudojamos labai plačiai lėktuvuose, raketose, kosmoso laivuose, povandeniniuose ir vandens laivuose \cite{woodman2007introduction}. Progresas gaminant MEMS įrenginius, sudarė galimybes kurti mažas ir lengvas navigacines sistemas. Tokie privalumai leidžia praplatinti įrenginių panaudojimo galimybes ir šiuo metu įtraukia tokias sritis kaip žmogaus ir gyvūnų judesio sekimą \cite{schlomer2008gesture,suvorova2012action}.
+Pagreičio navigacijos sistemos yra labai plačiai naudojamos lėktuvuose, raketose, kosmoso laivuose, povandeniniuose ir vandens laivuose \cite{woodman2007introduction}.
+Progresas, gaminant MEMS įrenginius, sudarė galimybes kurti mažas ir lengvas navigacines sistemas.
+Tokie privalumai leidžia įrenginius naudoti ir kitose srityse, pavyzdžiui matuojant kaip žmogaus ir gyvūnų judesius \cite{schlomer2008gesture,suvorova2012action}.
 
-Tačiau reikia nepamiršti ir apie klaidas, kurias sukelia nuolatinė dedamoji, santykio įverčiai ir nelinijines sistemos įtakos jutiklio verčių nuskaitymo metu. Tokios klaidos yra pagrindinė priežastis atsirasti netikslumams navigacinėje sistemoje per laiko vienetą. Netikslumai sąlygoja akselerometro įverčius, kuriuos tampa labai sunku atskirti tarp gravitacinio lauko ir objekto judėjimo, ko pasekoje objekto pozicijos matavimas toliau yra dar netikslesnis. Kadangi inerciniai jutikliai yra tokio tipo, kuriems yra labai svarbi tiksli prieš tai buvusi pozicija, bet kokia klaida skaičiuojant prieš tai buvusia pozicija, įtakoja ir dabartinės pozicijos skaičiavimą. Tokiu būdu, su laiku navigacinė sistema tampa visiškai netiksli ir praranda visą savo vertę.
+Vis dėlto reikia nepamiršti ir apie klaidas, kurias sukelia nuolatinė dedamoji, santykio įverčiai ir nelinijinės sistemos įtaka jutiklio verčių nuskaitymo metu.
+Tokios klaidos yra pagrindinė priežastis navigacinėje sistemoje netikslumams per laiko vienetą atsirasti. 
+Netikslumai sąlygoja akselerometro įverčius, kuriuos labai sunku atskirti nuo gravitacinio lauko ir objekto judėjimo, todėl objekto pozicijos matavimas toliau yra dar netikslesnis. 
+Kadangi inerciniai jutikliai yra tokio tipo, kuriems yra labai svarbi tiksli prieš tai buvusi pozicija, bet kokia klaida skaičiuojant prieš tai buvusia pozicija, įtakoja ir dabartinės pozicijos skaičiavimą. 
+Tokiu būdu, su laiku navigacinė sistema tampa visiškai netiksli ir praranda visą savo vertę.
 
-Darbas yra suskirstomas į dvi dalis. Pirmoje dalyje aptariami MEMS tipo jutikliai -- pagreičio ir giroskopas. Aptariamos nuolatinės dedamosios, kalibravimo ir klaidų atsiradimo klausimai. Tolimesnė dalis skirta esamų sistemų analizei. Pirmas aptariamas darbas naudoja tiek giroskopo tiek pagreičio jutiklius ir palygina gautus navigacinius duomenis Kalman ir dalelių filtru. Antras darbas analizei pateikia siūlymą kaip galima pigiau spręsti jutiklio kalibravimo klausimą. Duomenų filtravimui panaudojus raiškios logikos filtrą, yra šalinamas galimas triukšmas signale.
+Darbas yra suskirstomas į tris dalis. 
+Pirmoje dalyje aptariami MEMS tipo jutikliai -- pagreičio ir giroskopas. 
+Aptariami nuolatinių dedamųjų, kalibravimo ir klaidų atsiradimo klausimai. 
+Antra dalis skirta esamų sistemų analizei. 
+Pirmas aptariamas straipsnis \cite{willemsenconcept} naudoja tiek giroskopo, tiek pagreičio jutiklius ir palygina gautus navigacinius duomenis Kalmano ir dalelių filtru. 
+Antras straipsnis \cite{yoo2011fuzzy} analizei pateikia siūlymą, kaip galima pigiau spręsti jutiklio kalibravimo klausimą.
+Duomenų filtravimui panaudojus raiškios logikos filtrą, yra šalinamas galimas triukšmas signale.
+Trečioje dalyje yra aptariama aparatinė įranga, kuri yra naudojama sprendimui įgyvendinti.
+Ketvirta dalis yra tiriamoji dalis, kurios tikslas yra pasirinkti teisingą sprendimą, kuris bus panaudotas signalui filtruoti.
+Tiriamosios dalies metu pastebėta, jog nagrinėjama sistema yra netiesinė, todėl tiesinis filtras yra visiškai netinkamas.
+Palyginami du netiesiniai filtrai pagal signalo panašumo kriterijų su pradiniu signalu ir atitinkamai pasirinktas panašiausias į pradinį signalo filtro rezultatas.
+Paskutinėje dalyje aprašomas įgyvendintas sprendimas (įterptinėje sistemoje).
