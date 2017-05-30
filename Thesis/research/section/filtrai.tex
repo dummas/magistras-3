@@ -1,10 +1,12 @@
 Šiame skyriuje apžvelgti pagrindiniai signalų filtravimo įrankiai, kurie yra plačiai naudojami inercinėse navigacinėse sistemose.
 
-\subsection{Kalman filtras}
+\subsection{\textit{Kalman} filtras}
 
-    Kalman filtras \cite{kalman1960new} yra vienas iš labiausiai naudojamų duomenų sujungimo algoritmų informacijos apdorojimo pramonės srityje \cite{faragher2012understanding}. Pats žymiausias Kalma filtro panaudojimas jo ankstyvoje stadijoje yra \textit{Apollo} navigaciniam kompiuteryje, kuris nugabeno \textit{Neil Armstrong} iki mėnulio ir svarbiausia -- atgal. Šiais laikais, Kalman filtrą galima rasti beveik kiekviename įrenginyje -- mobiliam telefone, kompiuteriniuose žaidimuose.
+    \textit{Kalman} filtras \cite{kalman1960new} yra vienas iš labiausiai naudojamų duomenų sujungimo algoritmų informacijos apdorojimo pramonės srityje \cite{faragher2012understanding}. 
+    Pats žymiausias \textit{Kalman} filtro panaudojimas jo ankstyvoje stadijoje yra \textit{Apollo} navigaciniam kompiuteryje, kuris nugabeno \textit{Neil Armstrong} iki mėnulio ir svarbiausia -- atgal. 
+    Šiais laikais, \textit{Kalman} filtrą galima rasti beveik kiekviename įrenginyje -- mobiliam telefone, kompiuteriniuose žaidimuose.
 
-    \subsubsection{Diskretaus laiko Kalman filtras}
+    \subsubsection{Diskretaus laiko \textit{Kalman} filtras}
 
     Tarkime, kad turime linijinę diskretaus laiko sistemą
 
@@ -15,7 +17,7 @@
         y_k = H_k x_k + v_k
     \end{equation}
 
-    Proceso triukšmai ${w_k}$ ir ${v_k}$ yra baltas, nulinio vidurkio, be koreliacijos ir žinomos kovariacijos matricos
+    Proceso triukšmai ${w_k}$ ir ${v_k}$ yra baltasis, nulinio vidurkio, be koreliacijos ir žinomos kovariacijos matricos
 
     \begin{equation}
     w_k \sim (0, Q_k)
@@ -176,7 +178,7 @@
     \end{equation}
 
     Taip yra gaunamos lygtis, kurios yra naudojamos įverčiams $\bar{x}_k$ ir $P_k$ atnaujinti, po gauto mėginio.
-    Matrica $K_k$ aukštesnėse lygtyse yra vadinama Kalmano augimu.
+    Matrica $K_k$ aukštesnėse lygtyse yra vadinama \textit{Kalman} augimu.
 
     \subsubsection{Pavyzdys}
 
@@ -208,7 +210,7 @@
         \end{bmatrix}
     \end{equation}
 
-    Kalmano filtras tokiai sistemai yra išreiškiamas
+    \textit{Kalman} filtras tokiai sistemai yra išreiškiamas
 
     \begin{equation}
         \bar{x}_k^- = F\bar{x}_{k-1}^+
@@ -231,7 +233,7 @@
         R_k = \sigma^2
     \end{equation}
 
-    Kalmano augimas gaunamas kaip
+    \textit{Kalman} augimas gaunamas kaip
 
     \begin{equation}
         K_k = P_k^-H_k^T(H_kP_k^-H_k^T+R_k)^{-1}
@@ -252,11 +254,11 @@
     Kai yra gaunamas naujas matavimas, yra natūraliai tikimąsi, jog būsenos spėjimas bus tikslesnis.
     Tai reiškia, jog kovariacija mažės, ką ir rodo lygtis.
 
-    \subsection{Ištiesintas Kalman filtras}
+    \subsection{Ištiesintas \textit{Kalman} filtras}
 
-    Šiame skyriuje parodoma kaip ištiesinti ne tiesinę sistemą ir tuomet panaudoti Kalman filtro teoriją įvertinant skirtumus tarp būsenos ir nominalios būsenos vertės.
+    Šiame skyriuje parodoma kaip ištiesinti ne tiesinę sistemą ir tuomet panaudoti \textit{Kalman} filtro teoriją įvertinant skirtumus tarp būsenos ir nominalios būsenos vertės.
     Toliau tai suteiks ne tiesinės sistemos būsenos įvertinimą.
-    Ištiesintas Kalman filtras yra išvedamas iš nuolatinio laiko požiūrio, o diskretaus ar hibridinio laiko išvedimai yra analogiški.
+    Ištiesintas \textit{Kalman} filtras yra išvedamas iš nuolatinio laiko požiūrio, o diskretaus ar hibridinio laiko išvedimai yra analogiški.
 
     Tarkime, egzistuoja toks ne tiesinės sistemos modelis:
 
@@ -336,10 +338,10 @@
     \end{equation}
 
     Ši lygtis yra tiesinė sistema su $\Delta x$ būsena ir $\Delta y$ mėginiu.
-    Tokiu atveju galima panaudoti Kalmano filtrą spėti $\Delta x$.
+    Tokiu atveju galima panaudoti \textit{Kalman} filtrą spėti $\Delta x$.
     Filtro įėjimas susideda iš $\Delta y$, kuris yra skirtumas tarp realaus matavimo $y$ ir nominalaus matavimo $y_0$.
-    Kalmano filtro išėjimas $\Delta x$ yra įvertinimas skirtumo tarp realios būsenos $x$ ir nominalios būsenos $x_0$.
-    Kalmano filtro lygtis ištiesintai sistemai yra
+    \textit{Kalman} filtro išėjimas $\Delta x$ yra įvertinimas skirtumo tarp realios būsenos $x$ ir nominalios būsenos $x_0$.
+    Filtro lygtis ištiesintai sistemai yra
 
     \begin{equation}
         \label{eq:linerialized_kalman_filter}
@@ -353,24 +355,24 @@
         \end{aligned}
     \end{equation}
 
-    Kalmano filtrui, $P$ yra kovariacijos matricos klaida.
-    Ištiesintas Kalman filtras nėra tikras filtras, dėl klaidų, kurias suteikia ištiesinimas.
+    \textit{Kalman} filtrui, $P$ yra kovariacijos matricos klaida.
+    Ištiesintas \textit{Kalman} filtras nėra tikras filtras, dėl klaidų, kurias suteikia ištiesinimas.
     Tačiau, jeigu ištiesinimo klaidos yra mažos, $P$ turėtų būti apie spėjimo klaidos kovariacijos įvertį.
 
 
-\subsection{Išplėstas Kalman filtras}
+\subsection{Išplėstasis \textit{Kalman} filtras}
 
-    Ankstesniam skyriuje buvo aptartas tiesinis Kalman filtras, kuris yra naudojamas spėti ne tiesinės sistemos būseną.
+    Ankstesniam skyriuje buvo aptartas tiesinis \textit{Kalman} filtras, kuris yra naudojamas spėti ne tiesinės sistemos būseną.
     Išvedimas buvo paremtas ne tiesinės sistemos tiesinimu aplink nominalios būsenos trajektorijos pokytį.
     Klausimas kyla, kaip gi reikia nustatyti tą nominalę būsenos trajektoriją?
     Kai kuriais atvejais, tai nėra labai paprastas uždavinys.
-    Tačiau, kadangi Kalman filtras spėja sistemos būseną, galima panaudoti patį Kalman filtrą, kaip tą sistemos trajektorijos nominalę.
+    Tačiau, kadangi \textit{Kalman} filtras spėja sistemos būseną, galima panaudoti patį \textit{Kalman} filtrą, kaip tą sistemos trajektorijos nominalę.
     Tai yra šioks toks savikėlimo metodas.
-    Tiesinam ne tiesinę sistemą aplink Kalman filtro būsenos spėjimą, o Kalman filtro įvertinimas paremtas tiesine sistema.
-    Tai yra išplėsto Kalman filtro idėja, kuri buvo pasiūlyta Stanley Schmidt.
-    Autorius norėjo pritaikyti Kalman filtrą ne tiesinėms erdvėlaivio navigacijos problemoms spręsti.
+    Tiesinam ne tiesinę sistemą aplink \textit{Kalman} filtro būsenos spėjimą, o \textit{Kalman} filtro įvertinimas paremtas tiesine sistema.
+    Tai yra išplėstojo \textit{Kalman} filtro idėja, kuri buvo pasiūlyta Stanley Schmidt.
+    Autorius norėjo pritaikyti \textit{Kalman} filtrą ne tiesinėms erdvėlaivio navigacijos problemoms spręsti.
 
-\subsubsection{Nepertraukiamo laiko išplėstas Kalman filtras}
+\subsubsection{Nepertraukiamo laiko išplėstasis \textit{Kalman} filtras}
 
         Sujungiant \ref{eq:nominal_sistem_trajektory} ir \ref{eq:linerialized_kalman_filter} lygtis, gaunama
 
@@ -379,18 +381,18 @@
         \end{equation}
 
         Toliau reikia pasirinkti tokį $x_0(t)=\hat{x}(t)$, kad $\Delta\hat{x}(t) = 0$ ir $\Delta\hat{\bar{x}}(t) = 0$.
-        Kitais žodžiais, tiesinimo trajektorija $x_0(t)$ yra lygi ištiesinto Kalman filtro įverčiui $\hat{x}(t)$.
+        Kitais žodžiais, tiesinimo trajektorija $x_0(t)$ yra lygi ištiesinto \textit{Kalman} filtro įverčiui $\hat{x}(t)$.
         Tuomet nominalaus įverčio išraiška tampa
 
         \begin{equation}
             y_0 = h(x_0, v_0, t) = h(\hat{x}, v_0, t)
         \end{equation}
 
-        Tai yra ekvivalentu ištiesintam Kalman filtrui, tačiau čia pasirinkta $x_0 = \hat{x}$ ir yra perskirstytos lygtis, kad tiesiogiai gauti $\hat{x}$.
-        Kalman padidėjimas yra toks pats, kaip ir ankščiau.
+        Tai yra ekvivalentu ištiesintam \textit{Kalman} filtrui, tačiau čia pasirinkta $x_0 = \hat{x}$ ir yra perskirstytos lygtis, kad tiesiogiai gauti $\hat{x}$.
+        \textit{Kalman} padidėjimas yra toks pats, kaip ir ankščiau.
         Tačiau šita formuluotė naudoja mėginį $y$ tiesiogiai, ir išėjime būsenos įvertis $\hat{x}$ irgi yra pateikiamas tiesiogiai.
-        Tai yra dažnai žymima kaip išplėstas Kalman-Bucy filtras, kadangi Ričardas Bucy bendradarbiavo su Rudolfu Kalman pirmoje publikacijoje apie nepertraukiamo laiko Kalman filtrą.
-        Nepertraukiamo laiko išplėstas Kalman filtras gali būti suvestas į tokius punktus
+        Tai yra dažnai žymima kaip išplėstas Kalman-Bucy filtras, kadangi Ričardas Bucy bendradarbiavo su Rudolfu Kalman pirmoje publikacijoje apie nepertraukiamo laiko \textit{Kalman} filtrą.
+        Nepertraukiamo laiko išplėstas \textit{Kalman} filtras gali būti suvestas į tokius punktus
 
         \begin{enumerate}
             \item Sistemos lygtis yra tokios
@@ -419,7 +421,7 @@
                     \tilde{R} &= MRM^T
                 \end{aligned}
             \end{equation}
-            \item Išspręsti Kalman filtro lygtis
+            \item Išspręsti \textit{Kalman} filtro lygtis
             \begin{equation}
                 \label{eq:ekf}
                 \begin{aligned}
@@ -432,16 +434,16 @@
             \end{equation}
         \end{enumerate}
 
-\subsection{Sekamas Kalman filtras}
+\subsection{Sekamasis \textit{Kalman} filtras}
 
 %Unscented Kalman filter
 
-Kaip buvo aptarta ankščiau, išplėstas Kalman filtras yra plačiausiai naudojamas būsenos įvertinimo algoritmas netiesinėms sistemoms.
+Kaip buvo aptarta ankščiau, išplėstasis \textit{Kalman} filtras yra plačiausiai naudojamas būsenos įvertinimo algoritmas netiesinėms sistemoms.
 Tačiau, šis filtras gali būti sunkus derinti ir dažnai gaunamas rezultatas yra nepatikimas, jeigu sistema blogai priima tiesinimą.
 Tai yra dėl to, kad filtras labai stipriai remiasi tiesinimu skleisti būsenos vidurkį ir kovariaciją.
-Kaip alternatyva yra sekamas Kalman filtras, kuris sumažina tiesinimo klaidas.
+Kaip alternatyva yra sekamasis \textit{Kalman} filtras, kuris sumažina tiesinimo klaidas.
 
-Sekama transformacija yra paremta dviems principais.
+Sekamąja transformacija yra paremta dviems principais.
 Pirma, yra lengva atlikti ne tiesinę transformaciją ant vieno taško (skirtingai nuo viso dokumento transformaciją).
 Antra, nėra labai sudėtinga rasti būsenos taškų rinkinį erdvėje, kurie apytiksliai parodytų realią dokumento būseną.
 
@@ -449,7 +451,7 @@ Remiantis šiomis idėjomis, galima teigti, kad yra žinomas vektoriaus $x$ vidu
 Tuomet reikia rasti deterministinį vektorių rinkinį, kurie vadinasi sigma taškai, kuriuos apibūdina vidurkis ir kovariacija, kurie savo ruoštu yra lygus $\hat{x}$ ir $P$.
 Sekantis žingsnis yra pritaikyti ne tiesinę funkciją $y = h(x)$ kiekvienam deterministiniam vektoriui ir gauti transformuotus vektorius.
 Apibūdinantis vidurkis ir kovariacija duos bendrą supratimą apie tikrąjį $y$ vidurkį ir kovariaciją.
-Tai yra raktas sekamai transformacijai.
+Tai yra raktas sekamajai transformacijai.
 
 Kaip pavyzdį galima pateikti $x$, kuris yra $n~x~1$ vektorius, kuris yra transformuotas ne tiesinės funkcijos $y = h(x)$.
 Imami $2n$ $x^{(i)}$ sigma taškai:
@@ -463,7 +465,7 @@ Imami $2n$ $x^{(i)}$ sigma taškai:
 \end{equation}
 kur $\sqrt{nP}$ yra matrica, kurios šaknys tenkina $(\sqrt{nP})^T\sqrt{nP} = nP$ ir $(\sqrt{nP})_i$ yra $\sqrt{nP}^1$ $i$ eilutė.
 
-Sekamas Kalman filtras yra suvedamas į tokius punktus
+Sekamasis \textit{Kalman} filtras yra suvedamas į tokius punktus
 
 \begin{enumerate}
     \item Turima $n$ eilės diskretinio laiko sistema
@@ -505,6 +507,6 @@ Sekamas Kalman filtras yra suvedamas į tokius punktus
 Algoritmas laikosi nuostato, kad proceso yra įverčio lygtis yra tiesinės ir įvertina triukšmą.
 Bendru atveju proceso ir įverčio lygtis gali turėti ne tiesinio triukšmo, kuris ateina į procesą.
 
-Sekamas filtras gali gerokai pagerinti būsenos įverčio spėjimo našumą, lyginant su išplėstiniu Kalman filtru ne tiesinėms sistemoms.
-Papildomai galima paminėti, kad išplėstinis filtras reikalauja Jacobian sprendimo, o šis filtras to nereikalauja.
-Tai yra privalumas, kadangi kai kurioms sistemos Jacobian skaičiavimas yra greitas ir paprastas, tačiau kitoms sistemoms tai yra labai sudėtingas uždavinys.
+Sekamasis filtras gali gerokai pagerinti būsenos įverčio spėjimo našumą, lyginant su išplėstuoju \textit{Kalman} filtru ne tiesinėms sistemoms.
+Papildomai galima paminėti, kad išplėstasis filtras reikalauja \textit{Jacobian} sprendimo, o šis filtras to nereikalauja.
+Tai yra privalumas, kadangi kai kurioms sistemos \textit{Jacobian} skaičiavimas yra greitas ir paprastas, tačiau kitoms sistemoms tai yra labai sudėtingas uždavinys.

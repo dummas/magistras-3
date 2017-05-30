@@ -1,11 +1,105 @@
-\subsection*{1 Priedas. Įgyvendintas sekamo Kalman filtro kodas}
-
 \lstset{
     basicstyle=\tiny,
-    breaklines=true
+    breaklines=true,
+    showspaces=false
 }
 
 \renewcommand{\lstlistingname}{Programinis kodas}
+
+\subsection*{1 Priedas. Įgyvendintas sekamo Kalman filtro matlab kodas}
+
+\begin{lstlisting}[caption=kalman.m]
+tt = (data(:,1) - data(1,1)) / 1000;
+N = length(tt);
+X = tt;
+dT = mean(diff(tt))/100;
+%% Position part
+Ax = data(:,2) * 9.86;
+Ax = Ax - mean(Ax);
+Px = cumtrapz(X, cumtrapz(X, Ax));
+%% System
+% nonlinear state equations
+f = @(x)[
+    x(1) + x(2) - x(3)*0.5*dT^2;
+    x(2) + x(3)*dT;
+    x(3);
+];
+% measurement equation
+h = @(x)[ x(3); ];
+%% Unscented Kalman filter
+% number of state
+n = 3; 
+% number of measurement
+ss = 1;
+% std of process
+q = 0.1;
+% std of measurement
+r = 0.1; 
+% covariance of process
+Q = eye(n)*q^2;
+% covariance of measurement
+R = eye(ss)*r^2;
+nx = size(Q,1);
+nz = size(R,1);
+m = zeros(nx, 1);
+P = eye(n)*q;
+kappa = n - nx;
+W = [ kappa/(kappa+nx) 0.5/(kappa+nx)+zeros(1,2*nx) ];
+c = sqrt(kappa + nx);
+% Space for the estimates
+MM = zeros(nx, N);
+PP = zeros(nx, nx, N);
+
+for i = 1:N
+    Z_r = [Ax(i)]';
+    % Filtering steps
+    X = sigma_points(m, P, c);
+    
+    [m_hat, X_hat, P_hat, X_dev] = ut(f, X, W, nx, Q);
+    % Update steps
+    [z_hat, Z_Hat, P_zz, Z_dev] = ut2(h, X_hat, W, nz, R);
+    
+    P_xz = X_dev * diag(W) * Z_dev';
+    S = R + P_zz;
+    K = P_xz * inv(S);
+    m = m_hat + K *(Z_r - z_hat);
+    P = P_hat - P_xz * K';
+    MM(:,i) = m;
+    PP(:,:,i) = P;
+end
+figure;
+plot(tt, Ax, 'g', tt, MM(3,:), 'r');
+figure;
+plot(tt, Px, '-', tt, MM(1,:), '+');
+\end{lstlisting}
+
+\begin{lstlisting}[caption=ut.m]
+function [y,Y,P,Y1]=ut(f,X,W,n,R)
+L=size(X,2);
+y=zeros(n,1);
+Y=zeros(n,L);
+for k=1:L    
+    Y(:,k) = f(X(:,k));
+    temp = W(k)*Y(:,k);
+    y=y+temp;
+end
+Y1=Y-y(:,ones(1,L));
+P=Y1*diag(W)*Y1'+R; 
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=sigma\_points.m]
+function X=sigma_points(m,P,c)
+cP = chol(P);
+A = c*cP';
+Y = m(:,ones(1,numel(m)));
+X = [m Y+A Y-A];
+end
+\end{lstlisting}
+
+\newpage
+
+\subsection*{2 Priedas. Įgyvendintas sekamo Kalman filtro c kodas}
 
 \begin{lstlisting}[caption=main.c]
 /* Includes ------------------------------------------------------------------*/
@@ -464,7 +558,9 @@ void sigma_points(
 
 \end{lstlisting}
 
-\subsection*{2 Priedas. Pranešimo 20-oje Lietuvos jaunųjų mokslininkų konferencijoje medžiaga}
+\newpage
+
+\subsection*{3 Priedas. Pranešimo 20-oje Lietuvos jaunųjų mokslininkų konferencijoje medžiaga}
 
 \begin{centering}
     \includegraphics[width=420px]{img/IMG_0415.JPG}
@@ -472,7 +568,7 @@ void sigma_points(
 
 \newpage
 
-\subsection*{3 Priedas. Sekamo Kalman filtro įgyvendinimo algoritmas} \label{subsection:2_priedas}
+\subsection*{4 Priedas. Sekamo Kalman filtro įgyvendinimo algoritmas} \label{subsection:2_priedas}
 
 \begin{figure}[H]
     \centering

@@ -1,5 +1,5 @@
 Norint patikrinti filtro įgyvendinimą įterptinėje posistemėje, reikia sudaryti kontroliuojamas sąlygas.
-Sistemos įgyvendinimo tikslumas tikrinimas gali būti vykdomas tik viena ašimi, kadangi kiekviena ašis turi savo Kalman filtro modelį.
+Sistemos įgyvendinimo tikslumas tikrinimas gali būti vykdomas tik viena ašimi, kadangi kiekviena ašis turi savo \textit{Kalman} filtro modelį.
 Tokiu būdu yra lengviau modifikuoti modelį, bei sutaupoma atminties.
 Sprendimas yra padedamas ant stalo, lygiagrečiai padedant liniuotę $x$ ašiai ir pradedamas duomenų surinkimas.
 Sistema yra slenkama tolygiai lygiagrečiai liniuotės $20~cm$ atstumu iki galo.
@@ -29,7 +29,7 @@ Gaunamas rezultatas yra pateikiamas \ref{fig:x_axis_measurement} pav.
 Analizuojant gautus matavimus, galima stebėti, kaip objektas pradžioje buvo vienoje vietoje, tuomet jo pozicija buvo pakeista į neigiamą ašies pusę, tuomet objekto pozicija nesikeičia.
 Tai sąlygoja, kad objektas buvo nejudinamas.
 Toliau objektas vėl juda atgal į pradinę poziciją.
-Iš šito matavimo galima daryti išvadą, kad sekamas Kalman filtras darbą atlieka sėkmingai.
+Iš šito matavimo galima daryti išvadą, kad sekamasis \textit{Kalman} filtras darbą atlieka sėkmingai.
 Grafike taip pat galima pastebėti, jog jutiklio normalizacija yra blogai atliekama ir atsiranda pastovioji komponentė.
 
 Pastoviąja komponentę galima identifikuoti ilgiau surenkant jutiklio duomenys ir taip su daugiau duomenų per ilgesnį laiko tarpą identifikuoti konstantą.
@@ -37,7 +37,7 @@ Norint nustatyti ar konstanta buvo identifikuota sėkmingai, jutiklis yra paliek
 Atliktas matavimas yra pateikiamas \ref{fig:x_axis_measurement_long_normalization} pav.
 Iš grafiko galima pamatyti, kad pradinis pokytis, kuris yra skaičiuojamas du kartus integruojant pagreičio pokytį, stabiliai keliasi į viršų.
 Po nepilnos minutės jutiklis parodė, kad jo pozicija pasikeitė daugiau negu 8 metrus.
-Kalman filtras sėkmingai identifikavo duotą komponentę ir neparodė jokio pokyčio.
+\textit{Kalman} filtras sėkmingai identifikavo duotą komponentę ir neparodė jokio pokyčio.
 
 \begin{figure}
     \centering

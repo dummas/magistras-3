@@ -16,7 +16,7 @@ Tokios problemos kelia iššūkius tyrėjams kuriant tokias sistemas, kurios sug
 Apžvelgti keli darbai, kurie siūlo spręsti nagrinėjamą uždavinį, tačiau naudojamos visiškai skirtingos metodikos tam tikslui išspręsti. 
 Viename iš darbų naudojami tiek pagreičio, tiek kampinio pokyčio jutikliai. 
 Kalibravimas atliekamas matuojant dreifą pirmas $6~s$. 
-Toliau seka duomenys filtruojami, Kalman ir dalelių filtru. 
+Toliau seka duomenys filtruojami, \textit{Kalman} ir dalelių filtru. 
 Abu filtrai galimai sprendžia navigacinę problemą. 
 Kitame darbe remiamasi tik pagreičio jutikliu, naudojamas raiškios logikos elementas galutiniam pokyčio įverčiui rasti. 
 Labai svarbu yra pažymėti, jog šitas darbas pasiūlė gerą jutiklių kalibracijos mechanizmą, remiantis gautais rezultatais (\ref{fig:fuzzy_logic_filter} pav.). 
@@ -25,11 +25,11 @@ Iš atliktos analizės galima spręsti, jog objekto pozicijos nustatymo sistemos
 Didžiausia kliūtis naudoti tokias sistemas yra įvairūs triukšmai. 
 Tiesiogiai šitų duomenų naudoti modelyje tiesiog neįmanoma ir bet kokiu atveju reikia spręsti filtravimo problemą.
 
-Darbe yra palyginami trys filtrai -- tiesinis, išplėstas ir sekamas Kalman filtrai.
-Tiesinis Kalman filtras puikiai tinka spręsti tiesinio tipo uždavinius, tačiau netiesinėms sistemos jis visiškai netinka.
-Norint panaudoti Kalman filtrą spręsti netiesiniams uždaviniams, modelio netiesinę funkciją reikia tiesinti.
-Šitą problemą sprendžia išplėstinis Kalman filtras, kuris tiesina sistemą, naudojant Jacobian transformaciją ir sekamas Kalman filtras, kuris tiesina sistemą, naudojant sigma taškus.
-Palyginus išplėstinio ir sekamo Kalman filtro darbo rezultatus, buvo pasirinktas sekamas Kalman filtras įgyvendinimui įterptinėje sistemoje.
+Darbe yra palyginami trys filtrai -- tiesinis, išplėstasis ir sekamasis \textit{Kalman} filtrai.
+Tiesinis \textit{Kalman} filtras puikiai tinka spręsti tiesinio tipo uždavinius, tačiau netiesinėms sistemos jis visiškai netinka.
+Norint panaudoti \textit{Kalman} filtrą spręsti netiesiniams uždaviniams, modelio netiesinę funkciją reikia tiesinti.
+Šitą problemą sprendžia išplėstinis \textit{Kalman} filtras, kuris tiesina sistemą, naudojant Jacobian transformaciją ir sekamasis \textit{Kalman} filtras, kuris tiesina sistemą, naudojant sigma taškus.
+Palyginus išplėstinio ir sekamojo \textit{Kalman} filtro darbo rezultatus, buvo pasirinktas sekamasis \textit{Kalman} filtras įgyvendinimui įterptinėje sistemoje.
 
 Įgyvendinimui panaudota STM32 platforma su ,,Cortex-M4'' procesoriumi.
 Darbui su matricomis buvo panaudota matematinė procesoriaus posistemė didžiausiai spartai užtikrinti.
@@ -48,7 +48,7 @@ Objekto padėties nustatymo įgyvendinimas buvo tikrinamas veikiant objektą jė
 Matavimas buvo sudarytas kuo paprastesnis, taip nesunkiai nustatyti ar filtras veikia tinkamai.
 Atlikti bandymai parodė normalizacijos proceso netikslumus.
 Kiekviename matavime galima stebėti pastovios konstantos buvimą.
-Prailginus normalizacijos procesą, ko pasekoje buvo surenkama daugiau įverčių konstantai identifikuoti, duomenys parodė, kad sekamas Kalman filtras veikia.
+Prailginus normalizacijos procesą, ko pasekoje buvo surenkama daugiau įverčių konstantai identifikuoti, duomenys parodė, kad sekamasis \textit{Kalman} filtras veikia.
 Tačiau po kurio laiko atsiranda dar viena konstanta ir dėl šios priežasties pozicijos pokytis pradeda didėti tiesine funkcija.
 Nauja konstanta gali atsirasti dėl poros priežasčių, tačiau pirmiausiai reikia atlikti naudojamo modelio pakeitimus ir įtraukti kampinio pagreičio jutiklio duomenis.
 Tokiu būdų, kai objektas pakeičia savo orientaciją plokštumoje, galima būtų kompensuoti naujas konstantas, kurias sukelia žemės gravitaciją.

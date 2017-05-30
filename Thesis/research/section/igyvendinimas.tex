@@ -38,11 +38,11 @@ Parametras $PP$ yra naudojamas saugoti naujausią filtro kovariacijos sprendinį
 Jis yra inicijuojamas su parametru $0.1$.
 Antru darbo ciklu filtras atnaujins įvertį.
 Šiuo žingsniu filtro modelio inicijavimas yra baigiamas.
-Toliau reikia įgyvendinti patį sekamą Kalman filtrą.
+Toliau reikia įgyvendinti patį sekamąjį \textit{Kalman} filtrą.
 
 \begin{cfigure}
   \centering
-  \caption{Kalman modelio struktūra}
+  \caption{\textit{Kalman} modelio struktūra}
   \label{code:kalman_model_struct}
   \begin{lstlisting}
 typedef struct KModel {
@@ -162,14 +162,14 @@ arm_mat_add_f32(&y_temp, &y_temp_2, &y_temp);
 
 Filtro koregavimas yra pradedamas nuo matavimo perdavimo funkcijos tiesinimo operacijos, panaudojus tą pačią transformaciją, kuri buvo panaudota ir spėjimo žingsnyje.
 Šiuo atveju perdavimo funkcija yra matavimo funkcija, sigma taškai yra jau transformuoti sigma taškai, kurie yra gaunami iš spėjimo žingsnio transformacijos, o kovariacijos matrica yra matavimo triukšmo matrica.
-Sekantis žingsnis yra Kalman filtro įverčio skaičiavimas.
+Sekantis žingsnis yra \textit{Kalman} filtro įverčio skaičiavimas.
 Reikia pradėti nuo jungtinį sistemos ir matavimo kovariacijos transformacijos vertės skaičiavimo.
 Toliau reikia sudėti matavimo triukšmą su transformuota matavimo kovariacija.
-Turint šituos du įverčius, juos reikia padalinti vieną iš kito ir taip yra gaunamas Kalman filtro įvertis matricos formoje (\ref{code:arm_kalman_gain_calculation} programinis kodas).
+Turint šituos du įverčius, juos reikia padalinti vieną iš kito ir taip yra gaunamas \textit{Kalman} filtro įvertis matricos formoje (\ref{code:arm_kalman_gain_calculation} programinis kodas).
 
 \begin{cfigure}
     \centering
-    \caption{Kalman filtro įverčio skaičiavimas}
+    \caption{\textit{Kalman} filtro įverčio skaičiavimas}
     \label{code:arm_kalman_gain_calculation}
     \begin{lstlisting}
 // P_xz = X_dev * diag(W) * Z_dev';
@@ -184,10 +184,10 @@ arm_mat_mult_f32(&P_xz, &S_inv, &K);
     \end{lstlisting}
 \end{cfigure}
 
-Turint Kalman filtro matricą, galima atnaujinti spėjamus parametrus.
-Kalman filtro matrica yra dauginama iš matavimo įverčio ir transformuoto matavimo įverčio skirtumo.
+Turint \textit{Kalman} filtro matricą, galima atnaujinti spėjamus parametrus.
+\textit{Kalman} filtro matrica yra dauginama iš matavimo įverčio ir transformuoto matavimo įverčio skirtumo.
 Spėjamas vidurkis yra gaunamas sudedant transformuotą vidurkį ir prieš tai aprašytą sandaugą.
-Kovariacija gaunama sudauginus junginę kovariaciją su Kalman filtro matrica.
+Kovariacija gaunama sudauginus junginę kovariaciją su \textit{Kalman} filtro matrica.
 Su gauta matrica yra skaičiuojamas skirtumas tarp spėjimo metu transformuota kovariacija (\ref{code:arm_kalman_measurement_update} pav.).
 
 \begin{cfigure}
@@ -234,7 +234,7 @@ Surasti iš ištaisyti tokio tipo klaidas yra be galo sudėtinga ir užima labai
 Atliekant šitą darbą be skaičiavimo realizacijos reikia taip pat galvoti ir apie atminties naudojimo logiką.
 Ar galima matricą pateikti kaip nekintančią ir taip sutaupyti darbinės atminties, panaudojus tik skaitymui skirtą atmintį.
 
-Sekamo Kalman filtro perkėlimo į įterptinę sistemą metu, buvo parašyta iš viso 1636 eilutės kodo.
+Sekamojo \textit{Kalman} filtro perkėlimo į įterptinę sistemą metu, buvo parašyta iš viso 1636 eilutės kodo.
 
 
 

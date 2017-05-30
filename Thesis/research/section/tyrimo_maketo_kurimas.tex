@@ -148,3 +148,21 @@ Skirtingi sprendimai renka skirtingus mėginių skaičių, todėl šiuo atveju b
 Tolimesnė eiga yra rasti visų mėginių vidurkį, pagal kiekvieną ašį.
 Šitie skaičiai ir yra nuolatinės dedamosios komponentai. Juos reikia pašalinti iš gautų iš jutiklių duomenų.
 
+\subsection{Išvados}
+
+Tyrimo maketas buvo sukurtas, naudojant \textit{STM32} platformą, kurioje bus atliekama komunikacija su \textit{MPU~9250} jutikliu, bei visi reikalingi skaičiavimai.
+Naudojama speciali plokštė, kuri yra skirta programinės įrangos vystymui.
+Joje yra visa reikalinga įranga padaryti jungčiai tarp vystymo kompiuterio ir procesoriaus.
+Tai labai palengvina programinės įrangos vystymo procesą.
+Norint išlaikyti rašomą sprendimą nepriklausomą nuo naudojamos \textit{STM32} platformos, yra panaudojamas specialus \textit{HAL} bibliotekų rinkinys, kuris rūpinasi procesoriaus inicijavimu ir komunikacija.
+Tokiu būdų, perkeliamas kodas ant kito procesoriaus reikalauja tik bibliotekos derinimo, pats kodas lieka nekeičiamas.
+Naudojamas \textit{MPU-9250} jutiklis turi devynias judesio sekimo ašis ir palaiko du komunikacijos protokolus -- I2C ir SPI.
+Palyginus abu komunikacijos protokolus, buvo pasirinktas SPI protokolas.
+Jutiklis sukonfigūruotas $2~g$ tikslumu ir mėginius renka $1~Khz$ dažniu.
+
+
+
+
+
+
+

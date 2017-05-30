@@ -83,9 +83,9 @@ Pagreitis turi labai didelį matavimo triukšmą.
 Integruojant vieną kartą, triukšmo įtaka matavimui yra padidinama du kartus.
 Integruojant du kartus -- triukšmas padidėja keturis kartus.
 
-\subsection{Kalman filtro modelis}
+\subsection{\textit{Kalman} filtro modelis}
 
-Kalman filtras reikalauja modelį aprašyti priklausomybės lygčių sistema.
+\textit{Kalman} filtras reikalauja modelį aprašyti priklausomybės lygčių sistema.
 Sistema turi apibūdinti gaunamų duomenų priklausomybę nuo galutinės sistemos būsenos.
 Aprašymas pradedamas nuo pagreičio matavimo matmens
 
@@ -139,7 +139,7 @@ Galutinė sistemos būsenos matrica atrodo
 \end{equation}
 kur $dT$ yra laikas, nusakantis kaip dažnai buvo daromi matavimai.
 
-Kalman filtro veikimui yra reikalauja turėti matavimų matricą.
+\textit{Kalman} filtro veikimui yra reikalauja turėti matavimų matricą.
 Matavimų matrica nurodo, kuris iš modelio komponentų yra pats matavimas.
 Šiuo atveju egzistuoja trys pagreičio komponentės, kurios nusako atliekamus matavimus.
 
@@ -152,24 +152,24 @@ Matavimų matrica nurodo, kuris iš modelio komponentų yra pats matavimas.
 \end{equation}
 
 Pasirinkus matavimo matrica, toliau reikia pasirinkti dvi triukšmo įverčius.
-Pirmas įvertis $q$, kuris nusako Kalman filtro darbo proceso triukšmą.
+Pirmas įvertis $q$, kuris nusako \textit{Kalman} filtro darbo proceso triukšmą.
 Antras įvertis $r$ yra matavimo triukšmas. 
 Matavimo triukšmo įvertį galima nustatyti dviem keliais. 
 Pirmas kelias yra eksperimentinis -- atlikti stabilios matavimus ant stabilios platformos ir panaudoti gautą nuokrypį kaip matavimo triukšmą.
 Kitas kelias yra pasikliauti gamintojo nurodytu matavimo skaičiumi.
 Proceso triukšmas modelyje šiuo atveju yra pasirenkamas lygus matavimo triukšmui modelio paprastumui ir jie abu yra lygus $0.1$.
 
-Turint modelio lygčių sistemą, matavimo matricą bei triukšmus, galima pradėti dirbi su Kalman filtru.
-Norint teisingai įvertinti Kalman filtro darbą su duomenimis, visi įėjimo duomenys yra modeliuojami paprastu $sin$ signalu, pridedant atsitiktinį baltą triukšmą.
+Turint modelio lygčių sistemą, matavimo matricą bei triukšmus, galima pradėti dirbi su \textit{Kalman} filtru.
+Norint teisingai įvertinti \textit{Kalman} filtro darbą su duomenimis, visi įėjimo duomenys yra modeliuojami paprastu $sin$ signalu, pridedant atsitiktinį baltąjį triukšmą.
 Signalo pavyzdys pateikiamas \ref{fig:sin_acc_data_with_noise} pav.
 Kaip matosi iš grafiko, signalas pats turi labai daug triukšmo, tačiau seka labai specifinį kelią, kurį galima atsekti su paprastu vidurkinimu.
 Toks signalas nėra pilnai atsitiktinis, jis turi kažkokį dėsnį.
 Atlikus dvigubą originalaus signalo integravimą, gaunamas atstumo pokytis \ref{fig:sin_distance_data_with_noise} pav.
-Tiesinį Kalman filtro modelio rezultatas bus lyginamas su šiuo rezultatu ir bus laikomas teisingo rezultato etalonas.
+Tiesinį \textit{Kalman} filtro modelio rezultatas bus lyginamas su šiuo rezultatu ir bus laikomas teisingo rezultato etalonas.
 
 \begin{figure}
     \centering
-    \caption{Palyginimui naudojamas $sin$ signalas, su pridėtu baltu triukšmu}
+    \caption{Palyginimui naudojamas $sin$ signalas, su pridėtu baltuoju triukšmu}
     \label{fig:sin_acc_data_with_noise}
     \begin{tikzpicture}
         \begin{axis}[
@@ -201,9 +201,9 @@ Tiesinį Kalman filtro modelio rezultatas bus lyginamas su šiuo rezultatu ir bu
     \end{tikzpicture}
 \end{figure}
 
-Pateikus į tiesinį Kalman filtrą duomenis, kuris remiasi ankščiau aprašytomis lygtimis, gaunamas rezultatas, kuris yra pateikiamas \ref{fig:linear_kalman_filter_sin} pav.
-Duotas grafikas pateikia esminį tiesinio Kalman filtro naudojimo trūkumą duotos problemos atveju.
-Esami duomenys visiškai neturi jokio tiesinės interpretacijos, todėl tiesinis Kalman filtras šiuo atveju nėra tinkamas.
+Pateikus į tiesinį \textit{Kalman} filtrą duomenis, kuris remiasi ankščiau aprašytomis lygtimis, gaunamas rezultatas, kuris yra pateikiamas \ref{fig:linear_kalman_filter_sin} pav.
+Duotas grafikas pateikia esminį tiesinio \textit{Kalman} filtro naudojimo trūkumą duotos problemos atveju.
+Esami duomenys visiškai neturi jokio tiesinės interpretacijos, todėl tiesinis \textit{Kalman} filtras šiuo atveju nėra tinkamas.
 Reikia panaudoti tokį sprendimą, kurį galima būtų pritaikyti ne tiesinėms sistemoms.
 
 \begin{figure}
@@ -226,12 +226,12 @@ Reikia panaudoti tokį sprendimą, kurį galima būtų pritaikyti ne tiesinėms 
     \end{tikzpicture}
 \end{figure}
 
-\subsection{Išplėstas Kalman filtras}
+\subsection{Išplėstasis \textit{Kalman} filtras}
 
-Išplėstas Kalman filtras yra ne tiesinis Kalman filtras.
+Išplėstasis \textit{Kalman} filtras yra netiesinis \textit{Kalman} filtras.
 Tai yra pasiekiama, panaudojus \textit{Jacobian} matricą, kurios pagalba ne tiesinė lygtis yra ištiesinama viename taške.
 
-Modelis, kuris yra pateikiamas išplėstam Kalman filtrui turi būti ne matricinės, o lygčių sistemos formos, kadangi bus atliekamas diferencialinis skaičiavimas.
+Modelis, kuris yra pateikiamas išplėstajam \textit{Kalman} filtrui turi būti ne matricinės, o lygčių sistemos formos, kadangi bus atliekamas diferencialinis skaičiavimas.
 Dėl šitos priežasties, nagrinėjamas modelis yra perrašomas į lygčių sistemą
 
 \begin{equation}
@@ -250,9 +250,9 @@ Kadangi matavimas yra gaunamas tiesiogiai, tai ir pati lygtis yra tiesinė lygti
 \end{equation}
 
 Sekantis žingsnis yra nustatyti triukšmus.
-Norint palyginti išplėstą Kalman filtro modelį su tiesiniu Kalman filtro modeliu, pasirenkamos tokie patys triukšmų įverčiai.
+Norint palyginti išplėstąjį \textit{Kalman} filtro modelį su tiesiniu \textit{Kalman} filtro modeliu, pasirenkamos tokie patys triukšmų įverčiai.
 
-Pateikus tokius pačius duomenis, kaip ir į tiesinį Kalman filtrą, išplėstinio Kalman filtro rezultatas yra pateikiamas \ref{fig:extended_kalman_filter_sin} pav.
+Pateikus tokius pačius duomenis, kaip ir į tiesinį \textit{Kalman} filtrą, išplėstinio \textit{Kalman} filtro rezultatas yra pateikiamas \ref{fig:extended_kalman_filter_sin} pav.
 
 \begin{figure}
     \centering
@@ -274,20 +274,20 @@ Pateikus tokius pačius duomenis, kaip ir į tiesinį Kalman filtrą, išplėsti
     \end{tikzpicture}
 \end{figure}
 
-Lyginant tiesinio Kalman filtro \ref{fig:linear_kalman_filter_sin} rezultato ir išplėsto Kalman filtro rezultato \ref{fig:extended_kalman_filter_sin} grafikus, galima teigti, jog išplėstas Kalman filtras veikia geriau.
-Tai yra logiškas ir lauktas rezultatas, kadangi išplėstas Kalman filtras yra skirtas dirbti su ne tiesinėmis sistemomis \cite{6851407}.
-Šiuo atveju, uždaviniui spręsti galima pasirinkti išplėstą Kalman filtrą, tačiau tai yra ne paskutinis galimas problemos sprendimo būdas.
-Šiuo metu labai pradeda populiarėti sekamas Kalman filtras, kuris sprendžia vieną pagrindinių išplėstinio Kalman filtro problemų -- tiesinimo triukšmą.
+Lyginant tiesinio \textit{Kalman} filtro \ref{fig:linear_kalman_filter_sin} rezultato ir išplėstojo \textit{Kalman} filtro rezultato \ref{fig:extended_kalman_filter_sin} grafikus, galima teigti, jog išplėstasis \textit{Kalman} filtras veikia geriau.
+Tai yra logiškas ir lauktas rezultatas, kadangi išplėstasis \textit{Kalman} filtras yra skirtas dirbti su ne tiesinėmis sistemomis \cite{6851407}.
+Šiuo atveju, uždaviniui spręsti galima pasirinkti išplėstąjį \textit{Kalman} filtrą, tačiau tai yra ne paskutinis galimas problemos sprendimo būdas.
+Šiuo metu labai pradeda populiarėti sekamasis \textit{Kalman} filtras, kuris sprendžia vieną pagrindinių išplėstojo \textit{Kalman} filtro problemų -- tiesinimo triukšmą.
 
-\subsection{Sekamas Kalman filtras}
+\subsection{Sekamasis \textit{Kalman} filtras}
 
-Sekamas Kalman filtro modelio reikalavimai yra lygiai tokie patys, kaip išplėsto Kalman filtro, todėl modelio perrašinėti nėra tikslo.
+Sekamasis \textit{Kalman} filtro modelio reikalavimai yra lygiai tokie patys, kaip išplėstojo \textit{Kalman} filtro, todėl modelio perrašinėti nėra tikslo.
 Triukšmo įverčiai yra paliekami tokie patys, kaip ir tiesinio bei išplėstinio filtro atvejais.
 Modelio veikimo rezultatas yra pateikiamas \ref{fig:unscented_kalman_filter_sin} pav.
 
 \begin{figure}
     \centering
-    \caption{Sekamo Kalman filtro pozicijos pokyčio rezultatas, lyginant su pradiniais duomenimis}
+    \caption{Sekamojo \textit{Kalman} filtro pozicijos pokyčio rezultatas, lyginant su pradiniais duomenimis}
     \label{fig:unscented_kalman_filter_sin}
     \begin{tikzpicture}
         \begin{axis}[
@@ -307,10 +307,10 @@ Modelio veikimo rezultatas yra pateikiamas \ref{fig:unscented_kalman_filter_sin}
 
 \subsection{Modelio pasirinkimas}
 
-Sekamas Kalman filtras \ref{fig:unscented_kalman_filter_sin}, lyginant su išplėstiniu Kalman filtru \ref{fig:extended_kalman_filter_sin} grafiškai neturi didelių privalumų.
+Sekamasis \textit{Kalman} filtras \ref{fig:unscented_kalman_filter_sin}, lyginant su išplėstuoju \textit{Kalman} filtru \ref{fig:extended_kalman_filter_sin} grafiškai neturi didelių privalumų.
 Rezultato grafikas atrodo beveik identiškai.
 Skirtumas matosi įverčiams artėjant prie nulinio pozicijos pokyčio, laiko momentu $t=6s$.
-Išplėstas Kalman filtras toje srityje turi pokytį tarp realios reikšmės ir filtruotos reikšmės, tuo tarpu sekamas Kalman filtras priartėja prie realios reikšmės, ko pasekoje mažina klaidos vertę.
+Išplėstasis Kalman filtras toje srityje turi pokytį tarp realios reikšmės ir filtruotos reikšmės, tuo tarpu sekamasis \textit{Kalman} filtras priartėja prie realios reikšmės, ko pasekoje mažina klaidos vertę.
 
 Norint išmatuoti skaitinėmis reikšmėmis šių trijų pateiktų filtrų tikslumų skirtumus, bus panaudota kryžminė koreliacija.
 Kryžminė koreliacija yra plačiai naudojamas matas, nustatyti panašumus tarp dviejų signalų.
@@ -329,24 +329,24 @@ Verta paminėti, kad šitas matavimas yra naudojamas metodų palyginimui.
     \end{tabular}
 \end{table}
 
-Pagal gautus duomenis, kurie yra pateikiami \ref{table:kalman_filter_comparison} lentelėje galima daryti išvadas, kad geriausiai duomenis filtruoja būtent sekamas Kalman filtras ir netoli jo yra išplėstas Kalman filtras.
-Remiantis šiuo rezultatu, filtro įgyvendinimui yra pasirenkamas sekamas Kalman filtras.
+Pagal gautus duomenis, kurie yra pateikiami \ref{table:kalman_filter_comparison} lentelėje galima daryti išvadas, kad geriausiai duomenis filtruoja būtent sekamasis \textit{Kalman} filtras ir netoli jo yra išplėstasis \textit{Kalman} filtras.
+Remiantis šiuo rezultatu, filtro įgyvendinimui yra pasirenkamas sekamasis \textit{Kalman} filtras.
 
 \subsection{Išvados}
 
-Šiame skyriuje buvo apžvelgti trys filtro modeliai -- tiesinis, išplėstas ir sekamas Kalman filtrai.
+Šiame skyriuje buvo apžvelgti trys filtro modeliai -- tiesinis, išplėstasis ir sekamasis \textit{Kalman} filtrai.
 Palyginimas pradėtas nuo tiesioginio signalo dvigubo integravimo matavimo, kuris iš pirminės grafinės signalo analizės buvo nustatytas visiškai nepanaudojamas.
-Pirmas realus nagrinėjamas paprastas Kalman filtras, kuris reikalauja apibrėžti sistema lygčių sistema.
-Tai yra žinios iš išorės, kuris yra reikalingos teisingai suderinti Kalman filtro darbą.
-Norint patikrinti Kalman filtro veikimą, reikia į jį paduoti duomenis, kurių teisingas rezultatas yra iš anksto žinomas.
-Dėl šios priežasties buvo pasirinktas paprastas sinuso tipo pagreičio signalas ir prie jo pridėtas baltas triukšmas.
+Pirmas realus nagrinėjamas paprastas \textit{Kalman} filtras, kuris reikalauja apibrėžti sistema lygčių sistema.
+Tai yra žinios iš išorės, kuris yra reikalingos teisingai suderinti \textit{Kalman} filtro darbą.
+Norint patikrinti \textit{Kalman} filtro veikimą, reikia į jį paduoti duomenis, kurių teisingas rezultatas yra iš anksto žinomas.
+Dėl šios priežasties buvo pasirinktas paprastas sinuso tipo pagreičio signalas ir prie jo pridėtas baltasis triukšmas.
 Tokiu būdu yra generuojamas signalas, kurio rezultatas yra iš anksto žinomas ir taip galima vertinti filtro darbą.
-Atliktas matavimas parodė, kad tiesinis Kalman filtras yra visiškai netinkamas darbo uždaviniui spręsti.
-Sekantys du filtrai sprendžia paprasto Kalman filtro pagrindinę problemą -- sistema turi būtinai būti tiesinė: išplėstas ir sekamas Kalman filtras.
-Išplėstas Kalman filtras yra labai paplitęs filtras navigacinėse sistemose, todėl jis ir buvo pasirinktas kaip pirmas filtras, kuris sugeba dirbti su netiesine sistema.
-Matavimas su žinomais duomenimis parodė, kad jis dirba geriau už paprastą Kalman filtrą.
-Sekamas Kalman filtras yra naujas filtro tipas, kuris po truputi įgauna populiarumą.
-Jo matavimas parodė, kad jis veikia geriau už išplėstą Kalman filtrą.
-Dėl šios priežasties pasirenkamas sekamas Kalman filtras.
+Atliktas matavimas parodė, kad tiesinis \textit{Kalman} filtras yra visiškai netinkamas darbo uždaviniui spręsti.
+Sekantys du filtrai sprendžia paprasto \textit{Kalman} filtro pagrindinę problemą -- sistema turi būtinai būti tiesinė: išplėstas ir sekamasis \textit{Kalman} filtras.
+Išplėstasis \textit{Kalman} filtras yra labai paplitęs filtras navigacinėse sistemose, todėl jis ir buvo pasirinktas kaip pirmas filtras, kuris sugeba dirbti su netiesine sistema.
+Matavimas su žinomais duomenimis parodė, kad jis dirba geriau už paprastą \textit{Kalman} filtrą.
+Sekamasis \textit{Kalman} filtras yra naujas filtro tipas, kuris po truputi įgauna populiarumą.
+Jo matavimas parodė, kad jis veikia geriau už išplėstąjį \textit{Kalman} filtrą.
+Dėl šios priežasties pasirenkamas sekamasis \textit{Kalman} filtras.
 
 
