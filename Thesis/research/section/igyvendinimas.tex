@@ -1,9 +1,10 @@
-Atlikus tinkamiausio modelio nustatymą, reikia perkelti sudarytą modelį į įterptinę sistemą.
-Darbui yra panaudota įterptinė sistema, kuri buvo apžvelgta \ref{hardware} skyriuje.
+Nustačius tinkamiausią modelį, jį reikia perkelti į įterptinę sistemą.
+Darbui yra panaudota \textit{STM32f411RE} vystymo plokštė, kuri buvo apžvelgta \ref{hardware} skyriuje.
+Viso algoritmo veikimo blokinė schema yra pateikta \ref{subsection:2_priedas} priede.
 
 \subsection{Modelis}
 
-Darbo patogumui modelis yra aprašomas \ref{code:kalman_model_struct} pav. pateikiama struktūra. 
+Darbo patogumui modelis yra aprašomas \ref{code:kalman_model_struct} programiniam kode pateikiama struktūra. 
 Tai leidžia izoliuoti filtro modelio parametrus nuo globalių ir lokalių kintamųjų ir per vieną struktūros kintamąjį pasiekti visus reikalingus modelio parametrus.
 Struktūroje dominuoja du tipai parametrų \textit{arm\_matrix\_instance\_f32} ir \textit{float32\_t}.
 Pirmas tipas yra skirtas darbui su matrica.
@@ -13,9 +14,9 @@ Verta pastebėti, kad struktūroje beveik kiekvienas iš \textit{arm\_matrix\_in
 Taip yra daroma, kad deklaruojant kelis modelius, jų kintamieji būtų deklaruojami iš naujo ir atmintyje būtų saugomi atskirai.
 
 Toliau seka modelio pradinių parametrų suteikimas.
-Šio žingsnio metu kiekvienas iš struktūroje aprašytų parametrų turi įgauti realią vertę arba nuorodą į realią vertę.
+Šis žingsnis yra atliekamas tam, kiekvienas iš struktūroje aprašytų parametrų įgautų realią vertę arba nuorodą į realią vertę.
 Visi \textit{arm\_matrix\_instance\_f32} tipo kintamieji yra inicijuojami vienodai, naudojant \textit{arm\_mat\_init\_f32} metodą.
-Kodo pavyzdys yra pateikiamas \ref{code:arm_matrix_init} pav.
+Kodo pavyzdys yra pateikiamas \ref{code:arm_matrix_init} programiniam kode.
 Pirmas metodo argumentas yra \textit{arm\_matrix\_instance\_f32} kintamojo nuoroda, antras argumentas yra eilučių skaičius, trečias argumentas yra stulpelių skaičius, ketvirtas argumentas yra slankaus kablelio masyvo kintamasis, kurio nuoroda bus priskiriama pirmo argumento matricai.
 
 \begin{cfigure}[b]
@@ -27,9 +28,9 @@ arm_mat_init_f32(&m->f, 3, 3, (float32_t *)f_f32);
     \end{lstlisting}
 \end{cfigure}
 
-Proceso triukšmas pasirenkamas $q = 0.1$, dėl to proceso matrica inicijavimo metu yra aprašoma \ref{code:arm_q_matrix_init} pav.
-Reikalinga yra įstrižainė matrica, kuris dydis yra 3 eilutės ir 3 stulpeliai, todėl triukšmo įverčiai yra priskiriami $0$, $4$ ir $8$ masyvo vietoms.
-Matavimo triukšmui inicijuoti yra taikoma lygiai tokia pati procedūra, tik šiuo atveju kintamasis yra vieno skaičiaus dydžio ir deklaruojama matrica yra $1x1$ dydžio.
+Proceso triukšmas pasirenkamas $q = 0.1$, dėl to proceso matrica, inicijavimo metu, yra aprašoma \ref{code:arm_q_matrix_init} programiniu kodu.
+Reikalinga yra įstrižainė matrica, kurios dydis yra 3 eilutės ir 3 stulpeliai, todėl triukšmo įverčiai yra priskiriami $0$, $4$ ir $8$ masyvo vietoms.
+Matavimo triukšmui inicijuoti yra taikoma lygiai tokia pati procedūra, tik šiuo atveju kintamasis yra vieno skaičiaus dydžio ir deklaruojama matrica yra $1x1$.
 Paskutiniai inicijuojami parametrai yra $MM$ ir $PP$.
 Parametras $MM$ yra naudojamas saugoti naujausią filtro vidurkio sprendinį.
 Šį parametrą pirmu darbo ciklu suteiks pats filtras, todėl visi šios matricos įverčiai turi būti $0$.
@@ -69,6 +70,19 @@ typedef struct KModel {
 \end{cfigure}
 
 
+\subsection{Filtras}
+
+Filtro darbas yra pradedamas nuo sigma taškų skaičiavimo.
+Sigma taškų skaičiavimams atlikti. jie yra perkeliami į atskirą funkciją, kuri priimta keturis argumentus.
+Pirmas argumentas yra vidurkio matrica, antras argumentas yra kovariacijos matrica, trečias argumentas yra $c$ konstanta ir paskutinis argumentas yra matrica, į kurią bus įrašomi gauti sigma taškai.
+Sigma taškų skaičiavimas susideda iš trijų žingsnių:
+
+\begin{enumerate}
+    \item apskaičiuoti \textit{Cholesky} dekompoziciją;
+    \item atlikti aritmetines operacijas su gautomis vertėmis iš dekompozicijos;
+    \item sujungti gautus rezultatus į vieną matricą;
+\end{enumerate}
+
 \begin{cfigure}
     \centering
     \caption{Proceso triukšmo matricos inicijavimas}
@@ -82,24 +96,11 @@ arm_mat_init_f32(&m->Q, 3, 3, m->Q_f32);
     \end{lstlisting}
 \end{cfigure}
 
-\subsection{Filtras}
-
-Filtro darbas yra pradedamas nuo sigma taškų skaičiavimo.
-Sigma taškų skaičiavimas patogumui yra iškeliamas į atskirą funkciją, kuri priimta keturis argumentus.
-Pirmas argumentas yra vidurkio matrica, antras argumentas yra kovariacijos matrica, trečias argumentas yra $c$ konstanta ir paskutinis argumentas yra matrica, į kurią bus įrašomi gauti sigma taškai.
-Sigma taškų skaičiavimas susideda iš trijų žingsnių:
-
-\begin{itemize}
-    \item apskaičiuoti \textit{Cholesky} dekompoziciją;
-    \item atlikti aritmetines operacijas su gautomis vertėmis iš dekompozicijos;
-    \item sujungti gautus rezultatus į vieną matricą;
-\end{itemize}
-
 Reikalingos \textit{Cholesky} dekompozicijos įgyvendinimas taip pat yra iškeliamas į kitą funkciją, kuri turi tris argumentus -- matricą, kurią riekia transformuoti, dimensijų skaičių ir išėjimo matricą.
 Dekompozicijos įgyvendinimas yra skolinamas iš \cite{Cholesky6:online}.
 Gautą dekompozicijos rezultatą reikia padauginti iš konstantos.
 Tai atlikti yra labai lengva, panaudojus \textit{cortex} skaičiavimo posistemes siūlomomis funkcijomis.
-Kodo pavyzdys yra pateikiamas \ref{code:arm_mat_scale_P} pav.
+Kodo pavyzdys yra pateikiamas \ref{code:arm_mat_scale_P} programiniame kode.
 Pirmas metodo argumentas yra pradinė matrica, antras argumentas yra konstanta, trečias argumentas yra galutinė matrica.
 
 \begin{cfigure}
@@ -114,23 +115,23 @@ arm_mat_scale_f32(&Pc, c, &A);
 Toliau reikia atlikti sudėties ir atminties operacijas su matricomis.
 Pirma matrica yra gauto vidurkių vektoriaus pakartojimas iki simetrinės matricos.
 Ši matrica bus saugoma $Y$ nuorodoje.
-Panaudojus \textit{arm\_mat\_sub\_f32} ir \textit{arm\_mat\_add\_f32} funkcijas šis tikslas yra pasiekiamas.
+Šis tikslas yra pasiekiamas panaudojus \textit{arm\_mat\_sub\_f32} ir \textit{arm\_mat\_add\_f32} funkcijas.
 Paskutinė operacija yra sujungti gautus rezultatus į vieną matricą.
 Pirmas stulpelis yra įėjimo vidurkiai, nuo antro iki ketvirto yra $Y+A$ ir nuo penkto iki septinto $Y-A$.
-Taip gaunama matrica, kuri yra priskiriama išvedimo matricai.
+Taip yra gaunama išvedimo matrica.
 
 Turint sigma taškus, toliau reikia juos transformuoti.
 Transformacija \cite{julier2002scaled} yra vadinama \textit{Unscented transformation}.
-Šios transformacijos pagalba netiesinė sistema yra ištiesinama.
+Ši transformacija leidžia gauti tiesinę sistemą.
 Transformacija yra aprašoma atskiroje funkcijoje.
 Priimami įėjimo parametrai -- netiesinė perdavimo funkcija, sigma taškai, vidurkių taškų svoriai, kovariacija.
 Išėjimo parametrai yra transformuotas vidurkis, taškai, kovariacija ir nukrypimas.
 Spėjimo žingsnyje, perdavimo funkcija yra modelio netiesinė funkcija, sigma taškai yra sigma taškai, gauti iš sigma taškų generavimo, o kovariacija yra sistemos triukšmo matrica.
 Transformacija yra atliekama nuosekliai per stulpelį.
-Gauti sigma taškai yra paduodami į netiesinė perdavimo funkciją, gautas rezultatas (transformuoti taškai) padauginamas iš to stulpelio svorio ir gautas įvertis yra sumuojamas (\ref{code:arm_mean_and_poin_transformation} pav.).
+Gauti sigma taškai yra paduodami į netiesinę perdavimo funkciją, gautas rezultatas (transformuoti taškai) padauginamas iš to stulpelio svorio ir gautas įvertis yra sumuojamas (\ref{code:arm_mean_and_poin_transformation} programinis kodas).
 Tokiu būdu yra gaunamas transformuotas vidurkis.
 Transformuotas nukrypimas yra skaičiuojamas atimant kiekvieną transformuotų taškų stulpelį iš transformuotų vidurkių vektoriaus.
-Kovariacija yra gaunama padauginus nuokrypį iš svorių įstrižainės matricos. Šia skaičiavimų seka baigia spėjimo filtro žingsnį.
+Kovariacija yra gaunama padauginus nuokrypį iš svorių įstrižainės matricos. Šia skaičiavimų seka baigiamas spėjimo filtro žingsnis.
 Tolimesnis kodas yra skirtas filtro koregavimui.
 
 \begin{cfigure}
@@ -159,12 +160,12 @@ arm_mat_add_f32(&y_temp, &y_temp_2, &y_temp);
     \end{lstlisting}
 \end{cfigure}
 
-Filtro koregavimas yra pradedamas nuo matavimo perdavimo funkcijos tiesinimo operacijos, panaudojus tą pačią transformacija, kuri buvo panaudota ir spėjimo žingsnyje.
+Filtro koregavimas yra pradedamas nuo matavimo perdavimo funkcijos tiesinimo operacijos, panaudojus tą pačią transformaciją, kuri buvo panaudota ir spėjimo žingsnyje.
 Šiuo atveju perdavimo funkcija yra matavimo funkcija, sigma taškai yra jau transformuoti sigma taškai, kurie yra gaunami iš spėjimo žingsnio transformacijos, o kovariacijos matrica yra matavimo triukšmo matrica.
 Sekantis žingsnis yra Kalman filtro įverčio skaičiavimas.
 Reikia pradėti nuo jungtinį sistemos ir matavimo kovariacijos transformacijos vertės skaičiavimo.
 Toliau reikia sudėti matavimo triukšmą su transformuota matavimo kovariacija.
-Turint šituos du įverčius, juos reikia padalinti vieną iš kito ir taip yra gaunamas Kalman filtro įvertis matricos formoje (\ref{code:arm_kalman_gain_calculation} pav.).
+Turint šituos du įverčius, juos reikia padalinti vieną iš kito ir taip yra gaunamas Kalman filtro įvertis matricos formoje (\ref{code:arm_kalman_gain_calculation} programinis kodas).
 
 \begin{cfigure}
     \centering
@@ -185,9 +186,9 @@ arm_mat_mult_f32(&P_xz, &S_inv, &K);
 
 Turint Kalman filtro matricą, galima atnaujinti spėjamus parametrus.
 Kalman filtro matrica yra dauginama iš matavimo įverčio ir transformuoto matavimo įverčio skirtumo.
-Spėjamas vidurkis yra gaunamas sudedant transformuotą vidurkį ir prieš tai aprašytą sandauga.
+Spėjamas vidurkis yra gaunamas sudedant transformuotą vidurkį ir prieš tai aprašytą sandaugą.
 Kovariacija gaunama sudauginus junginę kovariaciją su Kalman filtro matrica.
-Su gauna matrica yra skaičiuojamas skirtumas tarp spėjimo metu transformuota kovariacija (\ref{code:arm_kalman_measurement_update} pav.).
+Su gauta matrica yra skaičiuojamas skirtumas tarp spėjimo metu transformuota kovariacija (\ref{code:arm_kalman_measurement_update} pav.).
 
 \begin{cfigure}
     \centering
@@ -206,6 +207,36 @@ arm_mat_sub_f32(&P_hat, &P_xz_K_transpose, &model->PP);
     \end{lstlisting}
 \end{cfigure}
 
-\subsection{Matavimai}
+\subsection{Išvados}
 
-Norint patikrinti filtro įgyvendinimą įterptinėje posistemėje, reikia sudaryti kontroliuojamas sąlygas.
+Įgyvendinimo metu buvo iškilę porą sunkumų.
+Vienas iš sunkumų yra paprastų duomenų perkėlimo operacijų su matricomis nebūvimas.
+Jeigu reikia išplėsti $3x1$ vektorių į $3x3$ matrica, kur kiekvienas stulpelis yra pirmo stulpelio kartotinis, šią operaciją reikia rašyti savarankiškai.
+Dėl šios priežasties gali atsirasi klaidos sistemos veikime ir reikia praleisti daug laiko įsitikinant, kad parašyta funkcija veikia gerai.
+Tuo tarp tarpu, darbo su matricomis programiniam pakete, tokią operaciją yra labai lengva parašyti, kadangi pats programinis paketas jau turi įgyvendinęs šitą operaciją.
+Dar viena didelę problema yra sudėtingų algoritmų įgyvendinimas.
+Šiuo atveju, darbe buvo reikalinga \textit{Cholesky} dekompozicija.
+Internete rastas algoritmo įgyvendinimas negarantuoja, kad jis veikia lygiai taip pat, kaip ir matematiniam programiniam pakete pateiktas įgyvendinimas.
+Nurodytas skirtumas galėjo pridėti papildomų įgyvendinimo kaštų.
+
+Kitas didelis sunkumas yra kodo skaitymas.
+Darbe su bet kokiu matematiniu programiniu paketu visos operacijos atrodo lengvai suprantamos, kadangi yra naudojami tie patys simboliai operacijoms pažymėti, kaip ir matematikos knygose.
+Įgyvendinant matematines operacijas įterptinėje sistemoje, operacijos su matricomis tampa ne tokios lengvos skaityti.
+Vietoj įprastų sumos ir daugybos ženklų atsiranda funkcijų kvietimas.
+Dviejų matricų daugybą tampa trys funkcijų kvietimai ir dar porą pagalbinių matricų, kurių tikslas yra saugoti laikinus rezultatus.
+Rašyti laikiną rezultatą į kažkokį realų kintamąjį yra labai rizikinga, kadangi tokia operacija kaip transponavimas gali būti atlikta neteisingai.
+
+Paskutinis sunkumas yra atminties valdymas.
+Darbo metu buvo panaudota pora operacijų, kurių tikslas yra atlikti duomenų kopijavimą iš vieno masyvo į kitą.
+Tai sukėlė darbo su atmintimis problemas.
+Kintamieji, su kuriais nebuvo daromos jokio operacijos gaudavo reikšmes, kurios neturėjo visiškai jokios prasmės.
+Surasti iš ištaisyti tokio tipo klaidas yra be galo sudėtinga ir užima labai daug laiko kaštų.
+Atliekant šitą darbą be skaičiavimo realizacijos reikia taip pat galvoti ir apie atminties naudojimo logiką.
+Ar galima matricą pateikti kaip nekintančią ir taip sutaupyti darbinės atminties, panaudojus tik skaitymui skirtą atmintį.
+
+Sekamo Kalman filtro perkėlimo į įterptinę sistemą metu, buvo parašyta iš viso 1636 eilutės kodo.
+
+
+
+
+

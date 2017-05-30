@@ -14,53 +14,71 @@ Turėdami pagreičio duomenis, laiko momentu galima gauti greičio duomenis $v(t
     v(t) = \int_0^t a(t) \delta t
 \end{equation}
 
-Pozicijos pokytis $s(t)$ priklauso nuo objekto greičio $v(t)$, \ref{fix:ax_distance} pav.
+Pozicijos pokytis $s(t)$ priklauso nuo objekto greičio $v(t)$, \ref{fig:ax_distance} pav.
 
 \begin{equation}
     s(t) = \int_0^tv(t) \delta t
 \end{equation}
 
-Iš to seka, kad norint gauti sistemos poziciją, pagreitį reikia integruoti du kartus, \ref{fig:ax_accel_velocity_distance} pav.
+Iš to seka, kad norint gauti sistemos poziciją, pagreitį reikia integruoti du kartus, \ref{fig:ax_distance} pav.
 
 \begin{equation}
     s(t) = \int_0^tv(t) \delta t = \int_0^t \int_0^t a(t) \delta t \delta t
 \end{equation}
 
-\begin{figure}
+\begin{figure}[b]
     \centering
-    \subfloat[
-        Vienos ašies pagreičio jutiklio matavimo duomenys
-    ]{
-        \includegraphics[
-            width=0.4\textwidth
-        ]{img/ax_accel.png}
-        \label{fig:ax_accel}
-    }
-    \qquad
-    \subfloat[
-        Greičio duomenys, gauti integruojant pagreičio jutiklio vienos ašies duomenis
-    ]{
-        \includegraphics[
-            width=0.4\textwidth
-        ]{img/ax_velocity.png}
-        \label{fig:ax_velocity}
-    }
-    \qquad
-    \subfloat[
-        Atstumo duomenys, gauti integruojant greičio duomenis pagal \ref{fig:ax_velocity}
-    ]{
-        \includegraphics[
-            width=0.4\textwidth
-        ]{img/ax_distance.png}
-        \label{fix:ax_distance}
-    }
-    \caption{Atstumo duomenis, gaunami iš pagreičio jutiklio vienos ašies duomenų}
-    \label{fig:ax_accel_velocity_distance}
+    \caption{Vienos ašies pagreičio jutiklio matavimo duomenys}
+    \label{fig:ax_accel}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=400pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m/s^2$},
+            grid=major
+        ]
+            \addplot[smooth] table [x index = {0}, y index = {1}, col sep=comma] {data/acceleration.csv};
+        \end{axis}
+    \end{tikzpicture}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \caption{Greičio duomenys, gauti integruojant pagreičio jutiklio vienos ašies duomenis}
+    \label{fig:ax_velocity}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=400pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m/s$},
+            grid=major
+        ]
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/acceleration.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Atstumo duomenys, gauti integruojant greičio duomenis pagal \ref{fig:ax_velocity}}
+    \label{fig:ax_distance}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=400pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major
+        ]
+            \addplot[smooth] table [x index = {0}, y index = {3}, col sep=comma] {data/acceleration.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
 Tokiu būdu gaunamas paprasčiausias matematinis modelis, kurio pagalba galima nustatyti dabartinę objekto poziciją.
-Didžiausias šito modelio trūkumas, kuris matosi ir pateiktuose \ref{fig:ax_accel_velocity_distance} pavyzdžiuose, yra triukšmo dauginimas dėl dvigubo integravimo.
+Didžiausias šito modelio trūkumas, kuris matosi ir pateiktuose \ref{fig:ax_accel}, \ref{fig:ax_velocity} ir \ref{fig:ax_distance} pavyzdžiuose, yra triukšmo dauginimas dėl dvigubo integravimo.
 Pagreitis turi labai didelį matavimo triukšmą.
 Integruojant vieną kartą, triukšmo įtaka matavimui yra padidinama du kartus.
 Integruojant du kartus -- triukšmas padidėja keturis kartus.
@@ -151,19 +169,36 @@ Tiesinį Kalman filtro modelio rezultatas bus lyginamas su šiuo rezultatu ir bu
 
 \begin{figure}
     \centering
-    \subfloat[Palyginimui naudojamas $sin$ signalas, su pridėtu baltu triukšmu]{
-        \includegraphics[
-            width=0.45\textwidth
-        ]{img/sin_acc_data.png}
-        \label{fig:sin_acc_data_with_noise}
-    }
-    \qquad
-    \subfloat[Atstumo pokytis, dvigubai integruojant $sin$ signalą]{
-        \includegraphics[
-            width=0.45\textwidth
-        ]{img/sin_acc_distance_data.png}
-        \label{fig:sin_distance_data_with_noise}
-    }    
+    \caption{Palyginimui naudojamas $sin$ signalas, su pridėtu baltu triukšmu}
+    \label{fig:sin_acc_data_with_noise}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m/s^2$},
+            grid=major
+        ]
+            \addplot[smooth] table [x index = {0}, y index = {1}, col sep=comma] {data/linear_kalman.csv};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{Atstumo pokytis, dvigubai integruojant $sin$ signalą}
+    \label{fig:sin_distance_data_with_noise}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major
+        ]
+            \addplot[smooth] table [x index = {0}, y index = {3}, col sep=comma] {data/linear_kalman.csv};
+        \end{axis}
+    \end{tikzpicture}
 \end{figure}
 
 Pateikus į tiesinį Kalman filtrą duomenis, kuris remiasi ankščiau aprašytomis lygtimis, gaunamas rezultatas, kuris yra pateikiamas \ref{fig:linear_kalman_filter_sin} pav.
@@ -173,11 +208,22 @@ Reikia panaudoti tokį sprendimą, kurį galima būtų pritaikyti ne tiesinėms 
 
 \begin{figure}
     \centering
-    \includegraphics[
-        width=0.6\textwidth
-    ]{img/linear_kalman_filter.png}
     \caption{Tiesinio Kalman filtro pozicijos pokyčio rezultatas, lyginant su pradiniais duomenimis}
     \label{fig:linear_kalman_filter_sin}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {3}, col sep=comma] {data/linear_kalman.csv};
+            \addplot[smooth] table [x index = {0}, y index = {4}, col sep=comma] {data/linear_kalman.csv};
+            \legend{Pradinis pokytis, Tiesinio filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
 \end{figure}
 
 \subsection{Išplėstas Kalman filtras}
@@ -210,11 +256,22 @@ Pateikus tokius pačius duomenis, kaip ir į tiesinį Kalman filtrą, išplėsti
 
 \begin{figure}
     \centering
-    \includegraphics[
-        width=0.6\textwidth
-    ]{img/extended_kalman_filter.png}
     \caption{Išplėsto Kalman filtro pozicijos pokyčio rezultatas, lyginant su pradiniais duomenimis}
     \label{fig:extended_kalman_filter_sin}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {1}, col sep=comma] {data/extended_kalman.csv};
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/extended_kalman.csv};
+            \legend{Pradinis pokytis, Išplėsto filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
 \end{figure}
 
 Lyginant tiesinio Kalman filtro \ref{fig:linear_kalman_filter_sin} rezultato ir išplėsto Kalman filtro rezultato \ref{fig:extended_kalman_filter_sin} grafikus, galima teigti, jog išplėstas Kalman filtras veikia geriau.
@@ -230,11 +287,22 @@ Modelio veikimo rezultatas yra pateikiamas \ref{fig:unscented_kalman_filter_sin}
 
 \begin{figure}
     \centering
-    \includegraphics[
-        width=0.6\textwidth
-    ]{img/unscented_kalman_filter.png}
     \caption{Sekamo Kalman filtro pozicijos pokyčio rezultatas, lyginant su pradiniais duomenimis}
     \label{fig:unscented_kalman_filter_sin}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {1}, col sep=comma] {data/unscented_kalman.csv};
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/unscented_kalman.csv};
+            \legend{Pradinis pokytis, Sekamo filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
 \end{figure}
 
 \subsection{Modelio pasirinkimas}
@@ -261,6 +329,24 @@ Verta paminėti, kad šitas matavimas yra naudojamas metodų palyginimui.
     \end{tabular}
 \end{table}
 
-Pagal gautus duomenis, kurie yra pateikiami \ref{table:kalman_filter_comparison} lentelėje galima daryti išvadas, kad geriausiai duomenis filtruoja būtent Sekamas Kalman filtras ir netoli jo yra išplėstas Kalman filtras.
-Remiantis šiuo rezultatu, filtro įgyvendinimui yra pasirenkamas Sekamas Kalman filtras.
+Pagal gautus duomenis, kurie yra pateikiami \ref{table:kalman_filter_comparison} lentelėje galima daryti išvadas, kad geriausiai duomenis filtruoja būtent sekamas Kalman filtras ir netoli jo yra išplėstas Kalman filtras.
+Remiantis šiuo rezultatu, filtro įgyvendinimui yra pasirenkamas sekamas Kalman filtras.
+
+\subsection{Išvados}
+
+Šiame skyriuje buvo apžvelgti trys filtro modeliai -- tiesinis, išplėstas ir sekamas Kalman filtrai.
+Palyginimas pradėtas nuo tiesioginio signalo dvigubo integravimo matavimo, kuris iš pirminės grafinės signalo analizės buvo nustatytas visiškai nepanaudojamas.
+Pirmas realus nagrinėjamas paprastas Kalman filtras, kuris reikalauja apibrėžti sistema lygčių sistema.
+Tai yra žinios iš išorės, kuris yra reikalingos teisingai suderinti Kalman filtro darbą.
+Norint patikrinti Kalman filtro veikimą, reikia į jį paduoti duomenis, kurių teisingas rezultatas yra iš anksto žinomas.
+Dėl šios priežasties buvo pasirinktas paprastas sinuso tipo pagreičio signalas ir prie jo pridėtas baltas triukšmas.
+Tokiu būdu yra generuojamas signalas, kurio rezultatas yra iš anksto žinomas ir taip galima vertinti filtro darbą.
+Atliktas matavimas parodė, kad tiesinis Kalman filtras yra visiškai netinkamas darbo uždaviniui spręsti.
+Sekantys du filtrai sprendžia paprasto Kalman filtro pagrindinę problemą -- sistema turi būtinai būti tiesinė: išplėstas ir sekamas Kalman filtras.
+Išplėstas Kalman filtras yra labai paplitęs filtras navigacinėse sistemose, todėl jis ir buvo pasirinktas kaip pirmas filtras, kuris sugeba dirbti su netiesine sistema.
+Matavimas su žinomais duomenimis parodė, kad jis dirba geriau už paprastą Kalman filtrą.
+Sekamas Kalman filtras yra naujas filtro tipas, kuris po truputi įgauna populiarumą.
+Jo matavimas parodė, kad jis veikia geriau už išplėstą Kalman filtrą.
+Dėl šios priežasties pasirenkamas sekamas Kalman filtras.
+
 

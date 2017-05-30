@@ -4,7 +4,7 @@
 
 \ProvidesClass{vgtuef}
 
-\LoadClass[13pt,a4paper,oneside,openright]{article}
+\LoadClass[12pt,a4paper,twoside,openright]{article}
 
 % Table of contents
 \RequirePackage{graphicx}

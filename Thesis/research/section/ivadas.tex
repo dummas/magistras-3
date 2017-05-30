@@ -13,7 +13,7 @@ Dažniausiai tokie matavimai yra žymimi $x$ (judėjimas tiesiai), $y$ (šonu) i
 Giroskopas suteikia matavimus, kurie dengia nurodytas ašis ir yra užrašomi $\theta$, sūkiui, $\beta$ polinkiui ir $\gamma$ vingiavimui, kaip pavaizduota \ref{tikz:axis_of_the_system} pav. 
 Tokių inercinių įverčių naudojimas turi pagrindinį privalumą -- stebimo objekto polinkis ir pagreitis gali būti vertinami bet kokioje navigacijoje.  
 
-\begin{figure}[H]
+\begin{figure}[b]
     \centering
     \begin{tikzpicture}
         % axis
@@ -29,15 +29,27 @@ Tokių inercinių įverčių naudojimas turi pagrindinį privalumą -- stebimo o
     \label{tikz:axis_of_the_system}
 \end{figure}
 
+\textbf{Darbo aktualumas}
+
 Pagreičio navigacijos sistemos yra labai plačiai naudojamos lėktuvuose, raketose, kosmoso laivuose, povandeniniuose ir vandens laivuose \cite{woodman2007introduction}.
 Progresas, gaminant MEMS įrenginius, sudarė galimybes kurti mažas ir lengvas navigacines sistemas.
 Tokie privalumai leidžia įrenginius naudoti ir kitose srityse, pavyzdžiui matuojant kaip žmogaus ir gyvūnų judesius \cite{schlomer2008gesture,suvorova2012action}.
 
+\textbf{Darbo problema}
+
 Vis dėlto reikia nepamiršti ir apie klaidas, kurias sukelia nuolatinė dedamoji, santykio įverčiai ir nelinijinės sistemos įtaka jutiklio verčių nuskaitymo metu.
-Tokios klaidos yra pagrindinė priežastis navigacinėje sistemoje netikslumams per laiko vienetą atsirasti. 
-Netikslumai sąlygoja akselerometro įverčius, kuriuos labai sunku atskirti nuo gravitacinio lauko ir objekto judėjimo, todėl objekto pozicijos matavimas toliau yra dar netikslesnis. 
+Tokios klaidos yra pagrindinė priežastis navigacinėje sistemoje neapibrėžtumams per laiko vienetą atsirasti. 
+Neapibrėžtumas sąlygoja akselerometro įverčius, kuriuos labai sunku atskirti nuo gravitacinio lauko ir objekto judėjimo, todėl objekto pozicijos matavimas toliau yra dar netikslesnis. 
 Kadangi inerciniai jutikliai yra tokio tipo, kuriems yra labai svarbi tiksli prieš tai buvusi pozicija, bet kokia klaida skaičiuojant prieš tai buvusia pozicija, įtakoja ir dabartinės pozicijos skaičiavimą. 
-Tokiu būdu, su laiku navigacinė sistema tampa visiškai netiksli ir praranda visą savo vertę.
+Tokiu būdu, su laiku navigacinė sistema tampa visiškai neapibrėžta ir praranda visą savo vertę.
+
+\textbf{Darbo tikslas}
+
+Darbo metu bus įgyvendinta padėties nustatymo sistema, taikant MEMS tipo jutiklius ir mikrovaldiklį.
+Pasirinktas jutiklis yra \textit{MPU-9250} \cite{MPU-96:online}, devynių ašių judesio sekimo įrenginys, kuris yra pritaikomas mobiliems telefonams, nešiojamiems jutikliams ir kitoms reikmėms.
+Naudojama \textit{STM32 Nucleo} plokštė yra įperkamas ir lankstus būdas naudotojams išbandyti idėjas ir sukurti prototipą su bet kuriuo iš STM32 serijos mikro-valdikliu \cite{STM3258:online}.
+
+\textbf{Darbo uždaviniai}
 
 Darbas yra suskirstomas į tris dalis. 
 Pirmoje dalyje aptariami MEMS tipo jutikliai -- pagreičio ir giroskopas. 

@@ -1,0 +1,107 @@
+Norint patikrinti filtro įgyvendinimą įterptinėje posistemėje, reikia sudaryti kontroliuojamas sąlygas.
+Sistemos įgyvendinimo tikslumas tikrinimas gali būti vykdomas tik viena ašimi, kadangi kiekviena ašis turi savo Kalman filtro modelį.
+Tokiu būdu yra lengviau modifikuoti modelį, bei sutaupoma atminties.
+Sprendimas yra padedamas ant stalo, lygiagrečiai padedant liniuotę $x$ ašiai ir pradedamas duomenų surinkimas.
+Sistema yra slenkama tolygiai lygiagrečiai liniuotės $20~cm$ atstumu iki galo.
+Palaukus porą sekundžių, įrenginys yra tolygiai traukiamas atgal į pradinę poziciją.
+Gaunamas rezultatas yra pateikiamas \ref{fig:x_axis_measurement} pav.
+
+\begin{figure}[b]
+    \centering
+    \caption{Atliktas \textit{x} ašies matavimas}
+    \label{fig:x_axis_measurement}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {1}, col sep=comma] {data/measurement.csv};
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/measurement.csv};
+            \legend{Pradinis pokytis, Sekamo filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+Analizuojant gautus matavimus, galima stebėti, kaip objektas pradžioje buvo vienoje vietoje, tuomet jo pozicija buvo pakeista į neigiamą ašies pusę, tuomet objekto pozicija nesikeičia.
+Tai sąlygoja, kad objektas buvo nejudinamas.
+Toliau objektas vėl juda atgal į pradinę poziciją.
+Iš šito matavimo galima daryti išvadą, kad sekamas Kalman filtras darbą atlieka sėkmingai.
+Grafike taip pat galima pastebėti, jog jutiklio normalizacija yra blogai atliekama ir atsiranda pastovioji komponentė.
+
+Pastoviąja komponentę galima identifikuoti ilgiau surenkant jutiklio duomenys ir taip su daugiau duomenų per ilgesnį laiko tarpą identifikuoti konstantą.
+Norint nustatyti ar konstanta buvo identifikuota sėkmingai, jutiklis yra paliekamas ramybės būsenoje ir renkami duomenys.
+Atliktas matavimas yra pateikiamas \ref{fig:x_axis_measurement_long_normalization} pav.
+Iš grafiko galima pamatyti, kad pradinis pokytis, kuris yra skaičiuojamas du kartus integruojant pagreičio pokytį, stabiliai keliasi į viršų.
+Po nepilnos minutės jutiklis parodė, kad jo pozicija pasikeitė daugiau negu 8 metrus.
+Kalman filtras sėkmingai identifikavo duotą komponentę ir neparodė jokio pokyčio.
+
+\begin{figure}
+    \centering
+    \caption{Atliktas \textit{x} ašies matavimas, neveikiant objekto jokia jėga, atlikus ilgesnį normalizacijos procesą}
+    \label{fig:x_axis_measurement_long_normalization}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {1}, col sep=comma] {data/measurement_stovi.csv};
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/measurement_stovi.csv};
+            \legend{Pradinis pokytis, Sekamo filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+Sekantis matavimas yra pirmo matavimo kartotinis.
+Objektas slenkamas viena ašimi į šoną, porą sekundžių palaukus objektas iš lėto gražinamas atgal į savo poziciją.
+Atliktas matavimas yra pateikiamas \ref{fig:x_axis_measurement_sauna_long_normalization} pav.
+Iš grafiko galima pamatyti, kad objektas sėkmingai rodo nulinį pozicijos pokytį pradžioje.
+Po $4~s$ galima matyti, kad objekto pozicija pradėjo kisti.
+Tuo metu objektas buvo veikiamas jėga ir stumiamas į vieną pusę.
+Apie $5~s$ iš grafike galima matyti objekto sustojimą ir jokio pozicijos pokyčio neįžiūrėti.
+Toliau apie $7~s$ objektas pradedamas grąžinti atgal.
+Iki $8~s$ viskas atrodo teisingai, tačiau tuo pat metu atsiranda dar viena konstanta ir pozicijos pokytis tiesiškai didėja, nors objektas nėra veikiamas jokia išorine jėga.
+
+\begin{figure}
+    \centering
+    \caption{Atliktas \textit{x} ašies matavimas, slenkant objektą, atlikus ilgesnį normalizacijos procesą}
+    \label{fig:x_axis_measurement_sauna_long_normalization}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=300pt,
+            height=150pt,
+            xlabel={$t, s$},
+            ylabel={$m$},
+            grid=major,
+            legend pos=outer north east
+        ]
+            \addplot[smooth, dashed] table [x index = {0}, y index = {1}, col sep=comma] {data/measurement_sauna.csv};
+            \addplot[smooth] table [x index = {0}, y index = {2}, col sep=comma] {data/measurement_sauna.csv};
+            \legend{Pradinis pokytis, Sekamo filtro pokytis}
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+Nauja konstanta gali atsirasti dėl kelių priežasčių.
+Pirma priežastis yra giroskopo duomenų ignoravimas matavimo atlikimo metu.
+Matavimas nėra atliekamas naudojantis tikslią įrangą, dėl to objektas gali pasisukti į kurią nors pusę.
+Taip jutiklio ašis gali veikti žemės gravitacija ir tai įveda naują konstantą, kuri įtakoja gautus duomenis.
+Antra priežastis yra pats jutiklis.
+Tai yra labai pigus įrenginys ir atsitiktinis duomenų vaikščiojimas yra tikėtinas.
+
+Kitais bandymais taip pat buvo pastebėta, kad normalizacijos procesas ne visuomet teisingai identifikuoja pastovios komponentės konstantą.
+To priežastis yra normalizacijos proceso aplinka.
+Įrenginys nėra pateikiamas ant labai stabilaus paviršiaus.
+Darbo stalas perduoda labai daug vibracijų -- nuo kompiuterio ir monitoriaus ventiliatorių iki pelytės spaudimo.
+To pasekoje, normalizacijos konstanta yra neteisinga ir pozicijos pokyčio grafikas rodo pastovų pozicijos pokytį į teigimą arba neigiamą pusę.
+
+Įgyvendintas algoritmas įterptinėje sistemoje vieną įvertį apskaičiuoja per $0.017~s$ arba $17~ms$.
+Programos dydis: kodas užima 13536B, tik skaitymo (RO) duomenys užima 700B, skaitymo ir rašymo duomenys (RW) užima 224B, o pradinių duomenų inicijavimas (ZI) 2488.
+Turint šituos duomenis, galima apskaičiuoti 2712B sparčiosios atminties ir 14460B tik skaitymo atminties užimtumą.

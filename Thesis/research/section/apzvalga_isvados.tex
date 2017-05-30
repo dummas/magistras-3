@@ -1,0 +1,25 @@
+\subsection{Išvados}
+
+Apžvalgos metu buvo išnagrinėti MEMS pagreičio ir giroskopo tipo jutikliai, aptarti kokie yra didžiausi jų privalumai ir trūkumai.
+Tokio tipo jutikliai turi labai daug privalumų -- mažas dydis, svoris, patvari konstrukcija, mažos galios naudojimas.
+Tačiau jie turi ir neigiamų savybių iš kurių svarbiausias yra triukšmas.
+Triukšmo šaltiniai gali būti keletas -- nuolatinė dedamoji, jos stabilumas, atsitiktinis pokytis, temperatūros efektai bei kalibravimo klaidos.
+Triukšmus galima mažinti naudojant įvairaus tipo filtrus.
+Plačiausiai naudojami yra Kalman tipo filtrai.
+Buvo išnagrinėti trys Kalman tipo filtrai, išnagrinėtas jų veikimo principai.
+Pateiktos stiprios ir silpnos filtrų vietos.
+
+Galiausiai buvo išnagrinėti du straipsniai, kurie sprendžia objekto pozicijos nustatymo problemą.
+Pirmas straipsnis siūlo galimos navigacinės sistemos prototipą, remiantis interciniais jutikliais.
+Prototipas buvo parengtas naudojant mobiliuosius įrenginius, kuriuose yra integruoti jutikliai.
+Šitam darbe yra pažymima, jog naudoti vien tik pagreičio jutiklio duomenis pozicijos pokyčiui nusakyti yra be galo netikslu dėl dvigubos integracijos.
+Dėl šios priežasties, jutiklis yra naudojamas kaip žingsnio indikatorius ir pozicijos pokytis yra skaičiuojamas pagal vidurinį žingsnio ilgį.
+Darbe yra panaudotas išplėstas Kalman filtras, dėl to verta jį išbandyti darbo uždaviniui išspręsti.
+Antras straipsnis taip pat naudoja inercinius jutiklius pozicijai nustatyti, o duomenų filtravimas vyksta taikant raiškios logikos algoritmą.
+Joks kitas duomenų filtravimas nėra atliekamas.
+Tai įrodo, kad nėra būtina naudoti didelio sudėtingumo algoritmus, norint sumažinti jutiklio triukšmus.
+
+Šio darbo unikalumas yra sekamo Kalman filtro panaudojimas užduočiai spręsti. 
+Išnagrinėti darbai dažnai taiko išplėstą Kalman filtrą, tačiau jis turi didelį minusą dėl vidurkinimo.
+Šią problemą sprendžia sekamas Kalman filtras.
+Straipsniai, kurie buvo nagrinėjami ir analizuojami, sekamo Kalman filtro panaudota niekur nebuvo.

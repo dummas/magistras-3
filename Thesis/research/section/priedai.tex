@@ -1,0 +1,506 @@
+\subsection*{1 Priedas. Įgyvendintas sekamo Kalman filtro kodas}
+
+\lstset{
+    basicstyle=\tiny,
+    breaklines=true
+}
+
+\renewcommand{\lstlistingname}{Programinis kodas}
+
+\begin{lstlisting}[caption=main.c]
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx_hal.h"
+/* USER CODE BEGIN Includes */
+#include "mpu.h"
+#include "util.h"
+#include "read.h"
+#include "write.h"
+#include "kalman.h"
+#include "transport/transport.h"
+#include "message.h"
+/* USER CODE END Includes */
+/* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi1;
+UART_HandleTypeDef huart2;
+/* USER CODE BEGIN PV */
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE END PV */
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+void Error_Handler(void);
+static void MX_GPIO_Init(void);
+static void MX_USART2_UART_Init(void);
+static void MX_SPI1_Init(void);
+/* USER CODE BEGIN PFP */
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE END PFP */
+/* USER CODE BEGIN 0 */
+float a_bias[3];
+float g_bias[3];
+void readAcc(SPI_HandleTypeDef hspi1, int16_t* data)
+{
+    //char local_message[80];
+    uint8_t data_read[12];
+    uint8_t data_write[6];
+    data_write[0] = 0x3B | READ_FLAG;
+    data_write[1] = 0x3C | READ_FLAG;
+    data_write[2] = 0x3D | READ_FLAG;
+    data_write[3] = 0x3E | READ_FLAG;
+    data_write[4] = 0x3F | READ_FLAG;
+    data_write[5] = 0x40 | READ_FLAG;
+    transportEnable();
+    // All axes
+    HAL_SPI_TransmitReceive(&hspi1, data_write, data_read, 7, 200);
+    transportDisable();
+    int16_t data_read_x = ((int16_t)((int16_t) data_read[1] << 8) | data_read[2]);
+    int16_t data_read_y = ((int16_t)((int16_t) data_read[3] << 8) | data_read[4]);
+    int16_t data_read_z = ((int16_t)((int16_t) data_read[5] << 8) | data_read[6]);
+    // scale
+    data_read_x = data_read_x;
+    data_read_y = data_read_y;
+    data_read_z = data_read_z;
+    // output
+    data[0] = data_read_x;
+    data[1] = data_read_y;
+    data[2] = data_read_z;
+}
+
+void adjustAcc(int16_t * in, float32_t * out) {
+    float32_t divider = 32768.0/2.0;
+    float32_t x_r = in[0] / divider;
+    float32_t y_r = in[1] / divider;
+    float32_t z_r = in[2] / divider;
+    out[0] = x_r - a_bias[0];
+    out[1] = y_r - a_bias[1];
+    // z axis has different optinion about gravity
+    out[2] = z_r - a_bias[2];
+}
+
+void mpuCalibrate2(float* a_bias) {
+    writeByte(hspi1, MPUREG_CONFIG, 0x01); // Set low-pass filter to 1.13kHz
+    writeByte(hspi1, MPUREG_SMPLRT_DIV, 0xFF); // Set sample rate to 1 kHz
+    writeByte(hspi1, MPUREG_ACCEL_CONFIG, 0x00); // Set accelerometer full-scale to 2 g, maximum sensitivity, disable all self tests
+    writeByte(hspi1, MPUREG_FIFO_EN, 0x00);
+    uint8_t sample_number = 200;
+    int16_t acc_in[3] = {0};
+    float32_t ax = 0;
+    float32_t ay = 0;
+    float32_t az = 0;
+    float32_t divider = 32768.0/2.0;
+    for (uint8_t sample_count = 0; sample_count < sample_number; sample_count++) {
+        HAL_Delay(1); // 1 ms sleep
+        readAcc(hspi1, acc_in);
+        ax = ax + acc_in[0] / divider;
+        ay = ay + acc_in[1] / divider;
+        az = az + acc_in[2] / divider;
+    }
+    a_bias[0] = ax / sample_number;
+    a_bias[1] = ay / sample_number;
+    a_bias[2] = az / sample_number;
+}
+KModel kalmanModelX;
+KModel kalmanModelY;
+/* USER CODE END 0 */
+int main(void)
+{
+    /* USER CODE BEGIN 1 */
+    /* USER CODE END 1 */
+    /* MCU Configuration----------------------------------------------------------*/
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
+    /* Configure the system clock */
+    SystemClock_Config();
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_USART2_UART_Init();
+    MX_SPI1_Init();
+    /* USER CODE BEGIN 2 */
+    // MPU needs to warm up
+    HAL_Delay(100);
+    // reset device, reset all registers, clear gyro and accelerometer bias registers
+    writeByte(hspi1, MPUREG_PWR_MGMT_1, BIT_H_RESET);
+    // do the handshake
+    uint8_t whoami = readByte(hspi1, MPUREG_WHOAMI | READ_FLAG);
+    if (whoami != 0x71) {
+        // if not -- go to error state
+        Error_Handler();
+    }
+    // Calibrate MPU
+    mpuCalibrate2(a_bias);
+    int16_t acc_in[3];
+    float32_t acc_out[3];
+    float32_t g = 9.86;
+    // initialize kalman
+    kalman_init(&kalmanModelX);
+    kalman_init(&kalmanModelY);
+    char message[40];
+    /* USER CODE END 2 */
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while (1)
+    {
+        /* USER CODE END WHILE */
+        /* USER CODE BEGIN 3 */
+        readAcc(hspi1, acc_in);
+        adjustAcc(acc_in, acc_out);
+        float32_t acc_x = acc_out[0] * g;
+        float32_t acc_y = acc_out[1] * g;
+        kalman_process(&kalmanModelX, acc_x);
+        kalman_process(&kalmanModelY, acc_y);
+        sprintf(message, "%.3f,%.3f,%.3f,%.3f\n", acc_out[0], kalmanModelX.MM.pData[0], kalmanModelX.MM.pData[1], kalmanModelX.MM.pData[2]);
+        debugMessage(&huart2, message);
+        sprintf(message, "");
+    }
+    /* USER CODE END 3 */
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[caption=kalman.c]
+#include "kalman.h"
+#include "message.h"
+#define ARM_MATH_CM4
+const float32_t h_f32[3] = {
+    0, 0, 1
+};
+const float32_t f_f32[9] = {
+    1, 1, -1.584e-8,
+    0, 1, 1.78e-4,
+    0, 0, 1
+};
+void kalman_init(KModel *m) {
+    // 3 states
+    m->n = 3;
+    // 3 measurements
+    m->ss = 1;
+    // process std
+    m->q = 0.1;
+    // measurement std
+    m->r = 0.1;
+    // sample rate
+    m->dT = 0.17;
+    arm_mat_init_f32(&m->f, 3, 3, (float32_t *) f_f32);
+    arm_mat_init_f32(&m->h, 1, 3, (float32_t *) h_f32);
+    // define covariance of process
+    m->Q_f32[0] = m->q*m->q;
+    m->Q_f32[4] = m->q*m->q;
+    m->Q_f32[8] = m->q*m->q;
+    arm_mat_init_f32(&m->Q, 3, 3, m->Q_f32);
+    // define covariance of measurement
+    m->R_f32[0] = m->r*m->r;
+    // eye end
+    arm_mat_init_f32(&m->R, 1, 1, m->R_f32);
+    // define kappa
+    m->kappa = 0;
+    m->W_f32[0] = 0;
+    m->W_f32[1] = 0.1666;
+    m->W_f32[2] = 0.1666;
+    m->W_f32[3] = 0.1666;
+    m->W_f32[4] = 0.1666;
+    m->W_f32[5] = 0.1666;
+    m->W_f32[6] = 0.1666;
+    arm_mat_init_f32(&m->W, 7, 1, m->W_f32);
+    // define c
+    arm_sqrt_f32(m->kappa + 3, &m->c);
+    // define MM
+    arm_mat_init_f32(&m->MM, 3, 1, m->MM_f32);
+    // define PP
+    //float32_t PP_f32[m->nx*m->nx];
+    m->PP_f32[0] = m->q;
+    m->PP_f32[4] = m->q;
+    m->PP_f32[8] = m->q;
+    arm_mat_init_f32(&m->PP, 3, 3, m->PP_f32);
+}
+float32_t W_diag_f32[49] = {
+    0, 0,    0,    0,    0,    0,    0,
+    0, 0.1666, 0,    0,    0,    0,    0,
+    0, 0,    0.1666, 0,    0,    0,    0,
+    0, 0,    0,    0.1666, 0,    0,    0,
+    0, 0,    0,    0,    0.1666, 0,    0,
+    0, 0,    0,    0,    0,    0.1666, 0,
+    0, 0,    0,    0,    0,    0,    0.166,
+};
+void kalman_process(KModel *model, float32_t sample) {    
+    // float declarations
+    // model->m.numRows + 2 * model->P.numCols * model->m.numRows;
+    float32_t X_hat_f32[21] = {0}; // 3*7
+    float32_t X_dev_f32[21] = {0};
+    float32_t P_hat_f32[9] = {0}; // nxn = 3x3
+    float32_t X_dev_W_diag_f32[21] = {0};
+    float32_t X_f32[21] = {0};
+    float32_t m_hat_f32[3] = {0}; // n=3
+    float32_t z_hat_f32[1] = {0};
+    float32_t Z_hat_f32[7] = {0}; // 3x19 do not know how to derive 19
+    float32_t P_zz_f32[1] = {0};
+    float32_t Z_dev_f32[7] = {0}; // 1x7
+    float32_t Z_dev_transpose_f32[7] = {0}; // 3x19
+    float32_t S_f32[1] = {0};
+    float32_t S_inv_f32[1] = {0};
+    float32_t P_xz_f32[3] = {0};
+    float32_t K_f32[3] = {0};
+    float32_t K_transpose_f32[3] = {0};
+    float32_t P_xz_K_transpose_f32[9] = {0};
+    float32_t Z_r_f32[1] = {0};
+    float32_t Z_r_z_hat_f32[1] = {0};
+    float32_t K_Z_r_z_hat_f32[3] = {0};
+    // sample
+    arm_matrix_instance_f32 Z_r; arm_mat_init_f32(&Z_r, 1, 1, Z_r_f32);
+    // matrix instances
+    // first ut part
+    arm_matrix_instance_f32 X; arm_mat_init_f32(&X, 3, 7, X_f32);
+    arm_matrix_instance_f32 m_hat; arm_mat_init_f32(&m_hat, 3, 1, m_hat_f32);
+    // 1 + 2 * model->P.numCols = 19
+    arm_matrix_instance_f32 X_hat; arm_mat_init_f32(&X_hat, 3, 7, X_hat_f32);
+    arm_matrix_instance_f32 P_hat; arm_mat_init_f32(&P_hat, 3, 3, P_hat_f32);
+    arm_matrix_instance_f32 X_dev; arm_mat_init_f32(&X_dev, 3, 7, X_dev_f32);
+    // second ut part
+    arm_matrix_instance_f32 z_hat; arm_mat_init_f32(&z_hat, 1, 1, z_hat_f32);
+    arm_matrix_instance_f32 Z_hat; arm_mat_init_f32(&Z_hat, 1, 7, Z_hat_f32);
+    arm_matrix_instance_f32 P_zz; arm_mat_init_f32(&P_zz, 1, 1, P_zz_f32);
+    arm_matrix_instance_f32 Z_dev; arm_mat_init_f32(&Z_dev, 1, 7, Z_dev_f32);
+    // helpers
+    arm_matrix_instance_f32 W_diag; arm_mat_init_f32(&W_diag, 7, 7, W_diag_f32);
+    arm_matrix_instance_f32 S; arm_mat_init_f32(&S, 1, 1, S_f32);
+    arm_matrix_instance_f32 X_dev_W_diag; arm_mat_init_f32(&X_dev_W_diag, 3, 7, X_dev_W_diag_f32);
+    arm_matrix_instance_f32 Z_dev_transpose; arm_mat_init_f32(&Z_dev_transpose, 7, 1, Z_dev_transpose_f32);
+    arm_matrix_instance_f32 P_xz; arm_mat_init_f32(&P_xz, 3, 1, P_xz_f32);
+    arm_matrix_instance_f32 K; arm_mat_init_f32(&K, 3, 1, K_f32);
+    arm_matrix_instance_f32 K_transpose; arm_mat_init_f32(&K_transpose, 1, 3, K_transpose_f32);
+    arm_matrix_instance_f32 P_xz_K_transpose; arm_mat_init_f32(&P_xz_K_transpose, 3, 3, P_xz_K_transpose_f32);
+    arm_matrix_instance_f32 S_inv; arm_mat_init_f32(&S_inv, 1, 1, S_inv_f32);
+    arm_matrix_instance_f32 Z_r_z_hat; arm_mat_init_f32(&Z_r_z_hat, 1, 1, Z_r_z_hat_f32); // Z_r - z_hat
+    arm_matrix_instance_f32 K_Z_r_z_hat; arm_mat_init_f32(&K_Z_r_z_hat, 3, 1, K_Z_r_z_hat_f32); // K *(Z_r - z_hat)
+    Z_r_f32[0] = sample;
+    // process
+    sigma_points(&model->MM, &model->PP, model->c, &X);
+    ut(&model->f, &X, &model->W, &model->Q, &m_hat, &X_hat, &P_hat, &X_dev);
+    ut_2(&model->h, &X_hat, &model->W, &model->R, &z_hat, &Z_hat, &P_zz, &Z_dev);
+    // P_xz = X_dev * diag(W) * Z_dev';
+    arm_mat_mult_f32(&X_dev, &W_diag, &X_dev_W_diag);
+    arm_mat_trans_f32(&Z_dev, &Z_dev_transpose);
+    arm_mat_mult_f32(&X_dev_W_diag, &Z_dev_transpose, &P_xz);
+    // S = R + P_zz;
+    arm_mat_add_f32(&model->R, &P_zz, &S);
+    // K = P_xz / S;
+    arm_mat_inverse_f32(&S, &S_inv);
+    arm_mat_mult_f32(&P_xz, &S_inv, &K);
+    // m = m_hat + K *(Z_r - z_hat);
+    arm_mat_sub_f32(&Z_r, &z_hat, &Z_r_z_hat);
+    arm_mat_mult_f32(&K, &Z_r_z_hat, &K_Z_r_z_hat);
+    arm_mat_add_f32(&m_hat, &K_Z_r_z_hat, &model->MM);
+    // P = P_hat - P_xz * K';
+    arm_mat_trans_f32(&K, &K_transpose);
+    arm_mat_mult_f32(&P_xz, &K_transpose, &P_xz_K_transpose);
+    //arm_mat_sub_f32(&P_hat, &P_xz_K_transpose, &model->PP);
+    arm_mat_sub_f32(&P_hat, &P_xz_K_transpose, &model->PP);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=ut.c]
+#include "ut.h"
+#include "matrix.h"
+
+uint8_t ut_i;
+uint8_t ut_i_i;
+uint8_t ut_j;
+arm_status ut_status;
+const float32_t W_diag_u_f32[49] = {
+    0, 0,    0,    0,    0,    0,    0,
+    0, 0.1666, 0,    0,    0,    0,    0,
+    0, 0,    0.1666, 0,    0,    0,    0,
+    0, 0,    0,    0.1666, 0,    0,    0,
+    0, 0,    0,    0,    0.1666, 0,    0,
+    0, 0,    0,    0,    0,    0.1666, 0,
+    0, 0,    0,    0,    0,    0,    0.1666,
+};
+uint8_t y1_diag_w_ind;
+uint8_t expand_i;
+uint8_t expand_j;
+uint8_t expand_ind;
+float32_t Y1_trans_f32[21] = {0};
+float32_t Y1_diag_W_f32[21] = {0};
+float32_t y_temp_f32[3] = {0};
+float32_t y_expand_f32[27] = {0};
+
+void ut(
+    const arm_matrix_instance_f32 *f,
+    const arm_matrix_instance_f32 *X,
+    const arm_matrix_instance_f32 *W,
+    const arm_matrix_instance_f32 *R,
+    arm_matrix_instance_f32 *y,
+    arm_matrix_instance_f32 *Y,
+    arm_matrix_instance_f32 *P, // P_hat
+    arm_matrix_instance_f32 *Y1
+) {
+    arm_matrix_instance_f32 y_expand;
+    arm_matrix_instance_f32 Y_temp;
+    arm_matrix_instance_f32 W_diag;
+    arm_matrix_instance_f32 X_temp;
+    arm_matrix_instance_f32 y_temp_2;
+    arm_matrix_instance_f32 Y1_trans;
+    arm_matrix_instance_f32 P_temp;
+    arm_matrix_instance_f32 Y1_diag_W;
+    float32_t P_temp_f32[9] = {0};
+    float32_t Y_temp_f32[3] = {0};
+    float32_t X_temp_f32[3] = {0};
+    float32_t y_temp_2_f32[3] = {0};
+    arm_mat_init_f32(&Y_temp, 3, 1, Y_temp_f32);
+    //arm_mat_init_f32(&y_temp, 3, 1, y_temp_f32);
+    arm_mat_init_f32(&y_temp_2, 3, 1, y_temp_2_f32);
+    arm_mat_init_f32(&Y1_diag_W, 3, 7, Y1_diag_W_f32);
+    arm_mat_init_f32(&W_diag, 7, 7, (float32_t *) W_diag_u_f32);
+    arm_mat_init_f32(&Y1_trans, 7, 3, Y1_trans_f32);
+    arm_mat_init_f32(&P_temp, 3, 3, P_temp_f32);
+    // for k=1:L
+    for (ut_i = 0; ut_i < 7; ut_i++) {
+        // copy i-th column from X to X_temp_f32
+        for (ut_i_i = 0; ut_i_i < X->numRows; ut_i_i++) {
+            uint8_t ut_i_i_ind = ut_i_i*X->numCols+ut_i;
+            X_temp_f32[ut_i_i] = X->pData[ut_i_i_ind];
+        }
+        arm_mat_init_f32(&X_temp, 3, 1, X_temp_f32);
+        arm_mat_mult_f32(f, &X_temp, &Y_temp);
+        // simple copy :)
+        for (ut_j = 0; ut_j < 3; ut_j++) {
+            uint8_t ut_y_ind = (ut_j*7)+ut_i;
+            Y->pData[ut_y_ind] = Y_temp.pData[ut_j];
+        }
+        // multiply W(k)*Y(:,k);
+        arm_mat_scale_f32(&Y_temp, W->pData[ut_i], &y_temp_2);
+        // y + W(k)*Y(:,k)
+        arm_mat_add_f32(y, &y_temp_2, y);
+    }    
+    // Y1 = Y - y(:,ones(1,L))
+    // ones(1,L) -- number of ones in row equal to X->numCols
+    //expand(&y_temp, &y_expand);
+    for (expand_i = 0; expand_i < 7; expand_i++) {
+        for (expand_j = 0; expand_j < 3; expand_j++) {
+            expand_ind = expand_i+expand_j*7;
+            y_expand_f32[expand_ind] = y->pData[expand_j];
+        }
+    }
+    arm_mat_init_f32(&y_expand, 3, 7, y_expand_f32);
+    // Y1=Y-y(:,ones(1,L));
+    arm_mat_sub_f32(Y, &y_expand, Y1);
+    // P=Y1*diag(W)*Y1'+R;
+    arm_mat_mult_f32(Y1, &W_diag, &Y1_diag_W);
+    ut_status = arm_mat_trans_f32(Y1, &Y1_trans);
+    ut_status = arm_mat_mult_f32(&Y1_diag_W, &Y1_trans, &P_temp);
+    ut_status = arm_mat_add_f32(&P_temp, R, P);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=sigma\_points.c]
+#include "sigma_points.h"
+void sigma_points(
+    const arm_matrix_instance_f32 *m,
+    const arm_matrix_instance_f32 *P,
+    const float32_t c,
+    arm_matrix_instance_f32 *X)
+{
+    float32_t Pc_f32[9] = {0};
+    float32_t Pc_trans_f32[9] = {0};
+    // A matrix
+    arm_matrix_instance_f32 A;
+    // nxn = 3x3 = 9
+    float32_t A_f32[9] = {0};
+    arm_mat_init_f32(&A, 3, 3, A_f32);
+    arm_matrix_instance_f32 Pc;
+    arm_matrix_instance_f32 Pc_trans;
+    // copy P data to Pc_f32
+    arm_mat_init_f32(&Pc, 3, 3, Pc_f32);
+    arm_mat_init_f32(&Pc_trans, 3, 3, Pc_trans_f32);
+    // Y matrix
+    arm_matrix_instance_f32 Y;
+    // m->numRows*m->numRows = 3x3 = 9
+    float32_t Y_f32[9] = {0};
+    // make m vector to matrix, there every column is the same m vector
+    for (uint8_t s_i = 0; s_i < 3; s_i++) { // 3 = m->numRows
+        for (uint8_t s_j = 0; s_j < 3; s_j++) { // 3 = m->numRows
+            float32_t temp = m->pData[s_j];
+            Y_f32[s_i*3+s_j] = temp;
+        }
+    }
+    arm_mat_init_f32(&Y, m->numRows, m->numRows, Y_f32);
+    // Y+A matrix
+    arm_matrix_instance_f32 YplusA;
+    float32_t YplusA_f32[9]; // P->numCols*P->numRows = 3x3 = 9
+    arm_mat_init_f32(&YplusA, P->numRows, P->numCols, YplusA_f32);
+    // Y-A matrix
+    arm_matrix_instance_f32 YminusA;
+    float32_t YminusA_f32[9]; // P->numCols*P->numRows = 3x3 = 9
+    arm_mat_init_f32(&YminusA, P->numRows, P->numCols, YminusA_f32);
+    // calculate cholesky
+    cholesky(P, 3, &Pc);
+    arm_mat_trans_f32(&Pc, &Pc_trans);
+    //arm_mat_trans_f32(&Pc, &Pc_trans);
+    arm_mat_scale_f32(&Pc_trans, c, &A);
+    // Y-A
+    arm_mat_sub_f32(&Y, &A, &YminusA);
+    // Y+A
+    arm_mat_add_f32(&Y, &A, &YplusA);
+    // first row is m
+    for (uint8_t sigma_first_i=0; sigma_first_i < m->numRows; sigma_first_i++) {
+        X->pData[sigma_first_i*7] = m->pData[sigma_first_i];
+    }
+    uint8_t offset = 1;
+    // second m->row * m->row is YplusA
+    for (uint8_t sigma_second_i = 0; sigma_second_i < P->numCols; sigma_second_i++) {
+        for (uint8_t sigma_second_j = 0; sigma_second_j < P->numRows; sigma_second_j++) {
+            uint8_t x_pdata_ind = offset+sigma_second_i+(sigma_second_j*7);
+            uint8_t y_plus_a_ind = sigma_second_j+sigma_second_i*3;
+            X->pData[x_pdata_ind] = YplusA.pData[y_plus_a_ind];
+        }
+    }
+    // m->col*1 + P->col*P->row
+    offset = 4;
+    // third m->row*m->row*YplusA is YminusA
+    for (uint8_t sigma_third_i = 0; sigma_third_i < P->numCols; sigma_third_i++) {
+        for (uint8_t sigma_third_j = 0; sigma_third_j < P->numRows; sigma_third_j++) {
+            X->pData[offset+sigma_third_i+(sigma_third_j*7)] = YminusA.pData[sigma_third_j+sigma_third_i*3];
+        }
+    }
+}
+
+\end{lstlisting}
+
+\subsection*{2 Priedas. Pranešimo 20-oje Lietuvos jaunųjų mokslininkų konferencijoje medžiaga}
+
+\begin{centering}
+    \includegraphics[width=420px]{img/IMG_0415.JPG}
+\end{centering}
+
+\newpage
+
+\subsection*{3 Priedas. Sekamo Kalman filtro įgyvendinimo algoritmas} \label{subsection:2_priedas}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm]
+        \node (start) [startstop] {Pradžia};
+        
+        \node (connecttompu) [process, below of=start] {MPU jungtis};
+        \node (normalizempu) [process, below of=connecttompu] {Normalizacija};
+        
+        \node (kalmaninit) [process, below of=normalizempu] {Filtro apibrėžimas};
+        \node (newsample) [decision, below of=kalmaninit, yshift=-1.5cm] {Nauji duomenys};
+
+        \node (sigmapoints) [process, below of=newsample, yshift=-1.5cm] {Sigma taškai};
+        \node (transform) [process, below of=sigmapoints] {Transformacija};
+        \node (kalmanprediction) [process, below of=transform] {Spėjamas rezultatas};
+        \node (kalmanupdate) [process, below of=kalmanprediction] {Rezultato taisymas};
+        \node (correction) [process, below of=kalmanupdate] {Rezultatas};
+
+        \draw [arrow] (start) -- (connecttompu);
+        \draw [arrow] (connecttompu) -- (normalizempu);
+        \draw [arrow] (normalizempu) -- (kalmaninit);
+        \draw [arrow] (kalmaninit) -- (newsample);
+        \draw [arrow] (newsample) -- (sigmapoints);
+        \draw [arrow] (sigmapoints) -- (transform);
+        \draw [arrow] (transform) -- (kalmanprediction);
+        \draw [arrow] (kalmanprediction) -- (kalmanupdate);
+        \draw [arrow] (kalmanupdate) -- (correction);
+
+        \draw [arrow] (correction) -- ++(-2.5cm,0) |- (newsample);
+    \end{tikzpicture}
+\end{figure}

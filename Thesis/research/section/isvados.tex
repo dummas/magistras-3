@@ -34,9 +34,27 @@ Palyginus išplėstinio ir sekamo Kalman filtro darbo rezultatus, buvo pasirinkt
 Įgyvendinimui panaudota STM32 platforma su ,,Cortex-M4'' procesoriumi.
 Darbui su matricomis buvo panaudota matematinė procesoriaus posistemė didžiausiai spartai užtikrinti.
 Filtrui reikalingos papildomos funkcijos -- sigma taškų generavimas, \textit{Cholesky} dekompozicija buvo taip pat įgyvendintos.
+Didžiausi įgyvendinimo sunkumai yra sunkus kodo skaitymas, darbui su matricomis trūkumas bei \textit{Cholesky} dekompozicijos įgyvendinimo nebūvimas.
+Visas reikiamas funkcijas reikia įgyvendinti ir tikrinti jų veikimą.
+Kita problema yra kodo skaitomumas.
+Operacijos su matricomis yra atliekamos per pagalbines funkcijas.
+Jokių pažįstamų matematinių ženklų nėra, todėl reikia labai atidžiai skaityti kas yra daroma su kintamuoju.
+Buvo iškilusi problema dėl atminties valdymo.
+Operacija, kuri kopijavo atminties sritį iš vieno adreso į kitą, kopijavo per daug.
+Šios operacijos šalutinis poveikis įtakojo kitus kintamuosius, kurie visiškai atsitiktinai gaudavo reikšmes, kurių jie logiškai negali turėti.
+Dėl šios priežasties buvo labai didelės laiko sąnaudos įgyvendinti sprendimą įterptinėje sistemoje.
 
-Objekto pozicijai nustatyti sprendimas yra galimas, tačiau visiškai nėra įskaičiuojamas objekto kampinis pagreitis.
-Tolimesnis darbas yra sujungti kampinio pagreičio jutiklio duomenis ir įgyvendinti pilną trijų dimensijų objekto pozicijos nustatymo sistemą.
+Objekto padėties nustatymo įgyvendinimas buvo tikrinamas veikiant objektą jėga į vieną pusę ir po kurio laiko grąžinant jį į jo pradinę poziciją.
+Matavimas buvo sudarytas kuo paprastesnis, taip nesunkiai nustatyti ar filtras veikia tinkamai.
+Atlikti bandymai parodė normalizacijos proceso netikslumus.
+Kiekviename matavime galima stebėti pastovios konstantos buvimą.
+Prailginus normalizacijos procesą, ko pasekoje buvo surenkama daugiau įverčių konstantai identifikuoti, duomenys parodė, kad sekamas Kalman filtras veikia.
+Tačiau po kurio laiko atsiranda dar viena konstanta ir dėl šios priežasties pozicijos pokytis pradeda didėti tiesine funkcija.
+Nauja konstanta gali atsirasti dėl poros priežasčių, tačiau pirmiausiai reikia atlikti naudojamo modelio pakeitimus ir įtraukti kampinio pagreičio jutiklio duomenis.
+Tokiu būdų, kai objektas pakeičia savo orientaciją plokštumoje, galima būtų kompensuoti naujas konstantas, kurias sukelia žemės gravitaciją.
 
+Įgyvendintas algoritmas įterptinėje sistemoje vieną įvertį apskaičiuoja per $0.017~s$ arba $17~ms$.
+Programos dydis: kodas užima $13536~B$, tik skaitymo (RO) duomenys užima $700~B$, skaitymo ir rašymo duomenys (RW) užima $224~B$, o pradinių duomenų inicijavimas (ZI) $2488~B$.
+Turint šituos duomenis, galima apskaičiuoti $2712~B$ sparčiosios atminties ir $14460~B$ tik skaitymo atminties užimtumą.
 
 

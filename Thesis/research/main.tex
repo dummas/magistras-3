@@ -19,13 +19,21 @@
 %\usepackage{lastpage}
 \usepackage{pgfplots}
 %\usepackage{afterpage}
-\usetikzlibrary{arrows}
+%\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=white]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=white]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=white]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=white]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
 
 \begin{document}
 
   \begin{titlepage}
     \begin{center}
-      \includegraphics[width=70pt]{img/vgtu_logo.png}\\
+      \includegraphics[width=58pt]{img/vgtu_logo.png}\\
       \textsc{\LARGE Vilniaus Gedimino Technikos universitetas}\\[1mm]
       \textsc{\Large Elektronikos fakultetas}\\[1mm]
       \textsc{\Large Elektroninių sistemų katedra}\\[40mm]
@@ -41,6 +49,7 @@
     \end{center}
   \end{titlepage}
 
+  \newpage\null\thispagestyle{empty}\newpage
 
   \begin{titlepage}
     \setcounter{page}{7}
@@ -67,65 +76,101 @@
       \textsc{Informacinių elektroninių sistemų studijų programa, valst. kodas 621E15003}\\
       \textsc{Atvirojo kodo sistemų specializacija}\\
     \end{center}
-    %\afterpage{\null\newpage}
+    \begin{flushright}
+      \begin{minipage}[t]{.17\linewidth}
+          \textbf{Vadovas}\\[3mm]
+          \textbf{Konsultantas}
+      \end{minipage}
+      \begin{minipage}[t]{.4\linewidth}
+        doc. dr. Raimondas Pomarnacki \\
+        \scriptsize{\textit{(mokslinis vardas ir laipsnis, vardas, pavardė)}} \\
+        \normalsize{dr. Aušra Žemienė} \\
+        \scriptsize{\textit{(mokslinis vardas ir laipsnis, vardas, pavardė)}} \\
+      \end{minipage}
+      \begin{minipage}[t]{0.15\textwidth}
+        \makebox[0.9in]{\hrulefill}\\
+        \scriptsize{\textit{(parašas)}} \\
+        \makebox[0.9in]{\hrulefill}\\
+        \scriptsize{\textit{(parašas)}} \\
+      \end{minipage}
+      \begin{minipage}[t]{0.03\textwidth}
+        \makebox[0.45in]{\hrulefill}\\
+        \scriptsize{\textit{(data)}} \\
+        \makebox[0.45in]{\hrulefill}\\
+        \scriptsize{\textit{(data)}} \\
+      \end{minipage}
+    \end{flushright}
+    \vfill
+    \begin{center}
+      {\large Vilnius, \the\year} 
+    \end{center}
   \end{titlepage}
 
-  \setcounter{page}{8}
+  \newpage\null\thispagestyle{empty}\newpage
 
-  % Anotacija
+  \setcounter{page}{9}
+
+  %Anotacija
   \input{section/anotacija.tex}
   
   \newpage
+  \newpage\null\thispagestyle{empty}\newpage
 
   \tableofcontents
 
   \newpage
 
-  \section*{Žymenys ir santrumpos}
-
-  \input{section/zymenis_ir_santrympos.tex}
-
   \section*{ĮVADAS}
-  \addcontentsline{toc}{section}{Įvadas}
+  \addcontentsline{toc}{section}{ĮVADAS}
 
   \input{section/ivadas.tex}
 
-  \section{MEMS jutikliai}
+  \section{APŽVALGA}
 
   \input{section/mems_jutiklis.tex}
 
-  \section{Signalų filtrai}
-
   \input{section/filtrai.tex}
-
-  \section{Literatūros apžvalga}
 
   \input{section/literaturos_apzvalga.tex}
 
-  \section{Naudojama įranga}
+  \input{section/apzvalga_isvados.tex}
 
-  \input{section/naudojama_iranga.tex}
+  \section{TYRIMO MAKETO KŪRIMAS}
 
-  \section{Modelio apibrėžimas}
+  \input{section/tyrimo_maketo_kurimas.tex}
+
+  \section{OBJEKTO PADĖTIES NUSTATYMO MATEMATINIS MODELIS}
 
   \input{section/modelis.tex}
 
-  \section{Įgyvendinimas}
+  \section{OBJEKTO PADĖTIES NUSTATYMO PROGRAMINĖS ĮRANGOS ĮGYVENDINIMAS}
 
   \input{section/igyvendinimas.tex}
 
-  \newpage
+  \section{OBJEKTO PADĖTIES NUSTATYMO PROGRAMINĖS ĮRANGOS TIKRINIMAS}
 
-  \section*{Išvados}
-  \addcontentsline{toc}{section}{Išvados}
+  \input{section/patikra.tex}
+
+  \cleardoublepage
+
+  \section*{IŠVADOS}
+  \addcontentsline{toc}{section}{IŠVADOS}
 
   \input{section/isvados.tex}
 
-  \newpage
+  \cleardoublepage
 
   \addcontentsline{toc}{section}{Literatūra}
 
-  \bibliographystyle{apa}
+  \bibliographystyle{ieeetr}
   \bibliography{references}
+
+  \cleardoublepage
+  
+  \section*{PRIEDAI}
+  \addcontentsline{toc}{section}{PRIEDAI}
+
+  \input{section/priedai.tex}
+
 
 \end{document}

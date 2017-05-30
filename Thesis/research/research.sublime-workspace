@@ -523,25 +523,17 @@
 			"file": "section/modelis.tex",
 			"settings":
 			{
-				"buffer_size": 11580,
+				"buffer_size": 15637,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "section/naudojama_iranga.tex",
+			"file": "section/tyrimo_maketo_kurimas.tex",
 			"settings":
 			{
-				"buffer_size": 12882,
+				"buffer_size": 12824,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "main.toc",
-			"settings":
-			{
-				"buffer_size": 4336,
 				"line_ending": "Unix"
 			}
 		},
@@ -558,7 +550,7 @@
 			"file": "section/ivadas.tex",
 			"settings":
 			{
-				"buffer_size": 4413,
+				"buffer_size": 5011,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -567,7 +559,7 @@
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 3575,
+				"buffer_size": 4949,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -585,7 +577,16 @@
 			"file": "section/anotacija.tex",
 			"settings":
 			{
-				"buffer_size": 1170,
+				"buffer_size": 2228,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "section/priedai.tex",
+			"settings":
+			{
+				"buffer_size": 181,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -594,7 +595,7 @@
 			"file": "section/literaturos_apzvalga.tex",
 			"settings":
 			{
-				"buffer_size": 17196,
+				"buffer_size": 17187,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -603,7 +604,16 @@
 			"file": "section/igyvendinimas.tex",
 			"settings":
 			{
-				"buffer_size": 10414,
+				"buffer_size": 12747,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "section/patikra.tex",
+			"settings":
+			{
+				"buffer_size": 5810,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -612,7 +622,7 @@
 			"file": "section/mems_jutiklis.tex",
 			"settings":
 			{
-				"buffer_size": 10854,
+				"buffer_size": 10858,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -621,7 +631,7 @@
 			"file": "section/isvados.tex",
 			"settings":
 			{
-				"buffer_size": 3651,
+				"buffer_size": 5152,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -630,16 +640,7 @@
 			"file": "section/filtrai.tex",
 			"settings":
 			{
-				"buffer_size": 30378,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "references.bib",
-			"settings":
-			{
-				"buffer_size": 8630,
+				"buffer_size": 24231,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -731,6 +732,8 @@
 	],
 	"file_history":
 	[
+		"/Users/maksimnorkin/Studijos/Thesis/research/main.toc",
+		"/Users/maksimnorkin/Studijos/Thesis/research/references.bib",
 		"/Users/maksimnorkin/Studijos/Thesis/research/chngcntr.sty",
 		"/Users/maksimnorkin/Studijos/Thesis/research/section/zymenis_ir_santrympos.tex",
 		"/Users/maksimnorkin/Studijos/Thesis/research/main.aux",
@@ -815,6 +818,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"geometry",
+			"netuk",
+			"netikslu",
+			"netiks",
+			"netikslumas",
+			"netiksl",
+			"netikslu",
+			"netikslumas",
+			"itemize",
+			"itemi",
+			"itemize",
+			"itmize",
+			"itemize",
+			"item",
+			"itemize",
+			"fig:linear_kalman_filter_sin",
+			"ax_distance",
 			",,Kalman''",
 			",,",
 			"Kalman",
@@ -925,24 +945,7 @@
 			"cow",
 			"getPlace",
 			"MPU",
-			"i2c",
-			"Stage",
-			"Ticker",
-			"circleCount",
-			"Circle",
-			"Modelling",
-			"I/Į",
-			"19534",
-			"color_scheme",
-			"kremas1",
-			"PWM_",
-			"SYSTEM_NAME",
-			"startup",
-			"mbed_assert_internal",
-			"mbed_assert",
-			"gpio_init_out",
-			"selectedItem",
-			"parsley"
+			"i2c"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -988,7 +991,7 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -997,15 +1000,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11580,
+						"buffer_size": 15637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2422,
-								2422
+								14507,
+								14507
 							]
 						],
 						"settings":
@@ -1015,72 +1018,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "section/naudojama_iranga.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12882,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								364,
-								356
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4869.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "main.toc",
+					"buffer": 1,
+					"file": "section/tyrimo_maketo_kurimas.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4336,
+						"buffer_size": 12824,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								558,
+								367
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "vgtuef.cls",
 					"semi_transient": false,
 					"settings":
@@ -1092,8 +1067,8 @@
 						"selection":
 						[
 							[
-								2058,
-								2058
+								97,
+								106
 							]
 						],
 						"settings":
@@ -1103,27 +1078,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1882.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "section/ivadas.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4413,
+						"buffer_size": 5011,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4412,
-								4412
+								3804,
+								3804
 							]
 						],
 						"settings":
@@ -1133,27 +1108,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 994.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "main.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3575,
+						"buffer_size": 4949,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3350,
-								3350
+								3736,
+								3736
 							]
 						],
 						"settings":
@@ -1163,14 +1138,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1838.0,
+						"translation.y": 1270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "section/zymenis_ir_santrympos.tex",
 					"semi_transient": false,
 					"settings":
@@ -1194,24 +1169,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "section/anotacija.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1170,
+						"buffer_size": 2228,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1141,
-								1141
+								1790,
+								1790
 							]
 						],
 						"settings":
@@ -1223,8 +1198,42 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 0,
 					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "section/priedai.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"file": "img/IMG_0415.JPG",
+					"semi_transient": true,
+					"stack_index": 5,
+					"type": "image"
 				},
 				{
 					"buffer": 8,
@@ -1232,15 +1241,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17196,
+						"buffer_size": 17187,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10441,
-								10460
+								17187,
+								17187
 							]
 						],
 						"settings":
@@ -1250,10 +1259,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3660.0,
+						"translation.y": 2769.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1262,43 +1271,75 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10414,
+						"buffer_size": 12747,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10413,
-								10413
+								12643,
+								12643
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3834.0,
+						"translation.y": 3415.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "section/mems_jutiklis.tex",
+					"file": "section/patikra.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10854,
+						"buffer_size": 5810,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8018,
-								8018
+								669,
+								669
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "section/mems_jutiklis.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10858,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9956,
+								9956
 							]
 						],
 						"settings":
@@ -1309,27 +1350,27 @@
 							"wrap_width": 120
 						},
 						"translation.x": 0.0,
-						"translation.y": 3003.0,
+						"translation.y": 856.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "section/isvados.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3651,
+						"buffer_size": 5152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3649,
-								3649
+								5148,
+								5148
 							]
 						],
 						"settings":
@@ -1337,27 +1378,27 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 138.0,
+						"translation.y": 168.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "section/filtrai.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30378,
+						"buffer_size": 24231,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17097,
-								17097
+								20298,
+								20298
 							]
 						],
 						"settings":
@@ -1367,40 +1408,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11006.0,
+						"translation.y": 7737.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "references.bib",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8630,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8423,
-								8440
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeX/Bibtex.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4527.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 13,
 					"type": "text"
 				}
 			]

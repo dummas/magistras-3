@@ -56,10 +56,10 @@
     Tačiau, $\hat{x}_k^-$ yra $x_k$ spėjimas prieš $y_k$ matavimą, o $\hat{x}_k^+$ yra spėjimas po to, kai $y_k$ matavimas yra atliktas.
     Natūraliai yra tikimąsi, jog $\hat{x}_k^+$ bus geresnis spėjimas už $\hat{x}_k^-$, kadangi tuo metu yra daugiau informacijos skaičiuojant $\hat{x}_k^+$:
 
-    \begin{itemize}
+    \begin{enumerate}
         \item $\hat{x}_k^-$ = $x_k$ spėjimas prieš mėginio gavimą laiku $k$
         \item $\hat{x}_k^+$ = $x_k$ spėjimas, po mėginio gavimo laiku $k$
-    \end{itemize}
+    \end{enumerate}
 
     Jeigu egzistuoja mėginiai po laiko $k$, kuriuos galima naudoti $x_k$ spėjimui, tuomet galima suformuoti glotnesnį spėjimą.
     Vienas iš būdų suformuoti glotnesnį spėjimą yra apskaičiuoti tikėtiną $x_k$ vertę, kuri priklauso nuo visų turimų įverčių
@@ -392,7 +392,7 @@
         Tai yra dažnai žymima kaip išplėstas Kalman-Bucy filtras, kadangi Ričardas Bucy bendradarbiavo su Rudolfu Kalman pirmoje publikacijoje apie nepertraukiamo laiko Kalman filtrą.
         Nepertraukiamo laiko išplėstas Kalman filtras gali būti suvestas į tokius punktus
 
-        \begin{itemize}
+        \begin{enumerate}
             \item Sistemos lygtis yra tokios
             \begin{equation}
                 \begin{aligned}
@@ -430,61 +430,7 @@
                     \dot{P} &= AP + PA^T + \tilde{Q} - PC^T\tilde{R}^{-1}CP
                 \end{aligned}
             \end{equation}
-        \end{itemize}
-
-
-	\subsubsection{Hibridinis Kalman filtras}
-
-	Daugelis inžinerinių sistemų seka nenutrūkstamo laiko dinamikas, o matavimai yra atliekami diskrečiam laike.
-	Tokia situacija dažniausiai pasitaiko praktikoje.
-	Tokiu atveju standartinis praplėstas Kalman filtras nėra tinkamas, todėl reikia atlikti pakeitimus.
-
-	Egzistuoja nuolatinio laiko sistema su diskretiniais matavimais
-
-    \begin{equation}
-    	\begin{aligned}
-    		\dot{x} &= f(x,u,w,t) \\
-    		y_k &= h_k(x_k, v_k) \\
-    		w(t) &\sim (0, Q) \\
-            v_k &\sim (0, R_k)
-    	\end{aligned}
-    \end{equation}
-
-    Proceso triukšmas $w(t)$ yra nuolatinio laiko triukšmas su kovariacija $Q$, o matavimo triukšmas $v_k$ yra diskretaus laiko baltas triukšmas, su kovariacija $R_k$.
-    Tarp matavimų įvyksta būsenos nustatymas, remiantis žinoma ne tiesine sistemos dinamika, kartu su kovariacija. Lygiai taip pat, kaip ir su paprastu praplėstu Kalman filtru, pagal \ref{eq:ekf} lygtį.
-
-    \begin{equation}
-        \dot{P} = AP + PA^T + LQL^T - PC^T(MRM^T)^{-1}CP
-    \end{equation}
-
-    Hibriniam išplėsto Kalman atveju, nereikia įtraukti R įverčio, kadangi P yra integruojamas tarp matavimų, kurių metu nėra jokių matavimų.
-    Žiūrint iš kitos pusės, kuomet nėra jokių matavimų, kovariacija R yra lygi begalybei, todėl paskutinis terminas lygus nuliui.
-    Iš to seka tokios laiko atnaujinimo lygtis
-
-    \begin{equation}
-        \begin{aligned}
-            \hat{\dot{x}} &= f(\hat{x}, u, w_0, t) \\
-            \dot{P} &= AP + PA^T + LQL^T,
-        \end{aligned}
-    \end{equation}
-    kur $A$ ir $L$ yra duoti \ref{eq:ekf_q_r} lygtyje.
-    Šitos lygtis yra skirtos skaičiuoti $\hat{x}$ iš $\hat{x}^+_{k-1}$ iki $\hat{x}^-_k$ ir P iš $P^+_{k-1}$ iki $P^-_k$.
-    Reikia pastebėti, kad $w_0$ yra nominalaus proceso triukšmas.
-
-    Kiekvieno matavimo metu, yra atnaujinamas būsenos spėjimas ir kovariaciją, pagal diskretaus laiko Kalman filtro lygtis
-
-    \begin{equation}
-        \begin{aligned}
-            K_k &= P^-_k H_k^T (H_kP_k^-H_k^T + M_kR_kM_k^T)^{-1} \\
-            \hat{x}_k^+ &= \hat{x}_k^- + K_k[ y_k - h_k(\hat{x}_k^-, v_0, t_k) ] \\
-            P_k^+ &= (I - K_kH_k)P_k^-(I - K_kH_k)^T + K_kM_kR_kM_k^TK_k^T,
-        \end{aligned}
-    \end{equation}
-    kur $v_0$ yra nominalus matavimo triukšmas, $H_k$ yra $h_k(x_k, v_k)$ dalinė išvestinė nuo $x_k$ ir $M_k$ yra $h_k(x_k, v_k)$ dalinė išvestinė nuo $v_k$.
-    $H_k$ ir $M_k$ yra skaičiuojami esant $\hat{x}_k^-$.
-
-    Reikia pažymėti, kad $P_k$ ir $K_k$ negali būti apskaičiuoti šalutiniu laiko, kadangi jie priklauso nuo $H_k$ ir $M_k$, kurie yra priklausomi nuo $\hat{x}_k^-$, kuris pats priklauso nuo triukšmingų matavimų.
-    Iš to seka, kad stabilus praplėsto Kalman filtro sprendimas neegzistuoja.
+        \end{enumerate}
 
 \subsection{Sekamas Kalman filtras}
 
@@ -519,7 +465,7 @@ kur $\sqrt{nP}$ yra matrica, kurios šaknys tenkina $(\sqrt{nP})^T\sqrt{nP} = nP
 
 Sekamas Kalman filtras yra suvedamas į tokius punktus
 
-\begin{itemize}
+\begin{enumerate}
     \item Turima $n$ eilės diskretinio laiko sistema
     \begin{equation}
         \begin{aligned}
@@ -554,7 +500,7 @@ Sekamas Kalman filtras yra suvedamas į tokius punktus
             P_k^+ &= P_k^- - K_kP_yK_k^T
         \end{aligned}
     \end{equation}
-\end{itemize}
+\end{enumerate}
 
 Algoritmas laikosi nuostato, kad proceso yra įverčio lygtis yra tiesinės ir įvertina triukšmą.
 Bendru atveju proceso ir įverčio lygtis gali turėti ne tiesinio triukšmo, kuris ateina į procesą.
@@ -562,67 +508,3 @@ Bendru atveju proceso ir įverčio lygtis gali turėti ne tiesinio triukšmo, ku
 Sekamas filtras gali gerokai pagerinti būsenos įverčio spėjimo našumą, lyginant su išplėstiniu Kalman filtru ne tiesinėms sistemoms.
 Papildomai galima paminėti, kad išplėstinis filtras reikalauja Jacobian sprendimo, o šis filtras to nereikalauja.
 Tai yra privalumas, kadangi kai kurioms sistemos Jacobian skaičiavimas yra greitas ir paprastas, tačiau kitoms sistemoms tai yra labai sudėtingas uždavinys.
-
-\subsection{Dalelių filtras}
-
-Dalelių filtrai turėjo pradžią dar 1940, su Metropolio darbais.
-Norbertas Wiener pasiūlė dalelių filtro idėja.
-Tačiau tik 1980 metais kompiuterio pajėgumai išaugo tiek, kad galima būtų išbandyti idėją.
-Net ir šiais laikais, dalelių filtro skaičiavimo našta yra pagrindinė priežastis dėl ko jisai nėra toks paplitęs.
-Dalelių filtras yra statistinis, brutalios jėgos įvertinimo būdas, kuris dažnai veikia labai gerai tose situacijose, kur Kalman filtras turi sunkumų (sistemos, kurios yra labai netiesinės).
-Dalelių filtras yra vadinamas įvairiais pavadinimais -- sekvencinis svarbumo atrinkimas, savaiminis filtravimas, kondensacijos algoritmas, sąveikaujančių dalelių aproksimacija, Monte Carlo filtravimas ir kt.
-
-Dalelių filtrai kyla iš Nikolo Metropolis darbų 1949 metais, kuomet jis pasiūlė studijuoti sistemas stebint grupės dalelių savybes, o ne kiekviena dalelę atskirai.
-Jis panaudojo analogija kortų žaidimui.
-Kokia yra tikimybė laimėti kortų žaidimą?
-Tokia tikimybę yra labai sunku analitiškai išskaičiuoti.
-Tačiau, jeigu žmogus žaidžia žaidimą kažkiek kartų, ir pora jų laimi, laimėjimo statistiką galima apskaičiuoti remiantis vien tik šiais duomenimis
-
-\begin{equation}
-    Pr(Success) \approx \frac{Success}{Trails}
-\end{equation}
-
-Dalelių filtras atlieka visiškai netiesinį sistemos būsenos įvertinimą.
-Tačiau kiekvienas sprendimas turi savo kainą.
-Dalelių filtro atveju to kaina yra aukštas atliekamų skaičiavimų skaičius.
-Egzistuoja tokios problemos, kurioms verta pridėti papildomų skaičiavimo našumo, norint išspręsti uždavinį.
-Tačiau ne visos problemos yra tokios.
-Dėl šios priežasties verta atlikti detalią problemos analizę.
-
-Dalelių filtras buvo sukurtas skaitmeniškai įgyvendinti Bayesian įvertinimą.
-Pagrindinė idėja yra labai paprasta ir intuityvi.
-Įvertinimo pradžioje, atsitiktinai generuojamas skaičius $N$ būsenos vektorių, remiantis pradiniu $p(x_0)$ pasiskirstymu.
-Šitie vektoriai yra vadinamos dalelėmis ir yra žymimos kaip $x^+_{0,i}~(i=1,\cdot,N)$.
-Kiekvienu laiko žingsniu $k=1,2,\cdot$ dalelės skleidžiamos kitam laiko žingsniui, naudojantis proceso funkcija $f()$:
-
-\begin{equation}
-    x^-_{k,i} = f_{k-1}(x^+_{k-1,i}, w^i_{k-1})~(i=1,\cdot,N),
-\end{equation}
-kur kiekvienas $w^i_{k-1}$ yra triukšmo vektorius yra atsitiktinai generuojamas, remiantis žinomu pasiskirstymu $w_{k-1}$.
-Po to, kai yra gautas įvertis laiku $k$, apskaičiuojama sąlyginė kiekvienos dalelės $x^-_{k,i}$ santykinė tikimybė.
-
-\begin{equation}
-    q_i = P[ (y_k = y^*) | (x_k = x^-_{k,i}) ]
-\end{equation}
-
-Toliau reikia normalizuoti sąlygines tikimybes
-
-\begin{equation}
-    q_i = \frac{q_i}{\sum_{j=1}^{N} q_j}
-\end{equation}
-
-Taip yra užtikrinama, kad visų tikimybių suma yra lygi vienam.
-Sekantis žingsnis yra iš naujo surinkti daleles iš apskaičiuotų tikimybių.
-Tai galima atlikti įvairiai ir vienas iš būdų:
-\begin{itemize}
-    \item Sugeneruoti atsitiktinį skaičių $r$ iš tolygiai paskirstytos tikimybės
-    \item Sukaupti tikimybes $q_i$ į sumą po vieną, kol visa suma nebus didesnė už $r$.
-\end{itemize}
-
-Turint naujus dalelių rinkinius $x^+_{k,i}$, kurie yra paskirstyti pagal tikimybių pasiskirstymą.
-Iš čia galima apskaičiuoti bet kokį norimą statistinį įvertinimą.
-Pavyzdžiui, norint apskaičiuoti laukiamą vertę $E(x_k|y_k)$, tai galima aproksimuoti kaip dalelių vidurkį
-
-\begin{equation}
-    E(x_k | y_k ) \approx \frac{1}{N} \sum_{i=1}^{N} x^+_{k,i}
-\end{equation}

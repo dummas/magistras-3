@@ -31,7 +31,7 @@ Pilnas matavimo ruožas yra $\pm4800\mu T$, kas palengvina sprendimą kur pateik
 
 Iš techninių dalykų verta paminėti, kad jutiklis palaiko tiek I2C, tiek SPI bendravimo schemas, kas suteikia lankstumo bendram sprendimui.
 
-\subsection{Komunikacija}
+\subsection{Ryšio sąsajos}
 
 Bendra sistema yra sudaryta iš pagrindinės plokštės ir jutiklio, kurie turi kažkokiu būdu komunikuoti. Šiuo metu egzistuoja dvi pagrindinės žemo lygio komunikacijos sprendimai -- I2C ir SPI \cite{Intro92:online}.
 
@@ -51,11 +51,11 @@ Nėra reikalo turėti įrenginio pasirinkimo kojos (šalutinio įrenginio pasiri
 Teoriškai bet koks skaičius šalutinių ir bet koks skaičius pagrindinių įrenginių gali komunikuoti, naudojant nieko daugiau, tik dvi linijas.
 Protokolas apibrėžia:
 
-\begin{itemize}
+\begin{enumerate}
     \item 7 bitų ilgio šalutinio įrenginio adresą. Kiekvienas prijungtas prie magistralės įrenginys gauna savo adresą;
     \item 8 bito ilgio duomenų paketą;
     \item Keli kontroliniai bitai, kurie nusako kuomet yra pradedama, baigiama ir apie ką yra vykdoma komunikaciją;
-\end{itemize}
+\end{enumerate}
 
 Duomenų greičiai gali sudaryti nuo $100 kbps$, $400 kbps$ ir $3.4 Mbps$, dirbant savarankiškam, greitam ir labai greitam režime.
 
@@ -69,12 +69,12 @@ Detalesnei dokumentacijai reikia nagrinėti mikro-valdiklio specifikaciją ir ie
 SPI yra gan paprastas -- jis apibrėžia tokias savybes, kurias gali rasti geras inžinierius, kuriam reikia sudaryti komunikacijos tinklą tarp dviejų įrenginių.
 SPI protokolas naudoja keturias linijas:
 
-\begin{itemize}
+\begin{enumerate}
     \item Laikrodžio signalas, kuris vadinasi \textit{SCLK}, yra siunčiamas iš pagrindinio įrenginio į visus pavaldžius įrenginius. Taip yra pasiekiamas sinchronizuotas laikrodis per visus įrenginius.
     \item Pavaldaus įrenginio pasirinkimo signalas kiekvienam pavaldžiam įrenginiui, vadinamas \textit{SSn}. Signalas naudojamas pasirinkti paveldų įrenginį komunikacijai. Kiti paveldus įrenginiai tuo metu pagrindiniam įrenginiui neatsako.
     \item Duomenų linija iš pagrindinio į pavaldžius įrenginius, vadinama \textit{MOSI}
     \item Duomenų linija iš pavaldžių į pagrindinį įrenginį, vadinama \textit{MISO}
-\end{itemize}
+\end{enumerate}
 
 SPI yra vieno pagrindinio įrenginio komunikacijos protokolas.
 Tai reiškia, kad pagrindinis įrenginys valdo visą komunikacija su jam pavaldžiais įrenginiais.
@@ -148,4 +148,3 @@ Skirtingi sprendimai renka skirtingus mėginių skaičių, todėl šiuo atveju b
 Tolimesnė eiga yra rasti visų mėginių vidurkį, pagal kiekvieną ašį.
 Šitie skaičiai ir yra nuolatinės dedamosios komponentai. Juos reikia pašalinti iš gautų iš jutiklių duomenų.
 
-Turint normalizuotus jutiklių duomenis, įmanomas duomenų rinkimas.
